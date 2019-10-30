@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version(['v1'], function() use ($api) {
+
+    $api->group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\api\v1'], function($api) {
+
+      $api->get('ping', 'PingController@ping');
+      $api->get('pong', 'PingController@pong');
+
+    });
 });
