@@ -15,7 +15,12 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('quantity');
+            $table->integer('duration');
+            $table->decimal('total_price', 5, 3);
+            $table->integer('discount');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
