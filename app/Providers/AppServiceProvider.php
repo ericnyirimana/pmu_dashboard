@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Libraries\Sidebar;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+      Schema::defaultStringLength(191);
+
+      view()->composer('admin.layouts.header', function ($view) {
+            #$operator = auth()->guard('admin')->user();
+            #$view->with(compact('operator'));
+        });
+
+      view()->composer('admin.layouts.sidebar', function ($view) {
+          $routes = Sidebar::getAdminRoutes();
+
+          $view->with(compact('routes'));
+        });
+
     }
 
     /**

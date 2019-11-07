@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DashboardController@index')->name('dashboard.index');
+Route::get('/blank', 'DashboardController@blank')->name('dashboard.blank');
+
+Route::get('/list', function(){ return view('admin.blank');})->name('user.list');
+Route::get('/new', function(){ return view('admin.blank');})->name('user.new');

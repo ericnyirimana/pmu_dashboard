@@ -6,11 +6,12 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "aws/aws-sdk-php": "^3.112",
+        "dingo/api": "^2.4.0@dev",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "6.*",
         "laravel/tinker": "^1.0",
-        "dingo/api": "^2.4.0@dev"
-
+        "nothingworks/blade-svg": "^0.3.2"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

@@ -1,6 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
+/public/images
 /storage/*.key
 /vendor
 /.idea
@@ -14,3 +15,5 @@ yarn-error.log
 .env
 .phpunit.result.cache
 /Adminox_v1.3/*
+
+*.DS_Store

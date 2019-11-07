@@ -1,0 +1,49 @@
+
+$base-blue-color: #133D64;
+$base-blue-dark-color: #11375A;
+$base-blue-light-color: #B2CCE3;
+$base-blue-dark-light-color: #92B1CC;
+
+.topbar {
+  .logo {
+    width: 110px;
+    height: 70px;
+  }
+}
+
+.navbar-custom {
+  background-color: $base-blue-light-color;
+}
+
+.button-menu-mobile {
+  background-color: $base-blue-light-color;
+}
+
+.app-search {
+    .form-control {
+        background-color: $base-blue-dark-light-color;
+        border: 1px solid $base-blue-dark-light-color;
+    }
+
+    .form-control:focus {
+      background-color: $base-blue-dark-color;
+    }
+}
+
+.side-menu {
+  background-color: $base-blue-color;
+}
+
+#sidebar-menu {
+
+  ul {
+    li {
+      a {
+        color: $base-blue-light-color;
+      }
+      a.active, a:hover {
+          background-color: $base-blue-dark-color;
+      }
+    }
+  }
+}
