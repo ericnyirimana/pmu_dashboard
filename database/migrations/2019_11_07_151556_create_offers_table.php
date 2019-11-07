@@ -15,7 +15,9 @@ class CreateOffersTable extends Migration
     {
         Schema::create('offers', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->text('duration_dates');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
