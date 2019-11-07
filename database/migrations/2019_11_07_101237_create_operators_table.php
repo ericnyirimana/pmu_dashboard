@@ -17,6 +17,7 @@ class CreateOperatorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('last_name')->nullable();
+            $table->string('email');
             $table->string('password');
             $table->rememberToken();
             $table->integer('role_type_id')->unsigned();

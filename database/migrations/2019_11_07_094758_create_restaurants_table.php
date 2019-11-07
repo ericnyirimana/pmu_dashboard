@@ -20,7 +20,6 @@ class CreateRestaurantsTable extends Migration
             $table->string('logo')->nullable();
             $table->string('image')->nullable();
             $table->string('merchant_stripe')->nullable();
-            $table->text('opening_hours');
             $table->string('location')->nullable();
             $table->string('coordinates', 40)->nullable();
 
