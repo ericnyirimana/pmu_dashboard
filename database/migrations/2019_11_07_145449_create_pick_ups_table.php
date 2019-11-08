@@ -15,6 +15,7 @@ class CreatePickUpsTable extends Migration
     {
         Schema::create('pick_ups', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('identifier');
             $table->integer('pu_type_id')->unsigned();
             $table->integer('pu_mode_id')->unsigned();
             $table->bigInteger('pu_time_slot_id')->unsigned();

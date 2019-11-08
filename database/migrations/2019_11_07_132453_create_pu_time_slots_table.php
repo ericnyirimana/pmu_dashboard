@@ -15,6 +15,7 @@ class CreatePuTimeSlotsTable extends Migration
     {
         Schema::create('pu_time_slots', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('identifier');
             $table->integer('meal_category_id')->unsigned();
             $table->string('time_ini', 5);
             $table->string('time_end', 5);

@@ -15,8 +15,9 @@ class CreateBrandsTable extends Migration
     {
         Schema::create('brands', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('identifier');
             $table->string('name');
-            $table->string('logo')->nullable();
+            $table->string('image')->nullable();
             $table->text('description')->nullable();
             $table->string('corporate_name')->nullable();
             $table->string('vat')->nullable();

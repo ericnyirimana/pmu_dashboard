@@ -15,6 +15,7 @@ class CreateSubscriptionsTable extends Migration
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('identifier');
             $table->integer('quantity');
             $table->integer('duration');
             $table->decimal('total_price', 5, 3);

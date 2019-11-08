@@ -13,7 +13,21 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-       /* Users created through PMU API Lumen. Due to more strisct connection with API than Dashboard */
+      Schema::create('users', function (Blueprint $table) {
+          $table->bigIncrements('id');
+          $table->string('name');
+          $table->string('last_name')->nullable();
+          $table->string('email')->unique()->notNullable();
+          $table->string('password');
+          $table->rememberToken('token');
+          $table->string('phone', 20)->nullable();
+          $table->string('profile_image')->nullable();
+          $table->boolean('accept_terms_and_conditions')->default(false);
+          $table->boolean('accept_marketing')->default(false);
+          $table->boolean('accept_privacy_policy')->default(false);
+          $table->timestamps();
+          $table->softDeletes();
+      });
     }
 
     /**
@@ -23,6 +37,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-
+        Schema::dropIfExists('users');
     }
 }

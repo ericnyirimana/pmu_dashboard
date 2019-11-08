@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class RestaurantsTableSeeder extends Seeder
 {
@@ -14,6 +15,7 @@ class RestaurantsTableSeeder extends Seeder
     {
 
       DB::table('restaurants')->insert([
+          'identifier'  => (string) Str::uuid(),
           'name' => 'McRonalds Viale Certosa',
           'location' => 'Milano',
           'brand_id' => '1'
@@ -33,6 +35,7 @@ class RestaurantsTableSeeder extends Seeder
       ]);
 
       DB::table('restaurants')->insert([
+          'identifier'  => (string) Str::uuid(),
           'name' => 'Le Taglia tele',
           'location' => 'Milano',
           'brand_id' => '3'

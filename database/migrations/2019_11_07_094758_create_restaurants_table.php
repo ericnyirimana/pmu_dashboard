@@ -15,6 +15,7 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('identifier');
             $table->bigInteger('brand_id')->unsigned();
             $table->string('name');
             $table->string('logo')->nullable();
