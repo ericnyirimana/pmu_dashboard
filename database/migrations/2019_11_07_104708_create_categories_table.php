@@ -19,6 +19,7 @@ class CreateCategoriesTable extends Migration
             $table->string('image')->nullable();
             $table->integer('category_type_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('category_type_id')->references('id')->on('category_types');
 
