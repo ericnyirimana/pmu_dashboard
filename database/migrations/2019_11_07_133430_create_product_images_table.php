@@ -18,6 +18,7 @@ class CreateProductImagesTable extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->string('name')->nullable();
             $table->string('image');
+            $table->integer('order')->default(1);
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products');

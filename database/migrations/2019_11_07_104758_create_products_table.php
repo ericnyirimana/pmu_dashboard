@@ -18,14 +18,16 @@ class CreateProductsTable extends Migration
             $table->uuid('identifier');
             $table->integer('type_id')->unsigned();
             $table->bigInteger('restaurant_id')->unsigned();
-            $table->integer('category_id')->unsigned();
+            $table->bigInteger('menu_id')->unsigned();
+
             $table->decimal('price', 5, 2)->nullable();
             $table->smallInteger('status');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('menu_id')->references('id')->on('menus');
+            
         });
     }
 
