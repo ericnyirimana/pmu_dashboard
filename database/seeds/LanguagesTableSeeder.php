@@ -21,10 +21,6 @@ class LanguagesTableSeeder extends Seeder
           'code' => 'it',
           'language' => 'Italiano'
       ]);
-      DB::table('languages')->insert([
-          'code' => 'pt',
-          'language' => 'Português'
-      ]);
-      
+
     }
 }
