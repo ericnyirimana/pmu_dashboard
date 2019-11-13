@@ -25,7 +25,7 @@ class ProductsTableSeeder extends Seeder
           'identifier'  => (string) Str::uuid(),
           'type_id' => 1,
           'restaurant_id' => 1,
-
+          'section_id' => 1,
           'menu_id' => 1,
           'price' => '7',
           'status' => 1,
@@ -64,7 +64,7 @@ class ProductsTableSeeder extends Seeder
           'identifier'  => (string) Str::uuid(),
           'type_id' => 2,
           'restaurant_id' => 1,
-
+          'section_id' => 2,
           'menu_id' => 1,
           'price' => '5',
           'status' => 1,

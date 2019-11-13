@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->integer('type_id')->unsigned();
             $table->bigInteger('restaurant_id')->unsigned();
             $table->bigInteger('menu_id')->unsigned();
+            $table->bigInteger('section_id')->unsigned();
 
             $table->decimal('price', 5, 2)->nullable();
             $table->smallInteger('status');
@@ -27,7 +28,8 @@ class CreateProductsTable extends Migration
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->foreign('menu_id')->references('id')->on('menus');
-            
+            $table->foreign('section_id')->references('id')->on('sections');
+
         });
     }
 

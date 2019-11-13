@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class MenuSectionsTableSeeder extends Seeder
 {
@@ -13,34 +14,38 @@ class MenuSectionsTableSeeder extends Seeder
      */
     public function run()
     {
-      DB::table('menu_sections')->insert([
+      DB::table('sections')->insert([
+          'identifier'  => (string) Str::uuid(),
           'created_at' => Carbon::now(),
+          'menu_id' => 1,
       ]);
 
-      DB::table('menu_section_translations')->insert([
+      DB::table('section_translations')->insert([
           'name' => 'Primo',
           'code' => 'it',
-          'menu_section_id' => 1
+          'section_id' => 1
       ]);
-      DB::table('menu_section_translations')->insert([
+      DB::table('section_translations')->insert([
           'name' => 'Main Course',
           'code' => 'en',
-          'menu_section_id' => 1
+          'section_id' => 1
       ]);
 
-      DB::table('menu_sections')->insert([
+      DB::table('sections')->insert([
+          'identifier'  => (string) Str::uuid(),
           'created_at' => Carbon::now(),
+          'menu_id' => 1,
       ]);
 
-      DB::table('menu_section_translations')->insert([
+      DB::table('section_translations')->insert([
           'name' => 'Secondo',
           'code' => 'it',
-          'menu_section_id' => 2
+          'section_id' => 2
       ]);
-      DB::table('menu_section_translations')->insert([
+      DB::table('section_translations')->insert([
           'name' => 'Side Dish',
           'code' => 'en',
-          'menu_section_id' => 2
+          'section_id' => 2
       ]);
     }
 }

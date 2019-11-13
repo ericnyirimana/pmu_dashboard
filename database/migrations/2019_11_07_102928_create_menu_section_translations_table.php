@@ -13,14 +13,14 @@ class CreateMenuSectionTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_section_translations', function (Blueprint $table) {
+        Schema::create('section_translations', function (Blueprint $table) {
           $table->increments('id');
-          $table->integer('menu_section_id')->unsigned();
+          $table->bigInteger('section_id')->unsigned();
           $table->string('name');
           $table->string('code', 2);
           $table->timestamps();
 
-          $table->foreign('menu_section_id')->references('id')->on('menu_sections');
+          $table->foreign('section_id')->references('id')->on('sections');
           $table->foreign('code')->references('code')->on('languages');
         });
     }
@@ -32,6 +32,6 @@ class CreateMenuSectionTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_section_translations');
+        Schema::dropIfExists('section_translations');
     }
 }
