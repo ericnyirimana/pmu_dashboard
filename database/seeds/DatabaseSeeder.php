@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MenuSectionsTableSeeder::class);
         $this->call(ProductsTableSeeder::class);
         $this->call(PickUpsTableSeeder::class);
-
         $this->call(ProductImagesTableSeeder::class);
 
     }

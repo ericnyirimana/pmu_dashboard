@@ -12,15 +12,3 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-$api = app('Dingo\Api\Routing\Router');
-
-$api->version(['v1'], function() use ($api) {
-
-    $api->group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\api\v1'], function($api) {
-
-      $api->get('ping', 'PingController@ping');
-      $api->get('pong', 'PingController@pong');
-
-    });
-});

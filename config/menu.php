@@ -12,8 +12,8 @@ return [
         'Users' => [
             'icon' => 'fi-briefcase',
             'routes' => [
-                'List' => 'user.list',
-                'New' => 'user.new',
+                'List' => 'users.index',
+                'New' => 'users.create',
             ],
         ],
     ]

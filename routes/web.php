@@ -11,8 +11,22 @@
 |
 */
 
-Route::get('/', 'DashboardController@index')->name('dashboard.index');
-Route::get('/blank', 'DashboardController@blank')->name('dashboard.blank');
 
-Route::get('/list', function(){ return view('admin.blank');})->name('user.list');
-Route::get('/new', function(){ return view('admin.blank');})->name('user.new');
+
+Route::group(['middleware' => 'auth'], function(){
+
+  Route::get('/', 'DashboardController@index')->name('dashboard.index');
+  Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+  Route::get('/blank', 'DashboardController@blank')->name('dashboard.blank');
+
+/*
+  Route::get('/list', function(){ return view('admin.blank');})->name('user.list');
+  Route::get('/new', function(){ return view('admin.blank');})->name('user.new');
+*/
+  Route::resource('/users', 'UserController');
+
+
+
+});
+
+Auth::routes();

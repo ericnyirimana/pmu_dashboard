@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset("/admin/assets/images/favicon.ico")}}">
+        <link rel="shortcut icon" href="{{ asset("/images/favicon.ico")}}">
 
         <!-- C3 charts css -->
         <link href="{{ asset("/plugins/c3/c3.min.css")}}" rel="stylesheet" type="text/css" />
@@ -19,6 +19,11 @@
         <link href="{{ asset("/admin/assets/css/icons.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("/admin/assets/css/metismenu.min.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("/admin/assets/css/style.css")}}" rel="stylesheet" type="text/css" />
+
+        <!-- DataTables -->
+        <link href="{{ asset("/plugins/datatables/dataTables.bootstrap4.min.css")}}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset("/plugins/datatables/buttons.bootstrap4.min.css")}}" rel="stylesheet" type="text/css" />
+        <!-- Responsive datatable examples -->
 
         <!-- APP overwrite css -->
         <link href="{{ asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
@@ -100,6 +105,15 @@
         <!-- App js -->
         <script src="{{ asset("/admin/assets/js/jquery.core.js")}}"></script>
         <script src="{{ asset("/admin/assets/js/jquery.app.js")}}"></script>
+
+        <!-- Required datatable js -->
+
+        <script src="{{ asset("/plugins/datatables/jquery.dataTables.min.js")}}"></script>
+        <script src="{{ asset("/plugins/datatables/dataTables.bootstrap4.min.js")}}"></script>
+
+        <!-- Buttons js -->
+        <script src="{{ asset("/plugins/datatables/dataTables.buttons.min.js")}}"></script>
+        <script src="{{ asset("/plugins/datatables/buttons.bootstrap4.min.js")}}"></script>
 
         @stack('scripts')
 

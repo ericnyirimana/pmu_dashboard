@@ -13,7 +13,7 @@ class PickUpsTableSeeder extends Seeder
      */
     public function run()
     {
-      
+
       DB::table('pu_types')->insert([
         'name' => 'Single'
       ]);
@@ -22,11 +22,7 @@ class PickUpsTableSeeder extends Seeder
         'name' => 'Combo'
       ]);
 
-      DB::table('pu_modes')->insert([
-        'name' => 'Offer'
-      ]);
-
-      DB::table('pu_modes')->insert([
+      DB::table('pu_types')->insert([
         'name' => 'Subscription'
       ]);
 
@@ -57,7 +53,6 @@ class PickUpsTableSeeder extends Seeder
       DB::table('pick_ups')->insert([
           'identifier'  => (string) Str::uuid(),
           'pu_type_id' => 1,
-          'pu_mode_id' => 1,
           'pu_time_slot_id' => 1,
           'name' => 'Menu principale',
           'cover_image' => 'url_image.jpg',
@@ -74,6 +69,11 @@ class PickUpsTableSeeder extends Seeder
 
       DB::table('pick_up_product')->insert([
         'product_id' => 2,
+        'pick_up_id' => 1,
+      ]);
+
+      DB::table('restaurant_pick_up')->insert([
+        'restaurant_id' => 1,
         'pick_up_id' => 1,
       ]);
     }

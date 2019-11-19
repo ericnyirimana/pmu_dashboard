@@ -8,7 +8,7 @@
                         @svg('pmu-logo', 'logo')
                     </span>
             <i>
-                <img src="assets/images/logo_sm.png" alt="" height="28">
+                @svg('pmu-logo', 'logo')
             </i>
         </a>
     </div>
@@ -57,12 +57,12 @@
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
                    aria-haspopup="false" aria-expanded="false">
-                    <img src="assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle">
+                    <i class="fa fa-user fa-2x"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                     <!-- item-->
                     <div class="dropdown-item noti-title">
-                        <h5 class="text-overflow"><small>Welcome ! John</small> </h5>
+                        <h5 class="text-overflow"><small>Welcome! {{ Auth::user()->name }}</small> </h5>
                     </div>
 
                     <!-- item-->
@@ -80,10 +80,10 @@
                         <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
                     </a>
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="mdi mdi-power"></i> <span>Logout</span>
-                    </a>
+                    <form id="frm-logout" action="{{ route('logout') }}" method="POST">
+                        {{ csrf_field() }}
+                        <button type="submit" class="dropdown-item notify-item" style="cursor: pointer;"><i class="mdi mdi-power"></i> <span>Logout</span><button>
+                    </form>
 
                 </div>
             </li>
