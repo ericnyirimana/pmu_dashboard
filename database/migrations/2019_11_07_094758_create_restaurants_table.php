@@ -15,11 +15,11 @@ class CreateRestaurantsTable extends Migration
     {
         Schema::create('restaurants', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier');
+            $table->uuid('identifier')->index();
             $table->bigInteger('brand_id')->unsigned();
             $table->string('name');
-            $table->string('logo')->nullable();
-            $table->string('image')->nullable();
+            $table->bigInteger('logo')->nullable();
+            $table->bigInteger('image')->nullable();
             $table->string('merchant_stripe')->nullable();
             $table->string('location')->nullable();
             $table->string('coordinates', 40)->nullable();
@@ -27,7 +27,7 @@ class CreateRestaurantsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('brand_id')->references('id')->on('brands');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
         });
     }
 

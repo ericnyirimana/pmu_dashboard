@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier');
+            $table->uuid('identifier')->index();
             $table->integer('type_id')->unsigned();
             $table->bigInteger('restaurant_id')->unsigned();
             $table->bigInteger('menu_id')->unsigned();
@@ -26,8 +26,8 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
             $table->foreign('section_id')->references('id')->on('sections');
 
         });

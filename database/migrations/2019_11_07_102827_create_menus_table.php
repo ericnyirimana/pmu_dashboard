@@ -15,15 +15,15 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier');
+            $table->uuid('identifier')->index();
             $table->string('name');
             $table->bigInteger('restaurant_id')->unsigned();
 
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+
         });
     }
 

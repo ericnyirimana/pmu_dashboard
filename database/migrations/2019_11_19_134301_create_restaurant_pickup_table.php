@@ -19,8 +19,8 @@ class CreateRestaurantPickupTable extends Migration
             $table->bigInteger('pick_up_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
-            $table->foreign('pick_up_id')->references('id')->on('pick_ups');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
+            $table->foreign('pick_up_id')->references('id')->on('pick_ups')->onDelete('cascade');
         });
     }
 

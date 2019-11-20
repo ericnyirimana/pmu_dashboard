@@ -16,12 +16,12 @@ class CreateProductImagesTable extends Migration
         Schema::create('product_images', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('product_id')->unsigned();
-            $table->string('name')->nullable();
-            $table->string('image');
+            $table->bigInteger('media_id')->unsigned();
             $table->integer('order')->default(1);
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('media_id')->references('id')->on('medias')->onDelete('cascade');
         });
     }
 

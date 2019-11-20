@@ -19,8 +19,8 @@ class CreateProductPuTimeSlotTable extends Migration
             $table->bigInteger('product_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('pu_time_slot_id')->references('id')->on('pu_time_slots');
-            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('pu_time_slot_id')->references('id')->on('pu_time_slots')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 

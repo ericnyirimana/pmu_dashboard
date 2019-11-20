@@ -15,11 +15,11 @@ class CreateSectionTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier');
+            $table->uuid('identifier')->index();
             $table->bigInteger('menu_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
         });
     }
 

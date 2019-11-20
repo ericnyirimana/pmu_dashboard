@@ -21,7 +21,7 @@ class CreateOfferTranslationsTable extends Migration
             $table->timestamps();
 
             $table->foreign('code')->references('code')->on('languages');
-            $table->foreign('offer_id')->references('id')->on('offers');
+            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
         });
     }
 

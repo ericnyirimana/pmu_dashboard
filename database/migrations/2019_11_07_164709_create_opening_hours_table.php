@@ -21,7 +21,7 @@ class CreateOpeningHoursTable extends Migration
             $table->date('special_date')->nullable();
             $table->timestamps();
 
-            $table->foreign('restaurant_id')->references('id')->on('restaurants');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
         });
     }
 

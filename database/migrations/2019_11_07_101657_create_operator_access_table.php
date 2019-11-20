@@ -18,7 +18,7 @@ class CreateOperatorAccessTable extends Migration
             $table->bigInteger('operator_id')->unsigned();
             $table->morphs('accessable');
 
-            $table->foreign('operator_id')->references('id')->on('operators');
+            $table->foreign('operator_id')->references('id')->on('operators')->onDelete('cascade');
 
         });
     }

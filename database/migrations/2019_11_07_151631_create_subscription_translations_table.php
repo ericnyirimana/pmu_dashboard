@@ -22,7 +22,7 @@ class CreateSubscriptionTranslationsTable extends Migration
           $table->timestamps();
 
           $table->foreign('code')->references('code')->on('languages');
-          $table->foreign('subscription_id')->references('id')->on('subscriptions');
+          $table->foreign('subscription_id')->references('id')->on('subscriptions')->onDelete('cascade');
         });
     }
 

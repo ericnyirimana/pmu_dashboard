@@ -13,7 +13,7 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-      
+
       DB::table('category_types')->insert([
           'name' => 'FoodCategory',
 
@@ -25,7 +25,6 @@ class CategoriesTableSeeder extends Seeder
 
       DB::table('categories')->insert([
           'identifier'  => (string) Str::uuid(),
-          'image' => '',
           'category_type_id' => '1',
       ]);
 
@@ -46,7 +45,6 @@ class CategoriesTableSeeder extends Seeder
 
       DB::table('categories')->insert([
           'identifier'  => (string) Str::uuid(),
-          'image' => '',
           'category_type_id' => '2',
       ]);
 

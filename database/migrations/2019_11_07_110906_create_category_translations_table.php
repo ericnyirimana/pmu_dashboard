@@ -21,7 +21,7 @@ class CreateCategoryTranslationsTable extends Migration
             $table->string('code', 2);
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('code')->references('code')->on('languages');
         });
     }

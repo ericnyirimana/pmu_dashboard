@@ -20,7 +20,7 @@ class CreateMenuSectionTranslationsTable extends Migration
           $table->string('code', 2);
           $table->timestamps();
 
-          $table->foreign('section_id')->references('id')->on('sections');
+          $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
           $table->foreign('code')->references('code')->on('languages');
         });
     }

@@ -19,8 +19,8 @@ class CreatePickUpProductTable extends Migration
             $table->bigInteger('pick_up_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('pick_up_id')->references('id')->on('pick_ups');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('pick_up_id')->references('id')->on('pick_ups')->onDelete('cascade');
         });
     }
 
