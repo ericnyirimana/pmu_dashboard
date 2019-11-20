@@ -54,6 +54,7 @@ class PickUpsTableSeeder extends Seeder
           'identifier'  => (string) Str::uuid(),
           'pu_type_id' => 1,
           'pu_time_slot_id' => 1,
+          'restaurant_id' => 1,
           'name' => 'Menu principale',
           'cover_image' => 'url_image.jpg',
           'quantity' => 1,
@@ -72,9 +73,5 @@ class PickUpsTableSeeder extends Seeder
         'pick_up_id' => 1,
       ]);
 
-      DB::table('restaurant_pick_up')->insert([
-        'restaurant_id' => 1,
-        'pick_up_id' => 1,
-      ]);
     }
 }

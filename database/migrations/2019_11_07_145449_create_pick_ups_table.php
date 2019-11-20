@@ -18,6 +18,7 @@ class CreatePickUpsTable extends Migration
             $table->uuid('identifier');
             $table->integer('pu_type_id')->unsigned();
             $table->bigInteger('pu_time_slot_id')->unsigned();
+            $table->bigInteger('restaurant_id')->unsigned();
             $table->string('name');
             $table->string('cover_image');
             $table->integer('quantity');
@@ -29,6 +30,7 @@ class CreatePickUpsTable extends Migration
 
             $table->foreign('pu_type_id')->references('id')->on('pu_types');
             $table->foreign('pu_time_slot_id')->references('id')->on('pu_time_slots');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
 
         });
     }
