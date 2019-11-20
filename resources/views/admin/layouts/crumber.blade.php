@@ -5,8 +5,16 @@
 
             <ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Admin</a></li>
-                @foreach($crumber as $value)
-                <li class="breadcrumb-item active"><a href="{{ route( implode('.', $crumber) ) }}">{{ ucfirst($value) }}</a></li>
+
+                @php $lastKey = array_key_last($crumber); @endphp
+
+                @foreach($crumber as $k=>$value)
+                      <li class="breadcrumb-item active">
+                        @if ($k != $lastKey)<a href="{{ route( $value.'.index' ) }}">{{ ucfirst($value) }}</a>
+                        @else
+                          {{ ucfirst($value) }}
+                        @endif
+                      </li>
                 @endforeach
 
             </ol>
