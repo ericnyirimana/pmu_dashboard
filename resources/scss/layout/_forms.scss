@@ -1,0 +1,62 @@
+form {
+
+    .d-flex {
+      width: 100%;
+    }
+
+    .form-group {
+
+      .fileupload {
+
+          .box-image {
+              width: 100%;
+              min-height: 500px;
+              height: 100%;
+              background-color: #EEEEEE;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+          }
+
+          .box-image img {
+              width: 100%;
+              height: 100%;
+          }
+
+
+          .btn-file, .btn-remove {
+              width: 100%;
+              margin-top: 20px;
+          }
+
+        }
+
+        label {
+          color: #686f7a;
+          font-family: 'Roboto';
+          font-size: 18px;
+          font-size: 700;
+        }
+
+        input {
+          font-family: 'Roboto';
+          font-size: 15px;
+        }
+
+        input::placeholder {
+          color: #CCCCCC;
+        }
+
+
+      }
+
+}
+
+.table {
+
+  .thumbnail-list {
+      width: 50px;
+  }
+
+}

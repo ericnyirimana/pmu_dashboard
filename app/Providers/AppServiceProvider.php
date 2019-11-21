@@ -36,6 +36,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with(compact('crumber'));
           });
 
+
+
+
+
     }
 
     /**

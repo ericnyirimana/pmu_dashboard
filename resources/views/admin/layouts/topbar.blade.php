@@ -3,12 +3,11 @@
     <!-- LOGO -->
     <div class="topbar-left">
         <a href="index.html" class="logo">
-                    <span>
-
-                        @svg('pmu-logo', 'logo')
-                    </span>
+            <span>
+                @svg('pmu-logo', 'image-logo')
+            </span>
             <i>
-                @svg('pmu-logo', 'logo')
+                @svg('pmu-small-logo', 'image-small-logo')
             </i>
         </a>
     </div>

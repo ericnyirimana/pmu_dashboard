@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMediasTable extends Migration
+class CreateMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateMediasTable extends Migration
      */
     public function up()
     {
-        Schema::create('medias', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('file');
@@ -31,6 +31,6 @@ class CreateMediasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('medias');
+        Schema::dropIfExists('media');
     }
 }

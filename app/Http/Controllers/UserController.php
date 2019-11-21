@@ -26,19 +26,19 @@ class UserController extends Controller
 
 
 
-      view()->composer('admin.components.datatable', function ($view) {
+          view()->composer('admin.components.datatable', function ($view) {
 
-          $fields = $this->datatableFields;
+              $fields = $this->datatableFields;
 
-          $route = \Route::getCurrentRoute()->uri;
+              $route = \Route::getCurrentRoute()->uri;
 
-          $view
-          ->with([
-            'fields' => $fields,
-            'route'  => $route
-          ]);
+              $view
+              ->with([
+                'fields' => $fields,
+                'route'  => $route
+              ]);
 
-        });
+            });
 
     }
 
@@ -47,10 +47,10 @@ class UserController extends Controller
     public function index() {
 
 
-      $users = user::all();
+          $users = User::all();
 
-      return view('admin.users.index')
-      ->with( compact('users') );
+          return view('admin.users.index')
+          ->with( compact('users') );
 
     }
 
@@ -58,15 +58,15 @@ class UserController extends Controller
     public function create() {
 
 
-      return view('admin.users.form');
+          return view('admin.users.form');
 
     }
 
 
     public function edit(User $user) {
 
-      
-      return view('admin.users.form');
+
+          return view('admin.users.form');
 
     }
 
@@ -74,6 +74,7 @@ class UserController extends Controller
     public function destroy() {
 
 
-      return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'success');
+          return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'success');
+
     }
 }

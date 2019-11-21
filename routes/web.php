@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth'], function(){
   Route::resource('/users', 'UserController');
 
 
+  Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'
+
+
 
 });
 

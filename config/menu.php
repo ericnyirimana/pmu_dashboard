@@ -10,10 +10,16 @@ return [
             ],
         ],
         'Users' => [
-            'icon' => 'fi-briefcase',
+            'icon' => 'fi-head',
             'routes' => [
                 'List' => 'users.index',
                 'New' => 'users.create',
+            ],
+        ],
+        'Media' => [
+            'icon' => 'fi-camera',
+            'routes' => [
+                'List' => 'media.index',
             ],
         ],
     ]
