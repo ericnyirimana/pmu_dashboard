@@ -27,22 +27,15 @@ class MediaController extends Controller
 
 
 
-      public function __construct() {
+      public function validation(Request $request, $media = null) {
 
-
-          view()->composer('admin.components.datatable', function ($view) {
-
-              $fields = $this->datatableFields;
-
-              $route = \Route::getCurrentRoute()->uri;
-
-              $view
-              ->with([
-                'fields' => $fields,
-                'route'  => $route
-              ]);
-
-            });
+        $request->validate(
+          [
+            'file'  => (empty($media)?'required|':'').'file|mimes:jpeg,bmp,png',
+            'name'  => 'required',
+            'brand_id'  => 'required|integer'
+          ]
+        );
 
       }
 
@@ -50,6 +43,7 @@ class MediaController extends Controller
 
       public function index() {
 
+          parent::index();
 
           $media = Media::all();
 
@@ -76,6 +70,8 @@ class MediaController extends Controller
 
       public function store(Request $request) {
 
+            $this->validation($request);
+
             $fields = $request->all();
             $image = $request->file('file');
 
@@ -90,7 +86,10 @@ class MediaController extends Controller
 
             Media::create($fields);
 
-            return redirect()->route('media.index')->with('notification', 'Media saved with success!');
+            return redirect()->route('media.index')->with([
+                  'notification' => 'Media saved with success!',
+                  'type-notification' => 'success'
+                ]);
 
       }
 
@@ -109,16 +108,17 @@ class MediaController extends Controller
 
       public function update(Request $request, Media $media) {
 
+            $this->validation($request, $media);
+
             $fields = $request->all();
             $image = $request->file('file');
 
             if ($request->file) {
-              // save original file
-              $path = $image->store('public/media');
-              $name = str_replace('public/media/', '', $path);
-              $fields['file'] = $name;
 
-              $this->resizeImage($name);
+              // remove old image
+              $this->removeImage($media->file);
+
+              $fields['file'] = $this->saveImage($image);
 
             }
 
@@ -127,7 +127,10 @@ class MediaController extends Controller
 
             $media->update($fields);
 
-            return redirect()->route('media.index')->with('notification', 'Media saved with success!');
+            return redirect()->route('media.index')->with([
+                  'notification' => 'Media saved with success!',
+                  'type-notification' => 'success'
+                ]);
 
       }
 
@@ -137,23 +140,37 @@ class MediaController extends Controller
             $this->removeImage($media->file);
             $media->delete();
 
-            return redirect()->route('media.index')->with('notification', 'Image removed with success!')->with('type-notification', 'success');
+            return redirect()->route('media.index')->with([
+                  'notification' => 'Image removed with success!',
+                  'type-notification' => 'warning'
+                ]);
 
       }
 
 
+      protected function saveImage($image) {
+
+            $path = $image->store('public/media');
+            $name = str_replace('public/media/', '', $path);
+
+            $this->resizeImage($name);
+
+            return $name;
+      }
+
+
+
       protected function resizeImage($image) {
 
+            $img = Image::make( storage_path() . '/app/public/media/' . $image);
 
-        $img = Image::make( storage_path() . '/app/public/media/' . $image);
+            // save thumbnail
+            $img->fit(100, 100)->save( storage_path() . '/app/public/media/thumbnail/' . $image);
 
-        // save thumbnail
-        $img->fit(100, 100)->save( storage_path() . '/app/public/media/thumbnail/' . $image);
-
-        // save medium
-        $img->resize(1000, 1000, function ($constraint) {
-          $constraint->aspectRatio();
-        })->save( storage_path() . '/app/public/media/medium/' . $image);
+            // save medium
+            $img->resize(1000, 1000, function ($constraint) {
+              $constraint->aspectRatio();
+            })->save( storage_path() . '/app/public/media/medium/' . $image);
 
 
 
@@ -161,11 +178,10 @@ class MediaController extends Controller
 
       protected function removeImage($image) {
 
-
-                Storage::disk('public')->delete('media/'.$image);
-                Storage::disk('public')->delete('media/thumbnail/'.$image);
-                Storage::disk('public')->delete('media/medium/'.$image);
-                Storage::disk('public')->delete('media/large/'.$image);
+            Storage::disk('public')->delete('media/'.$image);
+            Storage::disk('public')->delete('media/thumbnail/'.$image);
+            Storage::disk('public')->delete('media/medium/'.$image);
+            Storage::disk('public')->delete('media/large/'.$image);
 
       }
 

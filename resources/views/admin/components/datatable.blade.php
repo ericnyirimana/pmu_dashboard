@@ -47,7 +47,7 @@
     </tbody>
 </table>
 
-@include('admin.components.remove')
+@include('admin.components.modal-remove')
 
 @push('scripts')
 <script type="text/javascript">

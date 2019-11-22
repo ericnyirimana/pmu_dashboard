@@ -2,14 +2,9 @@
 
 @section('content')
 
-@if (session('notification') )
-  @component('admin.components.notification')
-      @slot('type')
-          {{ session('type-notification') }}
-      @endslot
-      {{ session('notification') }}
-  @endcomponent
-@endif
+
+@include('admin.components.notification')
+
 <div class="row m-b-10">
       <div class="col-12">
           <a href="{{ route('media.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Media</a>
@@ -21,7 +16,7 @@
 
             <h4 class="m-t-0 header-title"><b>List media</b></h4>
 
-            @include('admin.components.datatable', ['collection' => $media, 'route' => 'media'])
+              <datatable route='media' :collection='$media' />
 
         </div>
     </div>

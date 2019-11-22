@@ -61,8 +61,15 @@ class Media extends Model
 
     public function getBrandNameAttribute() {
 
-
           return $this->brand->name;
+
+    }
+
+
+    public function foreign_id($field) {
+
+          $id = $field . '_id';
+          return $this->$id;
 
     }
 }

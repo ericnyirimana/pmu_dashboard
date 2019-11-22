@@ -8,7 +8,7 @@
       @include('admin.media.form')
 
 </form>
-@include('admin.components.remove')
+@include('admin.components.modal-remove')
 
 @endsection
 @push('scripts')

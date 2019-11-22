@@ -5,7 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\Sidebar;
-
+use Spatie\BladeX\Facades\BladeX;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,9 +37,8 @@ class AppServiceProvider extends ServiceProvider
           });
 
 
-
-
-
+          BladeX::component('admin.components.fields.*');
+          BladeX::component('admin.components.*');
     }
 
     /**

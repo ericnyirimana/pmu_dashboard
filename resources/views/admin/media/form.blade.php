@@ -1,44 +1,13 @@
+@include('admin.components.fields-require-alert')
 <div class="d-flex flex-row">
 <div class="col-md-12 col-lg-6">
-    <div class="form-group">
-            <div class="fileupload fileupload-new" data-provides="fileupload">
-                <div class="box-image fileupload-exists thumbnail fileupload-preview">
-                    @if ( empty($media->file) )
-                      <i class="fa fa-file-image-o fa-2x"></i>
-                    @else
-                        <img src="{{ $media->getImageSize('medium') }}" />
-                    @endif
-                </div>
-
-                <div>
-                    <button type="button" class="btn btn-secondary btn-file">
-                        <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
-                        <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                        <input type="file" class="btn-secondary" name="file" />
-                    </button>
-                    <a href="#" class="btn btn-danger fileupload-exists btn-remove" data-dismiss="fileupload"><i class="fa fa-trash"></i> Remove</a>
-                </div>
-            </div>
-
-    </div>
+    <field-image field="file" :model="$media" />
 </div>
 <div class="col-md-12 col-lg-6 d-flex flex-column">
 
-      <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" class="form-control" name="name" id="name" aria-describedby="emailHelp" placeholder="Name file" value="{{ old('name', isset($media) ? $media->name : '') }}">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
-      <div class="form-group">
-          <label for="brand">Brand</label>
-          <select id="brand" class="form-control" name="brand_id">
-              <option>Select Brand</option>
-              @foreach($brands as $brand)
-                <option value="{{ $brand->id }}" @if (isset($media) && $media->brand_id == $brand->id) selected @endif>{{ $brand->name }}</option>
-              @endforeach
-          </select>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-      </div>
+      <field-text label="Name" field="name" :model="$media" required  />
+
+      <field-select label="Brand" field="brand" type="relation" field="brand" :model="$media" :values="$brands" foreignid="brand_id" required />
 
       <div class="form-group mt-auto">
 
@@ -56,5 +25,13 @@
 @endpush
 @push('scripts')
 <!-- Bootstrap fileupload js -->
-<script src="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.js")}}"></script>
+<script type="text/javascript" src="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.js")}}"></script>
+
+<!-- Parsley js -->
+<script type="text/javascript" src="{{ asset("/plugins/parsleyjs/parsley.min.js")}}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form').parsley();
+    });
+</script>
 @endpush
