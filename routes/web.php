@@ -23,7 +23,10 @@ Route::group(['middleware' => 'auth'], function(){
   Route::get('/list', function(){ return view('admin.blank');})->name('user.list');
   Route::get('/new', function(){ return view('admin.blank');})->name('user.new');
 */
+
+  Route::resource('/brands', 'BrandController');
   Route::resource('/users', 'UserController');
+  Route::resource('/restaurants', 'RestaurantController');
 
 
   Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'

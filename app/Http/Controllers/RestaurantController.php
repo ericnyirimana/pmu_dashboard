@@ -6,5 +6,8 @@ use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-    //
+
+
+
+
 }

@@ -9,43 +9,20 @@ class UserController extends Controller
 {
 
 
-    /**
-     * The attributes that set Datatable headers and fields.
-     *
-     * @var array
-     */
-    protected $datatableFields = [
-        'id'        => 'ID',
-        'full_name' => 'Name',
-        'email'     => 'Email',
-    ];
 
+    public function validation(Request $request, $media = null) {
 
-
-    public function __construct() {
-
-
-
-          view()->composer('admin.components.datatable', function ($view) {
-
-              $fields = $this->datatableFields;
-
-              $route = \Route::getCurrentRoute()->uri;
-
-              $view
-              ->with([
-                'fields' => $fields,
-                'route'  => $route
-              ]);
-
-            });
+        $request->validate(
+          [
+            'name'  => 'required',
+          ]
+        );
 
     }
 
 
 
     public function index() {
-
 
           $users = User::all();
 
@@ -57,16 +34,31 @@ class UserController extends Controller
 
     public function create() {
 
+          $user = null;
+          return view('admin.users.form')->with(['user' => $user]);
 
-          return view('admin.users.form');
+    }
+
+
+    public function store(Request $request) {
+
+          $this->validation($request);
+
+          $fields = $request->all();
+
+          User::create($fields);
+
+          return redirect()->route('user.index')->with([
+                'notification' => 'User saved with success!',
+                'type-notification' => 'success'
+              ]);
 
     }
 
 
     public function edit(User $user) {
 
-
-          return view('admin.users.form');
+          return view('admin.users.form')->with(['user' => $user]);
 
     }
 

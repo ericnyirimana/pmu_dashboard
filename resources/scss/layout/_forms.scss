@@ -1,8 +1,6 @@
 form {
 
-    .d-flex {
-      width: 100%;
-    }
+
 
     .form-group {
 
@@ -39,7 +37,7 @@ form {
           font-size: 700;
         }
 
-        input {
+        input, textarea, select {
           font-family: 'Roboto';
           font-size: 15px;
         }
@@ -48,7 +46,15 @@ form {
           color: #CCCCCC;
         }
 
+        textarea {
+            min-height: 250px;
+            height: calc(100% - 95px);
+        }
 
+        .switchery {
+          margin-left: 10px;
+          margin-right: 10px;
+        }
       }
 
 }
@@ -57,6 +63,13 @@ form {
 
   .thumbnail-list {
       width: 50px;
+  }
+
+  .actions {
+      a {
+        margin: 0 10px;
+      }
+
   }
 
 }

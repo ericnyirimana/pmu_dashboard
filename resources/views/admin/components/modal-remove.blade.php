@@ -18,3 +18,20 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+@push('scripts')
+<script type="text/javascript">
+    $(document).ready(function() {
+
+    $(document).on('click', '.rm-register', function(){
+
+            var id = $(this).data('register');
+            var name = $(this).data('name');
+
+            $('.register-name').text(name);
+
+            $('.rm-accept').attr('action', '/{{ $route }}/'+id);
+    });
+
+});
+</script>
+@endpush

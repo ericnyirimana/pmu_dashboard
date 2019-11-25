@@ -21,7 +21,7 @@
 
             <h4 class="m-t-0 header-title"><b>List users</b></h4>
 
-            @include('admin.components.datatable')
+            <datatable route='users' :collection='$users' />
 
         </div>
     </div>

@@ -21,8 +21,12 @@ class CreateBrandsTable extends Migration
             $table->text('description')->nullable();
             $table->string('corporate_name')->nullable();
             $table->string('vat')->nullable();
+            $table->bigInteger('owner_id')->unsigned()->nullable();
+            $table->boolean('status')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('owner_id')->references('id')->on('operators');
         });
     }
 

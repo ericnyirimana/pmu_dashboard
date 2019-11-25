@@ -11,19 +11,11 @@
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ asset("/images/favicon.ico")}}">
 
-        <!-- C3 charts css -->
-        <link href="{{ asset("/plugins/c3/c3.min.css")}}" rel="stylesheet" type="text/css" />
-
         <!-- Adminnox css -->
         <link href="{{ asset("/admin/assets/css/bootstrap.min.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("/admin/assets/css/icons.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("/admin/assets/css/metismenu.min.css")}}" rel="stylesheet" type="text/css" />
         <link href="{{ asset("/admin/assets/css/style.css")}}" rel="stylesheet" type="text/css" />
-
-        <!-- DataTables -->
-        <link href="{{ asset("/plugins/datatables/dataTables.bootstrap4.min.css")}}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset("/plugins/datatables/buttons.bootstrap4.min.css")}}" rel="stylesheet" type="text/css" />
-        <!-- Responsive datatable examples -->
 
         <!-- APP overwrite css -->
         <link href="{{ asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
@@ -87,35 +79,11 @@
         <script src="{{ asset("/admin/assets/js/waves.js")}}"></script>
         <script src="{{ asset("/admin/assets/js/jquery.slimscroll.js")}}"></script>
 
-
-        <!-- Counter js  -->
-        <script src="{{ asset("/plugins/waypoints/jquery.waypoints.min.js")}}"></script>
-        <script src="{{ asset("/plugins/counterup/jquery.counterup.min.js")}}"></script>
-
-        <!--C3 Chart-->
-        <script src="{{ asset("/plugins/d3/d3.min.js")}}"></script>
-        <script src="{{ asset("/plugins/c3/c3.min.js")}}"></script>
-
-        <!--Echart Chart-->
-        <script src="{{ asset("/plugins/echart/echarts-all.js")}}"></script>
-
-        <!-- Dashboard init -->
-        <script src="{{ asset("/admin/assets/pages/jquery.dashboard.js")}}"></script>
+        @stack('scripts')
 
         <!-- App js -->
         <script src="{{ asset("/admin/assets/js/jquery.core.js")}}"></script>
         <script src="{{ asset("/admin/assets/js/jquery.app.js")}}"></script>
-
-        <!-- Required datatable js -->
-
-        <script src="{{ asset("/plugins/datatables/jquery.dataTables.min.js")}}"></script>
-        <script src="{{ asset("/plugins/datatables/dataTables.bootstrap4.min.js")}}"></script>
-
-        <!-- Buttons js -->
-        <script src="{{ asset("/plugins/datatables/dataTables.buttons.min.js")}}"></script>
-        <script src="{{ asset("/plugins/datatables/buttons.bootstrap4.min.js")}}"></script>
-
-        @stack('scripts')
 
     </body>
 </html>

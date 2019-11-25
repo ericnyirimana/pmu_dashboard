@@ -1,37 +1,40 @@
+@extends('admin.layouts.master')
+
+@section('content')
+
 @include('admin.components.fields-require-alert')
-<div class="d-flex flex-row">
-<div class="col-md-12 col-lg-6">
-    <field-image field="file" :model="$media" />
-</div>
-<div class="col-md-12 col-lg-6 d-flex flex-column">
 
-      <field-text label="Name" field="name" :model="$media" required  />
+@if (isset($media))
+<tag-form file :action="route('media.update', $media)" method="put" >
+@else
+<tag-form file :action="route('media.store')">
+@endif
+      <div class="d-flex flex-row row">
+          <div class="col-md-12 col-lg-6">
 
-      <field-select label="Brand" field="brand" type="relation" field="brand" :model="$media" :values="$brands" foreignid="brand_id" required />
+              <field-image label="File" field="file" :model="$media" required="new" />
 
-      <div class="form-group mt-auto">
+          </div>
+          <div class="col-md-12 col-lg-6 d-flex flex-column">
 
-          @if (isset($media))
-          <button type="button" class="btn btn-md w-lg btn-danger rm-register" data-name="{{ $media->name }}" data-register="{{ $media->id }}"  data-toggle="modal" data-target=".remove-register">Remove permanently</button>
-          @endif
-          <button type="submit" class="btn btn-md w-lg btn-success float-right">Save</button>
+                <field-text label="Name" field="name" :model="$media" required  />
+
+                <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$brands" foreignid="brand_id" required />
+
+                <div class="form-group mt-auto">
+
+                    @if (isset($media))
+                    <button type="button" class="btn btn-md w-lg btn-danger rm-register" data-name="{{ $media->name }}" data-register="{{ $media->id }}"  data-toggle="modal" data-target=".remove-register">Remove permanently</button>
+                    @endif
+                    <button type="submit" class="btn btn-md w-lg btn-success float-right">Save</button>
+
+                </div>
+
+          </div>
       </div>
 
-</div>
+</tag-form>
 
-@push('styles')
-<!-- Jquery filer css -->
-<link href="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.css")}}" rel="stylesheet" />
-@endpush
-@push('scripts')
-<!-- Bootstrap fileupload js -->
-<script type="text/javascript" src="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.js")}}"></script>
+@include('admin.components.modal-remove', ['route' => 'media'])
 
-<!-- Parsley js -->
-<script type="text/javascript" src="{{ asset("/plugins/parsleyjs/parsley.min.js")}}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('form').parsley();
-    });
-</script>
-@endpush
+@endsection

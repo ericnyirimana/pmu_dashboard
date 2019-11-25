@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 @include('admin.components.notification')
 
 <div class="row m-b-10">
@@ -16,7 +15,13 @@
 
             <h4 class="m-t-0 header-title"><b>List media</b></h4>
 
-              <datatable route='media' :collection='$media' />
+              <datatable route='media' :collection='$media' :fields="[
+                  'Thumbnail'   => 'image:thumbnail',
+                  'ID'          => 'id',
+                  'Name'        => 'name',
+                  'Extension'   => 'extension',
+                  'Brand'       => 'brand_name',
+              ]" />
 
         </div>
     </div>

@@ -12,38 +12,23 @@ use Image;
 
 class MediaController extends Controller
 {
-      /**
-       * The attributes that set Datatable headers and fields.
-       *
-       * @var array
-       */
-      protected $datatableFields = [
-          'Thumbnail'   => 'image:thumbnail',
-          'ID'          => 'id',
-          'Name'        => 'name',
-          'Extension'   => 'extension',
-          'Brand'       => 'brand_name',
-      ];
-
 
 
       public function validation(Request $request, $media = null) {
 
-        $request->validate(
-          [
-            'file'  => (empty($media)?'required|':'').'file|mimes:jpeg,bmp,png',
-            'name'  => 'required',
-            'brand_id'  => 'required|integer'
-          ]
-        );
+          $request->validate(
+            [
+              'file'  => (empty($media)?'required|':'').'file|mimes:jpeg,bmp,png',
+              'name'  => 'required',
+              'brand_id'  => 'required|integer'
+            ]
+          );
 
       }
 
 
 
       public function index() {
-
-          parent::index();
 
           $media = Media::all();
 
@@ -59,7 +44,7 @@ class MediaController extends Controller
             $media = null;
             $brands = Brand::all();
 
-            return view('admin.media.create')->with([
+            return view('admin.media.form')->with([
               'media' => $media,
               'brands' => $brands
             ]
@@ -73,16 +58,10 @@ class MediaController extends Controller
             $this->validation($request);
 
             $fields = $request->all();
+
             $image = $request->file('file');
 
-            // save original file
-            $path = $image->store('public/media');
-
-            $name = str_replace('public/media/', '', $path);
-
-            $this->resizeImage($name);
-
-            $fields['file'] = $name;
+            $fields['file'] = $this->saveImage($image);;
 
             Media::create($fields);
 
@@ -98,7 +77,7 @@ class MediaController extends Controller
 
 
             $brands = Brand::all();
-            return view('admin.media.edit')->with([
+            return view('admin.media.form')->with([
               'media' => $media,
               'brands' => $brands
             ]
@@ -111,9 +90,10 @@ class MediaController extends Controller
             $this->validation($request, $media);
 
             $fields = $request->all();
-            $image = $request->file('file');
 
             if ($request->file) {
+
+              $image = $request->file('file');
 
               // remove old image
               $this->removeImage($media->file);

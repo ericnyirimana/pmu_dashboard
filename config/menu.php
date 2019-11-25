@@ -9,7 +9,14 @@ return [
                 'Blank' => 'dashboard.blank',
             ],
         ],
-        'Users' => [
+        'Brands' => [
+            'icon' => 'fi-star',
+            'routes' => [
+                'List' => 'brands.index',
+                'New' => 'brands.create',
+            ],
+        ],
+        'Account' => [
             'icon' => 'fi-head',
             'routes' => [
                 'List' => 'users.index',
