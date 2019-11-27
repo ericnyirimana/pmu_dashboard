@@ -107,7 +107,7 @@ class BrandController extends Controller
 
             $fields = $request->all();
 
-            if ($request->file) {
+            if ($request->image) {
 
               $image = $request->file('image');
 

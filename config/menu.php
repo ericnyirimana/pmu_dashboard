@@ -16,6 +16,13 @@ return [
                 'New' => 'brands.create',
             ],
         ],
+        'Restaurants' => [
+            'icon' => 'fi-cutlery',
+            'routes' => [
+                'List' => 'restaurants.index',
+                'New' => 'restaurants.create',
+            ],
+        ],
         'Account' => [
             'icon' => 'fi-head',
             'routes' => [

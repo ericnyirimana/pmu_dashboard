@@ -21,7 +21,11 @@
 
             <h4 class="m-t-0 header-title"><b>List users</b></h4>
 
-            <datatable route='users' :collection='$users' />
+              <datatable route='users' :collection='$users' :fields="[
+                  'ID'        => 'id',
+                  'Name'      => 'full_name',
+                  'Email'     => 'email'
+              ]" />
 
         </div>
     </div>
