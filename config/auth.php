@@ -37,7 +37,7 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
+            'driver' => 'cognito',
             'provider' => 'users',
         ],
 
@@ -73,7 +73,7 @@ return [
         */
          'users' => [
              'driver' => 'database',
-             'table' => 'operators',
+             'table' => 'operators'
          ],
     ],
 
