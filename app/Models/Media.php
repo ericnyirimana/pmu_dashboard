@@ -27,24 +27,24 @@ class Media extends Model
           switch($size) {
 
               case 'original':
-                  $path = '/storage/media/';
+                  $folder = 'media';
               break;
 
               case 'large':
-                  $path = '/storage/media/large/';
+                  $folder = 'media/large/';
               break;
 
               case 'thumbnail':
-                  $path = '/storage/media/thumbnail/';
+                  $folder = 'media/thumbnail/';
               break;
 
               default:
-                  $path = '/storage/media/';
+                  $folder = 'media/';
               break;
 
           }
 
-          return asset( $path . $this->file);
+          return Storage::disk('s3')->url($folder . $this->file);
 
     }
 

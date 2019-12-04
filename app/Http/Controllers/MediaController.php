@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Libraries\FileManager;
 use App\Models\Media;
 use App\Models\Brand;
 use Illuminate\Http\File;
@@ -12,6 +13,10 @@ use Image;
 
 class MediaController extends Controller
 {
+
+
+
+      protected $folder = 'media/';
 
 
       public function validation(Request $request, $media = null) {
@@ -61,7 +66,7 @@ class MediaController extends Controller
 
             $image = $request->file('file');
 
-            $fields['file'] = $this->saveImage($image);;
+            $fields['file'] = FileManager::saveImage( $this->folder, $image );
 
             Media::create($fields);
 
@@ -96,14 +101,11 @@ class MediaController extends Controller
               $image = $request->file('file');
 
               // remove old image
-              $this->removeImage($media->file);
+              FileManager::removeImage($this->folder, $media->file);
 
-              $fields['file'] = $this->saveImage($image);
+              $fields['file'] = FileManager::saveImage( $this->folder, $image );
 
             }
-
-
-
 
             $media->update($fields);
 
@@ -117,7 +119,7 @@ class MediaController extends Controller
 
       public function destroy(Media $media) {
 
-            $this->removeImage($media->file);
+            FileManager::removeImage($this->folder, $media->file);
             $media->delete();
 
             return redirect()->route('media.index')->with([
@@ -130,39 +132,16 @@ class MediaController extends Controller
 
       protected function saveImage($image) {
 
-            $path = $image->store('public/media');
-            $name = str_replace('public/media/', '', $path);
+            $name = $name = $image->getClientOriginalName();
 
-            $this->resizeImage($name);
+            Storage::disk('s3')->put('media/'.$name, file_get_contents($image) );
+
+            $this->resizeImage($name, $image);
 
             return $name;
       }
 
 
 
-      protected function resizeImage($image) {
-
-            $img = Image::make( storage_path() . '/app/public/media/' . $image);
-
-            // save thumbnail
-            $img->fit(100, 100)->save( storage_path() . '/app/public/media/thumbnail/' . $image);
-
-            // save medium
-            $img->resize(1000, 1000, function ($constraint) {
-              $constraint->aspectRatio();
-            })->save( storage_path() . '/app/public/media/medium/' . $image);
-
-
-
-      }
-
-      protected function removeImage($image) {
-
-            Storage::disk('public')->delete('media/'.$image);
-            Storage::disk('public')->delete('media/thumbnail/'.$image);
-            Storage::disk('public')->delete('media/medium/'.$image);
-            Storage::disk('public')->delete('media/large/'.$image);
-
-      }
 
 }
