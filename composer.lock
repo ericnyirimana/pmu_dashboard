@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af57153e32bbabc920c33b1abc34f60b",
+    "content-hash": "05e4b4ddade94712baede322f1f755cf",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -88,6 +88,145 @@
                 "sdk"
             ],
             "time": "2019-10-29T18:07:59+00:00"
+        },
+        {
+            "name": "aws/aws-sdk-php-laravel",
+            "version": "3.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aws/aws-sdk-php-laravel.git",
+                "reference": "90f72efd7ec85c1141b397079112f58e0ca0143b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php-laravel/zipball/90f72efd7ec85c1141b397079112f58e0ca0143b",
+                "reference": "90f72efd7ec85c1141b397079112f58e0ca0143b",
+                "shasum": ""
+            },
+            "require": {
+                "aws/aws-sdk-php": "~3.0",
+                "illuminate/support": "~5.1|~6.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0|~5.0",
+                "vlucas/phpdotenv": "~2.0|~3.0"
+            },
+            "suggest": {
+                "laravel/framework": "To test the Laravel bindings",
+                "laravel/lumen-framework": "To test the Lumen bindings"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Aws\\Laravel\\AwsServiceProvider"
+                    ],
+                    "aliases": {
+                        "AWS": "Aws\\Laravel\\AwsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aws\\Laravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Amazon Web Services",
+                    "homepage": "http://aws.amazon.com"
+                }
+            ],
+            "description": "A simple Laravel 5 service provider for including the AWS SDK for PHP.",
+            "homepage": "http://aws.amazon.com/sdkforphp2",
+            "keywords": [
+                "amazon",
+                "aws",
+                "dynamodb",
+                "ec2",
+                "laravel",
+                "laravel 5",
+                "s3",
+                "sdk"
+            ],
+            "time": "2019-09-09T21:00:25+00:00"
+        },
+        {
+            "name": "black-bits/laravel-cognito-auth",
+            "version": "0.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/black-bits/laravel-cognito-auth.git",
+                "reference": "fccc6dfe41dd1c61dfdc57bfd42e00564398c380"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/black-bits/laravel-cognito-auth/zipball/fccc6dfe41dd1c61dfdc57bfd42e00564398c380",
+                "reference": "fccc6dfe41dd1c61dfdc57bfd42e00564398c380",
+                "shasum": ""
+            },
+            "require": {
+                "aws/aws-sdk-php": "^3.61",
+                "illuminate/auth": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*",
+                "illuminate/config": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*",
+                "illuminate/http": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*",
+                "illuminate/support": "5.1.*|5.2.*|5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*|6.*",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "larapack/dd": "^1.0",
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "BlackBits\\LaravelCognitoAuth\\CognitoAuthServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BlackBits\\LaravelCognitoAuth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oliver Heck",
+                    "email": "oliver.heck@blackbits.io",
+                    "homepage": "https://blackbits.io",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Andreas Przywara",
+                    "email": "andreas.przywara@blackbits.io",
+                    "homepage": "https://blackbits.io",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Adrian Raeuchle",
+                    "email": "adrian.raeuchle@blackbits.io",
+                    "homepage": "https://blackbits.io",
+                    "role": "Developer"
+                }
+            ],
+            "description": "An auth provider for Laravel for AWS Cognito.",
+            "homepage": "https://github.com/black-bits/laravel-cognito-auth",
+            "keywords": [
+                "AWS Cognito",
+                "Auth Provider",
+                "blackbits"
+            ],
+            "time": "2019-10-27T02:45:52+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1169,6 +1308,53 @@
                 "storage"
             ],
             "time": "2019-10-16T21:01:05+00:00"
+        },
+        {
+            "name": "league/flysystem-aws-s3-v3",
+            "version": "1.0.23",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem-aws-s3-v3.git",
+                "reference": "15b0cdeab7240bf8e8bffa85ae5275bbc3692bf4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v3/zipball/15b0cdeab7240bf8e8bffa85ae5275bbc3692bf4",
+                "reference": "15b0cdeab7240bf8e8bffa85ae5275bbc3692bf4",
+                "shasum": ""
+            },
+            "require": {
+                "aws/aws-sdk-php": "^3.0.0",
+                "league/flysystem": "^1.0.40",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "henrikbjorn/phpspec-code-coverage": "~1.0.1",
+                "phpspec/phpspec": "^2.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\AwsS3v3\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Flysystem adapter for the AWS S3 SDK v3.x",
+            "time": "2019-06-05T17:18:29+00:00"
         },
         {
             "name": "monolog/monolog",
