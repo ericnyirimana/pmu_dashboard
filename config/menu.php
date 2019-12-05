@@ -16,6 +16,13 @@ return [
                 'New' => 'brands.create',
             ],
         ],
+        'Categories' => [
+            'icon' => 'fi-list-ul',
+            'routes' => [
+                'List' => 'categories.index',
+                'New' => 'categories.create',
+            ],
+        ],
         'Restaurants' => [
             'icon' => 'fi-cutlery',
             'routes' => [
