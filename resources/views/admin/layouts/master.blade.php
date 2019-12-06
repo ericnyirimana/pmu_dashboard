@@ -12,10 +12,13 @@
         <link rel="shortcut icon" href="{{ asset("/images/favicon.ico")}}">
 
         <!-- Adminnox css -->
-        <link href="{{ asset("/admin/assets/css/bootstrap.min.css")}}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset("/admin/assets/css/icons.css")}}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset("/admin/assets/css/metismenu.min.css")}}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset("/admin/assets/css/style.css")}}" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/admin/assets/css/bootstrap.min.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/admin/assets/css/icons.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/admin/assets/css/metismenu.min.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/admin/assets/css/style.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/plugins/switchery/switchery.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("/plugins/timepicker/bootstrap-timepicker.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css") }}" type="text/css">
 
         <!-- APP overwrite css -->
         <link href="{{ asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
@@ -78,12 +81,15 @@
         <script src="{{ asset("/admin/assets/js/metisMenu.min.js")}}"></script>
         <script src="{{ asset("/admin/assets/js/waves.js")}}"></script>
         <script src="{{ asset("/admin/assets/js/jquery.slimscroll.js")}}"></script>
-
+        <script src="{{ asset("/plugins/switchery/switchery.min.js") }}"></script>
+        <script src="{{ asset("/plugins/timepicker/bootstrap-timepicker.js") }}"></script>
+        <script src="{{ asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}"></script>
         @stack('scripts')
 
         <!-- App js -->
         <script src="{{ asset("/admin/assets/js/jquery.core.js")}}"></script>
         <script src="{{ asset("/admin/assets/js/jquery.app.js")}}"></script>
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLUUH3H4en_Be_lwXe91KvayRpTnWso50&libraries=places"></script>
 
     </body>
 </html>

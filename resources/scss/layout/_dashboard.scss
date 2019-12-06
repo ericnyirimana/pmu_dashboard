@@ -3,7 +3,9 @@ $base-blue-color: #133D64;
 $base-blue-dark-color: #11375A;
 $base-blue-light-color: #B2CCE3;
 $base-blue-dark-light-color: #92B1CC;
-
+* {
+  font-family: 'Nunito Sans';
+}
 .topbar {
 
   .image-logo {

@@ -53,5 +53,24 @@ class RestaurantsTableSeeder extends Seeder
           'restaurant_id' => '2',
           'code'  => 'en'
       ]);
+
+      DB::table('opening_hours')->insert([
+          'restaurant_id' => 1,
+          'day_of_week' => 'monday',
+          'hour_from' => '11:00',
+          'hour_to'  => '15:00'
+      ]);
+      DB::table('opening_hours')->insert([
+          'restaurant_id' => 1,
+          'day_of_week' => 'monday',
+          'hour_from' => '20:00',
+          'hour_to'  => '23:00'
+      ]);
+      DB::table('opening_hours')->insert([
+          'restaurant_id' => 1,
+          'day_of_week' => 'tuesday',
+          'hour_from' => '11:00',
+          'hour_to'  => '20:00'
+      ]);
     }
 }

@@ -16,9 +16,10 @@ class CreateOpeningHoursTable extends Migration
         Schema::create('opening_hours', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('restaurant_id')->unsigned();
-            $table->integer('day_of_week')->nullable();
-            $table->string('hours');
-            $table->date('special_date')->nullable();
+            $table->string('day_of_week')->nullable();
+            $table->string('hour_from',5);
+            $table->string('hour_to',5);
+            $table->boolean('closed')->default(false);
             $table->timestamps();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');

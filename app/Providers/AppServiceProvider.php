@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Libraries\Sidebar;
 use Spatie\BladeX\Facades\BladeX;
 use App\Models\Brand;
+use App\Models\Restaurant;
 use App\Observers\IdentifierObserver;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
           BladeX::component('admin.components.*');
 
           Brand::observe(IdentifierObserver::class);
+          Restaurant::observe(IdentifierObserver::class);
     }
 
     /**

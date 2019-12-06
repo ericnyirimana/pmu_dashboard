@@ -15,7 +15,7 @@ class FileManager
 
             $name = uniqid() . $image->getClientOriginalName();
 
-            Storage::disk('s3')->put( $folder . $name, file_get_contents($image) );
+            #Storage::disk('s3')->put( $folder . $name, file_get_contents($image) );
 
 
 
@@ -32,7 +32,7 @@ class FileManager
 
         $img = Image::make( $image );
 
-        $thumb = $img->fit(100, 100);
+        $thumb = $img->fit(100, 100)->encode($image->getClientOriginalExtension());
 
         Storage::disk('s3')->put( $folder . 'thumbnail/' . $name, $thumb->getEncoded() );
 
@@ -44,7 +44,7 @@ class FileManager
 
           $medium = $img->resize(1000, 1000, function ($constraint) {
             $constraint->aspectRatio();
-          });
+          })->encode($image->getClientOriginalExtension());
 
           Storage::disk('s3')->put($folder . 'medium/' . $name, $medium->getEncoded() );
 

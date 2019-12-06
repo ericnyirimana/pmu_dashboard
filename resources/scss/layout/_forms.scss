@@ -54,4 +54,48 @@ form {
           margin-right: 10px;
         }
       }
+
+      .mapModal {
+        width: 100%;
+        height: 50vh;
+      }
+
+      .setTime {
+        display: none;
+
+        .hideHours {
+          display: none;
+        }
+      }
+      .setTime.keep_open {
+        display: table;
+      }
+      .box-hours {
+          margin-top: 10px;
+          margin-right: 50px;
+
+          .input-group {
+
+            label {
+              padding-top: 3px;
+              margin-right: 10px;
+            }
+            input {
+              width: 100px;
+              display: inline;
+
+            }
+          }
+
+      }
+
+       .box-days {
+          height: 40px;
+          margin-right: 15px;
+          margin-bottom: 0;
+       }
+}
+
+.pac-container {
+  z-index: 1100;
 }

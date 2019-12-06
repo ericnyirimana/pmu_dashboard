@@ -15,7 +15,7 @@
         </figure>
     </div>
     <div class="col-md-8 col-lg-10">
-          <h2>{{ $brand->name }}</h2>
+          <h2>{{ $brand->name }} <span class="edit-view "><a href="{{ route('brands.edit', $brand->id) }}"<i class="fa fa-edit"></i></a></span></h2>
           <p>{{ $brand->corporate_name }}  </p>
           <p><label>VAT</label> {{ $brand->vat }}</p>
 
@@ -25,7 +25,7 @@
 
 <div class="row card-box">
     <div class="col-12">
-        <a href="{{ route('restaurants.create') }}" class="btn btn-success waves-effect w-md waves-light pull-right">New Restaurant</a>
+        <a href="{{ route('brand.restaurants.create', $brand) }}" class="btn btn-success waves-effect w-md waves-light pull-right">New Restaurant</a>
     </div>
     <div class="col-12">
         <div class="table-responsive">
