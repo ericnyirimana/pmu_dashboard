@@ -160,13 +160,34 @@ $(document).ready(function(){
       });
 
 
-      $(document).on('click', 'add_date', function() {
+      $(document).on('click', '.add_date', function() {
 
-        $('.list_dates').clone();
+
+        var box = $('.date_box.first_item').clone();
+
+        seq = $('.date_box').length;
+        box.removeClass('first_item');
+
+        box.find('.closing_name').attr('name', 'closings['+seq+'][name]');
+        box.find('.closing_date').attr('name', 'closings['+seq+'][date]');
+        box.find('.closing_repeat').attr('name', 'closings['+seq+'][repeat]');
+
+        $('.list_dates').append(box);
+
+
+
+
 
       });
 
-      $(document).on('click', 'remove_date', function() {
+      $(document).on('click', '.remove_date', function() {
+
+            var removeDate = $(this).parent();
+            if (removeDate.hasClass('first_item')) {
+                alert("You can`t remove the line");
+            } else {
+                removeDate.remove();
+            }
 
       });
 

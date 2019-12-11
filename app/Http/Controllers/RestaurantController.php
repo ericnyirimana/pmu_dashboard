@@ -102,6 +102,7 @@ class RestaurantController extends Controller
 
             // remove from fields to not conflict with Restaurant fields
             unset($fields['openings']);
+            unset($fields['closings']);
 
             $restaurant->update($fields);
 
