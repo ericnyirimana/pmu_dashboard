@@ -89,19 +89,27 @@ class UserController extends Controller
     public function authenticate(Request $request)
     {
 
+
         $client = new Client();
-        $res = $client->request('POST', 'http://localhost.pmu/api/v1/token/login', [
-            'form_params' => [
-                'username' => $request->email,
-                'password' => $request->password,
-            ]
+
+         $response = $client->request('POST', 'http://pickmealup.com.dev7.21ilab.com/api/v1/token/login', [
+           'form_params' => [
+             'username' => $request->email,
+             'password' => $request->password
+           ]
         ]);
-        echo $res->getStatusCode();
-        // 200
-        echo $res->getHeader('content-type');
-        // 'application/json; charset=utf8'
-        echo $res->getBody();
-        // {"type":"User"...'
+
+        if ($response->getStatusCode() == 200) {
+
+              $return = (string) $response->getBody();
+
+              $json = json_decode($return);
+
+              dd($json);
+
+              redirect()->route('dashboard');
+        }
+
 
 
     }

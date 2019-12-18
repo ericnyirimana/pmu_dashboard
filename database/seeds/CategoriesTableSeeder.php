@@ -11,18 +11,20 @@ class CategoriesTableSeeder extends Seeder
      *
      * @return void
      */
+    
     public function run()
     {
 
       DB::table('category_types')->insert([
           'name' => 'FoodCategory',
-
       ]);
 
       DB::table('category_types')->insert([
           'name' => 'Diets',
       ]);
 
+    // Pizza - id: 1
+    
       DB::table('categories')->insert([
           'identifier'  => (string) Str::uuid(),
           'category_type_id' => '1',
@@ -42,25 +44,110 @@ class CategoriesTableSeeder extends Seeder
           'code'  => 'en'
       ]);
 
+    
+    // Hamburger - id: 2
 
-      DB::table('categories')->insert([
-          'identifier'  => (string) Str::uuid(),
-          'category_type_id' => '2',
-      ]);
+    DB::table('categories')->insert([
+        'identifier'  => (string) Str::uuid(),
+        'category_type_id' => '1',
+    ]);
 
-      DB::table('category_translations')->insert([
-          'name' => 'Gelato',
-          'description' => '',
-          'category_id' => '2',
-          'code'  => 'it'
-      ]);
+    DB::table('category_translations')->insert([
+        'name' => 'Hamburger',
+        'description' => '',
+        'category_id' => '2',
+        'code'  => 'it'
+    ]);
 
-      DB::table('category_translations')->insert([
-          'name' => 'Icecream',
-          'description' => '',
-          'category_id' => '2',
-          'code'  => 'en'
-      ]);
+    DB::table('category_translations')->insert([
+        'name' => 'Hamburger',
+        'description' => '',
+        'category_id' => '2',
+        'code'  => 'en'
+    ]);
+        
+        // Pasta - id: 3
+        
+        DB::table('categories')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'category_type_id' => '1',
+        ]);
 
+        DB::table('category_translations')->insert([
+            'name' => 'Pasta',
+            'description' => '',
+            'category_id' => '3',
+            'code'  => 'it'
+        ]);
+
+        DB::table('category_translations')->insert([
+            'name' => 'Pasta',
+            'description' => '',
+            'category_id' => '3',
+            'code'  => 'en'
+        ]);
+        
+        // Sushi - id: 4
+        
+        DB::table('categories')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'category_type_id' => '1',
+        ]);
+
+        DB::table('category_translations')->insert([
+            'name' => 'Sushi',
+            'description' => '',
+            'category_id' => '4',
+            'code'  => 'it'
+        ]);
+
+        DB::table('category_translations')->insert([
+            'name' => 'Sushi',
+            'description' => '',
+            'category_id' => '4',
+            'code'  => 'en'
+        ]);
+        
+        // Vegano - id: 5
+
+        DB::table('categories')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'category_type_id' => '2',
+        ]);
+
+        DB::table('category_translations')->insert([
+            'name' => 'Vegano',
+            'description' => '',
+            'category_id' => '5',
+            'code'  => 'it'
+        ]);
+
+        DB::table('category_translations')->insert([
+            'name' => 'Vegan',
+            'description' => '',
+            'category_id' => '5',
+            'code'  => 'en'
+        ]);
+
+        // Drink - id: 6
+
+        DB::table('categories')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'category_type_id' => '1',
+        ]);
+
+        DB::table('category_translations')->insert([
+            'name' => 'Bevande',
+            'description' => '',
+            'category_id' => '6',
+            'code'  => 'it'
+        ]);
+
+        DB::table('category_translations')->insert([
+            'name' => 'Drink',
+            'description' => '',
+            'category_id' => '6',
+            'code'  => 'en'
+        ]);
     }
 }

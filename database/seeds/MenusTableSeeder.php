@@ -14,20 +14,36 @@ class MenusTableSeeder extends Seeder
     public function run()
     {
 
+        ######## MENU 1 - Sorbillo #########
+        
       DB::table('menus')->insert([
           'identifier'  => (string) Str::uuid(),
-          'name' => 'Cheeseburger Menu',
+          'name' => 'Menu Sorbillo',
           'restaurant_id' => 1,
-
       ]);
+        
+        ######## MENU 2 - Baobab #########
 
       DB::table('menus')->insert([
           'identifier'  => (string) Str::uuid(),
-          'name' => 'Desert Menu',
-          'restaurant_id' => 1,
-
+          'name' => 'Menu Baobab',
+          'restaurant_id' => 2,
       ]);
 
+        ######## MENU 3 - Sushi fusion #########
 
+        DB::table('menus')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'name' => 'Menu Sushi fusion',
+            'restaurant_id' => 3,
+        ]);
+        
+        ######## MENU 4 - Testone #########
+
+        DB::table('menus')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'name' => 'Menu Testone',
+            'restaurant_id' => 4,
+        ]);
     }
 }
