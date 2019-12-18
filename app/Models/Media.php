@@ -30,6 +30,10 @@ class Media extends Model
                   $folder = 'media';
               break;
 
+              case 'medium':
+                  $folder = 'media/medium/';
+              break;
+
               case 'large':
                   $folder = 'media/large/';
               break;

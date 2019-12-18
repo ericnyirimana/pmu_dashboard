@@ -15,9 +15,7 @@ class FileManager
 
             $name = uniqid() . $image->getClientOriginalName();
 
-            #Storage::disk('s3')->put( $folder . $name, file_get_contents($image) );
-
-
+            Storage::disk('s3')->put( $folder . $name, file_get_contents($image) );
 
             self::saveThumbnailImage( $folder, $name, $image );
 

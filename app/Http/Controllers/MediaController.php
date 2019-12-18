@@ -44,6 +44,19 @@ class MediaController extends Controller
       }
 
 
+      public function show(Media $media) {
+
+
+            $brands = Brand::all();
+            return view('admin.media.view')->with([
+              'media' => $media,
+              'brands' => $brands
+            ]
+            );
+
+      }
+
+
       public function create() {
 
             $media = null;
@@ -89,6 +102,7 @@ class MediaController extends Controller
             );
 
       }
+
 
       public function update(Request $request, Media $media) {
 
