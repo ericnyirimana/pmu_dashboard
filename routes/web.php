@@ -12,7 +12,6 @@
 */
 
 
-Route::get('/cognito', 'UserController@cognito');
 Route::group(['middleware' => 'auth'], function(){
 
   Route::get('/', 'DashboardController@index')->name('dashboard.index');

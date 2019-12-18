@@ -12,4 +12,21 @@ class Showcases extends Model
       'title'
   ];
 
+
+
+  public function pickUps() {
+
+        return $this->hasMany('App\Models\PickUp');
+
+  }
+
+
+  public function timeSlots() {
+
+        return $this->hasMany('App\Models\TimeSlot');
+
+  }
+
+
+
 }
