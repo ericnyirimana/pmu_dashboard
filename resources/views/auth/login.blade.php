@@ -21,7 +21,7 @@
                                 <p class="m-b-0">Login to your Admin account</p>
                             </div>
                             <div class="account-content">
-                              <form class="form-horizontal" method="POST" action="{{ route('authenticate') }}">
+                              <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                                   @csrf
                                     <div class="form-group m-b-20 row">
                                         <div class="col-12">
@@ -73,7 +73,7 @@
 
                                     <div class="form-group row text-center m-t-10">
                                         <div class="col-12">
-                                            <a href="#" class="text-muted pull-right"><small>Forgot your password?</small></a>
+                                            <a href="{{ route('password.request') }}" class="text-muted pull-right"><small>Forgot your password?</small></a>
                                         </div>
                                     </div>
 

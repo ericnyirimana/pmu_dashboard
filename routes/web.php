@@ -12,8 +12,6 @@
 */
 
 
-Route::get('login', 'UserController@login')->name('login');
-Route::post('login', 'UserController@authenticate')->name('authenticate');
 
 Route::group(['middleware' => 'auth'], function(){
 
@@ -44,4 +42,4 @@ Route::group(['middleware' => 'auth'], function(){
 
 });
 
-//Auth::routes();
+Auth::routes();
