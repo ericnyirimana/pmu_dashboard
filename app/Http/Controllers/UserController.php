@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use GuzzleHttp\Client;
 
 use AWS;
 
@@ -80,32 +80,30 @@ class UserController extends Controller
     }
 
 
-    public function authenticate(string $username, string $password) : string
+    public function login() {
+
+      return view('auth.login');
+    }
+
+
+    public function authenticate(Request $request)
     {
 
-      $client = new CognitoIdentityProviderClient([
-          'version' => env('AWS_COGNITO_VERSION'),
-          'region' => env('AWS_COGNITO_REGION'),
+        $client = new Client();
+        $res = $client->request('POST', 'http://localhost.pmu/api/v1/token/login', [
+            'form_params' => [
+                'username' => $request->email,
+                'password' => $request->password,
+            ]
         ]);
-
-        try {
-            $result = $client->adminInitiateAuth([
-                'AuthFlow' => 'ADMIN_NO_SRP_AUTH',
-                'ClientId' => env('AWS_COGNITO_CLIENT_ID'),
-                'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
-                'AuthParameters' => [
-                    'USERNAME' => $username,
-                    'PASSWORD' => $password,
-                ],
-            ]);
+        echo $res->getStatusCode();
+        // 200
+        echo $res->getHeader('content-type');
+        // 'application/json; charset=utf8'
+        echo $res->getBody();
+        // {"type":"User"...'
 
 
-        } catch (\Exception $e) {
-
-          return $e->getMessage();
-        }
-        return $result->get('AuthenticationResult')['AccessToken'];
-        return '';
     }
 
 }
