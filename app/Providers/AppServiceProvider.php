@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\Sidebar;
@@ -9,6 +10,10 @@ use Spatie\BladeX\Facades\BladeX;
 use App\Models\Brand;
 use App\Models\Restaurant;
 use App\Observers\IdentifierObserver;
+use Ahc\Jwt\JWT;
+
+use Cookie;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,10 +27,7 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
 
-        view()->composer('admin.layouts.header', function ($view) {
-              $operator = auth()->guard('admin')->user();
-              $view->with(compact('operator'));
-          });
+
 
         view()->composer('admin.layouts.sidebar', function ($view) {
             $routes = Sidebar::getAdminRoutes();
@@ -56,4 +58,6 @@ class AppServiceProvider extends ServiceProvider
     {
         //
     }
+
+
 }

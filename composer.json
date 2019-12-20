@@ -6,6 +6,7 @@
     "type": "project",
     "require": {
         "php": "^7.2",
+        "adhocore/jwt": "^1.0",
         "aws/aws-sdk-php": "^3.112",
         "aws/aws-sdk-php-laravel": "^3.4",
         "black-bits/laravel-cognito-auth": "^0.1.8",
