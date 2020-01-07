@@ -24,10 +24,7 @@ Route::group(['middleware' => 'token'], function(){
 
   Route::get('/blank', 'DashboardController@blank')->name('dashboard.blank');
 
-/*
-  Route::get('/list', function(){ return view('admin.blank');})->name('user.list');
-  Route::get('/new', function(){ return view('admin.blank');})->name('user.new');
-*/
+  Route::get('/profile', 'UserController@me')->name('users.profile');
 
   Route::resource('/brands', 'BrandController');
   Route::resource('/categories', 'CategoryController');

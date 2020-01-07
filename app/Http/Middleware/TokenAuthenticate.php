@@ -29,29 +29,39 @@ class TokenAuthenticate
 
         }
 
-
         $client = new Cognito($token);
 
-        if ($client->msgErr) {
+        $client->refreshToken();
 
-          return redirect()->route('login')->with('msgerr', $client->msgErr);
+        if ($client->error) {
+
+          $client->resetCookies();
+
+          dd($client);
+
+          #return redirect()->route('login')->withErrors( $client->error );
 
         }
 
 
-        view()->composer('admin.layouts.topbar', function ($view)  use ($client) {
-
-                $operator = $client->user();
-
-                $view->with(compact('operator'));
-          });
-
-          $client->refreshToken();
+        $this->callView($client);
 
 
          return $next($request);
     }
 
+
+
+    private function callView($client) {
+
+        view()->composer('admin.layouts.topbar', function ($view)  use ($client) {
+
+              $operator = $client->user();
+
+              $view->with(compact('operator'));
+        });
+
+    }
 
 
 

@@ -2,7 +2,7 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
             <span>
                 @svg('pmu-logo', 'image-logo')
             </span>
@@ -15,6 +15,8 @@
     <nav class="navbar-custom">
 
         <ul class="list-inline float-right mb-0">
+
+            <?php /*
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                    aria-haspopup="false" aria-expanded="false">
@@ -52,6 +54,7 @@
 
                 </div>
             </li>
+            */ ?>
 
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
@@ -65,7 +68,7 @@
                     </div>
 
                     <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
+                    <a href="{{ route('users.profile') }}" class="dropdown-item notify-item">
                         <i class="mdi mdi-account-circle"></i> <span>Profile</span>
                     </a>
 
@@ -74,14 +77,14 @@
                         <i class="mdi mdi-settings"></i> <span>Settings</span>
                     </a>
 
-                    <!-- item-->
+                    <!-- item
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
                         <i class="mdi mdi-lock-open"></i> <span>Lock Screen</span>
                     </a>
-
+                    -->
                     <form id="frm-logout" action="{{ route('logout') }}" method="POST">
                         {{ csrf_field() }}
-                        <button type="submit" class="dropdown-item notify-item" style="cursor: pointer;"><i class="mdi mdi-power"></i> <span>Logout</span><button>
+                        <button type="submit" class="dropdown-item notify-item" style="cursor: pointer;"><i class="mdi mdi-power"></i> <span>Logout</span></button>
                     </form>
 
                 </div>

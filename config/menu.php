@@ -33,6 +33,7 @@ return [
         'Account' => [
             'icon' => 'fi-head',
             'routes' => [
+                'Profile' => 'users.profile',
                 'List' => 'users.index',
                 'New' => 'users.create',
             ],

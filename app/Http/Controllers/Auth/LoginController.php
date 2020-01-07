@@ -85,7 +85,7 @@ class LoginController extends Controller
               ]);
             } catch (\GuzzleHttp\Exception\ClientException $e) {
 
-                  return redirect()->route('login')->with('msgerr', $e->getMessage());
+                  return redirect()->route('login')->withErrors(['login' => 'Incorret login or password' ]);
 
             }
 
@@ -96,6 +96,7 @@ class LoginController extends Controller
 
                 $this->setCookies($token);
 
+                dd($token);
                 return redirect()->route('dashboard.index');
           }
 

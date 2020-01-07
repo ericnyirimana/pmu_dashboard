@@ -26,6 +26,17 @@ class UserController extends Controller
 
 
 
+    public function me() {
+
+          $user = null;
+
+          return view('admin.users.profile')
+          ->with( compact('user') );
+
+    }
+
+
+
     public function index() {
 
           $users = User::all();

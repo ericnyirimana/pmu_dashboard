@@ -38,7 +38,7 @@ class Cognito
       * Message Error for Exception
       * @var String
       */
-      public $msgErr = null;
+      public $error = null;
 
 
 
@@ -67,33 +67,33 @@ class Cognito
       private function getClient() {
 
 
-        try {
+            try {
 
-          $client = new CognitoIdentityProviderClient([
-               'version' => env('AWS_COGNITO_VERSION'),
-               'region' => env('AWS_COGNITO_REGION'),
-           ]);
+              $client = new CognitoIdentityProviderClient([
+                   'version' => env('AWS_COGNITO_VERSION'),
+                   'region' => env('AWS_COGNITO_REGION'),
+               ]);
 
-        } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+            } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
 
-              $message = $e->getResponse();
+                  $message = $e->getResponse();
 
-              $this->msgErr = $message->getHeaders()['x-amzn-ErrorMessage'][0];
+                  $this->error = $message->getHeaders()['x-amzn-ErrorMessage'][0];
 
-              return false;
+                  return false;
 
 
-        } catch (\Exception $e) {
+            } catch (\Exception $e) {
 
-              $this->msgErr = $e->getMessage();
+                  $this->error = $e->getMessage();
 
-              return false;
+                  return false;
 
-        }
+            }
 
-        $this->client = $client;
+            $this->client = $client;
 
-        return $client;
+            return $client;
 
 
       }
@@ -111,16 +111,13 @@ class Cognito
             } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
 
                   $message = $e->getResponse();
-
-                  $this->msgErr = $message->getHeaders()['x-amzn-ErrorMessage'][0];
-
+                  $this->error = $message->getHeaders()['x-amzn-ErrorMessage'][0];
                   return false;
 
 
             } catch (\Exception $e) {
 
-                  $this->msgErr = $e->getMessage();
-
+                  $this->error = $e->getMessage();
                   return false;
 
             }
@@ -187,15 +184,18 @@ class Cognito
                ]);
              } catch (\GuzzleHttp\Exception\ClientException $e) {
 
-                  dd($e->getMessage());
+                  $this->error = trans('Token Not Authorized');
+                  return false;
 
              } catch (\Symfony\Component\Debug\Exception\FatalThrowableError $e) {
 
-               dd($e);
+                  $this->error = $e;
+                  return false;
 
              } catch (\Exception $e) {
 
-               dd($e);
+                  $this->error = $e;
+                  return false;
              }
 
 
@@ -207,9 +207,16 @@ class Cognito
 
                  Cookie::queue(Cookie::forever('PMUAccessToken', $json->token->AccessToken));
 
-
            }
 
+
+      }
+
+
+      public function resetCookies() {
+
+              Cookie::queue(Cookie::forget('PMUAccessToken'));
+              Cookie::queue(Cookie::forget('PMURefreshToken'));
 
       }
 

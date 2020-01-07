@@ -28,13 +28,11 @@
                                             <label for="emailaddress">Email address</label>
                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                            @if (session('msgerr'))
-                                                <div class="alert alert-success">
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ session('msgerr') }}</strong>
-                                                    </span>
-                                                </div>
-                                            @endif
+                                            @error('login')
+                                                  <span class="invalid-feedback d-block" role="alert">
+                                                      <strong>{{ $message }}</strong>
+                                                  </span>
+                                            @enderror
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
