@@ -17,10 +17,10 @@ class CreateMediaTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('file');
-            $table->bigInteger('brand_id')->unsigned();
+            $table->bigInteger('brand_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
+            
         });
     }
 

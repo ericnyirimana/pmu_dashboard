@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Libraries\BasicToken;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
-use Cookie;
+use Session;
 
 class LoginController extends Controller
 {
@@ -49,7 +49,7 @@ class LoginController extends Controller
     public function logout()
     {
 
-        $this->resetCookies();
+        $this->deleteTokens();
 
         return redirect()->route('login');
 
@@ -94,9 +94,8 @@ class LoginController extends Controller
 
                 $token = (string) $response->getBody();
 
-                $this->setCookies($token);
+                $this->saveTokens($token);
 
-                dd($token);
                 return redirect()->route('dashboard.index');
           }
 
@@ -108,20 +107,30 @@ class LoginController extends Controller
 
 
 
-    public function setCookies($token) {
+    public function saveTokens(string $token) {
 
             $json = json_decode($token);
 
-            Cookie::queue(Cookie::forever('PMUAccessToken', $json->token->AccessToken));
-            Cookie::queue(Cookie::forever('PMURefreshToken', $json->token->RefreshToken));
+            Session::put('PMUAccessToken', $json->token->AccessToken);
+            Session::put('PMURefreshToken', $json->token->RefreshToken);
 
     }
 
 
-    public function resetCookies() {
+    public function deleteTokens() {
 
-            Cookie::queue(Cookie::forget('PMUAccessToken'));
-            Cookie::queue(Cookie::forget('PMURefreshToken'));
+            Session::put('PMUAccessToken', '');
+            Session::put('PMURefreshToken', '');
+
+    }
+
+
+    public function getCookies() {
+
+            $token = Session::get('PMUAccessToken');
+            $refresh = Session::get('PMURefreshToken');
+
+            return array($token, $refresh);
 
     }
 

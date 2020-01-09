@@ -12,7 +12,7 @@
 
 
             @php
-              /* Create default values if is empty */
+              #Create default values if is empty
               if ( empty($openingDay) ) {
 
                   isset($openingDay);
@@ -28,8 +28,8 @@
 
                   <div class="form-group box-hours">
                         <div class="input-group">
-                            <label>From: </label>
-                            <input type="text" id="from_{{ $day }}" name="openings[{{ $day }}][times][{{ $i }}][from]" class="form-control timepicker" value="{{ $opening['from'] }}" />
+                            <label for="from_{{ $day }}{{ $i }}">From: </label>
+                            <input type="text" id="from_{{ $day }}{{ $i }}" name="openings[{{ $day }}][times][{{ $i }}][from]" class="form-control timepicker" value="{{ $opening['from'] }}" />
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="mdi mdi-clock"></i></span>
                             </div>
@@ -38,8 +38,8 @@
 
                   <div class="form-group box-hours">
                       <div class="input-group">
-                          <label>To: </label>
-                          <input type="text" id="to_{{ $day }}" name="openings[{{ $day }}][times][{{ $i }}][to]" class="form-control timepicker" value="{{ $opening['to'] }}" />
+                          <label for="to_{{ $day }}{{ $i }}">To: </label>
+                          <input type="text" id="to_{{ $day }}{{ $i }}" name="openings[{{ $day }}][times][{{ $i }}][to]" class="form-control timepicker" value="{{ $opening['to'] }}" />
                           <div class="input-group-append">
                               <span class="input-group-text"><i class="mdi mdi-clock"></i></span>
                           </div>

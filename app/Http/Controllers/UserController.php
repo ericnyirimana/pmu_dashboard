@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Cookie;
 use Carbon\Carbon;
 
 
@@ -30,7 +30,12 @@ class UserController extends Controller
 
           $user = null;
 
+          $token = Cookie::get('PMUAccessToken');
+          $refresh = Cookie::get('PMURefreshToken');
+
           return view('admin.users.profile')
+          ->with( compact('token') )
+          ->with( compact('refresh') )
           ->with( compact('user') );
 
     }

@@ -78,6 +78,17 @@ class RestaurantController extends Controller
       }
 
 
+      public function show(Restaurant $restaurant) {
+
+            $brand = $restaurant->brand;
+
+            return view('admin.restaurants.view')
+            ->with( compact('restaurant') )
+            ->with( compact('brand') );
+
+      }
+
+
       public function edit(Brand $brand, Restaurant $restaurant) {
 
 
@@ -120,26 +131,26 @@ class RestaurantController extends Controller
 
       protected function saveOpeningsHours(int $restaurant, array $fields) {
 
-        // clean all openings hours
-        OpeningHour::where('restaurant_id', $restaurant)->delete();
+            // clean all openings hours
+            OpeningHour::where('restaurant_id', $restaurant)->delete();
 
-        foreach ($fields as $day => $list) {
+            foreach ($fields as $day => $list) {
 
-            $close = isset($list['closed']) ? true : false;
+                $close = isset($list['closed']) ? true : false;
 
-            foreach ($list['times'] as $time) {
+                foreach ($list['times'] as $time) {
 
-                OpeningHour::create([
-                  'restaurant_id' => $restaurant,
-                  'day_of_week'   => $day,
-                  'hour_from'     => $time['from'],
-                  'hour_to'       => $time['to'],
-                  'closed'        => $close
-                ]);
+                    OpeningHour::create([
+                      'restaurant_id' => $restaurant,
+                      'day_of_week'   => $day,
+                      'hour_from'     => $time['from'],
+                      'hour_to'       => $time['to'],
+                      'closed'        => $close
+                    ]);
+                }
+
+
             }
-
-
-        }
 
       }
 

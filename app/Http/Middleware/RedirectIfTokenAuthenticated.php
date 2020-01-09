@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Cookie;
+use Session;
 use Illuminate\Support\Facades\Auth;
 use App\Libraries\Cognito;
 
@@ -20,7 +20,7 @@ class RedirectIfTokenAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
 
-        $token = Cookie::get('PMUAccessToken');
+        $token = Session::get('PMUAccessToken');
 
         $client = new Cognito($token);
 

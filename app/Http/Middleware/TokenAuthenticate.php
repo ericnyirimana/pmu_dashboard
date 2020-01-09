@@ -19,9 +19,7 @@ class TokenAuthenticate
     public function handle($request, Closure $next)
     {
 
-
-        $token = Cookie::get('PMUAccessToken');
-
+        $token = session('PMUAccessToken');
 
         if (empty($token)) {
 
@@ -31,15 +29,9 @@ class TokenAuthenticate
 
         $client = new Cognito($token);
 
-        $client->refreshToken();
-
         if ($client->error) {
 
-          $client->resetCookies();
-
-          dd($client);
-
-          #return redirect()->route('login')->withErrors( $client->error );
+          return redirect()->route('login')->withErrors( $client->error );
 
         }
 

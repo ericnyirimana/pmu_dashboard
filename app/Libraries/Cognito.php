@@ -4,7 +4,8 @@ namespace App\Libraries;
 
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use GuzzleHttp\Client;
-use Cookie;
+use Session;
+use Carbon\Carbon;
 
 class Cognito
 {
@@ -50,9 +51,13 @@ class Cognito
 
             $this->token = $token;
 
+            if (!$token) return false;
+
             $client = $this->getClient();
 
             if ($client) {
+
+              $this->refreshExpiredToken();
 
               $this->getUser();
 
@@ -77,7 +82,6 @@ class Cognito
             } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
 
                   $message = $e->getResponse();
-
                   $this->error = $message->getHeaders()['x-amzn-ErrorMessage'][0];
 
                   return false;
@@ -176,10 +180,10 @@ class Cognito
             try {
                 $response = $guzzleClient->request('POST', 'http://pickmealup.com.dev7.21ilab.com/api/v1/token/refresh', [
                   'form_params' => [
-                    'refresh_token' => Cookie::get('PMURefreshToken')
+                    'refresh_token' => Session::get('PMURefreshToken')
                   ],
                   'headers' => [
-                     'Authorization' => 'Bearer ' . Cookie::get('PMUAccessToken')
+                     'Authorization' => 'Bearer ' . Session::get('PMUAccessToken')
                   ]
                ]);
              } catch (\GuzzleHttp\Exception\ClientException $e) {
@@ -205,7 +209,7 @@ class Cognito
 
                  $json = json_decode($token);
 
-                 Cookie::queue(Cookie::forever('PMUAccessToken', $json->token->AccessToken));
+                 Session::put('PMUAccessToken', $json->token->AccessToken);
 
            }
 
@@ -213,10 +217,53 @@ class Cognito
       }
 
 
-      public function resetCookies() {
+      public function refreshExpiredToken() {
 
-              Cookie::queue(Cookie::forget('PMUAccessToken'));
-              Cookie::queue(Cookie::forget('PMURefreshToken'));
+        $payload = $this->getPayload();
+
+        $dateToken = Carbon::createFromTimestamp($payload->exp);
+        $dateNow = Carbon::now('UTC');
+
+        $expired = $dateToken->lessThan($dateNow);
+
+        if ($expired === true) {
+
+            $this->refreshToken();
+
+        }
+
+        return true;
+
+
+      }
+
+
+      /**
+     * URL safe base64 decode.
+     *
+     * @param array|string $data
+     * @param bool         $asJson Whether to parse as JSON (defaults to true).
+     *
+     * @throws JWTException When JSON encode fails.
+     *
+     * @return array|\stdClass|string
+     */
+      protected function getPayload() {
+
+
+          $seqToken = explode('.', $this->token);
+          $data = $seqToken[1];
+          $data = \json_decode(\base64_decode(\strtr($data, '-_', '+/')));
+
+          return $data;
+      }
+
+
+
+      public function deleteTokens() {
+
+              Session::forget('PMUAccessToken');
+              Session::forget('PMURefreshToken');
 
       }
 

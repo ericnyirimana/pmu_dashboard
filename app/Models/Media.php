@@ -65,7 +65,12 @@ class Media extends Model
 
     public function getBrandNameAttribute() {
 
-          return $this->brand->name;
+          if (isset($this->brand)) {
+            return $this->brand->name;
+          }
+
+          return '';
+
 
     }
 

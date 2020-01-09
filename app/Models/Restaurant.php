@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Restaurant extends Model
 {
@@ -27,6 +28,12 @@ class Restaurant extends Model
     public function openingHours() {
 
           return $this->hasMany('App\Models\OpeningHour')->orderBy('hour_from');
+
+    }
+
+    public function closedDays() {
+
+          return $this->hasMany('App\Models\ClosedDay')->orderBy('date');
 
     }
 
@@ -87,6 +94,29 @@ class Restaurant extends Model
             }
 
             return $openings;
+
+    }
+
+
+    /**
+    * [
+    *  'monday' => [['from' => '10:00',  'to': '14:00']]
+    *  'tuesday' => []
+    * ]
+    *
+    **/
+    public function getListClosedDaysAttribute() {
+
+            $closedDays = array();
+
+            foreach ($this->closedDays as $item) {
+
+                  array_push($closedDays, ['name' => $item->name, 'date' => Carbon::create($item->date)->format('d-m-Y'), 'repeat' => $item->repeat ]);
+
+
+            }
+
+            return $closedDays;
 
     }
 

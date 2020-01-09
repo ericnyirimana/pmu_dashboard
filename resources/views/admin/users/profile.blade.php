@@ -2,6 +2,7 @@
 
 @section('content')
 
-    
+    {{ $token }} <br /> <br />
+    {{ $refresh }} <br />
 
 @endsection

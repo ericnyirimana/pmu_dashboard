@@ -60,18 +60,26 @@
             <hr />
             <h6 class="">Extraordinary close</h6>
             <div class="card-body">
-              <div class="col-12">
-                      <field-closed-days />
-              </div>
+                <div class="col-12">
+                        <field-closed-days :model="$restaurant" />
+                </div>
+            </div>
+
+            <hr />
+            <h6 class="">Gallery Restaurant</h6>
+            <div class="card-body">
+                <div class="col-12">
+                      <field-media :model="$restaurant" />
+                </div>
             </div>
 
 
           <div class="d-flex flex-row row card-body">
-            <div class="col-12">
-                  <div class="form-group">
-                      <button type="submit" class="btn btn-block w-lg btn-success float-right">Save</button>
-                  </div>
-            </div>
+              <div class="col-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block w-lg btn-success float-right">Save</button>
+                    </div>
+              </div>
           </div>
 
 
@@ -81,20 +89,6 @@
 @push('scripts')
 <script>
 $(document).ready(function(){
-
-      jQuery('.timepicker').timepicker({
-          defaultTIme: false,
-          showMeridian: false,
-          icons: {
-              up: 'mdi mdi-chevron-up',
-              down: 'mdi mdi-chevron-down'
-          }
-      });
-
-      jQuery('.datepicker').datepicker({
-          autoclose: true,
-          todayHighlight: true
-      });
 
       // add new time
       $(document).on('click', '.add_time', function(){
@@ -160,36 +154,7 @@ $(document).ready(function(){
       });
 
 
-      $(document).on('click', '.add_date', function() {
 
-
-        var box = $('.date_box.first_item').clone();
-
-        seq = $('.date_box').length;
-        box.removeClass('first_item');
-
-        box.find('.closing_name').attr('name', 'closings['+seq+'][name]');
-        box.find('.closing_date').attr('name', 'closings['+seq+'][date]');
-        box.find('.closing_repeat').attr('name', 'closings['+seq+'][repeat]');
-
-        $('.list_dates').append(box);
-
-
-
-
-
-      });
-
-      $(document).on('click', '.remove_date', function() {
-
-            var removeDate = $(this).parent();
-            if (removeDate.hasClass('first_item')) {
-                alert("You can`t remove the line");
-            } else {
-                removeDate.remove();
-            }
-
-      });
 
 });
 
@@ -198,5 +163,7 @@ function openTimeTable(name) {
   $('.setTime').hide();
   $('.set_'+name).show();
 }
+
+
 </script>
 @endpush

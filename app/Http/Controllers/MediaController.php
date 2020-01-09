@@ -16,7 +16,7 @@ class MediaController extends Controller
 
 
 
-      protected $folder = 'media/';
+      protected $folder = 'media';
 
 
       public function validation(Request $request, $media = null) {
@@ -25,7 +25,6 @@ class MediaController extends Controller
             [
               'file'  => (empty($media)?'required|':'').'file|mimes:jpeg,bmp,png',
               'name'  => 'required',
-              'brand_id'  => 'required|integer'
             ]
           );
 

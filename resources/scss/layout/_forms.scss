@@ -2,57 +2,57 @@ form {
 
     .form-group {
 
-      .fileupload {
+          .fileupload {
 
-          .box-image {
-              width: 100%;
-              min-height: 500px;
-              height: 100%;
-              background-color: #EEEEEE;
-              display: flex;
-              justify-content: center;
-              align-items: center;
+                .box-image {
+                    width: 100%;
+                    min-height: 500px;
+                    height: 100%;
+                    background-color: #EEEEEE;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
-          }
+                }
 
-          .box-image img {
-              width: 100%;
-              height: 100%;
-          }
+                .box-image img {
+                    width: 100%;
+                    height: 100%;
+                }
 
 
-          .btn-file, .btn-remove {
-              width: 100%;
-              margin-top: 20px;
-          }
+                .btn-file, .btn-remove {
+                    width: 100%;
+                    margin-top: 20px;
+                }
 
-        }
+            }
 
-        label {
-          color: #686f7a;
-          font-family: 'Roboto';
-          font-size: 18px;
-          font-size: 700;
-        }
+            label {
+              color: #686f7a;
+              font-family: 'Roboto';
+              font-size: 18px;
+              font-size: 700;
+            }
 
-        input, textarea, select {
-          font-family: 'Roboto';
-          font-size: 15px;
-        }
+            input, textarea, select {
+              font-family: 'Roboto';
+              font-size: 15px;
+            }
 
-        input::placeholder {
-          color: #CCCCCC;
-        }
+            input::placeholder {
+              color: #CCCCCC;
+            }
 
-        textarea {
-            min-height: 250px;
-            height: calc(100% - 95px);
-        }
+            textarea {
+                min-height: 250px;
+                height: calc(100% - 95px);
+            }
 
-        .switchery {
-          margin-left: 10px;
-          margin-right: 10px;
-        }
+            .switchery {
+              margin-left: 10px;
+              margin-right: 10px;
+            }
       }
 
       .mapModal {
@@ -61,15 +61,16 @@ form {
       }
 
       .setTime {
-        display: none;
-
-        .hideHours {
           display: none;
-        }
+
+          .hideHours {
+            display: none;
+          }
       }
       .setTime.keep_open {
         display: table;
       }
+
       .box-hours {
           margin-top: 10px;
           margin-right: 50px;
@@ -85,6 +86,7 @@ form {
               display: inline;
 
             }
+
           }
 
       }
@@ -93,6 +95,33 @@ form {
           height: 40px;
           margin-right: 15px;
           margin-bottom: 0;
+       }
+
+
+       .list-images {
+        display: flex;
+         figure {
+            width: 110px;
+            height: 110px;
+            margin: 1rem;
+            border: 1px solid black;
+            padding: 5px;
+            cursor: pointer;
+         }
+
+         .btn-add-image {
+           width: 110px;
+           height: 110px;
+           margin: 1rem;
+           display: flex;
+           justify-content: center;
+
+           span {
+             font-size: 30px;
+             margin: auto;
+             text-align: center;
+           }
+         }
        }
 }
 

@@ -10,41 +10,48 @@ class FileManager
 {
 
 
+      private static $sizes = [
+          'thumbnail' => ['folder' => 'thumbnail', 'w' => 300, 'h' => 200, 'type' => 'ratio'],
+          'small' => ['folder' => 'small', 'w' => 100, 'h' => 100, 'type' => 'crop'],
+          'medium' => ['folder' => 'medium', 'w' => 600, 'h' => null, 'type' => 'ratio']
+        ];
 
-      public static function saveImage( $folder , $image ): string {
+
+      public static function saveImage( string $mainFolder , $image ): string {
 
             $name = uniqid() . $image->getClientOriginalName();
 
-            Storage::disk('s3')->put( $folder . $name, file_get_contents($image) );
+            Storage::disk('s3')->put( $mainFolder . $name, file_get_contents($image) );
 
-            self::saveThumbnailImage( $folder, $name, $image );
-
-            self::saveMediumlImage( $folder , $name, $image );
-
+            foreach(self::$sizes as $key => $size) {
+                self::saveResizeImage( $key, $mainFolder, $name, $image );
+            }
 
 
             return $name;
       }
 
-      public static function saveThumbnailImage( $folder, $name, $image ){
 
-        $img = Image::make( $image );
 
-        $thumb = $img->fit(100, 100)->encode($image->getClientOriginalExtension());
 
-        Storage::disk('s3')->put( $folder . 'thumbnail/' . $name, $thumb->getEncoded() );
+      protected static function saveResizeImage( $size, $folder, $name, $image ){
 
-      }
+            $img = Image::make( $image );
 
-      public static function saveMediumlImage( $folder, $name, $image ) {
+            if (self::$sizes[$size]['type'] == 'crop') {
 
-          $img = Image::make( $image );
+                $file = $img->fit(self::$sizes[$size]['w'], self::$sizes[$size]['h'])->encode($image->getClientOriginalExtension());
 
-          $medium = $img->resize(1000, 1000, function ($constraint) {
-            $constraint->aspectRatio();
-          })->encode($image->getClientOriginalExtension());
+            } else {
 
-          Storage::disk('s3')->put($folder . 'medium/' . $name, $medium->getEncoded() );
+                $file = $img->resize(self::$sizes[$size]['w'], self::$sizes[$size]['h'], function ($constraint) {
+                    $constraint->aspectRatio();
+                })->encode($image->getClientOriginalExtension());
+
+            }
+
+
+            Storage::disk('s3')->put( $folder . '/' . self::$sizes[$size]['folder'] . '/' . $name, $file->getEncoded() );
 
 
       }
@@ -54,8 +61,11 @@ class FileManager
       public static function removeImage( $folder, $name ) {
 
         Storage::disk('s3')->delete($folder . $name);
-        Storage::disk('s3')->delete($folder . 'thumbnail/' . $name);
-        Storage::disk('s3')->delete($folder . 'medium/' . $name);
+
+        foreach(self::$sizes as $key => $size) {
+            Storage::disk('s3')->delete($folder . '/' . $size['folder'] . '/' . $name);
+        }
+
 
       }
 
