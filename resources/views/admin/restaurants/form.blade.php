@@ -85,6 +85,7 @@
 
 </tag-form>
 
+<modal-media :media="$media" />
 @endsection
 @push('scripts')
 <script>

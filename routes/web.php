@@ -44,4 +44,6 @@ Route::group(['middleware' => 'token'], function(){
 
 });
 
+Route::get('/media/image/{file}','MediaController@viewImageData');
+
 //Auth::routes();

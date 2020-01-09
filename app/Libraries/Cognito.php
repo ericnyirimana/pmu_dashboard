@@ -169,8 +169,9 @@ class Cognito
 
       public function hasValidToken() {
 
-          return  ($this->user) ? true : false;
+          return  $this->getUser() ? true : false;
       }
+
 
 
       public function refreshToken() {
@@ -178,14 +179,18 @@ class Cognito
             $guzzleClient = new Client();
 
             try {
-                $response = $guzzleClient->request('POST', 'http://pickmealup.com.dev7.21ilab.com/api/v1/token/refresh', [
-                  'form_params' => [
-                    'refresh_token' => Session::get('PMURefreshToken')
-                  ],
-                  'headers' => [
-                     'Authorization' => 'Bearer ' . Session::get('PMUAccessToken')
-                  ]
-               ]);
+
+                  $result = $this->client->InitiateAuth([
+                      'AuthFlow' => 'REFRESH_TOKEN_AUTH',
+                      'ClientId' => env('AWS_COGNITO_CLIENT_ID'),
+                      'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
+                      'AuthParameters' => [
+                          'REFRESH_TOKEN' => Session::get('PMURefreshToken'),
+                          'DEVICE_KEY' => null
+                      ],
+                  ]);
+
+
              } catch (\GuzzleHttp\Exception\ClientException $e) {
 
                   $this->error = trans('Token Not Authorized');
@@ -193,7 +198,7 @@ class Cognito
 
              } catch (\Symfony\Component\Debug\Exception\FatalThrowableError $e) {
 
-                  $this->error = $e;
+                  $this->error = 'error 1';
                   return false;
 
              } catch (\Exception $e) {
@@ -203,18 +208,20 @@ class Cognito
              }
 
 
-           if ($response->getStatusCode() == 200) {
+           if ($result) {
 
-                 $token = (string) $response->getBody();
+                 $authToken = $result->get('AuthenticationResult');
+                 $token = $authToken['AccessToken'];
 
-                 $json = json_decode($token);
+                 Session::put('PMUAccessToken', $authToken['AccessToken']);
 
-                 Session::put('PMUAccessToken', $json->token->AccessToken);
+                 $this->token = $authToken['AccessToken'];
 
            }
 
 
       }
+
 
 
       public function refreshExpiredToken() {
@@ -231,6 +238,7 @@ class Cognito
             $this->refreshToken();
 
         }
+
 
         return true;
 

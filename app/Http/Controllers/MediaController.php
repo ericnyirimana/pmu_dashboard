@@ -155,6 +155,32 @@ class MediaController extends Controller
       }
 
 
+      public function viewImageData(Request $request) {
+
+
+            $media = Media::where('file', $request->file)->first();
+
+            if ($media) {
+
+                $files = FileManager::getImage($this->folder, $media->file);
+
+                $image['id'] = $media->id;
+                $image['name'] = $media->name;
+                $image['brand_id'] = $media->brand_id;
+                $image['brand_id'] = $media->brand_id;
+                $image['files'] = $files;
+
+                return response()->json($image, 200);
+            } else {
+                return response()->json(['error' => 'No image found'], 404);
+            }
+
+
+
+
+      }
+
+
 
 
 }

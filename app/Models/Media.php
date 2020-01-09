@@ -11,7 +11,7 @@ class Media extends Model
 
     protected $fillable = ['brand_id', 'name', 'file'];
 
-    protected $appends = ['thumbnail', 'extension', 'brand_name'];
+    protected $appends = [ 'extension', 'brand_name'];
 
 
     public function brand() {
@@ -21,32 +21,16 @@ class Media extends Model
     }
 
 
+    public function media() {
 
-    public function getImageSize($size = 'original') {
+          return $this->hasMany('App\Models\Media');
 
-          switch($size) {
+    }
 
-              case 'original':
-                  $folder = 'media';
-              break;
 
-              case 'medium':
-                  $folder = 'media/medium/';
-              break;
+    public function getImageSize($size) {
 
-              case 'large':
-                  $folder = 'media/large/';
-              break;
-
-              case 'thumbnail':
-                  $folder = 'media/thumbnail/';
-              break;
-
-              default:
-                  $folder = 'media/';
-              break;
-
-          }
+          $folder = 'media/'.$size.'/';
 
           return Storage::disk('s3')->url($folder . $this->file);
 

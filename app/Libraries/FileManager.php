@@ -17,6 +17,22 @@ class FileManager
         ];
 
 
+
+        public static function getImage( string $mainFolder , $name ): array {
+
+              $files = array();
+              $files['original'] = Storage::disk('s3')->url($mainFolder . '/' . $name);
+
+              foreach(self::$sizes as $key => $size) {
+
+                  $files[ $key ] = Storage::disk('s3')->url($mainFolder . '/' . $size['folder'] . '/' . $name);
+              }
+
+
+              return $files;
+        }
+
+
       public static function saveImage( string $mainFolder , $image ): string {
 
             $name = uniqid() . $image->getClientOriginalName();

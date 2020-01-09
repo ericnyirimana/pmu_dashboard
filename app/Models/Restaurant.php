@@ -25,6 +25,13 @@ class Restaurant extends Model
 
     }
 
+
+    public function media() {
+
+          return $this->belongsToMany('App\Models\Media', 'restaurant_media');
+
+    }
+
     public function openingHours() {
 
           return $this->hasMany('App\Models\OpeningHour')->orderBy('hour_from');

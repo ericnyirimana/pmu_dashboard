@@ -106,6 +106,13 @@ form {
             margin: 1rem;
             border: 1px solid black;
             padding: 5px;
+
+         }
+         .delete-image {
+            color: red;
+            position: absolute;
+            font-size: 24px;
+            margin-top: -15px;
             cursor: pointer;
          }
 
@@ -115,7 +122,7 @@ form {
            margin: 1rem;
            display: flex;
            justify-content: center;
-
+           cursor: pointer;
            span {
              font-size: 30px;
              margin: auto;

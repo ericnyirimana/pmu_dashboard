@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Models\Restaurant;
 use App\Models\OpeningHour;
 use App\Models\ClosedDay;
+use App\Models\Media;
 
 use Carbon\Carbon;
 
@@ -69,6 +70,8 @@ class RestaurantController extends Controller
             $restaurant = Restaurant::create($fields);
 
             $this->saveOpeningsHours($restaurant->id, $openings);
+            $this->saveClosedDays($restaurant->id, $closings);
+            $this->saveMedia($restaurant, $request->media);
 
             return redirect()->route('brand.restaurants.index', $brand)->with([
                   'notification' => 'Restaurant saved with success!',
@@ -91,10 +94,12 @@ class RestaurantController extends Controller
 
       public function edit(Brand $brand, Restaurant $restaurant) {
 
+            $media = Media::whereNull('brand_id')->orWhere('brand_id', $restaurant->brand_id)->get();
 
             return view('admin.restaurants.form')->with([
               'restaurant'     => $restaurant,
               'brand'     => $brand,
+              'media'     => $media,
               ]);
 
       }
@@ -111,6 +116,7 @@ class RestaurantController extends Controller
             $openings = $fields['openings'];
             $closings = $fields['closings'];
 
+
             // remove from fields to not conflict with Restaurant fields
             unset($fields['openings']);
             unset($fields['closings']);
@@ -119,6 +125,7 @@ class RestaurantController extends Controller
 
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
+            $this->saveMedia($restaurant, $request->media);
 
             return redirect()->route('brand.restaurants.index', $brand)->with([
                   'notification' => 'Restaurant saved with success!',
@@ -160,19 +167,34 @@ class RestaurantController extends Controller
         // clean all openings hours
         ClosedDay::where('restaurant_id', $restaurant)->delete();
 
+
         foreach ($fields as $day => $list) {
 
             $repeat = isset($list['repeat']) ? true : false;
 
-            $closed = ClosedDay::create([
-              'restaurant_id' => $restaurant,
-              'name'          => $list['name'],
-              'date'          => Carbon::parse($list['date']),
-              'repeat'        => $repeat
-            ]);
+            if (!empty($list['name']) && !empty($list['date'])) {
+              $closed = ClosedDay::create([
+                'restaurant_id' => $restaurant,
+                'name'          => $list['name'],
+                'date'          => Carbon::parse($list['date']),
+                'repeat'        => $repeat
+              ]);
+          }
 
 
         }
+
+      }
+
+
+      protected function saveMedia(Restaurant $restaurant, $media) {
+
+        if (!empty($media)) {
+
+            $restaurant->media()->sync( array_unique($media) );
+
+        }
+
 
       }
 
