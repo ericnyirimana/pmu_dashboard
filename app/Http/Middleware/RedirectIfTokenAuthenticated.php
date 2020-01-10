@@ -24,6 +24,7 @@ class RedirectIfTokenAuthenticated
 
         $client = new Cognito($token);
 
+
         if ( $client->hasValidToken() ) {
 
               return redirect()->route('dashboard.index');

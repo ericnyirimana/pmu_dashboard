@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Libraries\BasicToken;
+use App\Libraries\Cognito;
+
+use App\Models\User;
+use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Carbon\Carbon;
 use Session;
+
 
 class LoginController extends Controller
 {
@@ -92,9 +96,14 @@ class LoginController extends Controller
 
           if ($response->getStatusCode() == 200) {
 
-                $token = (string) $response->getBody();
+                $tokens = (string) $response->getBody();
 
-                $this->saveTokens($token);
+                $this->saveTokens($tokens);
+
+                if ($this->checkUser($request, $tokens) == false) {
+
+                    return redirect()->route('login')->withErrors(['login' => 'Incorret login or password' ]);
+                }
 
                 return redirect()->route('dashboard.index');
           }
@@ -103,13 +112,14 @@ class LoginController extends Controller
 
 
 
+    /**
+     * Save Tokens in Session
+     *
+     * @return void
+     */
+    public function saveTokens(string $tokens) {
 
-
-
-
-    public function saveTokens(string $token) {
-
-            $json = json_decode($token);
+            $json = json_decode($tokens);
 
             Session::put('PMUAccessToken', $json->token->AccessToken);
             Session::put('PMURefreshToken', $json->token->RefreshToken);
@@ -117,6 +127,11 @@ class LoginController extends Controller
     }
 
 
+    /**
+     * Delete Tokens in session
+     *
+     * @return void
+     */
     public function deleteTokens() {
 
             Session::put('PMUAccessToken', '');
@@ -125,6 +140,11 @@ class LoginController extends Controller
     }
 
 
+    /**
+     * Get Tokens in session
+     *
+     * @return Array
+     */
     public function getCookies() {
 
             $token = Session::get('PMUAccessToken');
@@ -133,5 +153,46 @@ class LoginController extends Controller
             return array($token, $refresh);
 
     }
+
+
+
+    /**
+     * Align user from Cognito with user from Database
+     * If there is no user, create one
+     *
+     * @param Request $request
+     * @param Strint Token
+     *
+     * @return boolean/Json
+     */
+    protected function checkUser(Request $request, string $token) {
+
+          $client = new Cognito( Session::get('PMUAccessToken') );
+          $payload = $client->getPayload();
+
+          $user = User::where('email', $request->email)->first();
+
+          if (!$user) {
+
+              $user = new User;
+              $user->email = $request->email;
+              $user->password = bcrypt($request->password);
+              $user->sub = $payload->sub;
+              $user->save();
+
+          } else {
+
+              $user->password = bcrypt($request->password);
+              $user->save();
+          }
+
+          if ($user->role != 'PMU' && $user->role != '21ILAB') {
+            return false;
+          }
+
+          return true;
+
+    }
+
 
 }

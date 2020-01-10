@@ -24,12 +24,6 @@ class Cognito
       private $token;
 
       /**
-      * User Data from CognitoIdentityProviderClient getUser
-      * @var Object
-      */
-      public $user;
-
-      /**
       * User Attributes from CognitoIdentityProviderClient getUser->get('UserAttributes')
       * @var Array
       */
@@ -51,7 +45,7 @@ class Cognito
 
             $this->token = $token;
 
-            if (!$token) return false;
+            if (!$this->token) return false;
 
             $client = $this->getClient();
 
@@ -104,18 +98,21 @@ class Cognito
 
 
 
-      private function getUser() {
+      public function getUser() {
+
+            $payload = $this->getPayload();
 
             try {
 
-              $user = $this->client->getUser([
-                'AccessToken' => $this->token
+              $client = $this->client->adminGetUser([
+                  'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
+                  'Username' => $payload->username,
               ]);
 
             } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
 
                   $message = $e->getResponse();
-                  $this->error = $message->getHeaders()['x-amzn-ErrorMessage'][0];
+                  $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
                   return false;
 
 
@@ -126,10 +123,36 @@ class Cognito
 
             }
 
-            $this->user = $user;
-            $this->UserAttributes = $user->get('UserAttributes');
+            $this->UserAttributes = $client->get('UserAttributes');
 
-            return $user;
+            return $client;
+
+
+      }
+
+
+      public function updateUser($attributes) {
+
+          $UserAttributes = array();
+
+          foreach($attributes as $key=>$attr) {
+
+            $fieldAttr = [
+                'Name' => 'custom:'.$key,
+                'Value' => $attr,
+            ];
+
+            array_push($UserAttributes, $fieldAttr);
+
+        }
+
+
+        $result = $this->client->adminUpdateUserAttributes([
+
+            'UserAttributes' => $UserAttributes,
+            'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
+            'Username' => $user->sub,
+        ]);
 
 
       }
@@ -147,7 +170,7 @@ class Cognito
 
 
 
-      private function search($search) {
+      public function search($search) {
 
           $attributes = $this->UserAttributes;
 
@@ -166,10 +189,14 @@ class Cognito
       }
 
 
-
+      /**
+      * Verify if Token is valid and user exists
+      *
+      * @return Boolean
+      */
       public function hasValidToken() {
 
-          return  $this->getUser() ? true : false;
+          return  ( $this->token && $this->getUser() ) ? true : false;
       }
 
 
@@ -226,21 +253,21 @@ class Cognito
 
       public function refreshExpiredToken() {
 
-        $payload = $this->getPayload();
+            $payload = $this->getPayload();
 
-        $dateToken = Carbon::createFromTimestamp($payload->exp);
-        $dateNow = Carbon::now('UTC');
+            $dateToken = Carbon::createFromTimestamp($payload->exp);
+            $dateNow = Carbon::now('UTC');
 
-        $expired = $dateToken->lessThan($dateNow);
+            $expired = $dateToken->lessThan($dateNow);
 
-        if ($expired === true) {
+            if ($expired === true) {
 
-            $this->refreshToken();
+                $this->refreshToken();
 
-        }
+            }
 
 
-        return true;
+            return true;
 
 
       }
@@ -256,7 +283,7 @@ class Cognito
      *
      * @return array|\stdClass|string
      */
-      protected function getPayload() {
+      public function getPayload() {
 
 
           $seqToken = explode('.', $this->token);

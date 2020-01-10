@@ -19,27 +19,42 @@ class TokenAuthenticate
     public function handle($request, Closure $next)
     {
 
-        $token = session('PMUAccessToken');
+          $token = session('PMUAccessToken');
 
-        if (empty($token)) {
+          if (empty($token)) {
 
-          return redirect()->route('login');
+            return redirect()->route('login');
 
-        }
+          }
 
-        $client = new Cognito($token);
+          $client = new Cognito($token);
 
-        if ($client->error) {
+          if ($client->error) {
 
-          return redirect()->route('login')->withErrors( $client->error );
+            $client->deleteTokens();
 
-        }
+            return redirect()->route('login')->withErrors( $client->error );
+
+          }
 
 
-        $this->callView($client);
+          $attributes = $client->UserAttributes;
+
+          $role = $client->search('custom:role');
+
+          if ( !$role == 'PMU' || !$role == '21ILAB') {
+
+              $client->deleteTokens();
+
+              return redirect()->route('login')->withErrors( 'User with no Permission' );
+
+          }
 
 
-         return $next($request);
+          $this->callView($client);
+
+          return $next($request);
+
     }
 
 
