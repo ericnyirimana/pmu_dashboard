@@ -17,14 +17,14 @@ return [
             ],
         ],
         'Categories' => [
-            'icon' => 'fi-list-ul',
+            'icon' => 'fi-align-center',
             'routes' => [
                 'List' => 'categories.index',
                 'New' => 'categories.create',
             ],
         ],
         'Restaurants' => [
-            'icon' => 'fi-cutlery',
+            'icon' => 'fi-paper',
             'routes' => [
                 'List' => 'restaurants.index',
                 'New' => 'restaurants.create',
