@@ -10,6 +10,9 @@
 <tag-form file :action="route('media.store')">
 @endif
       <div class="d-flex flex-row row">
+          <div class="col-12 mb-3">
+              <a href="{{ route('media.index') }}" class="btn btn-md w-lg btn-secondary float-left">Back</a>
+          </div>
           <div class="col-md-12 col-lg-6">
 
               <field-image label="File" field="file" :model="$media" required="new" />

@@ -44,10 +44,12 @@ class RestaurantController extends Controller
       public function create(Brand $brand) {
 
             $restaurant = null;
+            $media = Media::whereNull('brand_id')->orWhere('brand_id', $brand->id)->get();
 
             return view('admin.restaurants.form')->with([
               'brand'     => $brand,
               'restaurant'     => $restaurant,
+              'media'     => $media,
               ]);
 
       }
@@ -94,7 +96,7 @@ class RestaurantController extends Controller
 
       public function edit(Brand $brand, Restaurant $restaurant) {
 
-            $media = Media::whereNull('brand_id')->orWhere('brand_id', $restaurant->brand_id)->get();
+            $media = Media::whereNull('brand_id')->orWhere('brand_id', $brand->id)->get();
 
             return view('admin.restaurants.form')->with([
               'restaurant'     => $restaurant,

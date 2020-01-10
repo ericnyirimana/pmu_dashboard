@@ -11,7 +11,7 @@ class FileManager
 
 
       private static $sizes = [
-          'thumbnail' => ['folder' => 'thumbnail', 'w' => 300, 'h' => 200, 'type' => 'ratio'],
+          'thumbnail' => ['folder' => 'thumbnail', 'w' => 300, 'h' => 200, 'type' => 'crop'],
           'small' => ['folder' => 'small', 'w' => 100, 'h' => 100, 'type' => 'crop'],
           'medium' => ['folder' => 'medium', 'w' => 600, 'h' => null, 'type' => 'ratio']
         ];
