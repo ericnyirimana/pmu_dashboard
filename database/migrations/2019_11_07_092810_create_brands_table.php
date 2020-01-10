@@ -26,7 +26,7 @@ class CreateBrandsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('owner_id')->references('id')->on('operators');
+            $table->foreign('owner_id')->references('id')->on('users');
         });
     }
 
