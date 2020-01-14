@@ -30,7 +30,7 @@
 
                 <field-text label="Corporate Name" field="corporate_name" :model="$category" required  />
 
-                <field-select label="Owner" field="owner" type="relation" :model="$category" :values="$operators" foreignid="owner_id" />
+                <field-select label="Owner" field="owner" type="relation" :model="$category" :values="$users" foreignid="owner_id" />
 
                 <field-area label="Description" field="description" :model="$category"  />
 

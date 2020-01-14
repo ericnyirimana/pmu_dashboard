@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Brand;
-use App\Models\Operator;
+use App\Models\User;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Image;
@@ -44,11 +44,11 @@ class BrandController extends Controller
       public function create() {
 
             $brand = null;
-            $operators = Operator::all();
+            $users = User::all();
 
             return view('admin.brands.form')->with([
               'brand'     => $brand,
-              'operators' => $operators
+              'users' => $users
             ]
             );
 
@@ -78,11 +78,11 @@ class BrandController extends Controller
 
       public function show(Brand $brand) {
 
-            $operators = Operator::all();
+            $users = User::all();
 
             return view('admin.brands.view')->with([
               'brand'     => $brand,
-              'operators' => $operators
+              'users' => $users
             ]
             );
 
@@ -91,11 +91,11 @@ class BrandController extends Controller
 
       public function edit(Brand $brand) {
 
-            $operators = Operator::all();
+            $users = User::all();
 
             return view('admin.brands.form')->with([
               'brand'     => $brand,
-              'operators' => $operators
+              'users' => $users
             ]
             );
 

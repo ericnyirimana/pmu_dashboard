@@ -30,7 +30,7 @@
 
                 <field-text label="Corporate Name" field="corporate_name" :model="$brand" required  />
 
-                <field-select label="Owner" field="owner" type="relation" :model="$brand" :values="$operators" foreignid="owner_id" />
+                <field-select label="Owner" field="owner" type="relation" :model="$brand" :values="$users" foreignid="owner_id" />
 
                 <field-area label="Description" field="description" :model="$brand"  />
 
