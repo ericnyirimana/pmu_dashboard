@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\User;
 
 class CategoryController extends Controller
 {
@@ -36,11 +37,11 @@ class CategoryController extends Controller
       public function create() {
 
             $brand = null;
-            $operators = Operator::all();
+            $users = User::all();
 
             return view('admin.categories.form')->with([
               'brand'     => $brand,
-              'operators' => $operators
+              'users' => $users
             ]
             );
 
@@ -70,24 +71,24 @@ class CategoryController extends Controller
 
       public function show(Category $brand) {
 
-            $operators = Operator::all();
+            $users = User::all();
 
             return view('admin.categories.view')->with([
               'brand'     => $brand,
-              'operators' => $operators
+              'users' => $users
             ]
             );
 
       }
 
 
-      public function edit(Category $brand) {
+      public function edit(Category $category) {
 
-            $operators = Operator::all();
+            $users = User::all();
 
             return view('admin.categories.form')->with([
-              'brand'     => $brand,
-              'operators' => $operators
+              'category' => $category,
+              'users' => $users
             ]
             );
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Libraries\BasicToken;
 use App\Libraries\Cognito;
@@ -72,40 +73,26 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-          $client = new Client();
+          $client = new Cognito();
 
-          $authToken = BasicToken::generate();
+          $credentials = $request->only('email', 'password');
 
+          $response = $client->authenticate($credentials);
 
-           try {
-               $response = $client->request('POST', 'http://pickmealup.com.dev7.21ilab.com/api/v1/token/login', [
-                 'form_params' => [
-                   'username' => $request->email,
-                   'password' => $request->password
-                 ],
-                 'headers' => [
-                    'Authorization' => 'Bearer ' . $authToken
-                 ]
-              ]);
-            } catch (\GuzzleHttp\Exception\ClientException $e) {
-
-                  return redirect()->route('login')->withErrors(['login' => 'Incorret login or password' ]);
-
-            }
+          if ($client->error) {
+              return redirect()->route('login')->withErrors(['login' => 'Incorret login or password' ]);
+          }
 
 
-          if ($response->getStatusCode() == 200) {
+          if ($response) {
 
-                $tokens = (string) $response->getBody();
+                if (Auth::attempt($credentials)) {
 
-                $this->saveTokens($tokens);
-
-                if ($this->checkUser($request, $tokens) == false) {
-
-                    return redirect()->route('login')->withErrors(['login' => 'Incorret login or password' ]);
+                    
+                    return redirect()->route('dashboard.index');
                 }
 
-                return redirect()->route('dashboard.index');
+
           }
 
     }
@@ -167,17 +154,24 @@ class LoginController extends Controller
      */
     protected function checkUser(Request $request, string $token) {
 
-          $client = new Cognito( Session::get('PMUAccessToken') );
-          $payload = $client->getPayload();
+          $client = new Cognito();
+
+          $client->connect( Session::get('PMUAccessToken') );
+
+          $cognitoUser = $client->user();
 
           $user = User::where('email', $request->email)->first();
 
           if (!$user) {
 
+
               $user = new User;
               $user->email = $request->email;
               $user->password = bcrypt($request->password);
-              $user->sub = $payload->sub;
+              $user->sub = $cognitoUser['sub'];
+              $user->role = $cognitoUser['role'];
+              $user->profile = json_encode($cognitoUser);
+
               $user->save();
 
           } else {
@@ -186,7 +180,8 @@ class LoginController extends Controller
               $user->save();
           }
 
-          if ($user->role != 'PMU' && $user->role != '21ILAB') {
+
+          if ($user->role == 'PMU' || $user->role == '21ILAB') {
             return false;
           }
 

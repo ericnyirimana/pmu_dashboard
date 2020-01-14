@@ -41,17 +41,26 @@ class Cognito
       * Call Cognito Provider
       * @var String
       */
-      public function __construct($token) {
+      public function __construct() {
+
+            $this->getClient();
+
+            return $this;
+
+      }
+
+
+      /**
+      * Call Cognito Provider
+      * @var String
+      */
+      public function connect($token) {
 
             $this->token = $token;
 
             if (!$this->token) return false;
 
-            $client = $this->getClient();
-
             if ($client) {
-
-              $this->refreshExpiredToken();
 
               $this->getUser();
 
@@ -93,6 +102,37 @@ class Cognito
 
             return $client;
 
+
+      }
+
+
+      public function authenticate(array $credentials)
+      {
+
+            $client = $this->client;
+
+      
+              try {
+                  $result = $client->adminInitiateAuth([
+                      'AuthFlow' => 'ADMIN_NO_SRP_AUTH',
+                      'ClientId' => env('AWS_COGNITO_CLIENT_ID'),
+                      'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
+                      'AuthParameters' => [
+                          'USERNAME' => $credentials['email'],
+                          'PASSWORD' => $credentials['password'],
+                      ],
+                  ]);
+
+
+              } catch (\Exception $e) {
+
+                $this->error = 'Incorrect username or password.';
+
+                return false;
+
+              }
+
+              return ['token' => $result->get('AuthenticationResult')];
 
       }
 
@@ -160,9 +200,14 @@ class Cognito
 
       public function user() {
 
-            $user = new \StdClass;
-            $user->name   = $this->search('name');
-            $user->email  = $this->search('email');
+            $user = array();
+
+            foreach(config('cognito.UserAttributes') as $attribute) {
+
+                  $item = str_replace('custom:', '', $attribute);
+                  $user[$item] = $this->search($attribute);
+
+            }
 
             return $user;
 

@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 
 use App\Libraries\Cognito;
+use App\Models\User;
 use Closure;
 use Cookie;
 
@@ -27,7 +28,8 @@ class TokenAuthenticate
 
           }
 
-          $client = new Cognito($token);
+          $client = new Cognito();
+          $client->connect($token);
 
           if ($client->error) {
 
@@ -38,22 +40,23 @@ class TokenAuthenticate
           }
 
 
-          $attributes = $client->UserAttributes;
+          $cognitoUser = $client->user();
 
-          $role = $client->search('custom:role');
+          if ( $cognitoUser['role'] == 'PMU' || $cognitoUser['role'] == '21ILAB') {
 
-          if ( !$role == 'PMU' || !$role == '21ILAB') {
+              $this->callView($cognitoUser);
 
-              $client->deleteTokens();
+              return $next($request);
 
-              return redirect()->route('login')->withErrors( 'User with no Permission' );
+
+          } else {
+
+            $client->deleteTokens();
+
+            return redirect()->route('login')->withErrors( 'User with no Permission' );
 
           }
 
-
-          $this->callView($client);
-
-          return $next($request);
 
     }
 
@@ -63,7 +66,7 @@ class TokenAuthenticate
 
         view()->composer('admin.layouts.topbar', function ($view)  use ($client) {
 
-              $operator = $client->user();
+              $operator = User::where('sub', $client['sub'])->first();
 
               $view->with(compact('operator'));
         });

@@ -14,11 +14,11 @@
 Route::get('/cookie/set','CookieController@setCookie');
 Route::get('/cookie/get','CookieController@getCookie');
 
-Route::get('login', 'Auth\LoginController@index')->name('login')->middleware('validToken');
+Route::get('login', 'Auth\LoginController@index')->name('login')->middleware('guest');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('login', 'Auth\LoginController@login')->name('authenticate');
 
-Route::group(['middleware' => 'token'], function(){
+Route::group(['middleware' => 'auth'], function(){
 
   Route::get('/', 'DashboardController@index')->name('dashboard.index');
 

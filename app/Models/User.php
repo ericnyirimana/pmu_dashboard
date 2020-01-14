@@ -30,9 +30,27 @@ class User extends Authenticatable
 
 
 
-    public function getFullNameAttribute() {
+    protected function getJsonAttributes() {
 
-          return $this->name . ' ' . $this->last_name;
+          return json_decode($this->profile);
+
+
+    }
+
+
+
+    public function getNameAttribute() {
+
+          $profile = $this->getJsonAttributes();
+          return $profile->name;
+
+    }
+
+
+    public function getRoleAttribute() {
+
+          $profile = $this->getJsonAttributes();
+          return $profile->role;
 
     }
 

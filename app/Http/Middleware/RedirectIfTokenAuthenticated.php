@@ -22,7 +22,8 @@ class RedirectIfTokenAuthenticated
 
         $token = Session::get('PMUAccessToken');
 
-        $client = new Cognito($token);
+        $client = new Cognito();
+        $client->connect($token);
 
 
         if ( $client->hasValidToken() ) {
