@@ -18,7 +18,7 @@ Route::get('login', 'Auth\LoginController@index')->name('login')->middleware('gu
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('login', 'Auth\LoginController@login')->name('authenticate');
 
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => ['auth', 'user.roles']], function(){
 
   Route::get('/', 'DashboardController@index')->name('dashboard.index');
 

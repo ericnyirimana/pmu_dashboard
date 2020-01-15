@@ -4,7 +4,6 @@ namespace App\Libraries;
 
 use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
 use GuzzleHttp\Client;
-use Session;
 use Carbon\Carbon;
 
 class Cognito
@@ -60,7 +59,7 @@ class Cognito
 
             if (!$this->token) return false;
 
-            if ($client) {
+            if ($this->client) {
 
               $this->getUser();
 
@@ -105,13 +104,17 @@ class Cognito
 
       }
 
-
+      /**
+      * Autheticate user
+      *
+      * @return Boolean|Array
+      */
       public function authenticate(array $credentials)
       {
 
             $client = $this->client;
 
-      
+
               try {
                   $result = $client->adminInitiateAuth([
                       'AuthFlow' => 'ADMIN_NO_SRP_AUTH',
@@ -138,6 +141,11 @@ class Cognito
 
 
 
+      /**
+      * Get User from Cognito
+      *
+      * @return Boolean|CognitoIdentityProviderClient
+      */
       public function getUser() {
 
             $payload = $this->getPayload();
@@ -171,41 +179,87 @@ class Cognito
       }
 
 
-      public function updateUser($attributes) {
+      /**
+      * List all Users from Cognito
+      *
+      * @return Boolean|CognitoIdentityProviderClient
+      */
+      public function listUser() {
+
+            try {
+
+              $response = $this->client->ListUsers([
+                  'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID')
+              ]);
+
+            } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+                  $message = $e->getResponse();
+                  $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+                  return false;
+
+
+            } catch (\Exception $e) {
+
+                  $this->error = $e->getMessage();
+                  return false;
+
+            }
+
+            return $response;
+
+      }
+
+
+      /**
+      * Save attributes to Cognito User
+      *
+      * @return Boolean
+      */
+      public function setAttributes($username, $attributes) {
+
 
           $UserAttributes = array();
 
           foreach($attributes as $key=>$attr) {
 
-            $fieldAttr = [
-                'Name' => 'custom:'.$key,
-                'Value' => $attr,
-            ];
+            #do not update email
+            if ($key != 'email') {
 
-            array_push($UserAttributes, $fieldAttr);
+              $fieldAttr = [
+                  'Name' => ($key=='name') ? $key : 'custom:'.$key,
+                  'Value' => $attr,
+              ];
+
+              array_push($UserAttributes, $fieldAttr);
+            }
 
         }
-
 
         $result = $this->client->adminUpdateUserAttributes([
 
             'UserAttributes' => $UserAttributes,
             'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
-            'Username' => $user->sub,
+            'Username' => $username,
         ]);
 
 
       }
 
 
+      /**
+      * Create User object in array from Cognito user
+      *
+      * @return Arrat
+      */
       public function user() {
 
             $user = array();
 
-            foreach(config('cognito.UserAttributes') as $attribute) {
+            foreach(config('cognito.user_attributes') as $attribute) {
 
                   $item = str_replace('custom:', '', $attribute);
-                  $user[$item] = $this->search($attribute);
+                  $user[$item] = $this->search($attribute, $this->UserAttributes);
 
             }
 
@@ -215,9 +269,12 @@ class Cognito
 
 
 
-      public function search($search) {
-
-          $attributes = $this->UserAttributes;
+      /**
+      * Return value from Cognito attributes
+      *
+      * @return String
+      */
+      public function search($search, $attributes) {
 
           foreach($attributes as $key=>$attr) {
 
@@ -229,7 +286,7 @@ class Cognito
 
           }
 
-          return false;
+          return null;
 
       }
 
@@ -246,7 +303,12 @@ class Cognito
 
 
 
-      public function refreshToken() {
+      /**
+      * Refresh Token
+      *
+      * @return Boolean
+      */
+      public function refreshToken( $refreshToken ) {
 
             $guzzleClient = new Client();
 
@@ -257,7 +319,7 @@ class Cognito
                       'ClientId' => env('AWS_COGNITO_CLIENT_ID'),
                       'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
                       'AuthParameters' => [
-                          'REFRESH_TOKEN' => Session::get('PMURefreshToken'),
+                          'REFRESH_TOKEN' => $refreshToken,
                           'DEVICE_KEY' => null
                       ],
                   ]);
@@ -285,9 +347,9 @@ class Cognito
                  $authToken = $result->get('AuthenticationResult');
                  $token = $authToken['AccessToken'];
 
-                 Session::put('PMUAccessToken', $authToken['AccessToken']);
-
                  $this->token = $authToken['AccessToken'];
+
+                 return true;
 
            }
 
@@ -295,7 +357,11 @@ class Cognito
       }
 
 
-
+      /**
+      * Check if $payload is expired, refresh if necessary
+      *
+      * @return Boolean
+      */
       public function refreshExpiredToken() {
 
             $payload = $this->getPayload();
@@ -338,13 +404,5 @@ class Cognito
           return $data;
       }
 
-
-
-      public function deleteTokens() {
-
-              Session::forget('PMUAccessToken');
-              Session::forget('PMURefreshToken');
-
-      }
 
 }

@@ -64,7 +64,7 @@
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                     <!-- item-->
                     <div class="dropdown-item noti-title">
-                        <h5 class="text-overflow"><small>Welcome {{ $operator->name }}!</small> </h5>
+                        <h5 class="text-overflow"><small>Welcome, {{ Auth::user()->name }}!</small> </h5>
                     </div>
 
                     <!-- item-->

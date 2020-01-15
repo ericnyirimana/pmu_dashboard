@@ -53,9 +53,7 @@ class LoginController extends Controller
      */
     public function logout()
     {
-
-        $this->deleteTokens();
-
+        Auth::logout();
         return redirect()->route('login');
 
 
@@ -75,69 +73,36 @@ class LoginController extends Controller
 
           $client = new Cognito();
 
+          #connect with Cognito
           $credentials = $request->only('email', 'password');
 
           $response = $client->authenticate($credentials);
 
           if ($client->error) {
-              return redirect()->route('login')->withErrors(['login' => 'Incorret login or password' ]);
+
+              return redirect()->route('login')->withErrors(['login' => 'Incorret login or password.' ]);
           }
 
 
           if ($response) {
 
-                if (Auth::attempt($credentials)) {
+                $token = $response['token']['AccessToken'];
 
-                    
+                #align user from Cognito
+                $sync = $this->alignUserFromCognito($request, $token);
+
+                #if Authenticate with cognito, connect with normal DB
+                #The user from DB is a clone from Cognito, it copies every time it log
+                if ($sync && Auth::attempt($credentials, $request->remember)) {
+
                     return redirect()->route('dashboard.index');
+                } else {
+
+                    return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.' ]);
                 }
 
 
           }
-
-    }
-
-
-
-    /**
-     * Save Tokens in Session
-     *
-     * @return void
-     */
-    public function saveTokens(string $tokens) {
-
-            $json = json_decode($tokens);
-
-            Session::put('PMUAccessToken', $json->token->AccessToken);
-            Session::put('PMURefreshToken', $json->token->RefreshToken);
-
-    }
-
-
-    /**
-     * Delete Tokens in session
-     *
-     * @return void
-     */
-    public function deleteTokens() {
-
-            Session::put('PMUAccessToken', '');
-            Session::put('PMURefreshToken', '');
-
-    }
-
-
-    /**
-     * Get Tokens in session
-     *
-     * @return Array
-     */
-    public function getCookies() {
-
-            $token = Session::get('PMUAccessToken');
-            $refresh = Session::get('PMURefreshToken');
-
-            return array($token, $refresh);
 
     }
 
@@ -150,44 +115,45 @@ class LoginController extends Controller
      * @param Request $request
      * @param Strint Token
      *
-     * @return boolean/Json
+     * @return boolean
      */
-    protected function checkUser(Request $request, string $token) {
+    protected function alignUserFromCognito(Request $request, $token) {
 
           $client = new Cognito();
 
-          $client->connect( Session::get('PMUAccessToken') );
+          $client->connect( $token );
 
           $cognitoUser = $client->user();
 
           $user = User::where('email', $request->email)->first();
 
+          #If no user, create instance based on email
           if (!$user) {
-
-
               $user = new User;
               $user->email = $request->email;
-              $user->password = bcrypt($request->password);
-              $user->sub = $cognitoUser['sub'];
-              $user->role = $cognitoUser['role'];
-              $user->profile = json_encode($cognitoUser);
 
-              $user->save();
-
-          } else {
-
-              $user->password = bcrypt($request->password);
-              $user->save();
           }
 
+          #Update all information from Cognito, it ensures to have Cognito and DB aligned
+          $user->password = bcrypt($request->password);
+          $user->sub = $cognitoUser['sub'];
+          $user->role = $cognitoUser['role'];
+          $user->profile = json_encode($cognitoUser);
 
-          if ($user->role == 'PMU' || $user->role == '21ILAB') {
-            return false;
+          $user->save();
+
+          if ($user) {
+              return true;
           }
 
-          return true;
+          return false;
+
 
     }
+
+
+
+
 
 
 }

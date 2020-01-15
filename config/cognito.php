@@ -18,12 +18,19 @@ return [
         'name',
         'email',
     ],
-    'sso_user_model'        => 'App\Models\Operator',
+    'sso_user_model'        => 'App\Models\User',
     'delete_user'           => env('AWS_COGNITO_DELETE_USER', false),
-    'UserAttributes'        => [
+    'user_attributes'        => [
         'name',
         'email',
-        'custom:role',
-        'sub'
+        'custom:role'
+    ],
+    'roles' => [
+      'ADMIN',
+      'PMU',
+      'OWNER',
+      'RESTAURATEUR',
+      'CUSTOMER'
     ]
+
 ];
