@@ -85,17 +85,17 @@
                                 </form>
 
                             </div>
-                        </div>
-                    </div>
-                    <!-- end card-box-->
+                      </div>
+                  </div>
+                  <!-- end card-box-->
 
 
-                </div>
-                <!-- end wrapper -->
+              </div>
+              <!-- end wrapper -->
 
-            </div>
-        </div>
-    </div>
-  </section>
+          </div>
+      </div>
+  </div>
+</section>
   <!-- END HOME -->
   @endsection

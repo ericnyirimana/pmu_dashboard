@@ -17,6 +17,8 @@ Route::get('/cookie/get','CookieController@getCookie');
 Route::get('login', 'Auth\LoginController@index')->name('login')->middleware('guest');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('login', 'Auth\LoginController@login')->name('authenticate');
+Route::get('set-password', 'Auth\LoginController@setPassword')->name('password.set');
+Route::post('confirm-password', 'Auth\LoginController@confirmPassword')->name('password.confirm');
 
 Route::group(['middleware' => ['auth', 'user.roles']], function(){
 

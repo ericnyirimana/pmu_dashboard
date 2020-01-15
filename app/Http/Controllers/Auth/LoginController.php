@@ -40,6 +40,7 @@ class LoginController extends Controller
     public function index()
     {
 
+
         return view('auth.login');
 
     }
@@ -60,9 +61,6 @@ class LoginController extends Controller
     }
 
 
-
-
-
     /**
      * Create a new controller instance.
      *
@@ -71,11 +69,10 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
-          $client = new Cognito();
-
           #connect with Cognito
           $credentials = $request->only('email', 'password');
 
+          $client = new Cognito();
           $response = $client->authenticate($credentials);
 
           if ($client->error) {
@@ -85,8 +82,15 @@ class LoginController extends Controller
 
           if ($client->forceResetPassword) {
 
-              # MUST SEND TO SET PASSWORD TO UPDATE THE PASSWORD CORRECTLY
-              $client->updatePassword($request->email, '21iLAB2020!');
+              $data = [
+                  'ChallengeName'     => $response->get('ChallengeName'),
+                  'challengeSession'  => $response->get('Session'),
+                  'sub'               => $response->get('ChallengeParameters')['USER_ID_FOR_SRP'],
+                  'email'             => $request->email
+                ];
+
+              return redirect()->route('password.set')->with($data);
+
 
           }
 
@@ -104,11 +108,62 @@ class LoginController extends Controller
                     return redirect()->route('dashboard.index');
                 } else {
 
-                    return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.' ]);
+                    return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
                 }
 
-
           }
+
+    }
+
+
+
+    /**
+     * View page index
+     *
+     * @return void
+     */
+    public function setPassword()
+    {
+
+        Session::flash('ChallengeName', Session::get('ChallengeName'));
+        Session::flash('challengeSession', Session::get('challengeSession'));
+        Session::flash('sub', Session::get('sub'));
+        Session::flash('email', Session::get('email'));
+
+        return view('auth.passwords.confirm');
+
+    }
+
+
+    /**
+     * View page index
+     *
+     * @return void
+     */
+    public function confirmPassword(Request $request)
+    {
+
+        $data = ['ChallengeName' => Session::get('ChallengeName'), 'challengeSession' => Session::get('challengeSession'), 'sub' => Session::get('sub'), 'email' => Session::get('email')];
+
+        if ($request->password != $request->confirm_password) {
+
+              return redirect()->route('password.set')->withErrors(['password' => 'The password does not match.' ])->with($data);
+
+        }
+
+        $client = new Cognito();
+        $respond = ['NEW_PASSWORD' => $request->password, 'USERNAME' => $data['sub']];
+
+        $result = $client->challengeRespond($data['ChallengeName'], $respond, $data['challengeSession']);
+
+        if ($client->error) {
+          return redirect()->route('password.set')->withErrors(['password' => $client->error])->with($data);
+        }
+
+        $sendRequest = new Request(['email' => $data['email'], 'password' => $request->password]);
+
+        return $this->login($sendRequest);
+
 
     }
 

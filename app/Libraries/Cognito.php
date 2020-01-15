@@ -118,9 +118,11 @@ class Cognito
 
               }
 
-              if ($result->get('ChallengeName') == 'NEW_PASSWORD_REQUIRED') {
+              if ($result->get('ChallengeName')) {
 
                     $this->forceResetPassword = true;
+                    return $result;
+
               }
 
               return ['token' => $result->get('AuthenticationResult')];
@@ -168,7 +170,7 @@ class Cognito
       /**
       * List all Users from Cognito
       *
-      * @return Boolean|CognitoIdentityProviderClient
+      * @return CognitoIdentityProviderClient
       */
       public function listUser() {
 
@@ -200,7 +202,7 @@ class Cognito
       /**
       * Set attributes to Cognito
       *
-      * @return Boolean
+      * @return Array
       */
       public function setAttributes($attributes) {
 
@@ -231,18 +233,35 @@ class Cognito
       /**
       * Update attributes to Cognito User
       *
-      * @return Boolean
+      * @return CognitoIdentityProviderClient
       */
       public function updateUser($username, $attributes) {
 
           $userAttributes = $this->setAttributes($attributes);
 
-          $result = $this->client->adminUpdateUserAttributes([
+          try {
 
-              'UserAttributes'  => $userAttributes,
-              'UserPoolId'      => env('AWS_COGNITO_USER_POOL_ID'),
-              'Username'        => $username,
-          ]);
+            $result = $this->client->adminUpdateUserAttributes([
+
+                'UserAttributes'  => $userAttributes,
+                'UserPoolId'      => env('AWS_COGNITO_USER_POOL_ID'),
+                'Username'        => $username,
+            ]);
+
+          } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+                $message = $e->getResponse();
+                $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+                return false;
+
+
+          } catch (\Exception $e) {
+
+                $this->error = $e->getMessage();
+                return false;
+
+          }
+
 
           return $result;
 
@@ -253,18 +272,36 @@ class Cognito
       /**
       * Create attributes to Cognito
       *
-      * @return Boolean
+      * @return CognitoIdentityProviderClient
       */
       public function createUser($username, $attributes) {
 
           $userAttributes = $this->setAttributes($attributes);
 
-          $result = $this->client->AdminCreateUser([
+          try {
 
-              'UserAttributes'  => $userAttributes,
-              'UserPoolId'      => env('AWS_COGNITO_USER_POOL_ID'),
-              'Username'        => $username,
-          ]);
+            $result = $this->client->AdminCreateUser([
+
+                'UserAttributes'  => $userAttributes,
+                'UserPoolId'      => env('AWS_COGNITO_USER_POOL_ID'),
+                'Username'        => $username,
+            ]);
+
+          } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+                $message = $e->getResponse();
+                $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+                return false;
+
+
+          } catch (\Exception $e) {
+
+                $this->error = $e->getMessage();
+                return false;
+
+          }
+
+
 
           return $result;
 
@@ -275,9 +312,12 @@ class Cognito
       /**
       * Update user password
       *
-      * @return Boolean
+      * @return CognitoIdentityProviderClient
       */
       public function updatePassword($username, $password) {
+
+
+        try {
 
           $result = $this->client->AdminSetUserPassword([
 
@@ -287,8 +327,60 @@ class Cognito
               'Username'    => $username
           ]);
 
+        } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+              $message = $e->getResponse();
+              $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+              return false;
+
+
+        } catch (\Exception $e) {
+
+              $this->error = $e->getMessage();
+              return false;
+
+        }
+
           return $result;
 
+      }
+
+
+
+      /**
+      * Challenge Respond
+      *
+      * @return CognitoIdentityProviderClient
+      */
+      public function challengeRespond($challenge, $respond, $session) {
+
+
+        try {
+
+          $result = $this->client->AdminRespondToAuthChallenge([
+
+              'ChallengeName'         => $challenge,
+              'ChallengeResponses'    => $respond,
+              'UserPoolId'            => env('AWS_COGNITO_USER_POOL_ID'),
+              'ClientId'              => env('AWS_COGNITO_CLIENT_ID'),
+              'Session'               => $session
+          ]);
+
+        } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+              $message = $e->getResponse();
+              $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+              return false;
+
+
+        } catch (\Exception $e) {
+
+              $this->error = $e->getMessage();
+              return false;
+
+        }
+
+          return $result;
 
       }
 
@@ -296,7 +388,7 @@ class Cognito
       /**
       * Create User object in array from Cognito user
       *
-      * @return Arrat
+      * @return Array
       */
       public function user() {
 
@@ -323,7 +415,7 @@ class Cognito
       public function search($search, $attributes) {
 
           foreach($attributes as $key=>$attr) {
-            
+
               if ($attr['Name'] == $search) {
 
                   return $attr['Value'];
