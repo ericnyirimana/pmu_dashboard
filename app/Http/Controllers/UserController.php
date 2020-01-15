@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
@@ -51,6 +51,13 @@ class UserController extends Controller
     }
 
 
+    public function show(User $user) {
+
+          return redirect()->route('users.index');
+
+    }
+
+
     public function create() {
 
           $user = null;
@@ -65,7 +72,19 @@ class UserController extends Controller
 
           $fields = $request->all();
 
-          User::create($fields);
+          $arrayAttributes = $this->prepareAttributes($fields);
+
+          $uuid = (string) Str::uuid();
+          $fields['sub'] = $uuid;
+          $fields['password'] = bcrypt( Str::random(12) );
+
+          $fields['profile'] = json_encode($arrayAttributes);
+
+          $user = User::create($fields);
+
+
+          $client = new Cognito();
+          $client->createUser($user->email, $arrayAttributes);
 
           return redirect()->route('users.index')->with([
                 'notification' => 'User saved with success!',
@@ -88,9 +107,17 @@ class UserController extends Controller
 
           $fields = $request->all();
 
+          $arrayAttributes = $this->prepareAttributes($fields);
+
+          $fields['profile'] = json_encode($arrayAttributes);
+
           $user->update($fields);
 
-          $this->updateUserCognito($user);
+
+          $client = new Cognito();
+          $us = $client->getUser($user->sub);
+
+          $client->updateUser($user->sub, $arrayAttributes);
 
           return redirect()->route('users.index')->with([
                 'notification' => 'User saved with success!',
@@ -100,35 +127,50 @@ class UserController extends Controller
     }
 
 
-    public function destroy() {
+    public function destroy(User $user) {
 
+          $user->delete();
 
           return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'success');
 
     }
 
 
+    /**
+    * Prepare attributes to send in Cognito format
+    *
+    * @return Array
+    */
+    protected function createUniqueSub() {
 
-    protected function updateUserCognito(User $user) {
-
-          $client = new Cognito();
-
-          $attributes = config('cognito.user_attributes');
-
-          $saveAttributes = array();
-
-          foreach($attributes as $attr) {
-
-              $field = str_replace('custom:', '', $attr);
-              if ( isset($user->$field) ) {
-                $saveAttributes[$field] = $user->$field;
-              }
-          }
-
-
-          $client->setAttributes($user->sub, $saveAttributes);
 
     }
+
+
+    /**
+    * Prepare attributes to send in Cognito format
+    *
+    * @return Array
+    */
+    protected function prepareAttributes($fields) {
+
+      $attributes = config('cognito.user_attributes');
+
+      $saveAttributes = array();
+
+      foreach($attributes as $attr) {
+
+          $field = str_replace('custom:', '', $attr);
+
+          if ( isset($fields[$field]) ) {
+            $saveAttributes[$field] = $fields[$field];
+          }
+      }
+
+      return $saveAttributes;
+
+    }
+
 
 
     /**
@@ -153,7 +195,7 @@ class UserController extends Controller
             if (!$user) {
 
                 $user = new User;
-                $user->password = bcrypt(str_random(12)); // create random password only for DB, if user login, it ill set the true one
+                $user->password = bcrypt( Str::random(12) ); // create random password only for DB, if user login, it ill set the true one
                 $user->email = $client->search('email', $attributes);
                 $user->sub = $sub;
                 $user->created_at = $cognitoUser['UserCreateDate'];

@@ -9,11 +9,10 @@
       </select>
     @endif
     @if ($type=='simple')
-    
       <select id="{{ $field }}" class="form-control" name="{{ $field }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif>
           <option value="">Select {{ $label }}</option>
           @foreach($values as $value)
-            <option value="{{ $value }}" @if (old( $field, $model->$field ) == $value) selected @endif>{{ $value }}</option>
+            <option value="{{ $value }}" @if (old( $field, isset($model) ? $model->$field : null ) == $value) selected @endif>{{ $value }}</option>
           @endforeach
       </select>
     @endif

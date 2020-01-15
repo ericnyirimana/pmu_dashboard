@@ -22,11 +22,11 @@
                 <field-text label="Name" field="name" :model="$user" required  />
           </div>
           <div class="col-12 col-md-6">
-                <field-text label="Email" field="email" :model="$user" disabled />
+                <field-text label="Email" field="email" :model="$user" disabled required />
           </div>
           <div class="col-12 col-md-6">
 
-                <field-select label="Role" field="role" type="simple" :model="$user" :values="config('cognito.roles')" />
+                <field-select label="Role" field="role" type="simple" :model="$user" :values="config('cognito.roles')" required />
           </div>
           <div class="col-12">
                 <div class="form-group mt-auto">

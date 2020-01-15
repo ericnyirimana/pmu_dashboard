@@ -34,6 +34,12 @@ class Cognito
       */
       public $error = null;
 
+      /**
+      * Flag to force reset password
+      * @var Boolean
+      */
+      public $forceResetPassword = false;
+
 
 
       /**
@@ -49,30 +55,8 @@ class Cognito
       }
 
 
-      /**
-      * Call Cognito Provider
-      * @var String
-      */
-      public function connect($token) {
-
-            $this->token = $token;
-
-            if (!$this->token) return false;
-
-            if ($this->client) {
-
-              $this->getUser();
-
-            }
-
-            return $this;
-
-      }
-
-
 
       private function getClient() {
-
 
             try {
 
@@ -114,7 +98,6 @@ class Cognito
 
             $client = $this->client;
 
-
               try {
                   $result = $client->adminInitiateAuth([
                       'AuthFlow' => 'ADMIN_NO_SRP_AUTH',
@@ -135,6 +118,11 @@ class Cognito
 
               }
 
+              if ($result->get('ChallengeName') == 'NEW_PASSWORD_REQUIRED') {
+
+                    $this->forceResetPassword = true;
+              }
+
               return ['token' => $result->get('AuthenticationResult')];
 
       }
@@ -146,15 +134,13 @@ class Cognito
       *
       * @return Boolean|CognitoIdentityProviderClient
       */
-      public function getUser() {
-
-            $payload = $this->getPayload();
+      public function getUser($username) {
 
             try {
 
               $client = $this->client->adminGetUser([
                   'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
-                  'Username' => $payload->username,
+                  'Username' => $username,
               ]);
 
             } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
@@ -212,14 +198,13 @@ class Cognito
 
 
       /**
-      * Save attributes to Cognito User
+      * Set attributes to Cognito
       *
       * @return Boolean
       */
-      public function setAttributes($username, $attributes) {
+      public function setAttributes($attributes) {
 
-
-          $UserAttributes = array();
+          $userAttributes = array();
 
           foreach($attributes as $key=>$attr) {
 
@@ -227,21 +212,82 @@ class Cognito
             if ($key != 'email') {
 
               $fieldAttr = [
-                  'Name' => ($key=='name') ? $key : 'custom:'.$key,
+                  'Name'  => ($key=='name' || $key=='password') ? $key : 'custom:'.$key,
                   'Value' => $attr,
               ];
 
-              array_push($UserAttributes, $fieldAttr);
+              array_push($userAttributes, $fieldAttr);
             }
 
         }
 
-        $result = $this->client->adminUpdateUserAttributes([
+        return $userAttributes;
 
-            'UserAttributes' => $UserAttributes,
-            'UserPoolId' => env('AWS_COGNITO_USER_POOL_ID'),
-            'Username' => $username,
-        ]);
+
+      }
+
+
+
+      /**
+      * Update attributes to Cognito User
+      *
+      * @return Boolean
+      */
+      public function updateUser($username, $attributes) {
+
+          $userAttributes = $this->setAttributes($attributes);
+
+          $result = $this->client->adminUpdateUserAttributes([
+
+              'UserAttributes'  => $userAttributes,
+              'UserPoolId'      => env('AWS_COGNITO_USER_POOL_ID'),
+              'Username'        => $username,
+          ]);
+
+          return $result;
+
+
+      }
+
+
+      /**
+      * Create attributes to Cognito
+      *
+      * @return Boolean
+      */
+      public function createUser($username, $attributes) {
+
+          $userAttributes = $this->setAttributes($attributes);
+
+          $result = $this->client->AdminCreateUser([
+
+              'UserAttributes'  => $userAttributes,
+              'UserPoolId'      => env('AWS_COGNITO_USER_POOL_ID'),
+              'Username'        => $username,
+          ]);
+
+          return $result;
+
+
+      }
+
+
+      /**
+      * Update user password
+      *
+      * @return Boolean
+      */
+      public function updatePassword($username, $password) {
+
+          $result = $this->client->AdminSetUserPassword([
+
+              'Password'    => $password,
+              'Permanent'   =>true,
+              'UserPoolId'  => env('AWS_COGNITO_USER_POOL_ID'),
+              'Username'    => $username
+          ]);
+
+          return $result;
 
 
       }
@@ -277,7 +323,7 @@ class Cognito
       public function search($search, $attributes) {
 
           foreach($attributes as $key=>$attr) {
-
+            
               if ($attr['Name'] == $search) {
 
                   return $attr['Value'];

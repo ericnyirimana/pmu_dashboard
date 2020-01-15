@@ -21,9 +21,10 @@ return [
     'sso_user_model'        => 'App\Models\User',
     'delete_user'           => env('AWS_COGNITO_DELETE_USER', false),
     'user_attributes'        => [
+        'sub',
         'name',
         'email',
-        'custom:role'
+        'custom:role',
     ],
     'roles' => [
       'ADMIN',

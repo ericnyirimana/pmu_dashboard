@@ -83,13 +83,19 @@ class LoginController extends Controller
               return redirect()->route('login')->withErrors(['login' => 'Incorret login or password.' ]);
           }
 
+          if ($client->forceResetPassword) {
+
+              # MUST SEND TO SET PASSWORD TO UPDATE THE PASSWORD CORRECTLY
+              $client->updatePassword($request->email, '21iLAB2020!');
+
+          }
 
           if ($response) {
 
                 $token = $response['token']['AccessToken'];
 
                 #align user from Cognito
-                $sync = $this->alignUserFromCognito($request, $token);
+                $sync = $this->alignUserFromCognito($request);
 
                 #if Authenticate with cognito, connect with normal DB
                 #The user from DB is a clone from Cognito, it copies every time it log
@@ -117,11 +123,11 @@ class LoginController extends Controller
      *
      * @return boolean
      */
-    protected function alignUserFromCognito(Request $request, $token) {
+    protected function alignUserFromCognito(Request $request) {
 
           $client = new Cognito();
 
-          $client->connect( $token );
+          $user = $client->getUser($request->email);
 
           $cognitoUser = $client->user();
 
