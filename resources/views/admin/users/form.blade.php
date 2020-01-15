@@ -4,20 +4,34 @@
 
 @include('admin.components.fields-require-alert')
 
+<div class="row">
+    <div class="col-12">
+      <div class="card-box">
+        <a href="{{ route('users.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Back</a>
+      </div>
+    </div>
+</div>
 @if (isset($user))
 <tag-form file :action="route('users.update', $user)" method="put" >
 @else
 <tag-form file :action="route('users.store')">
 @endif
-      <div class="d-flex flex-row">
+      <div class="row">
 
-          <div class="col-12 d-flex flex-column">
-
+          <div class="col-12 col-md-6">
                 <field-text label="Name" field="name" :model="$user" required  />
+          </div>
+          <div class="col-12 col-md-6">
+                <field-text label="Email" field="email" :model="$user" disabled />
+          </div>
+          <div class="col-12 col-md-6">
 
-            
+                <field-select label="Role" field="role" type="simple" :model="$user" :values="config('cognito.roles')" />
+          </div>
+          <div class="col-12">
                 <div class="form-group mt-auto">
 
+                    <a href="{{ route('users.index') }}" class="btn btn-md w-lg btn-secondary float-left">Cancel</a>
                     <button type="submit" class="btn btn-md w-lg btn-success float-right">Save</button>
 
                 </div>
@@ -25,9 +39,6 @@
           </div>
 
 </tag-form>
-
-@include('admin.components.modal-remove')
-
 @endsection
 
 @push('styles')
@@ -45,15 +56,6 @@ $(document).ready(function() {
 
     $('form').parsley();
 
-    $(document).on('click', '.rm-register', function(){
-
-            var id = $(this).data('register');
-            var name = $(this).data('name');
-
-            $('.register-name').text(name);
-
-            $('.rm-accept').attr('action', '/media/'+id);
-    });
 
 });
 </script>

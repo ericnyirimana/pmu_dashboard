@@ -23,7 +23,7 @@
 
               <datatable route='users' :collection='$users' :fields="[
                   'ID'        => 'id',
-                  'Name'      => 'full_name',
+                  'Name'      => 'name',
                   'Email'     => 'email'
               ]" />
 

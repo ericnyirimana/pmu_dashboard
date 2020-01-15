@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password', 'role', 'profile'
     ];
 
     /**
@@ -46,13 +46,6 @@ class User extends Authenticatable
 
     }
 
-
-    public function getRoleAttribute() {
-
-          $profile = $this->getJsonAttributes();
-          return $profile->role;
-
-    }
 
 
     public function getCreatedAtHFAttribute() {
