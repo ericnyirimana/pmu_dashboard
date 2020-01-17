@@ -1,18 +1,14 @@
-@media only screen and (max-width: 992px) {
+@media only screen and (min-width: 1920px) {
 
 h2 {
-  font-size: 3.5rem;
-  line-height: 4rem;
+  font-size: 4.5rem;
+  line-height: 5.5rem;
 }
 
 h3 {
-  font-size: 2rem;
-  line-height: 2.5rem;
-}
+  font-size: 3rem;
+  line-height: 3.5rem;
 
-h4 {
-  font-size: 1rem;
-  line-height: 1.5rem;
 }
 
 .container-fluid {
@@ -23,7 +19,7 @@ h4 {
 .content {
 
   &-text {
-
+    padding-bottom: 30px;
     p {
       font-size: 0.8rem;
       line-height: 1.2rem;
@@ -57,6 +53,7 @@ h4 {
           p {
             font-size: 1rem;
             line-height: 1.4rem;
+            margin-top: 1rem;
           }
         }
 
@@ -77,23 +74,6 @@ h4 {
     .form-check-label {
       font-size: 0.5rem;
     }
-
-    #form-restaurant-success {
-      height: 200px;
-    }
-}
-
-footer {
-
-    .links {
-        margin-top: 20px;
-        margin-bottom: 0;
-        flex-direction: column;
-
-        li {
-          text-align: left;
-        }
-    }
 }
 
 
@@ -101,41 +81,5 @@ footer {
     font-size: 1.2rem;
     height: 45px;
 }
-
-}
-
-@media only screen and (max-width: 767px) {
-
-
-  h2 {
-    font-size: 3rem;
-  }
-
-  h3 {
-    font-size: 1.8rem;
-    line-height: 2rem;
-  }
-
-  .content {
-    &-show-case {
-      order: 2;
-
-      figure {
-        padding-bottom: 370px;
-      }
-    }
-
-      &-text {
-        padding-bottom: 30px;
-      }
-  }
-  .show-desktop {
-      display: none;
-  }
-
-  .show-mobile {
-      display: block;
-  }
-
 
 }

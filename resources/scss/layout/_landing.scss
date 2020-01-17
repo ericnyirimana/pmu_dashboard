@@ -30,6 +30,13 @@ h3 {
   color: inherit;
 }
 
+h4 {
+  font-family: "Sharp Grotesk Book 25";
+  font-size: 1.2vw;
+  line-height: 2.1vw;
+  color: inherit;
+}
+
 p {
   font-family: "Sharp Grotesk Book 25";
 
@@ -55,6 +62,10 @@ a, a:link, a:active, a:hover {
 
 .show-mobile {
     display: none;
+}
+
+.hide {
+  display: none !important;
 }
 
 .cover {
@@ -102,10 +113,11 @@ a, a:link, a:active, a:hover {
   color: $blue;
 
   &-show-case {
-    background-image: url('/images/showcase.png');
-    background-position: center;
-    background-size: cover;
+
     figure {
+      background-image: url('/images/showcase.png');
+      background-position: center;
+      background-size: cover;
       height: 100%;
       width: 100%;
       margin: auto;
@@ -125,7 +137,7 @@ a, a:link, a:active, a:hover {
   }
 
   &-text {
-
+      padding: 0 2vw;
       p {
         //margin-top: 70px;
         margin-top: 3.5vw;
@@ -142,7 +154,7 @@ a, a:link, a:active, a:hover {
   .offers {
 
     margin-top: 5vw;
-    max-width: 1520px;
+
     padding: 0;
 
     &-box {
@@ -248,6 +260,8 @@ a, a:link, a:active, a:hover {
   input, textarea, select,input:focus, textarea:focus, select:focus {
     background-color: $green-pastel;
     border: 1px solid $blue;
+    font-family: "Sharp Grotesk Book 25";
+
   }
 
   label {
@@ -256,6 +270,22 @@ a, a:link, a:active, a:hover {
 
   .form-check-label {
     font-size: 0.7vw;
+  }
+
+  #form-restaurant-success {
+
+        border: 1px solid $blue;
+        border-radius: 10px;
+        height: 100%;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+
+        h4 {
+          margin: auto;
+
+        }
   }
 
 }
@@ -308,7 +338,9 @@ footer {
   opacity: 0.2;
 }
 
-
+.form-checkbox {
+  margin-bottom: 0;
+}
 .form-checkbox input[type="checkbox"] {
     width: auto;
     opacity: 0.00000001;
@@ -372,14 +404,17 @@ footer {
     outline: 0;
 }
 
+.input-textarea {
+  word-break: break-word;
+  height: 80px;
+}
+
 #modalNewslleter {
 
   .modal-dialog {
     max-width: 768px;
 
     .modal-content {
-
-
         font-family: "Sharp Grotesk Book 25";
         color: $blue;
         .close {
@@ -425,8 +460,22 @@ footer {
 
           }
         }
+
+        #form-client-success {
+
+              border-radius: 10px;
+              height: 200px;
+              width: 100%;
+              text-align: center;
+              display: flex;
+              flex-direction: column;
+
+              h4 {
+                margin: auto;
+
+              }
+        }
     }
   }
-
 
 }

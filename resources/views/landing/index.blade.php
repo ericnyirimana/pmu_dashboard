@@ -35,7 +35,7 @@
                 a disposizione gli strumenti necessari per <strong>gestire al meglio il servizio</strong>, in modo
                 intuitivo, semplice e rapido, <strong>senza canone o costi di attivazione</strong>. Dovrai pensare
                 solo a quello che sai fare meglio: <strong>alla promozione pensiamo noi.</strong></p>
-              <button class="btn btn-pmu btn-block">Contattaci</button>
+              <button class="btn btn-pmu btn-block goto-contact-container">Contattaci</button>
           </div>
      </div>
      <div class="row content-plus">
@@ -53,7 +53,7 @@
        </div>
      </div>
 </section>
-<section class="contact">
+<section class="contact" id="contact-container">
     <div class="container-fluid">
 
           <div class="row">
@@ -67,12 +67,17 @@
             </div>
 
             <div class="col-12 col-md-6">
-                <form class="row" id="form-contact">
+                <div id="form-restaurant-success" class="hide">
+                      <h4>Grazie per averci contattato. <br />
+                      Ti risponderemo al più presto!</h4>
+                </div>
+                <form class="row" id="form-restaurant">
                     <div class="form-group col-12">
                           <label>Di cosa hai bisogno?</label>
-                          <select class="form-control" name="type" data-cons-subject="type">
+                          <select class="form-control" name="type" data-cons-subject="type" id="form-type-contact">
                               <option value="Informazioni">Informazioni</option>
-                              <option value="Partner">Partner</option>
+                              <option value="Voglio diventare partner">Voglio diventare partner</option>
+                              <option value="Comunicazioni e novità riguardo al servizio">Comunicazioni e novità riguardo al servizio</option>
                           </select>
                     </div>
                     <div class="form-group col-12 col-md-6">
@@ -81,7 +86,7 @@
                     </div>
                     <div class="form-group col-12 col-md-6">
                         <label>Email*</label>
-                        <input type="text" name="email" class="form-control" data-cons-subject="email" required />
+                        <input type="email" name="email" class="form-control" data-cons-subject="email" required />
                     </div>
                     <div class="form-group col-12">
                           <label>Oggeto*</label>
@@ -89,18 +94,18 @@
                     </div>
                     <div class="form-group col-12">
                           <label>Messagio*</label>
-                          <textarea class="form-control" name="message" data-cons-subject="message" required></textarea>
+                          <input type="text" class="form-control input-textarea" name="message" data-cons-subject="message" required />
                     </div>
                     <div class="form-group form-checkbox">
-                      <input type="checkbox" class="form-custom-check" id="check-newsletter" data-cons-preference="newsletter">
+                      <input type="checkbox" class="form-custom-check" id="check-newsletter" data-cons-preference="restaurant-newsletter">
                       <label class="form-check-label" for="check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
                     </div>
                     <div class="form-group form-checkbox">
-                      <input type="checkbox" class="form-custom-check" id="check-privacy" data-cons-preference="privacy-policy" required>
+                      <input type="checkbox" class="form-custom-check" id="check-privacy" data-cons-preference="restaurant-privacy-policy" required>
                       <label class="form-check-label" for="check-privacy">Acconsento all’uso dei miei dati personali in accordo con la <a href="https://www.iubenda.com/privacy-policy/65092557/legal" target="_blank">Privacy Policy</a> del servizio</label>
                     </div>
                     <div class="form-group col-12">
-                      <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-contact">Invia</button>
+                      <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-restaurant-contact">Invia</button>
                     </div>
                 </form>
 
@@ -117,7 +122,7 @@
             <div class="col-12 col-md-4">
                 <ul class="links">
                     <li><a href="https://www.iubenda.com/privacy-policy/65092557/legal" target="_blank">Privacy Policy<a/></li>
-                    <li><a href="#">Cookies</a></li>
+                    <li><a href="https://www.iubenda.com/privacy-policy/65092557/cookie-policy" target="_blank">Cookies</a></li>
                 </ul>
             </div>
         </div>
@@ -133,21 +138,24 @@
         <figure>📢</figure>
         <h6>I progetti migliori hanno bisogno di tempo… ma ci siamo quasi!</h6>
         <p>Lasciaci la tua email: ti avviseremo appena l’app sarà disponibile sullo store!</p>
-        <form id="form-newsletter">
+        <div id="form-client-success" class="hide">
+              <h4>Grazie per l’interesse! Sarai il primo <br />a sapere di noi!</h4>
+        </div>
+        <form id="form-client">
             <div class="form-group">
                 <label>La tua email</label>
-                <input type="text" name="email" class="form-control" data-cons-subject="email" />
+                <input type="email" name="email" class="form-control" data-cons-subject="email" />
             </div>
             <div class="form-group form-checkbox">
-              <input type="checkbox" class="form-custom-check" id="news-check-newsletter" data-cons-preference="newsletter">
-              <label class="form-check-label" for="news-check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
+              <input type="checkbox" class="form-custom-check" id="client-check-newsletter" data-cons-preference="client-newsletter">
+              <label class="form-check-label" for="client-check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
             </div>
             <div class="form-group form-checkbox">
-              <input type="checkbox" class="form-custom-check" id="news-check-privacy" data-cons-preference="privacy-policy" required>
-              <label class="form-check-label" for="news-check-privacy">Acconsento all’uso dei miei dati personali in accordo con la Privacy Policy del servizio</label>
+              <input type="checkbox" class="form-custom-check" id="client-check-privacy" data-cons-preference="client-privacy-policy" required>
+              <label class="form-check-label" for="client-check-privacy">Acconsento all’uso dei miei dati personali in accordo con la Privacy Policy del servizio</label>
             </div>
             <div class="form-group col-12">
-              <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-newsletter">Tienimi aggiornato</button>
+              <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-client-contact">Tienimi aggiornato</button>
             </div>
         </form>
       </div>
@@ -170,18 +178,25 @@ $(document).ready(function(){
       $('#myInput').trigger('focus')
    });
 
+   $(document).on('click', '.goto-contact-container', function(){
+
+        $("#form-type-contact").val('Voglio diventare partner');
+        $('html, body').animate({ scrollTop: $('#contact-container').offset().top}, 1000);
+
+   });
+
    $(document).on('click', '#check-privacy', function() {
 
         var enable = $(this).is(':checked');
 
         if (enable) {
-          $('#form-contact').find('button').removeClass('desactivated');
+          $('#send-restaurant-contact').removeClass('desactivated');
         } else {
-          $('#form-contact').find('button').addClass('desactivated');
+          $('#send-restaurant-contact').addClass('desactivated');
         }
    });
 
-   $(document).on('submit', '#form-contact', function(e) {
+   $(document).on('submit', '#form-restaurant', function(e) {
 
       e.preventDefault();
 
@@ -191,21 +206,22 @@ $(document).ready(function(){
           /** LOAD */
           _iub.cons_instructions.push(["submit",{
               form: {
-                selector: document.getElementById("form-contact"),
+                selector: document.getElementById("form-restaurant"),
               },
               consent: {
                 legal_notices: [
                   {
-                    identifier: 'newsletter',
+                    identifier: 'restaurant-newsletter',
                   },
                   {
-                    identifier: 'privacy-policy',
+                    identifier: 'restaurant-privacy-policy',
                   }
                 ]},
             },
             {
               success: function(response) {
-                console.log(response);
+                  $('#form-restaurant').addClass('hide');
+                  $('#form-restaurant-success').removeClass('hide');
               },
               error: function(response) {
                 console.log(response);
@@ -217,44 +233,45 @@ $(document).ready(function(){
    });
 
 
-   $(document).on('click', '#news-check-privacy', function() {
+   $(document).on('click', '#client-check-privacy', function() {
 
         var enable = $(this).is(':checked');
 
         if (enable) {
-          $('#form-newsletter').find('button').removeClass('desactivated');
+          $('#send-client-contact').removeClass('desactivated');
         } else {
-          $('#form-newsletter').find('button').addClass('desactivated');
+          $('#send-client-contact').addClass('desactivated');
         }
    });
 
-   $(document).on('submit', '#form-newsletter', function(e) {
+   $(document).on('submit', '#form-client', function(e) {
 
       e.preventDefault();
 
 
-      var enable = $("#news-check-privacy").is(':checked');
+      var enable = $("#client-check-privacy").is(':checked');
 
 
       if (enable) {
         /** LOAD */
         _iub.cons_instructions.push(["submit",{
             form: {
-              selector: document.getElementById("form-newsletter"),
+              selector: document.getElementById("form-client"),
                 },
                 consent: {
                   legal_notices: [
                     {
-                      identifier: 'newsletter',
+                      identifier: 'client-newsletter',
                     },
                     {
-                      identifier: 'privacy-policy',
+                      identifier: 'client-privacy-policy',
                     }
                   ]},
             },
             {
               success: function(response) {
-                console.log(response);
+                $("#form-client").addClass('hide');
+                $("#form-client-success").removeClass('hide');
               },
               error: function(response) {
                 console.log(response);
@@ -292,9 +309,7 @@ $(document).ready(function(){
           dots: true
         }
       }
-      // You can unslick at a given breakpoint now by adding:
-      // settings: "unslick"
-      // instead of a settings object
+
     ]
   });
 });
