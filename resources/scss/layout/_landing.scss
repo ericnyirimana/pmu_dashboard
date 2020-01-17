@@ -1,0 +1,427 @@
+$blue-pastel: #B2CCE3;
+$orange-pastel: #FDD29E;
+$green-pastel: #B3DF7F;
+$strange-grey: #264747;
+$blue: #0F218B;
+
+$padding-box: 7vw 0;
+h1 {
+
+  color: red;
+}
+
+h2 {
+  font-family: "Sharp Grotesk Book 09";
+  //font-size: 70px;
+  font-size: 3.4vw;
+  text-transform: uppercase;
+  //line-height: 89px;
+  line-height: 4.9vw;
+  color: inherit;
+}
+
+h3 {
+  font-family: "Sharp Grotesk 25";
+  //font-size: 60px;
+  font-size: 2.6vw;
+  text-transform: uppercase;
+  //line-height: 66px;
+  line-height: 3.1vw;
+  color: inherit;
+}
+
+p {
+  font-family: "Sharp Grotesk Book 25";
+
+  strong {
+      font-family: "Sharp Grotesk Semi 25";
+  }
+
+}
+
+a, a:link, a:active, a:hover {
+  color: inherit;
+  text-decoration: underline;;
+}
+
+.container-fluid {
+  max-width: 1920px;
+  padding: 0 10.9%;
+}
+
+.show-desktop {
+    display: block;
+}
+
+.show-mobile {
+    display: none;
+}
+
+.cover {
+  background-color: $blue-pastel;
+
+  &-head-logo {
+    text-align: center;
+    height: 125px;
+    display: flex;
+
+      svg {
+        margin: auto;
+        width: 140px;
+      }
+
+  }
+  &-image {
+      text-align: center;
+
+      img {
+        max-width: 1530px;
+        width: 100%;
+      }
+  }
+
+  &-stores {
+    height: 145px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    .btn-bagde {
+      margin: auto 15px;
+      cursor: pointer;
+      svg {
+        height: 60px;
+      }
+    }
+  }
+
+}
+
+.content {
+  background-color: $orange-pastel;
+  padding: $padding-box;
+  color: $blue;
+
+  &-show-case {
+    background-image: url('/images/showcase.png');
+    background-position: center;
+    background-size: cover;
+    figure {
+      height: 100%;
+      width: 100%;
+      margin: auto;
+    }
+  }
+
+
+  &-plus {
+        margin-top: 7vw;
+
+        h2, h3 {
+            display: block;
+            width: 100%;
+            margin: -7px 0;
+            padding: 0;
+        }
+  }
+
+  &-text {
+
+      p {
+        //margin-top: 70px;
+        margin-top: 3.5vw;
+        //margin-bottom: 40px;
+        margin-bottom: 2vw;
+        //font-size: 20px;
+        font-size: 1vw;
+        //line-height: 30px;
+        line-height: 1.5vw;
+        text-align: justify;
+      }
+  }
+
+  .offers {
+
+    margin-top: 5vw;
+    max-width: 1520px;
+    padding: 0;
+
+    &-box {
+      flex: 1;
+      list-style: none;
+      font-size: 5vw;
+      display: flex;
+      flex-direction: column;
+      border: 2px solid $blue;
+      border-radius: 10px;
+      width: 20vw;
+      padding: 1.5vw;
+      margin: 0 10px;
+      height: 24vw;
+
+        figure {
+          text-align: center;
+          margin-bottom: 2vw;
+        }
+        h4 {
+          font-family: "Sharp Grotesk Book 25";
+          font-size: 1.1vw;
+          line-height: 1.6vw;
+          height: 1vw;
+        }
+
+        p {
+          font-family: "Sharp Grotesk Book 25";
+          font-size: 0.8vw;
+          margin-top: 2.5vw;
+        }
+    }
+
+    .slick-dots {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      margin: 10px 0;
+      padding: 0;
+
+      li {
+        width: 10px;
+        height: 10px;
+        border: 1px solid $blue;
+        border-radius: 10px;
+        margin: 0 5px;
+        cursor: pointer;
+      }
+
+      .slick-active {
+        background-color: $blue;
+      }
+
+        button {
+          border: 0;
+          background: transparent;
+          display: block;
+          height: 20px;
+          width: 20px;
+          outline: none;
+          line-height: 0px;
+          font-size: 0px;
+          color: transparent;
+          padding: 5px;
+          cursor: pointer;
+        }
+
+        button:before {
+
+          content: ' ';
+          font-family: "slick";
+          text-align: center;
+          color: black;
+          opacity: 1;
+          -webkit-font-smoothing: antialiased;
+
+        }
+      }
+  }
+
+}
+
+.contact {
+  background-color: $green-pastel;
+  padding: $padding-box;
+  color: $blue;
+
+  figure {
+    font-size: 7vw;
+  }
+
+  &-text {
+    margin-top: 2vw;
+  }
+
+  p {
+    font-family: "Sharp Grotesk Book 25";
+    font-size: 1vw;
+    margin-top: 1vw;
+  }
+
+  input, textarea, select,input:focus, textarea:focus, select:focus {
+    background-color: $green-pastel;
+    border: 1px solid $blue;
+  }
+
+  label {
+    font-family: "Sharp Grotesk Book 25";
+  }
+
+  .form-check-label {
+    font-size: 0.7vw;
+  }
+
+}
+
+footer {
+
+      padding: 23px 0;
+      background-color: $strange-grey;
+      font-family: "Sharp Grotesk Book 25";
+      color: #FFFFFF;
+
+      p {
+        font-size: 0.7rem;
+        line-height: 1rem;
+        margin: 0;
+      }
+
+      ul {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        height: 100%;
+        padding: 0;
+        text-align: center;
+        li {
+
+            font-family: "Sharp Grotesk Book 25";
+            font-size: 0.7rem;
+            margin: auto 0;
+        }
+      }
+
+}
+
+.btn-pmu {
+  font-family: "Sharp Grotesk Book 25";
+  //font-size: 19px;
+  font-size: 0.9vw;
+  //line-height: 24px;
+  line-height: 1.4vw;
+  //height: 60px;
+  height: 3vw;
+  border-radius: 30px;
+  background-color: $blue;
+  color: #FFFFFF;
+}
+
+
+.form-checkbox input[type="checkbox"] {
+    width: auto;
+    opacity: 0.00000001;
+    position: absolute;
+    left: 0;
+    margin-left: -20px;
+}
+.form-checkbox label {
+    position: relative;
+}
+.form-checkbox label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin: 4px;
+    width: 15px;
+    height: 15px;
+    transition: transform 0.28s ease;
+    border-radius: 3px;
+    border: 2px solid $blue;
+}
+.form-checkbox label:after {
+  content: '';
+    display: block;
+    width: 15px;
+    height: 5px;
+    border-bottom: 2px solid $blue;
+    border-left: 2px solid $blue;
+    -webkit-transform: rotate(-45deg) scale(0);
+    -moz-transform: rotate(-45deg) scale(0);
+    -ms-transform: rotate(-45deg) scale(0);
+    transform: rotate(-45deg) scale(0);
+    position: absolute;
+    top: 6px;
+    left: 5px;
+}
+.form-checkbox input[type="checkbox"]:checked ~ label::before {
+    color: $blue;
+}
+
+.form-checkbox input[type="checkbox"]:checked ~ label::after {
+    -webkit-transform: rotate(-45deg) scale(1);
+    -moz-transform: rotate(-45deg) scale(1);
+    -ms-transform: rotate(-45deg) scale(1);
+    transform: rotate(-45deg) scale(1);
+}
+
+.form-checkbox label {
+    min-height: 34px;
+    display: block;
+    padding-left: 25px;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+    vertical-align: sub;
+    padding-top: 4px;
+}
+
+.form-checkbox input[type="checkbox"]:focus + label::before {
+    outline: 0;
+}
+
+#modalNewslleter {
+
+  .modal-dialog {
+    max-width: 768px;
+
+    .modal-content {
+
+
+        font-family: "Sharp Grotesk Book 25";
+        color: $blue;
+        .close {
+          text-align: right;
+          margin: 5px 10px;
+        }
+
+        .modal-body {
+          max-width: 500px;
+          margin: auto;
+          margin-bottom: 20px;
+          figure {
+            font-size: 4rem;
+            text-align: center;
+          }
+
+          h6 {
+              font-family: inherit;
+              font-size: 1rem;
+              text-transform: uppercase;
+          }
+
+          p {
+            font-size: 0.8rem;
+
+          }
+
+          form {
+            margin-top: 25px;
+
+            label {
+              font-size: 0.8rem;
+            }
+
+            .form-check-label {
+                font-size: 0.6rem;
+            }
+
+            .btn-pmu {
+                font-size: 0.8rem;
+                height: 40px;
+            }
+          }
+        }
+    }
+  }
+
+
+}

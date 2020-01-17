@@ -1,0 +1,126 @@
+@media only screen and (max-width: 992px) {
+
+h2 {
+  font-size: 4rem;
+  line-height: 4.5rem;
+}
+
+h3 {
+  font-size: 2.5rem;
+  line-height: 3rem;
+
+}
+
+.container-fluid {
+  padding: 0 5%;
+}
+
+
+.content {
+
+  &-text {
+    padding-bottom: 30px;
+    p {
+      font-size: 0.8rem;
+      line-height: 1.2rem;
+    }
+
+    .btn-pmu {
+      margin: 20px 0;
+    }
+
+
+
+  }
+
+  &-offers{
+    .offers {
+        flex-direction: column;
+
+        &-box {
+          height: 400px;
+          padding: 20px;
+
+          figure {
+              font-size: 4rem;
+          }
+          h4 {
+            font-size: 1.3rem;
+            line-height: 1.7rem;
+            height: 70px;
+          }
+
+          p {
+            font-size: 1rem;
+            line-height: 1.4rem;
+          }
+        }
+
+    }
+  }
+
+}
+
+.contact {
+    p {
+      font-size: 0.8rem;
+    }
+
+    .form-checkbox label:after {
+      width: 16px;
+    }
+
+    .form-check-label {
+      font-size: 0.5rem;
+    }
+}
+
+footer {
+
+    .links {
+        margin-top: 20px;
+        margin-bottom: 0;
+        flex-direction: column;
+
+        li {
+          text-align: left;
+        }
+    }
+}
+
+
+.btn-pmu {
+    font-size: 1.2rem;
+    height: 45px;
+}
+
+}
+
+@media only screen and (max-width: 767px) {
+
+
+  h2 {
+    font-size: 3rem;
+  }
+
+  h3 {
+    font-size: 1.8rem;
+    line-height: 2rem;
+  }
+
+  .content {
+    &-show-case {
+      padding-bottom: 370px;
+      order: 2;
+    }
+  }
+  .show-desktop {
+      display: none;
+  }
+
+  .show-mobile {
+      display: block;
+  }
+
+
+}

@@ -82,14 +82,9 @@ class LoginController extends Controller
 
           if ($client->forceResetPassword) {
 
-              $data = [
-                  'ChallengeName'     => $response->get('ChallengeName'),
-                  'challengeSession'  => $response->get('Session'),
-                  'sub'               => $response->get('ChallengeParameters')['USER_ID_FOR_SRP'],
-                  'email'             => $request->email
-                ];
+              $this->refreshFlashSetPasswordSession($response->get('ChallengeName'), $response->get('Session'), $response->get('ChallengeParameters')['USER_ID_FOR_SRP'], $request->email);
 
-              return redirect()->route('password.set')->with($data);
+              return redirect()->route('password.set');
 
 
           }
@@ -118,6 +113,24 @@ class LoginController extends Controller
 
 
     /**
+     * Set new values or refresh the Flash session.
+     * Since flash session is lost when loaded, it must be set again.
+     *
+     * @return void
+     */
+    public function refreshFlashSetPasswordSession($challengeName = null, $challengeSession = null, $sub = null, $email = null)
+    {
+
+        Session::flash('ChallengeName', ($challengeName ?? Session::get('ChallengeName') ) );
+        Session::flash('challengeSession', ($challengeSession ?? Session::get('challengeSession')) );
+        Session::flash('sub', ($sub ?? Session::get('sub')) );
+        Session::flash('email', ($email ?? Session::get('email')) );
+
+
+    }
+
+
+    /**
      * View page index
      *
      * @return void
@@ -125,10 +138,7 @@ class LoginController extends Controller
     public function setPassword()
     {
 
-        Session::flash('ChallengeName', Session::get('ChallengeName'));
-        Session::flash('challengeSession', Session::get('challengeSession'));
-        Session::flash('sub', Session::get('sub'));
-        Session::flash('email', Session::get('email'));
+        $this->refreshFlashSetPasswordSession();
 
         return view('auth.passwords.confirm');
 
@@ -157,7 +167,8 @@ class LoginController extends Controller
         $result = $client->challengeRespond($data['ChallengeName'], $respond, $data['challengeSession']);
 
         if ($client->error) {
-          return redirect()->route('password.set')->withErrors(['password' => $client->error])->with($data);
+          $this->refreshFlashSetPasswordSession();
+          return redirect()->route('password.set')->withErrors(['password' => $client->error]);
         }
 
         $sendRequest = new Request(['email' => $data['email'], 'password' => $request->password]);
