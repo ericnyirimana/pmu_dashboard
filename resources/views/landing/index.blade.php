@@ -121,7 +121,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-8">
-                <p>© Copyright PICKMEALUP Srl – Via Crocifissa di Rosa n. 3, Brescia – Italia – P.IVA 04098450986 – REA: BS – 588233, capitale sociale 80.000€</p>
+                <p>PICKMEALUP S.r.l – Via Crocifissa di Rosa n. 3, Brescia – Italia – P.IVA 04098450986 – REA: BS – 588233, capitale sociale 80.000€ <br />Copyright 2020 © PICKMEALUP S.r.l.</p>
             </div>
             <div class="col-12 col-md-4">
                 <ul class="links">
