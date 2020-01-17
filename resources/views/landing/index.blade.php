@@ -97,13 +97,14 @@
                           <input type="text" class="form-control input-textarea" name="message" data-cons-subject="message" required />
                     </div>
                     <div class="form-group form-checkbox">
-                      <input type="checkbox" class="form-custom-check" id="check-newsletter" data-cons-preference="restaurant-newsletter">
-                      <label class="form-check-label" for="check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
-                    </div>
-                    <div class="form-group form-checkbox">
                       <input type="checkbox" class="form-custom-check" id="check-privacy" data-cons-preference="restaurant-privacy-policy" required>
                       <label class="form-check-label" for="check-privacy">Acconsento all’uso dei miei dati personali in accordo con la <a href="https://www.iubenda.com/privacy-policy/65092557" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy">Privacy Policy</a> del servizio*</label>
                     </div>
+                    <div class="form-group form-checkbox">
+                      <input type="checkbox" class="form-custom-check" id="check-newsletter" data-cons-preference="restaurant-newsletter">
+                      <label class="form-check-label" for="check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
+                    </div>
+
                     <div class="form-group col-12">
                       <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-restaurant-contact">Invia</button>
                     </div>
@@ -152,12 +153,12 @@
                 <input type="email" name="email" class="form-control" data-cons-subject="email" required email />
             </div>
             <div class="form-group form-checkbox">
-              <input type="checkbox" class="form-custom-check" id="client-check-newsletter" data-cons-preference="client-newsletter">
-              <label class="form-check-label" for="client-check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
-            </div>
-            <div class="form-group form-checkbox">
               <input type="checkbox" class="form-custom-check" id="client-check-privacy" data-cons-preference="client-privacy-policy" required>
               <label class="form-check-label" for="client-check-privacy">Acconsento all’uso dei miei dati personali in accordo con la <a href="https://www.iubenda.com/privacy-policy/65092557" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy">Privacy Policy</a> del servizio*</label>
+            </div>
+            <div class="form-group form-checkbox">
+              <input type="checkbox" class="form-custom-check" id="client-check-newsletter" data-cons-preference="client-newsletter">
+              <label class="form-check-label" for="client-check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
             </div>
             <div class="form-group col-12">
               <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-client-contact">Tienimi aggiornato</button>

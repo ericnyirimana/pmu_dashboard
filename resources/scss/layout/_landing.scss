@@ -453,6 +453,7 @@ footer {
 
           form {
             margin-top: 25px;
+            margin-bottom: 25px;
 
             label {
               font-size: 0.8rem;
@@ -465,6 +466,10 @@ footer {
             .btn-pmu {
                 font-size: 0.8rem;
                 height: 40px;
+            }
+
+            .form-checkbox {
+              margin: 10px 0;
             }
 
           }
