@@ -83,19 +83,6 @@ h4 {
     }
 }
 
-footer {
-
-    .links {
-        margin-top: 20px;
-        margin-bottom: 0;
-        flex-direction: column;
-
-        li {
-          text-align: left;
-        }
-    }
-}
-
 
 .btn-pmu {
     font-size: 1.2rem;
@@ -135,6 +122,19 @@ footer {
 
   .show-mobile {
       display: block;
+  }
+
+  footer {
+
+      .links {
+          margin-top: 20px;
+          margin-bottom: 0;
+          flex-direction: column;
+
+          li {
+            text-align: left;
+          }
+      }
   }
 
 

@@ -45,10 +45,10 @@
        </div>
        <div class="col-12 content-offers">
           <div class="offers">
-              <div class="offers-box"><figure>🙋‍♀️</figure><h4>CONTATTO DIRETTO CON IL CLIENTE</h4><p>Il Cliente si reca nel tuo ristorante, ritira un pasto realizzato al momento gestisci direttamente la relazione con lui.</div>
-              <div class="offers-box"><figure>👔</figure><h4>SERVIZIO SU MISURA</h4><p>Scegli tu prodotti e tempi così gestisci al meglio scorte e affluenza.</div>
-              <div class="offers-box"><figure>🙌</figure><h4>SEMPLICE, SICURO E FLESSIBILE</h4><p>Semplice gestione di menu, offerte e ordini. App dedicate su iOS e Android o integrazioni con sistemi di cassa innovativi.</div>
-              <div class="offers-box"><figure>💸</figure><h4>PAGAMENTI RAPIDI</h4><p>Ricevi i pagamenti delle tue vendite con cadenza settimanale o ogni 48h.</div>
+              <div class="offers-box"><figure>🙋‍♀️</figure><h4>CONTATTO DIRETTO CON IL CLIENTE</h4><p>Il cliente che viene nel tuo ristorante per ritirare il suo ordine entra in contatto con te, vive l'atmosfera del tuo locale e scopre tutto ciò che offri.</div>
+              <div class="offers-box"><figure>👔</figure><h4>SERVIZIO SU MISURA</h4><p>Scegli tu quali piatti promuovere, puoi creare offerte più accattivanti nei momenti di minor affluenza e gestire al meglio la dispensa.</div>
+              <div class="offers-box"><figure>🙌</figure><h4>SEMPLICE, SICURO E FLESSIBILE</h4><p>Il sistema è stato studiato per garantire una gestione semplice del menù, degli ordini e delle offerte, in modo veloce, sicuro e intuitivo.</div>
+              <div class="offers-box"><figure>💸</figure><h4>PAGAMENTI RAPIDI</h4><p>È importante che il ristoratore riceva rapidamente il pagamento dei prodotti venduti. Contento tu, contenti noi.</div>
           </ul>
        </div>
      </div>
@@ -121,13 +121,15 @@
             </div>
             <div class="col-12 col-md-4">
                 <ul class="links">
-                    <li><a href="https://www.iubenda.com/privacy-policy/65092557/legal" target="_blank">Privacy Policy<a/></li>
-                    <li><a href="https://www.iubenda.com/privacy-policy/65092557/cookie-policy" target="_blank">Cookies</a></li>
+                    <li><a href="https://www.iubenda.com/privacy-policy/65092557" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy ">Privacy Policy<a/></li>
+                    <li><a href="https://www.iubenda.com/privacy-policy/65092557/cookie-policy" class="iubenda-nostyle no-brand iubenda-embed" title="Cookie Policy ">Cookies</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
+<script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+<script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
 <div class="modal fade" tabindex="-1" role="dialog" id="modalNewslleter">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

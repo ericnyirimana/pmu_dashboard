@@ -255,6 +255,7 @@ a, a:link, a:active, a:hover {
     font-family: "Sharp Grotesk Book 25";
     font-size: 1vw;
     margin-top: 1vw;
+    margin-right: 40px;
   }
 
   input, textarea, select,input:focus, textarea:focus, select:focus {
@@ -274,7 +275,7 @@ a, a:link, a:active, a:hover {
 
   #form-restaurant-success {
 
-        border: 1px solid $blue;
+        border: 2px solid $blue;
         border-radius: 10px;
         height: 100%;
         width: 100%;
