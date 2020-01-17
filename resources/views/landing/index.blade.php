@@ -62,7 +62,7 @@
                 <h3>Compila il form e conosciamoci</h3>
                 <div class="row no-gutters contact-text">
                   <div class="d-none d-md-block col-md-3"><figure>👋</figure></div>
-                  <div class="col-12 col-md-9"><p>ti daremo maggiori dettagli sul funzionamento di Pick Meal Up e su come potrà aiutarti nella gestione quotidiana del tuo locale!</p></div>
+                  <div class="col-12 col-md-9"><p>Ti daremo maggiori dettagli sul funzionamento di Pick Meal Up e su come potrà aiutarti nella gestione quotidiana del tuo locale!</p></div>
                 </div>
             </div>
 
@@ -117,7 +117,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12 col-md-8">
-                <p>© Copyright PickMealUp S.r.l. PICKMEALUP Srl – Via Crocifissa di Rosa n. 3, Brescia – Italia – P.IVA 04098450986 – REA: BS – 588233, capitale sociale 80.000€</p>
+                <p>© Copyright PICKMEALUP Srl – Via Crocifissa di Rosa n. 3, Brescia – Italia – P.IVA 04098450986 – REA: BS – 588233, capitale sociale 80.000€</p>
             </div>
             <div class="col-12 col-md-4">
                 <ul class="links">
