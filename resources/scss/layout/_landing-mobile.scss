@@ -103,6 +103,14 @@ h4 {
     line-height: 2rem;
   }
 
+  .show-desktop {
+      display: none;
+  }
+
+  .show-mobile {
+      display: block;
+  }
+
   .content {
     &-show-case {
       order: 2;
@@ -116,13 +124,13 @@ h4 {
         padding-bottom: 30px;
       }
   }
-  .show-desktop {
-      display: none;
+
+  .contact {
+    .form-checkbox {
+      margin: 10px;
+    }
   }
 
-  .show-mobile {
-      display: block;
-  }
 
   footer {
 

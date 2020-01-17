@@ -102,7 +102,7 @@
                     </div>
                     <div class="form-group form-checkbox">
                       <input type="checkbox" class="form-custom-check" id="check-privacy" data-cons-preference="restaurant-privacy-policy" required>
-                      <label class="form-check-label" for="check-privacy">Acconsento all’uso dei miei dati personali in accordo con la <a href="https://www.iubenda.com/privacy-policy/65092557/legal" target="_blank">Privacy Policy</a> del servizio</label>
+                      <label class="form-check-label" for="check-privacy">* Acconsento all’uso dei miei dati personali in accordo con la <a href="https://www.iubenda.com/privacy-policy/65092557" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy">Privacy Policy</a> del servizio</label>
                     </div>
                     <div class="form-group col-12">
                       <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-restaurant-contact">Invia</button>
@@ -121,8 +121,8 @@
             </div>
             <div class="col-12 col-md-4">
                 <ul class="links">
-                    <li><a href="https://www.iubenda.com/privacy-policy/65092557" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy ">Privacy Policy<a/></li>
-                    <li><a href="https://www.iubenda.com/privacy-policy/65092557/cookie-policy" class="iubenda-nostyle no-brand iubenda-embed" title="Cookie Policy ">Cookies</a></li>
+                    <li><a href="https://www.iubenda.com/privacy-policy/65092557" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy">Privacy Policy<a/></li>
+                    <li><a href="https://www.iubenda.com/privacy-policy/65092557/cookie-policy" class="iubenda-nostyle no-brand iubenda-embed" title="Cookie Policy">Cookies</a></li>
                 </ul>
             </div>
         </div>
@@ -154,7 +154,7 @@
             </div>
             <div class="form-group form-checkbox">
               <input type="checkbox" class="form-custom-check" id="client-check-privacy" data-cons-preference="client-privacy-policy" required>
-              <label class="form-check-label" for="client-check-privacy">Acconsento all’uso dei miei dati personali in accordo con la Privacy Policy del servizio</label>
+              <label class="form-check-label" for="client-check-privacy">* Acconsento all’uso dei miei dati personali in accordo con la <a href="https://www.iubenda.com/privacy-policy/65092557" class="iubenda-nostyle no-brand iubenda-embed" title="Privacy Policy">Privacy Policy</a> del servizio</label>
             </div>
             <div class="form-group col-12">
               <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-client-contact">Tienimi aggiornato</button>

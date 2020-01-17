@@ -9,7 +9,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset("/images/favicon.ico")}}">
+        <link rel="shortcut icon" href="{{ asset("/images/favicon2.ico")}}">
 
         <!-- Adminnox css -->
         <link rel="stylesheet" href="{{ asset("/admin/assets/css/bootstrap.min.css")}}" type="text/css" />
