@@ -21,6 +21,24 @@ class LandingController extends Controller
       }
 
 
+      public function sendContact() {
+
+
+
+
+          return view('landing.index');
+
+      }
+
+
+      public function sendNews() {
+
+
+          return view('landing.index');
+
+      }
+
+
 
 
 }

@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/','LandingCOntroller@index');
+Route::get('/','LandingController@index');
 
 
  Route::prefix('admin')->group(function () {

@@ -304,6 +304,10 @@ footer {
   color: #FFFFFF;
 }
 
+.btn-pmu.desactivated {
+  opacity: 0.2;
+}
+
 
 .form-checkbox input[type="checkbox"] {
     width: auto;
@@ -418,6 +422,7 @@ footer {
                 font-size: 0.8rem;
                 height: 40px;
             }
+
           }
         }
     }

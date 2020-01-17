@@ -67,36 +67,40 @@
             </div>
 
             <div class="col-12 col-md-6">
-                <form class="row">
+                <form class="row" id="form-contact">
                     <div class="form-group col-12">
                           <label>Di cosa hai bisogno?</label>
-                          <select class="form-control">
+                          <select class="form-control" name="type" data-cons-subject="type">
                               <option value="Informazioni">Informazioni</option>
                               <option value="Partner">Partner</option>
                           </select>
                     </div>
                     <div class="form-group col-12 col-md-6">
                           <label>Nome</label>
-                          <input type="text" class="form-control" />
+                          <input type="text" name="name" class="form-control" data-cons-subject="full_name" />
                     </div>
                     <div class="form-group col-12 col-md-6">
                         <label>Email*</label>
-                        <input type="text" class="form-control" required />
+                        <input type="text" name="email" class="form-control" data-cons-subject="email" required />
                     </div>
                     <div class="form-group col-12">
                           <label>Oggeto*</label>
-                          <input type="text" class="form-control" required />
+                          <input type="text" name="subject" data-cons-subject="subject" class="form-control" required />
                     </div>
                     <div class="form-group col-12">
                           <label>Messagio*</label>
-                          <textarea class="form-control" required></textarea>
+                          <textarea class="form-control" name="message" data-cons-subject="message" required></textarea>
                     </div>
-                    <div class="form-group form-checkbox col-12">
-                      <input type="checkbox" class="form-custom-check" id="check-privacy">
-                      <label class="form-check-label" for="check-privacy">Acconsento all’uso dei miei dati personali in accordo con la <a href="#" target="_blank">Privacy Policy del servizio</a></label>
+                    <div class="form-group form-checkbox">
+                      <input type="checkbox" class="form-custom-check" id="check-newsletter" data-cons-preference="newsletter">
+                      <label class="form-check-label" for="check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
+                    </div>
+                    <div class="form-group form-checkbox">
+                      <input type="checkbox" class="form-custom-check" id="check-privacy" data-cons-preference="privacy-policy" required>
+                      <label class="form-check-label" for="check-privacy">Acconsento all’uso dei miei dati personali in accordo con la <a href="https://www.iubenda.com/privacy-policy/65092557/legal" target="_blank">Privacy Policy</a> del servizio</label>
                     </div>
                     <div class="form-group col-12">
-                      <button type="submit" class="btn btn-pmu btn-block">Invia</button>
+                      <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-contact">Invia</button>
                     </div>
                 </form>
 
@@ -129,17 +133,21 @@
         <figure>📢</figure>
         <h6>I progetti migliori hanno bisogno di tempo… ma ci siamo quasi!</h6>
         <p>Lasciaci la tua email: ti avviseremo appena l’app sarà disponibile sullo store!</p>
-        <form>
+        <form id="form-newsletter">
             <div class="form-group">
                 <label>La tua email</label>
-                <input type="text" class="form-control" />
+                <input type="text" name="email" class="form-control" data-cons-subject="email" />
             </div>
             <div class="form-group form-checkbox">
-              <input type="checkbox" class="form-custom-check" id="news-check-privacy">
-              <label class="form-check-label" for="news-check-privacy">Acconsento all’uso dei miei dati personali in accordo con la <a href="#" target="_blank">Privacy Policy del servizio</a></label>
+              <input type="checkbox" class="form-custom-check" id="news-check-newsletter" data-cons-preference="newsletter">
+              <label class="form-check-label" for="news-check-newsletter">Acconsento alla ricezione di comunicazioni commerciali personalizzate da parte di Pick Meal Up</label>
+            </div>
+            <div class="form-group form-checkbox">
+              <input type="checkbox" class="form-custom-check" id="news-check-privacy" data-cons-preference="privacy-policy" required>
+              <label class="form-check-label" for="news-check-privacy">Acconsento all’uso dei miei dati personali in accordo con la Privacy Policy del servizio</label>
             </div>
             <div class="form-group col-12">
-              <button type="submit" class="btn btn-pmu btn-block">Tienimi aggiornato</button>
+              <button type="submit" class="btn btn-pmu desactivated btn-block" id="send-newsletter">Tienimi aggiornato</button>
             </div>
         </form>
       </div>
@@ -160,6 +168,102 @@ $(document).ready(function(){
 
   $('#myModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
+   });
+
+   $(document).on('click', '#check-privacy', function() {
+
+        var enable = $(this).is(':checked');
+
+        if (enable) {
+          $('#form-contact').find('button').removeClass('desactivated');
+        } else {
+          $('#form-contact').find('button').addClass('desactivated');
+        }
+   });
+
+   $(document).on('submit', '#form-contact', function(e) {
+
+      e.preventDefault();
+
+      var enable = $("#check-privacy").is(':checked');
+
+      if (enable) {
+          /** LOAD */
+          _iub.cons_instructions.push(["submit",{
+              form: {
+                selector: document.getElementById("form-contact"),
+              },
+              consent: {
+                legal_notices: [
+                  {
+                    identifier: 'newsletter',
+                  },
+                  {
+                    identifier: 'privacy-policy',
+                  }
+                ]},
+            },
+            {
+              success: function(response) {
+                console.log(response);
+              },
+              error: function(response) {
+                console.log(response);
+              }
+            }
+          ]);
+        }
+
+   });
+
+
+   $(document).on('click', '#news-check-privacy', function() {
+
+        var enable = $(this).is(':checked');
+
+        if (enable) {
+          $('#form-newsletter').find('button').removeClass('desactivated');
+        } else {
+          $('#form-newsletter').find('button').addClass('desactivated');
+        }
+   });
+
+   $(document).on('submit', '#form-newsletter', function(e) {
+
+      e.preventDefault();
+
+
+      var enable = $("#news-check-privacy").is(':checked');
+
+
+      if (enable) {
+        /** LOAD */
+        _iub.cons_instructions.push(["submit",{
+            form: {
+              selector: document.getElementById("form-newsletter"),
+                },
+                consent: {
+                  legal_notices: [
+                    {
+                      identifier: 'newsletter',
+                    },
+                    {
+                      identifier: 'privacy-policy',
+                    }
+                  ]},
+            },
+            {
+              success: function(response) {
+                console.log(response);
+              },
+              error: function(response) {
+                console.log(response);
+              }
+            }
+          ]);
+      }
+
+
    });
 
   $('.offers').slick({
@@ -196,24 +300,7 @@ $(document).ready(function(){
 });
 
 
-  /** LOAD */
-  _iub.cons_instructions.push(["load",{
-            submitElement: document.getElementById("submit_button"),
-            form: {
-            selector: document.getElementById("form"),
-    },
-            consent: {
-              legal_notices: [
-        {
-          identifier: 'privacy_policy',
-        },
-        {
-          identifier: 'cookie_policy',
-        },
-        {
-          identifier: 'terms',
-        }
-        ]}
-        }]);
+
+
 </script>
 @endpush
