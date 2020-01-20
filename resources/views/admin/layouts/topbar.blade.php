@@ -4,7 +4,7 @@
     <div class="topbar-left">
         <a href="/" class="logo">
             <span>
-                @svg('pmu-logo', 'image-logo')
+                @svg('pmu-logo-base64', 'image-logo')
             </span>
             <i>
                 @svg('pmu-small-logo', 'image-small-logo')
