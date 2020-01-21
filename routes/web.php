@@ -24,7 +24,7 @@ Route::get('/','LandingController@index');
 
     Route::group(['middleware' => ['auth', 'user.roles']], function(){
 
-        Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+        Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
         Route::get('blank', 'DashboardController@blank')->name('dashboard.blank');
 

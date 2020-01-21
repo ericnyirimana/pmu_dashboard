@@ -9,7 +9,7 @@ return [
                 'Blank' => 'dashboard.blank',
             ],
         ],
-        'Brands' => [
+        'Company' => [
             'icon' => 'fi-star',
             'routes' => [
                 'List' => 'brands.index',
