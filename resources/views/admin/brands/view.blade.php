@@ -7,10 +7,10 @@
 <div class="row m-b-10 card-box ">
       <div class="col-md-4 col-lg-2">
           <figure>
-            @if ( empty($brand->image) )
+            @if ( empty($brand->media) )
             <i class="fa fa-file-image-o fa-2x"></i>
           @else
-              <img src="{{ $brand->getImageSize('medium') }}" class="rounded" />
+              <img src="{{ $brand->media->getImageSize('medium') }}" class="rounded" />
           @endif
         </figure>
     </div>

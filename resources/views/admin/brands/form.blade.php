@@ -23,7 +23,7 @@
 
                 <field-text label="VAT" field="vat" :model="$brand" required  />
 
-                <field-image label="Logo" field="image" :model="$brand" required="new" />
+                <field-media label="Image" field="media_id" :model="$brand" :media="$media" required="new" />
 
           </div>
           <div class="col-md-12 col-lg-6 d-flex flex-column">

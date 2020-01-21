@@ -17,7 +17,7 @@ class CreateBrandsTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('identifier');
             $table->string('name');
-            $table->string('image')->nullable();
+            $table->string('media_id')->nullable();
             $table->text('description')->nullable();
             $table->string('corporate_name')->nullable();
             $table->string('vat')->nullable();

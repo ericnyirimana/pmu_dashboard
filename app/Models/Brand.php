@@ -13,7 +13,7 @@ class Brand extends Model
     ];
 
     public $fillable = [
-        'name', 'image', 'corporate_name', 'vat', 'description', 'owner_id', 'status'
+        'name', 'media_id', 'corporate_name', 'vat', 'description', 'owner_id', 'status'
     ];
 
 
@@ -32,29 +32,9 @@ class Brand extends Model
     }
 
 
-    public function getImageSize($size = 'original') {
+    public function media() {
 
-          switch($size) {
-
-              case 'original':
-                  $path = '/storage/brands/';
-              break;
-
-              case 'large':
-                  $path = '/storage/brands/large/';
-              break;
-
-              case 'thumbnail':
-                  $path = '/storage/brands/thumbnail/';
-              break;
-
-              default:
-                  $path = '/storage/brands/';
-              break;
-
-          }
-
-          return asset( $path . $this->image);
+        return $this->belongsTo('App\Models\Media');
 
     }
 
