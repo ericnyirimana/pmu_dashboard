@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use App\Libraries\Sidebar;
 use Spatie\BladeX\Facades\BladeX;
-use App\Models\Brand;
-use App\Models\Restaurant;
 use App\Observers\IdentifierObserver;
 use Ahc\Jwt\JWT;
 
@@ -45,8 +43,9 @@ class AppServiceProvider extends ServiceProvider
           BladeX::component('admin.components.fields.*');
           BladeX::component('admin.components.*');
 
-          Brand::observe(IdentifierObserver::class);
-          Restaurant::observe(IdentifierObserver::class);
+          \App\Models\Brand::observe(IdentifierObserver::class);
+          \App\Models\Restaurant::observe(IdentifierObserver::class);
+          \App\Models\Category::observe(IdentifierObserver::class);
     }
 
     /**

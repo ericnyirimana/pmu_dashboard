@@ -7,9 +7,9 @@
         <meta content="" name="description" />
         <meta content="Coderthemes" name="author" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset("/images/favicon.ico")}}">
+        <link rel="shortcut icon" href="{{ asset("/images/favicon2.ico")}}">
 
         <!-- Adminnox css -->
         <link rel="stylesheet" href="{{ asset("/admin/assets/css/bootstrap.min.css")}}" type="text/css" />

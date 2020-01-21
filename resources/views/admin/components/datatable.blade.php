@@ -26,12 +26,15 @@
                 @case ('boolean')
                     <td><span class="label label-{{ $model->{$params[2]} }}">{{ $model->$item }}</span></td>
                 @break
+                @case ('translation')
+                    <td>{{ $model->translation->$item }}</td>
+                @break
                 @default
                     <td><i class="fa fa-camera"></i></td>
                 @break;
             @endswitch
           @else
-            <td>{{ $model->$field }}</td>
+            <td>{{ $model->{$field} }}</td>
           @endif
         @endforeach
         <td class="actions">

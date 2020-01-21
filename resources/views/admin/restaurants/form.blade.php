@@ -69,7 +69,7 @@
             <h6 class="">Gallery Restaurant</h6>
             <div class="card-body">
                 <div class="col-12">
-                      <field-media :model="$restaurant" />
+                      <field-media-list label="Images" :model="$restaurant"  />
                 </div>
             </div>
 
@@ -87,7 +87,6 @@
 
 <section class="modal-media">
   <media :media="$media" footer='true' />
-
 </section>
 @endsection
 @push('scripts')
