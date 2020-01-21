@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
           $table->string('email');
           $table->string('password');
           $table->string('profile_image')->nullable();
-          $table->json('profile')->nullable();
+          $table->text('profile')->nullable();
           $table->string('role',20)->default('CUSTOMER');
           $table->timestamps();
           $table->softDeletes();
