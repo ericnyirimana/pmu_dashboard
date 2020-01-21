@@ -30,6 +30,8 @@ Route::get('/','LandingController@index');
 
         Route::get('profile', 'UserController@me')->name('users.profile');
 
+        Route::post('/file/upload', 'UploadFileController@upload')->name('file.upload');
+
         Route::resource('/brands', 'BrandController');
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');
