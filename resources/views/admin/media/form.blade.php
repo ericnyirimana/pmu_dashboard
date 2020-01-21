@@ -38,6 +38,6 @@
 
 </tag-form>
 
-@include('admin.components.modal-remove', ['route' => 'media'])
+@include('admin.components.modal-remove', ['route' => 'admin/media'])
 
 @endsection
