@@ -27,7 +27,6 @@ return [
             'icon' => 'fi-paper',
             'routes' => [
                 'List' => 'restaurants.index',
-                'New' => 'restaurants.create',
             ],
         ],
         'Account' => [
