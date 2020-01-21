@@ -15,12 +15,12 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->unique();
+            $table->string('name')->nullable();
             $table->string('file');
             $table->bigInteger('brand_id')->nullable();
             $table->timestamps();
 
-            
+
         });
     }
 
