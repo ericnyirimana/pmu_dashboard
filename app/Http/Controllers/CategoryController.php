@@ -3,19 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\CategoryTranslation;
+use App\Models\CategoryType;
 use App\Models\Category;
-use App\Models\User;
+use App\Models\Media;
 
 class CategoryController extends Controller
 {
 
 
 
-      public function validation(Request $request, $brand = null) {
+      public function validation(Request $request, $category = null) {
 
           $request->validate(
             [
-              'image'  => (empty($brand)?'required|':'').'image|mimes:jpeg,bmp,png',
+              'media_id'  => (empty($category)?'required':'').'',
+              'name'   => 'required',
               'category_type_id'   => 'required'
             ]
           );
@@ -36,12 +39,16 @@ class CategoryController extends Controller
 
       public function create() {
 
-            $brand = null;
-            $users = User::all();
+            $category = null;
+            $types = CategoryType::all();
+
+            // get only media who doesn`t bellongs to restaurant
+            $media = Media::whereNull('brand_id')->get();
 
             return view('admin.categories.form')->with([
-              'brand'     => $brand,
-              'users' => $users
+              'category'  => $category,
+              'media'     => $media,
+              'types'     => $types
             ]
             );
 
@@ -52,15 +59,12 @@ class CategoryController extends Controller
 
             $this->validation($request);
 
+            $locale = \App::getLocale();
             $fields = $request->all();
 
-            $image = $request->file('image');
+            $category = Category::create($fields);
 
-            $fields['image'] = $this->saveImage($image);
-
-            $fields['status'] = $request->status ? true : false;
-
-            Category::create($fields);
+            $this->saveTranslation($category, $fields);
 
             return redirect()->route('categories.index')->with([
                   'notification' => 'Category saved with success!',
@@ -69,13 +73,16 @@ class CategoryController extends Controller
 
       }
 
-      public function show(Category $brand) {
 
-            $users = User::all();
+
+      public function show(Category $category) {
+
+            // get only media who doesn`t bellongs to restaurant
+            $media = Media::whereNull('brand_id')->get();
 
             return view('admin.categories.view')->with([
-              'brand'     => $brand,
-              'users' => $users
+              'category'  => $category,
+              'media'     => $media
             ]
             );
 
@@ -84,36 +91,26 @@ class CategoryController extends Controller
 
       public function edit(Category $category) {
 
-            $users = User::all();
+            // get only media who doesn`t bellongs to restaurant
+            $media = Media::whereNull('brand_id')->get();
+            $types = CategoryType::all();
 
             return view('admin.categories.form')->with([
-              'category' => $category,
-              'users' => $users
+              'category'  => $category,
+              'media'     => $media,
+              'types'     => $types
             ]
             );
 
       }
 
-      public function update(Request $request, Category $brand) {
+      public function update(Request $request, Category $category) {
 
-            $this->validation($request, $brand);
+            $this->validation($request, $category);
 
             $fields = $request->all();
 
-            if ($request->image) {
-
-              $image = $request->file('image');
-
-              // remove old image
-              $this->removeImage($brand->image);
-
-              $fields['image'] = $this->saveImage($image);
-
-            }
-
-            $fields['status'] = $request->status ? true : false;
-
-            $brand->update($fields);
+            $category->update($fields);
 
             return redirect()->route('categories.index')->with([
                   'notification' => 'Category saved with success!',
@@ -123,10 +120,21 @@ class CategoryController extends Controller
       }
 
 
-      public function destroy(Category $brand) {
+      public function saveTranslation($category, $fields) {
 
-            $this->removeImage($brand->image);
-            $brand->delete();
+            $category->translation()->delete();
+
+            $fields['code'] = \App::getLocale();
+
+            $category->translation()->create($fields);
+
+      }
+
+
+      public function destroy(Category $category) {
+
+            $this->removeImage($category->image);
+            $category->delete();
 
             return redirect()->route('categories.index')->with([
                   'notification' => 'Image removed with success!',

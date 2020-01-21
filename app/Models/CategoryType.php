@@ -9,4 +9,10 @@ class CategoryType extends Model
 
 
 
+    public function getfieldShowAttribute() {
+
+      return $this->name;
+      
+    }
+
 }

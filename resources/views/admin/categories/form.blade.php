@@ -19,23 +19,16 @@
       <div class="d-flex flex-row row">
           <div class="col-md-12 col-lg-6">
 
-                <field-text label="Name" field="name" :model="$category" required  />
+                <field-text label="Name" field="name" :model="$category->translation" required  />
 
-                <field-text label="VAT" field="vat" :model="$category" required  />
-
-                <field-image label="Logo" field="image" :model="$category" required="new" />
+                <field-media label="Image" field="media_id" :model="$category" :media="$media" required="new" />
 
           </div>
           <div class="col-md-12 col-lg-6 d-flex flex-column">
 
-                <field-text label="Corporate Name" field="corporate_name" :model="$category" required  />
+                <field-select label="Food Category" field="CategoryType" type="relation" :model="$category" :values="$types" foreignid="category_type_id" />
 
-                <field-select label="Owner" field="owner" type="relation" :model="$category" :values="$users" foreignid="owner_id" />
-
-                <field-area label="Description" field="description" :model="$category"  />
-
-                <field-switch label="Active" field="status" :model="$category" color="#039cfd" required  />
-
+                <field-area label="Description" field="description" :model="$category->translation" required  />
 
           </div>
       </div>
@@ -48,5 +41,4 @@
       </div>
 
 </tag-form>
-
 @endsection
