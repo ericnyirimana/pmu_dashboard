@@ -3,9 +3,11 @@
     @if ($type=='relation')
       <select id="{{ $field }}" class="form-control" name="{{ $foreignid }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif>
           <option value="">Select {{ $label }}</option>
+          @if ($values)
           @foreach($values as $value)
             <option value="{{ $value->id }}" @if (old( $foreignid, isset($model) && $model->$foreignid ) == $value->id) selected @endif>{{ $value->field_show }}</option>
           @endforeach
+          @endif
       </select>
     @endif
     @if ($type=='simple')

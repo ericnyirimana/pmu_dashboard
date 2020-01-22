@@ -12,4 +12,7 @@ Progetto Dashboard - Laravel
 <field-select label="{Label}" field="{field}" type="simple" :model="{$model}" :values="${array}" />
 
 #area
-<field-area label="{Label}" field="{field}" :model="$model" required  />
+<field-area label="{Label}" field="{field}" :model="{$model}" required  />
+
+#tags
+<field-tags label="{label}" field="{field}" :model="{$model}" :values="{$values}" required  />

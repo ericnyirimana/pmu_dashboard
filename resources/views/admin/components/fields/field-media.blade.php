@@ -19,7 +19,7 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModal" aria-hidden="true">
-  <div class="modal-dialog modal-media" role="document">
+  <div class="modal-dialog modal-full" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Media</h5>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Brand;
+use App\Models\Media;
 
 class MenuController extends Controller
 {
@@ -25,10 +26,12 @@ class MenuController extends Controller
 
           $menu = null;
           $brands = Brand::all();
+          $media = Media::all();
 
           return view('admin.menu.create')->with([
             'menu'   => $menu,
             'brands'   => $brands,
+            'media'   => $media
           ]
           );
 
