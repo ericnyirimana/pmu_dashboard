@@ -16,6 +16,13 @@ return [
                 'New' => 'brands.create',
             ],
         ],
+        'Menu' => [
+            'icon' => 'fi-align-center',
+            'routes' => [
+                'List' => 'menu.index',
+                'New' => 'menu.create',
+            ],
+        ],
         'Categories' => [
             'icon' => 'fi-align-center',
             'routes' => [

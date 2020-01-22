@@ -1,0 +1,73 @@
+.container-plate-preview {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  margin-bottom: 30px;
+  figure {
+    width: 100px;
+    text-align: center;
+    margin: 10px;
+
+    i {
+      background: #eee;
+      height: 90px;
+      width: 90px;
+      padding-top: 30px;
+      border-radius: 5px;
+    }
+
+  }
+
+  .plate-preview-text {
+    margin: 10px;
+    width: 100%;
+    h4 {
+      margin-top: 5px;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    p {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #CCCCCC;
+      margin-bottom: 0;
+    }
+  }
+
+  .plate-preview-price {
+      margin: 15px;
+      font-size: 1.4rem;
+      width: 50px;
+
+  }
+
+  .plate-preview-actions {
+    background-color: #CCCCCC;
+    width: 75px;
+    display: flex;
+    flex-direction: column;
+
+    .plate-action-icon {
+      flex-basis: 50%;
+      text-align: center;
+      font-size: 17px;
+
+      i {
+        margin: 20px;
+        color: #FFFFFF;
+      }
+    }
+
+    .plate-move {
+      cursor: move;
+    }
+
+    .plate-edit {
+      cursor: pointer;
+    }
+
+  }
+
+
+}
