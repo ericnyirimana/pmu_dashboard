@@ -19,6 +19,7 @@
         <link rel="stylesheet" href="{{ asset("/plugins/switchery/switchery.min.css") }}" type="text/css">
         <link rel="stylesheet" href="{{ asset("/plugins/timepicker/bootstrap-timepicker.min.css") }}" type="text/css">
         <link rel="stylesheet" href="{{ asset("/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ asset("/plugins/jquery-ui/jquery-ui.min.css") }}" type="text/css">
 
         <!-- APP overwrite css -->
         <link href="{{ asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
@@ -84,6 +85,7 @@
         <script src="{{ asset("/plugins/switchery/switchery.min.js") }}"></script>
         <script src="{{ asset("/plugins/timepicker/bootstrap-timepicker.js") }}"></script>
         <script src="{{ asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}"></script>
+        <script src="{{ asset("/plugins/jquery-ui/jquery-ui.min.js") }}"></script>
         @stack('scripts')
 
         <!-- App js -->
