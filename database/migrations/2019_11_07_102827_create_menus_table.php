@@ -17,11 +17,13 @@ class CreateMenusTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
             $table->string('name');
+            $table->bigInteger('brand_id')->unsigned();
             $table->bigInteger('restaurant_id')->unsigned();
 
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
 
         });
