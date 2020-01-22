@@ -34,6 +34,7 @@ Route::get('/','LandingController@index');
 
         Route::resource('/brands', 'BrandController');
         Route::resource('/menu', 'MenuController');
+        Route::resource('/products', 'ProductController');
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');

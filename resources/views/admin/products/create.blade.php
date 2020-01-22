@@ -12,6 +12,6 @@
     </div>
 </div>
 <tag-form file :action="route('products.store')">
-@include('admin.products.form')
+  @include('admin.products.parts.form')
 </tag-form>
 @endsection

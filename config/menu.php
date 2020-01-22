@@ -21,6 +21,8 @@ return [
             'routes' => [
                 'List' => 'menu.index',
                 'New' => 'menu.create',
+                'List Dishes' => 'products.index',
+                'New Dish' => 'products.create'
             ],
         ],
         'Categories' => [
