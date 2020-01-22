@@ -33,6 +33,7 @@ Route::get('/','LandingController@index');
         Route::post('/file/upload', 'UploadFileController@upload')->name('file.upload');
 
         Route::resource('/brands', 'BrandController');
+        Route::resource('/menu', 'MenuController');
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');
