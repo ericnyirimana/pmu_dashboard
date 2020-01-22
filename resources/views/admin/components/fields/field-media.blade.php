@@ -10,18 +10,34 @@
                   <input type='hidden' name='media_id' value='{{ $model->media_id }}'>
               @endif
           </div>
-
           <div>
-              <button type="button" class="btn btn-secondary btn-file btn-add-image">
+              <button type="button" class="btn btn-secondary btn-file btn-add-image" data-toggle="modal" data-target="#mediaModal">
                   <span class=""><i class="fa fa-paper-clip"></i> Select image</span>
-                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
               </button>
           </div>
       </div>
 </div>
-<section class="modal-media">
-  <media :media="$media" footer='true' />
-</section>
+<!-- Modal -->
+<div class="modal fade" id="mediaModal" tabindex="-1" role="dialog" aria-labelledby="mediaModal" aria-hidden="true">
+  <div class="modal-dialog modal-media" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Media</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+              <media :media="$media" />
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 @push('styles')
 <!-- Jquery filer css -->
 <link href="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.css")}}" rel="stylesheet" />
@@ -30,21 +46,13 @@
 <script>
 $(document).ready(function(){
 
-      $(document).on('click', '.btn-add-image', function() {
-
-          $('.modal-media').show();
-
-      });
+      $('#mediaModal').modal('handleUpdate');
 
       $(document).on('click', '.delete-image', function() {
 
           console.log('delete');
           $(this).parent().remove();
 
-      });
-
-      $(document).on('click', '.close-modal', function(){
-            closeModal();
       });
 
       $(document).on('click', '.add-image', function(){
@@ -56,8 +64,6 @@ $(document).ready(function(){
             var html_file = "<img src='" + img + "' class='rounded' /><input type='hidden' name='media_id' value='" + id + "'>";
 
             $('.box-image').html(html_file);
-
-            closeModal();
 
       });
 

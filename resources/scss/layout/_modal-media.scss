@@ -1,18 +1,11 @@
 .modal-media {
-  display: none;
-  z-index: 9999;
-  position: fixed;
-  margin: 5rem;
-  height: calc(100% - 10rem);
-  min-height: 1000px;
-  width: calc(100% - 10rem);
-  top: 0;
-  left: 0;
-  z-index: 999;
-  border: 2px solid gray;
-  border-radius: 5px;
-}
+    max-width: 90vw !important;
+    height: 90vh !important;
 
+  .modal-content {
+    height: 100%;
+  }
+}
 .media-container {
     background: #fff;
     display: flex;
