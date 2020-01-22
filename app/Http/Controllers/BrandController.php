@@ -11,9 +11,6 @@ use App\Models\Media;
 class BrandController extends Controller
 {
 
-      protected $brand_path = '/app/public/brands/';
-
-
 
       public function validation(Request $request, $brand = null) {
 
