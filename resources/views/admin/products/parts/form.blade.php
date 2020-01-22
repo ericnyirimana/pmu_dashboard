@@ -13,7 +13,7 @@
           <field-text label="Price" field="price" :model="$product" required  />
     </div>
     <div class="col-12">
-          <field-text label="Categories" field="categories" :model="$product" required  />
+          <field-tags label="Categories" field="categories" :model="$product" :values="['Lombardia', 'Veneto', 'Sicilia', 'Lazio', 'Liguria', 'Piemont']" required  />
     </div>
     <div class="col-12 col-md-6">
           <field-area label="Description" field="description" :model="$product" required  />
@@ -22,10 +22,10 @@
           <field-area label="Ingredients" field="ingredients" :model="$product" required  />
     </div>
     <div class="col-12">
-          <field-text label="Allergens" field="allergens" :model="$product" required  />
+          <field-tags label="Allergens" field="allergens" :model="$product" :values="['Lombardia', 'Veneto', 'Sicilia', 'Lazio', 'Liguria', 'Piemont']" required  />
     </div>
     <div class="col-12">
-          <field-text label="Diets" field="diets" :model="$product" required  />
+          <field-tags label="Diets" field="diets" :model="$product" :values="['Lombardia', 'Veneto', 'Sicilia', 'Lazio', 'Liguria', 'Piemont']" required  />
     </div>
 
     <div class="col-4">

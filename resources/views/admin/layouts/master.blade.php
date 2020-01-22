@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{ asset("/adminox/assets/css/metismenu.min.css")}}" type="text/css" />
         <link rel="stylesheet" href="{{ asset("/adminox/assets/css/style.css")}}" type="text/css" />
         <link rel="stylesheet" href="{{ asset("/plugins/switchery/switchery.min.css") }}" type="text/css">
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset("/plugins/timepicker/bootstrap-timepicker.min.css") }}" type="text/css">
         <link rel="stylesheet" href="{{ asset("/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css") }}" type="text/css">
         <link rel="stylesheet" href="{{ asset("/plugins/jquery-ui/jquery-ui.min.css") }}" type="text/css">
@@ -83,6 +84,7 @@
         <script src="{{ asset("/adminox/assets/js/waves.js")}}"></script>
         <script src="{{ asset("/adminox/assets/js/jquery.slimscroll.js")}}"></script>
         <script src="{{ asset("/plugins/switchery/switchery.min.js") }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
         <script src="{{ asset("/plugins/timepicker/bootstrap-timepicker.js") }}"></script>
         <script src="{{ asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}"></script>
         <script src="{{ asset("/plugins/jquery-ui/jquery-ui.min.js") }}"></script>
