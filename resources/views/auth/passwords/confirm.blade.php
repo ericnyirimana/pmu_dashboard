@@ -1,4 +1,4 @@
-@extends('admin.layouts.auth')
+@extends('layouts.auth')
 
 @section('content')
 <!-- HOME -->

@@ -12,8 +12,8 @@
         <link rel="shortcut icon" href="{{ asset("/images/favicon2.ico")}}">
 
         <!-- Adminnox css -->
-        <link rel="stylesheet" href="{{ asset("/admin/assets/css/bootstrap.min.css")}}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset("/admin/assets/css/icons.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/adminox/assets/css/bootstrap.min.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ asset("/adminox/assets/css/icons.css")}}" type="text/css" />
         <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css"/>
 
         <!-- APP overwrite css -->
@@ -30,12 +30,11 @@
 
     @yield('content')
 
-
         <!-- jQuery  -->
 
-        <script src="{{ asset("/admin/assets/js/jquery.min.js")}}"></script>
-        <script src="{{ asset("/admin/assets/js/bootstrap.min.js")}}"></script>
-        <script src="{{ asset("/admin/assets/js/jquery.slimscroll.js")}}"></script>
+        <script src="{{ asset("/adminox/assets/js/jquery.min.js")}}"></script>
+        <script src="{{ asset("/adminox/assets/js/bootstrap.min.js")}}"></script>
+        <script src="{{ asset("/adminox/assets/js/jquery.slimscroll.js")}}"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
         @stack('scripts')
