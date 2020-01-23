@@ -3,7 +3,7 @@
 
           <field-text label="Name" field="name" :model="$category->translation" required  />
 
-          <field-media label="Image" field="media_id" :model="$category" :media="$media" required="new" />
+          <field-media label="Image" field="media_id" :model="$category" required="new" />
 
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">

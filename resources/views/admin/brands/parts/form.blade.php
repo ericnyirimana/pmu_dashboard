@@ -5,7 +5,7 @@
 
           <field-text label="VAT" field="vat" :model="$brand" required  />
 
-          <field-media label="Image" field="media_id" :model="$brand" :media="$media" required="new" />
+          <field-media label="Image" field="media_id" :model="$brand" required="new" />
 
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">

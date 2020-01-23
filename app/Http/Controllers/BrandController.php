@@ -38,14 +38,14 @@ class BrandController extends Controller
 
       public function create() {
 
-            $brand = null;
+            $brand = new Brand();
             $users = User::all();
-            $media = Media::all();
+
 
             return view('admin.brands.create')->with([
               'brand'   => $brand,
               'users'   => $users,
-              'media'   => $media
+
             ]
             );
 
@@ -70,12 +70,10 @@ class BrandController extends Controller
       public function show(Brand $brand) {
 
             $users = User::all();
-            $media = Media::all();
 
             return view('admin.brands.view')->with([
               'brand'     => $brand,
               'users'     => $users,
-              'media'     => $media
             ]
             );
 
@@ -85,12 +83,10 @@ class BrandController extends Controller
       public function edit(Brand $brand) {
 
             $users = User::all();
-            $media = Media::all();
 
             return view('admin.brands.edit')->with([
               'brand'   => $brand,
-              'users'   => $users,
-              'media'   => $media
+              'users'   => $users
             ]
             );
 

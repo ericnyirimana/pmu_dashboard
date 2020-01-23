@@ -13,7 +13,7 @@ class Category extends Model
 
     public function translation() {
 
-        return $this->hasOne('App\Models\CategoryTranslation')->where('code', \App::getLocale());
+        return $this->hasOne('App\Models\CategoryTranslation')->where('code', \App::getLocale()); 
 
     }
 
