@@ -39,6 +39,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with(compact('crumber'));
           });
 
+        view()->composer('admin.media.parts.modal-media', function ($view) {
+            $media = \App\Models\Media::all();
+            $view->with(compact('media'));
+          });
+
 
           BladeX::component('admin.components.fields.*');
           BladeX::component('admin.components.*');

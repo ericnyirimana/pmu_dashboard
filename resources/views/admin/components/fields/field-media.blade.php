@@ -17,7 +17,7 @@
           </div>
       </div>
 </div>
-<modal-media :media="$media" />
+@include('admin.media.parts.modal-media')
 @push('styles')
 <!-- Jquery filer css -->
 <link href="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.css")}}" rel="stylesheet" />

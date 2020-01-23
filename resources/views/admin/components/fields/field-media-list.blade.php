@@ -6,6 +6,7 @@
       @endif
       <div class="btn btn-dark btn-add-image"  data-toggle="modal" data-target="#mediaModal"><span class="fa fa-plus" aria-hidden="true"></span></div>
 </div>
+@include('admin.media.parts.modal-media')
 @push('scripts')
 <script>
 

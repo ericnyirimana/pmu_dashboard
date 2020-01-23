@@ -47,7 +47,7 @@
     </tbody>
 </table>
 
-@include('admin.components.modal-remove', ['route' => $route])
+<modal-remove :route='$route' />
 
 @push('styles')
 <!-- DataTables -->

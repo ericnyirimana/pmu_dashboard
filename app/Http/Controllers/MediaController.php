@@ -61,7 +61,7 @@ class MediaController extends Controller
             $media = null;
             $brands = Brand::all();
 
-            return view('admin.media.form')->with([
+            return view('admin.media.create')->with([
               'media' => $media,
               'brands' => $brands
             ]
@@ -94,7 +94,7 @@ class MediaController extends Controller
 
 
             $brands = Brand::all();
-            return view('admin.media.form')->with([
+            return view('admin.media.edit')->with([
               'media' => $media,
               'brands' => $brands
             ]

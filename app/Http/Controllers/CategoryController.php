@@ -45,7 +45,7 @@ class CategoryController extends Controller
             // get only media who doesn`t bellongs to restaurant
             $media = Media::whereNull('brand_id')->get();
 
-            return view('admin.categories.form')->with([
+            return view('admin.categories.create')->with([
               'category'  => $category,
               'media'     => $media,
               'types'     => $types
@@ -95,7 +95,7 @@ class CategoryController extends Controller
             $media = Media::whereNull('brand_id')->get();
             $types = CategoryType::all();
 
-            return view('admin.categories.form')->with([
+            return view('admin.categories.edit')->with([
               'category'  => $category,
               'media'     => $media,
               'types'     => $types
