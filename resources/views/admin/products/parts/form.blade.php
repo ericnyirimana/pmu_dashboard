@@ -29,7 +29,7 @@
     </div>
 
     <div class="col-4">
-          <field-media label="Image" field="media_id" :model="$product" :media="$media" required="new" />
+          <field-media label="Image" field="media_id" :model="$product" required="new" />
     </div>
 
 </div>
