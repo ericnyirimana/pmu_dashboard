@@ -11,23 +11,33 @@
       <div class="modal-body">
 
         <div class="row">
-            <div class="col-8 col-md-8">
+            <div class="col-12 col-lg-6">
               <div class="form-group">
                   <label for="name">Name type</label>
                   <input type="text" class="form-control" id="drink_name" placeholder="Ex. Soft drink">
               </div>
             </div>
-            <div class="col-2 col-md-2">
-              <div class="form-group">
-                  <label for="name">Quantity</label>
-                  <input type="text" class="form-control" id="quantity" placeholder=""> ml
-              </div>
+            <div class="col-6 col-lg-3">
+                <label for="name">Quantity</label>
+                <div class="input-group mb-3">
+                    <input type="text" name="quantity" class="form-control" aria-label="Quantity">
+                    <div class="input-group-append">
+                        <span class="input-group-text">ml.</span>
+                    </div>
+                </div>
             </div>
-            <div class="col-2 col-md-2">
-              <div class="form-group">
-                  <label for="name">Price</label>
-                  <input type="text" class="form-control" id="price" placeholder=""> $
-              </div>
+            <div class="col-6 col-lg-3">
+                <label for="name">Price</label>
+                <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">€</span>
+                    </div>
+                    <input type="text" name="amount" class="form-control" aria-label="Amount">
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                </div>
             </div>
         </div>
       </div>
