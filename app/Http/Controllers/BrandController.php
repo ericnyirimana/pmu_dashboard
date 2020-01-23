@@ -42,7 +42,7 @@ class BrandController extends Controller
             $users = User::all();
             $media = Media::all();
 
-            return view('admin.brands.form')->with([
+            return view('admin.brands.create')->with([
               'brand'   => $brand,
               'users'   => $users,
               'media'   => $media
@@ -87,7 +87,7 @@ class BrandController extends Controller
             $users = User::all();
             $media = Media::all();
 
-            return view('admin.brands.form')->with([
+            return view('admin.brands.edit')->with([
               'brand'   => $brand,
               'users'   => $users,
               'media'   => $media
