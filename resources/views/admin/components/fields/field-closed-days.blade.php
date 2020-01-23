@@ -84,7 +84,7 @@
               <div class="row no-gutters mt-2">
                 <div class="col-3">
                   <div class="form-group">
-                  <button type="button" class="btn btn-success btn-block add_date">+</button>
+                  <button type="button" class="btn btn-success btn-block add_date"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
                 </div>
             </div>

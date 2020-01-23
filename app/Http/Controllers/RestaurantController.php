@@ -46,7 +46,7 @@ class RestaurantController extends Controller
             $restaurant = null;
             $media = Media::whereNull('brand_id')->orWhere('brand_id', $brand->id)->get();
 
-            return view('admin.restaurants.form')->with([
+            return view('admin.restaurants.create')->with([
               'brand'     => $brand,
               'restaurant'     => $restaurant,
               'media'     => $media,
@@ -98,7 +98,7 @@ class RestaurantController extends Controller
 
             $media = Media::whereNull('brand_id')->orWhere('brand_id', $brand->id)->get();
 
-            return view('admin.restaurants.form')->with([
+            return view('admin.restaurants.edit')->with([
               'restaurant'     => $restaurant,
               'brand'     => $brand,
               'media'     => $media,

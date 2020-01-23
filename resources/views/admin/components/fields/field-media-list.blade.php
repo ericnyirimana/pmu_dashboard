@@ -4,7 +4,7 @@
           <figure><img src='{{ $media->getImageSize('small') }}'><input type='hidden' name='media[]' value='{{ $media->id }}'><i class='fa fa-trash delete-image'></i></figure>
       @endforeach
       @endif
-      <div class="btn btn-dark btn-add-image"><span>+</span></div>
+      <div class="btn btn-dark btn-add-image"  data-toggle="modal" data-target="#mediaModal"><span class="fa fa-plus" aria-hidden="true"></span></div>
 </div>
 @push('scripts')
 <script>
