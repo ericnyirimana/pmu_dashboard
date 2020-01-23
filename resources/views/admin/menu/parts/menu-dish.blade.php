@@ -11,12 +11,13 @@
 
             </div>
             <div class="col-12 pb-2">
-                  <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#modalDish"><i class="fa fa-plus"></i> Add plate</button>
+                  <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#modalDrink"><i class="fa fa-plus"></i> Add plate</button>
             </div>
        </div>
     </div>
 </div>
 @include('admin.menu.parts.modal-dish')
+@include('admin.menu.parts.modal-drink')
 @push('scripts')
 <script>
  $( function() {
