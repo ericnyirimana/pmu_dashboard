@@ -83,6 +83,18 @@ class RestaurantController extends Controller
       }
 
 
+      public function data(Brand $brand) {
+
+            if($brand) {
+                return response()->json($brand->restaurants , 200);
+            }
+
+
+            return response()->json(['erro' => 'No company selected' ], 404);
+
+      }
+
+
       public function show(Restaurant $restaurant) {
 
             $brand = $restaurant->brand;

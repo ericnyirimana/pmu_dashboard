@@ -19,7 +19,9 @@ class CreateProductTranslationsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('ingredients')->nullable();
+            $table->text('categories')->nullable();
             $table->text('allergens')->nullable();
+            $table->text('dietary')->nullable();
             $table->string('code', 2);
             $table->timestamps();
 

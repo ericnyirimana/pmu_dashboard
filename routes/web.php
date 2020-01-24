@@ -45,6 +45,8 @@ Route::get('/','LandingController@index');
         Route::get('/brands/{brand}/restaurants/create', 'RestaurantController@create')->name('brand.restaurants.create');
         Route::put('/brands/{brand}/restaurants/{restaurant}', 'RestaurantController@update')->name('brand.restaurants.update');
 
+        Route::get('/restaurants/data/{brand?}', 'RestaurantController@data')->name('brand.restaurants.data');
+
         Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'
 
     });

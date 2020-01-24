@@ -14,11 +14,12 @@ class MenuSectionsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
         ######## MENU 1 #########
         // Pizze - id: 1
-        
+
       DB::table('sections')->insert([
+          'type'    => 'food',
           'identifier'  => (string) Str::uuid(),
           'created_at' => Carbon::now(),
           'menu_id' => 1,
@@ -34,10 +35,11 @@ class MenuSectionsTableSeeder extends Seeder
           'code' => 'en',
           'section_id' => 1
       ]);
-        
+
         // Bibita - id: 2
-        
+
         DB::table('sections')->insert([
+            'type'    => 'drink',
             'identifier'  => (string) Str::uuid(),
             'created_at' => Carbon::now(),
             'menu_id' => 1,
@@ -53,11 +55,12 @@ class MenuSectionsTableSeeder extends Seeder
             'code' => 'en',
             'section_id' => 2
         ]);
-        
+
         ######## MENU 2 #########
         // Hamburger - id: 3
 
       DB::table('sections')->insert([
+          'type'    => 'food',
           'identifier'  => (string) Str::uuid(),
           'created_at' => Carbon::now(),
           'menu_id' => 2,
@@ -73,10 +76,11 @@ class MenuSectionsTableSeeder extends Seeder
           'code' => 'en',
           'section_id' => 3
       ]);
-        
+
         // Bibita - id: 4
-        
+
         DB::table('sections')->insert([
+            'type'    => 'drink',
             'identifier'  => (string) Str::uuid(),
             'created_at' => Carbon::now(),
             'menu_id' => 2,
@@ -92,11 +96,12 @@ class MenuSectionsTableSeeder extends Seeder
             'code' => 'en',
             'section_id' => 4
         ]);
-        
+
         ######## MENU 3 #########
           // Uramaki - id: 5
 
         DB::table('sections')->insert([
+            'type'    => 'food',
             'identifier'  => (string) Str::uuid(),
             'created_at' => Carbon::now(),
             'menu_id' => 3,
@@ -112,10 +117,11 @@ class MenuSectionsTableSeeder extends Seeder
             'code' => 'en',
             'section_id' => 5
         ]);
-          
+
           // Bibita - id: 6
-          
+
           DB::table('sections')->insert([
+              'type'    => 'drink',
               'identifier'  => (string) Str::uuid(),
               'created_at' => Carbon::now(),
               'menu_id' => 3,
@@ -131,12 +137,13 @@ class MenuSectionsTableSeeder extends Seeder
               'code' => 'en',
               'section_id' => 6
           ]);
-        
-        
+
+
         ######## MENU 4 #########
           // Pasta - id: 7
 
         DB::table('sections')->insert([
+            'type'    => 'food',
             'identifier'  => (string) Str::uuid(),
             'created_at' => Carbon::now(),
             'menu_id' => 4,
@@ -152,10 +159,11 @@ class MenuSectionsTableSeeder extends Seeder
             'code' => 'en',
             'section_id' => 7
         ]);
-          
+
           // Bibita - id: 8
-          
+
           DB::table('sections')->insert([
+              'type'    => 'drink',
               'identifier'  => (string) Str::uuid(),
               'created_at' => Carbon::now(),
               'menu_id' => 4,

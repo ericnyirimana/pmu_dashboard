@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Brand;
+
 use App\Models\Restaurant;
+use App\Models\Category;
 use App\Models\Product;
+use App\Models\Brand;
 use App\Models\Media;
 
 class ProductController extends Controller
@@ -24,23 +26,29 @@ class ProductController extends Controller
 
   public function create() {
 
-        $product = null;
+        $product = new Product();
         $brands = Brand::all();
         $restaurants = Restaurant::all();
-        $media = Media::all();
+
+        $categories = $this->getCategoriesByType();
 
         return view('admin.products.create')->with([
           'product'       => $product,
           'brands'        => $brands,
           'restaurants'   => $restaurants,
-          'media'         => $media
-        ]
+          'categories'   => $categories
+          ]
         );
 
   }
 
 
   public function store(Request $request) {
+
+        $inputs = $request->all();
+
+        dd($inputs);
+
 
         $this->validation($request);
 
@@ -100,6 +108,31 @@ class ProductController extends Controller
               'notification' => 'Image removed with success!',
               'type-notification' => 'warning'
             ]);
+
+  }
+
+
+  public function getCategoriesByType() {
+
+      $categories = Category::all();
+
+      $list['foods'] = array();
+      $list['dietary'] = array();
+      $list['allergens'] = array();
+
+      foreach($categories as $cat) {
+          if($cat->type->name == 'Food Category') {
+              array_push($list['foods'], $cat->translation->name);
+          }
+          if($cat->type->name == 'Dietary') {
+              array_push($list['dietary'], $cat->translation->name);
+          }
+          if($cat->type->name == 'Allergens') {
+              array_push($list['allergens'], $cat->translation->name);
+          }
+      }
+
+      return $list;
 
   }
 

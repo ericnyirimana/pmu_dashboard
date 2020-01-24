@@ -88,6 +88,7 @@
         <script src="{{ asset("/plugins/timepicker/bootstrap-timepicker.js") }}"></script>
         <script src="{{ asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}"></script>
         <script src="{{ asset("/plugins/jquery-ui/jquery-ui.min.js") }}"></script>
+        <script src="{{ asset("/plugins/jquery-mask-plugin/dist/jquery.mask.min.js") }}"></script>
         @stack('scripts')
 
         <!-- App js -->

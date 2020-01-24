@@ -17,6 +17,8 @@ class CreateSectionTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
             $table->bigInteger('menu_id')->unsigned();
+            $table->string('type');
+            $table->integer('position')->nullable();
             $table->timestamps();
 
             $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
