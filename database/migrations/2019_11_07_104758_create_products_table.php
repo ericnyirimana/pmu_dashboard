@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->decimal('price', 5, 2)->nullable();
             $table->bigInteger('section_id')->unsigned();
             $table->smallInteger('status');
+            $table->integer('position')->default(1);
             $table->timestamps();
             $table->softDeletes();
 

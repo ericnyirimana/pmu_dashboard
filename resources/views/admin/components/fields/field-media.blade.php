@@ -1,8 +1,8 @@
 <div class="form-group">
       <label for="{{ $field }}">{{ $label }}</label>
 
-      <div class="fileupload fileupload-new">
-          <div class="box-image fileupload-exists thumbnail fileupload-preview">
+      <div class="fileupload">
+          <div class="box-image thumbnail ">
               @if ( empty($model->$field) )
                 <i class="fa fa-file-image-o fa-2x"></i>
               @else
@@ -17,7 +17,11 @@
           </div>
       </div>
 </div>
-@include('admin.media.parts.modal-media')
+@push('modal')
+
+  @include('admin.media.parts.modal-media')
+
+@endpush
 @push('styles')
 <!-- Jquery filer css -->
 <link href="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.css")}}" rel="stylesheet" />
@@ -41,9 +45,9 @@ $(document).ready(function(){
             var img = $('.id-image').val();
             img = img.replace('small', 'medium');
 
-            var html_file = "<img src='" + img + "' class='rounded' /><input type='hidden' name='media_id' value='" + id + "'>";
-
-            $('.box-image').html(html_file);
+            var html = "<img src='" + img + "' class='rounded' /><input type='hidden' name='media_id' value='" + id + "'>";
+            console.log(html);
+            $('.box-image').html(html);
 
       });
 

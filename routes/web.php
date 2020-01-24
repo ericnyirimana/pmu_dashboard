@@ -34,7 +34,12 @@ Route::get('/','LandingController@index');
 
         Route::resource('/brands', 'BrandController');
         Route::resource('/menu', 'MenuController');
+
+        Route::post('/menu/section/{menu}', 'MenuSectionController@save')->name('menu.section.data');
+
         Route::resource('/products', 'ProductController');
+        Route::post('/products/position/{product}', 'ProductController@setPosition')->name('product.position');
+
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');

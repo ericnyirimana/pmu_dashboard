@@ -19,8 +19,8 @@
                 <datatable route='menu' :collection="$menu" :fields="[
                 'ID' => 'id',
                 'Name' => 'name',
-                'Brand' => '',
-                'ristorante' => '',
+                'Company' => 'brand:name',
+                'ristorante' => 'restaurant:name',
                 'Status' => 'boolean:status_name:status_color'
                 ]" />
         </div>

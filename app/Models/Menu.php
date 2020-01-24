@@ -8,5 +8,29 @@ class Menu extends Model
 {
 
 
-    protected $table = 'menu';
+    protected $table = 'menus';
+
+
+    protected $fillable = ['name', 'brand_id', 'restaurant_id'];
+
+
+    public function brand() {
+
+          return $this->restaurant->brand();
+
+    }
+
+    public function restaurant() {
+
+          return $this->belongsTo('App\Models\Restaurant');
+
+    }
+
+    public function sections() {
+
+          return $this->hasMany('App\Models\Section');
+
+    }
+
+
 }

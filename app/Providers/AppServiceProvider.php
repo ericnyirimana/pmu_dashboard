@@ -44,6 +44,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with(compact('media'));
           });
 
+        view()->composer('admin.products.parts.form', function ($view) {
+            $categories = \App\Models\Category::getCategoriesByType();
+            $view->with(compact('categories'));
+          });
+
 
           BladeX::component('admin.components.fields.*');
           BladeX::component('admin.components.*');
@@ -51,6 +56,8 @@ class AppServiceProvider extends ServiceProvider
           \App\Models\Brand::observe(IdentifierObserver::class);
           \App\Models\Restaurant::observe(IdentifierObserver::class);
           \App\Models\Category::observe(IdentifierObserver::class);
+          \App\Models\Menu::observe(IdentifierObserver::class);
+          \App\Models\Section::observe(IdentifierObserver::class);
     }
 
     /**

@@ -1,9 +1,9 @@
 <div class="form-group">
   <label for="{{ $field }}">{{ $label }}</label>
   <div class="input-group mb-3">
-      @if( isset($preprend) )
+      @if( isset($prepend) )
       <div class="input-group-prepend">
-          <span class="input-group-text">{{ $preprend }}</span>
+          <span class="input-group-text">{{ $prepend }}</span>
       </div>
       @endif
       <input type="text" name="{{ $field }}" id="{{ $field }}" class="form-control" aria-label="{{ $label }}" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif>

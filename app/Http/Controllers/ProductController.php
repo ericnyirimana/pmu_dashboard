@@ -30,13 +30,10 @@ class ProductController extends Controller
         $brands = Brand::all();
         $restaurants = Restaurant::all();
 
-        $categories = $this->getCategoriesByType();
-
         return view('admin.products.create')->with([
           'product'       => $product,
           'brands'        => $brands,
-          'restaurants'   => $restaurants,
-          'categories'   => $categories
+          'restaurants'   => $restaurants
           ]
         );
 
@@ -112,28 +109,17 @@ class ProductController extends Controller
   }
 
 
-  public function getCategoriesByType() {
 
-      $categories = Category::all();
+      public function setPosition(Product $product, Request $request) {
 
-      $list['foods'] = array();
-      $list['dietary'] = array();
-      $list['allergens'] = array();
+          $product->update(['position' => $request->position]);
 
-      foreach($categories as $cat) {
-          if($cat->type->name == 'Food Category') {
-              array_push($list['foods'], $cat->translation->name);
-          }
-          if($cat->type->name == 'Dietary') {
-              array_push($list['dietary'], $cat->translation->name);
-          }
-          if($cat->type->name == 'Allergens') {
-              array_push($list['allergens'], $cat->translation->name);
-          }
+          return $product;
+
+
       }
 
-      return $list;
 
-  }
+
 
 }

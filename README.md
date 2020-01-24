@@ -7,7 +7,7 @@ Progetto Dashboard - Laravel
 #text
 <field-text label="{Label}" field="{field}" :model="{$model}" mask="{mask}" required  />
 #text-group
-<field-text-group label="{Label}" field="{field}" :model="{$model}" mask="{mask}" preprend="{prerend}" append="{append}" required />
+<field-text-group label="{Label}" field="{field}" :model="{$model}" mask="{mask}" prepend="{prepend}" append="{append}" required />
 
 #select
 <field-select label="{Label}" field="{field}" type="relation" :model="{$model}" :values="${model2}" foreignid="{model_id}" />

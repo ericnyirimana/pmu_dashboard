@@ -14,3 +14,4 @@
 <tag-form file :action="route('menu.store')">
   @include('admin.menu.parts.form')
 </tag-form>
+@endsection

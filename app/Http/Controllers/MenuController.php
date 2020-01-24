@@ -6,10 +6,23 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\Brand;
 use App\Models\Media;
+use App\Models\Category;
 
 class MenuController extends Controller
 {
 
+
+
+    public function validation(Request $request, $media = null) {
+
+        $request->validate(
+          [
+            'name'  => 'required',
+            'restaurant_id',
+          ]
+        );
+
+    }
 
 
     public function index() {
@@ -28,10 +41,11 @@ class MenuController extends Controller
           $brands = Brand::all();
           $media = Media::all();
 
+
           return view('admin.menu.create')->with([
             'menu'   => $menu,
             'brands'   => $brands,
-            'media'   => $media
+
           ]
           );
 
@@ -44,19 +58,18 @@ class MenuController extends Controller
 
           $fields = $request->all();
 
-          Menu::create($fields);
+          $menu = Menu::create($fields);
 
-          return redirect()->route('menu.index')->with([
+          return redirect()->route('menu.edit', $menu)->with([
                 'notification' => 'Menu saved with success!',
                 'type-notification' => 'success'
               ]);
 
     }
 
+
     public function show(Menu $menu) {
 
-          $users = User::all();
-          $media = Media::all();
 
           return view('admin.menu.view')->with([
             'menu'     => $menu,
@@ -70,13 +83,11 @@ class MenuController extends Controller
 
     public function edit(Menu $menu) {
 
-          $users = User::all();
-          $media = Media::all();
+          $brands = Brand::all();
 
           return view('admin.menu.edit')->with([
-            'menu'   => $menu,
-            'users'   => $users,
-            'media'   => $media
+            'menu'    => $menu,
+            'brands'  => $brands
           ]
           );
 

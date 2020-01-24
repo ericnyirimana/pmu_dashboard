@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\CategoryTranslation;
 use App\Models\CategoryType;
 use App\Models\Category;
 use App\Models\Media;
+use App\Traits\TranslationTrait;
+
 
 class CategoryController extends Controller
 {
 
+      use TranslationTrait;
 
 
       public function validation(Request $request, $category = null) {
@@ -103,23 +105,14 @@ class CategoryController extends Controller
 
             $fields = $request->all();
 
+            $this->saveTranslation($category, $fields);
+
             $category->update($fields);
 
             return redirect()->route('categories.index')->with([
                   'notification' => 'Category saved with success!',
                   'type-notification' => 'success'
                 ]);
-
-      }
-
-
-      public function saveTranslation($category, $fields) {
-
-            $category->translation()->delete();
-
-            $fields['code'] = \App::getLocale();
-
-            $category->translation()->create($fields);
 
       }
 

@@ -73,6 +73,8 @@
 
 
         </div>
+
+        @stack('modal')
         <!-- END wrapper -->
 
         <!-- jQuery  -->

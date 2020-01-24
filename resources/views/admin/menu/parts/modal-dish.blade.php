@@ -9,8 +9,10 @@
         </button>
       </div>
       <div class="modal-body">
+            <tag-form file :action="route('products.store')">
             @php $product = null; $brands = null; $restaurants = null; @endphp
             @include('admin.products.parts.form')
+            </tag-form>
       </div>
       <div class="modal-footer">
 
