@@ -20,7 +20,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('restaurant_id')->unsigned();
             $table->smallInteger('status');
             $table->string('type', 20);
-            $table->integer('position')->default(1);
+            $table->integer('position')->default(100);
             $table->timestamps();
             $table->softDeletes();
 

@@ -12,7 +12,7 @@
             <div class="modal-footer">
                 <form id="formDelete" action="#" class="rm-accept" method="POST">
                   <input type="hidden" name="type" value="" id="typeId" />
-                  <input type="hidden" name="id" value="" id="deleteId" />
+                  <div class="inputs_form"></div>
                 <button class="btn btn-danger" data-dismiss="modal">No</button> <button class="btn btn-success">Yes</button>
               </form>
             </div>
@@ -33,9 +33,9 @@ $(document).ready(function(){
         dataType: 'json',
         data: $('#formDelete').serialize(),
         success: function(data) {
+              console.log(data);
               var type = $('#typeId').val();
 
-              console.log(type);
               if (type == 'section') {
                 removeSection(data.id);
               }

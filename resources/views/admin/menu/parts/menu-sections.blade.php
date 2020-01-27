@@ -63,8 +63,10 @@ $(document).ready(function(){
       var type = $(this).data('type');
 
       $('.register-name').text(name);
-      $("#formDelete").attr('action', "{{ route('menu.section.remove') }}");
+      $("#formDelete").attr('action', "{{ route('menu.section.destroy') }}");
       $("#formDelete").attr('data-type', type);
+      $("#formDelete .inputs_form").html('');
+      $("#formDelete .inputs_form").append('<input type="hidden" value="'+id+'" name="id" />');
       $("#deleteId").val(id);
       $("#typeId").val(type);
 
@@ -75,7 +77,6 @@ $(document).ready(function(){
 function removeSection(id) {
 
     $('#section-'+id).remove();
-    console.log(id);
 
 }
 </script>

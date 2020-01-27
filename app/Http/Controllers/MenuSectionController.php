@@ -47,6 +47,7 @@ class MenuSectionController extends Controller
     }
 
 
+
     public function update(Menu $menu, Request $request) {
 
           $fields = $request->all();
@@ -67,7 +68,8 @@ class MenuSectionController extends Controller
     }
 
 
-    public function remove(Request $request) {
+
+    public function destroy(Request $request) {
 
         $section = MenuSection::find($request->id);
 

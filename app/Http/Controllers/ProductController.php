@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Restaurant;
 use App\Models\Product;
+use App\Models\ProductSection;
 use App\Models\Brand;
 use App\Models\Media;
 
@@ -126,11 +128,12 @@ class ProductController extends Controller
     }
 
 
-    public function ajaxDestroy(Product $product) {
+    public function ajaxDestroy(Request $request) {
 
-          $product->delete();
+        $productSection = ProductSection::where('product_id', $request->product_id)->where('menu_section_id', $request->section_id)->first();
+        $productSection->delete();
 
-          return true;
+        return response()->json(['id' => $request->product_id], 200);
 
     }
 
