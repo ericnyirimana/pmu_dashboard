@@ -6,6 +6,10 @@
     min-height: 90%;
   }
 }
+
+.modal-footer .btn-block+.btn-block {
+    margin-top: 0;
+}
 .media-container {
     background: #fff;
     display: flex;

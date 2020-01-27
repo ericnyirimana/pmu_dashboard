@@ -1,3 +1,31 @@
+.container-sections {
+
+    .section-header {
+        display: flex;
+        flex-direction: row;
+        .title-section {
+          flex-basis: 80%;
+        }
+
+        .actions-section {
+          margin-left: auto;
+
+          i {
+              font-size: 1.2rem;
+              margin-left: 10px;
+          }
+
+          .edit-section, .remove-section {
+            cursor: pointer;
+          }
+
+          .move-section {
+            cursor: move;
+          }
+        }
+    }
+}
+
 .container-plate-preview {
   display: flex;
   flex-direction: row;

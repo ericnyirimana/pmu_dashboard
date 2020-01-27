@@ -35,8 +35,10 @@ Route::get('/','LandingController@index');
         Route::resource('/brands', 'BrandController');
         Route::resource('/menu', 'MenuController');
 
-        Route::post('/menu/section/{menu}', 'MenuSectionController@save')->name('menu.section.data');
-        Route::post('/section/position/{section}', 'MenuSectionController@setPosition')->name('section.position');
+        Route::post('/menu/section/{menu}', 'MenuSectionController@save')->name('menu.section.save');
+        Route::put('/menu/section/{menu}', 'MenuSectionController@update')->name('menu.section.update');
+        Route::delete('/menu/section/remove', 'MenuSectionController@remove')->name('menu.section.remove');
+        Route::post('/menu/section/position/{section}', 'MenuSectionController@setPosition')->name('section.position');
 
         Route::resource('/products', 'ProductController');
         Route::post('/products/position/{product}', 'ProductController@setPosition')->name('product.position');

@@ -10,6 +10,8 @@ class MenuSection extends Model
 
     protected $fillable = ['menu_id', 'type', 'position'];
 
+    protected $with = ['translation'];
+
 
     public function translation() {
 
