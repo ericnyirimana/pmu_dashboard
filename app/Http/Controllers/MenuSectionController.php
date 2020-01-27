@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\Section;
+use App\Models\MenuSection;
 use App\Traits\TranslationTrait;
 
 class MenuSectionController extends Controller
@@ -42,6 +42,15 @@ class MenuSectionController extends Controller
           return response()->json($html, 200);
     }
 
+
+    public function setPosition(MenuSection $section, Request $request) {
+
+        $section->update(['position' => $request->position]);
+
+        return $section;
+
+
+    }
 
 
 }

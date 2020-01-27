@@ -57,7 +57,9 @@ class AppServiceProvider extends ServiceProvider
           \App\Models\Restaurant::observe(IdentifierObserver::class);
           \App\Models\Category::observe(IdentifierObserver::class);
           \App\Models\Menu::observe(IdentifierObserver::class);
-          \App\Models\Section::observe(IdentifierObserver::class);
+          \App\Models\MenuSection::observe(IdentifierObserver::class);
+          \App\Models\Product::observe(IdentifierObserver::class);
+          \App\Models\ProductTranslation::observe(\App\Observers\ProductTranslationObserver::class);
     }
 
     /**

@@ -18,7 +18,7 @@
     </div>
 </div>
 
-<div class="list-menu-section">
+<div class="list-menu-section" id="sortable_sections">
   @if( isset($menu->sections) )
 
       @foreach($menu->sections as $section)
@@ -45,14 +45,34 @@
 @push('modal')
 @if( $menu )
   @include('admin.menu.parts.modal-type-dish')
-  @include('admin.menu.parts.modal-dish')
-  @include('admin.menu.parts.modal-drink')
+
 @endif
 @endpush
 
 @push('scripts')
 <script>
 $(document).ready(function(){
+
+    $( "#sortable_sections" ).sortable({
+      axis: "y",
+      update: function( event, ui ) {
+
+         $(this).children('.container-sections').each(function(item, element) {
+
+             $.ajax({
+                 url: "/admin/section/position/"+$(element).data('id'),
+                 type: 'POST',
+                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                 dataType: 'json',
+                 data: {position: item},
+                 success: function(data) {
+
+                 }
+             });
+
+         })
+      }
+    });
 
     $(document).on('change', '#brand_id', function(){
 

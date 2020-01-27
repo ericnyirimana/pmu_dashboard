@@ -292,24 +292,5 @@ class CategoriesTableSeeder extends Seeder
             'code'  => 'en'
         ]);
 
-        // Vegan - id: 14
-        DB::table('categories')->insert([
-            'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '2',
-        ]);
-
-        DB::table('category_translations')->insert([
-            'name' => 'Vegano',
-            'description' => 'qualsiasi cosa verde',
-            'category_id' => '14',
-            'code'  => 'it'
-        ]);
-
-        DB::table('category_translations')->insert([
-            'name' => 'Vegan',
-            'description' => 'Green stuffs',
-            'category_id' => '14',
-            'code'  => 'en'
-        ]);
     }
 }

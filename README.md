@@ -17,4 +17,4 @@ Progetto Dashboard - Laravel
 <field-area label="{Label}" field="{field}" :model="{$model}" required  />
 
 #tags
-<field-tags label="{label}" field="{field}" :model="{$model}" :values="{$values}" required  />
+<field-tags label="{label}" field="{field}" values="{$values}" :model="{$model}" :list="{$list}" required  />

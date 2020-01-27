@@ -11,7 +11,7 @@ class Menu extends Model
     protected $table = 'menus';
 
 
-    protected $fillable = ['name', 'brand_id', 'restaurant_id'];
+    protected $fillable = ['name', 'restaurant_id'];
 
 
     public function brand() {
@@ -28,7 +28,7 @@ class Menu extends Model
 
     public function sections() {
 
-          return $this->hasMany('App\Models\Section');
+          return $this->hasMany('App\Models\MenuSection')->orderBy('position', 'ASC');
 
     }
 

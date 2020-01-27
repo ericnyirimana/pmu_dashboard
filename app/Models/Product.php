@@ -23,10 +23,29 @@ class Product extends Model
 
     }
 
+    public function media() {
+
+          return $this->belongsToMany('App\Models\Media', 'products_media');
+
+    }
 
     public function section() {
 
-        return $this->belongsTo('App\Models\Section');
+        return $this->belongsToMany('App\Models\MenuSection', 'product_menu_sections');
 
     }
+
+
+    public function brand() {
+
+          return $this->restaurant->brand();
+
+    }
+
+    public function restaurant() {
+
+          return $this->belongsTo('App\Models\Restaurant');
+
+    }
+
 }

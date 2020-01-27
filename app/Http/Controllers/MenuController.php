@@ -85,6 +85,7 @@ class MenuController extends Controller
 
           $brands = Brand::all();
 
+          
           return view('admin.menu.edit')->with([
             'menu'    => $menu,
             'brands'  => $brands
@@ -103,7 +104,7 @@ class MenuController extends Controller
 
           $menu->update($fields);
 
-          return redirect()->route('menu.index')->with([
+          return redirect()->route('menu.edit', $menu)->with([
                 'notification' => 'Menu saved with success!',
                 'type-notification' => 'success'
               ]);

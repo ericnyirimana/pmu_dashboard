@@ -13,7 +13,7 @@ class CreateSectionTable extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('menu_sections', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
             $table->bigInteger('menu_id')->unsigned();
@@ -32,6 +32,6 @@ class CreateSectionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sections');
+        Schema::dropIfExists('menu_sections');
     }
 }

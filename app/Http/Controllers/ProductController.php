@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Restaurant;
-use App\Models\Category;
 use App\Models\Product;
 use App\Models\Brand;
 use App\Models\Media;
@@ -14,99 +12,127 @@ class ProductController extends Controller
 {
 
 
-  public function index() {
+  public function validation(Request $request, $media = null) {
 
-      $product = Product::all();
-
-      return view('admin.menu.index')
-      ->with( compact('menu') );
+      $request->validate(
+        [
+          'name'          => 'required',
+          'restaurant_id' => 'required',
+        ]
+      );
 
   }
 
 
-  public function create() {
+    public function index() {
 
-        $product = new Product();
-        $brands = Brand::all();
-        $restaurants = Restaurant::all();
+        $products = Product::all();
 
-        return view('admin.products.create')->with([
-          'product'       => $product,
-          'brands'        => $brands,
-          'restaurants'   => $restaurants
+        return view('admin.products.index')
+        ->with( compact('products') );
+
+    }
+
+
+    public function create() {
+
+          $product = new Product();
+          $brands = Brand::all();
+          $restaurants = Restaurant::all();
+
+          return view('admin.products.create')->with([
+            'product'       => $product,
+            'brands'        => $brands,
+            'restaurants'   => $restaurants
+            ]
+          );
+
+    }
+
+
+    public function store(Request $request) {
+
+          $inputs = $request->all();
+
+          $this->validation($request);
+
+          $fields = $request->all();
+
+          $product = Product::create($fields);
+
+          if ($request->media) {
+              $product->media()->sync( array_unique($request->media) );
+          }
+
+          return redirect()->route('products.index')->with([
+                'notification' => 'Product saved with success!',
+                'type-notification' => 'success'
+              ]);
+
+    }
+
+    public function show(Product $product) {
+
+
+          return view('admin.menu.view')->with([
+            'product'     => $product,
           ]
-        );
+          );
 
-  }
-
-
-  public function store(Request $request) {
-
-        $inputs = $request->all();
-
-        dd($inputs);
+    }
 
 
-        $this->validation($request);
+    public function edit(Product $product) {
 
-        $fields = $request->all();
+          return view('admin.products.edit')->with([
+            'product'   => $product,
 
-        Product::create($fields);
+          ]
+          );
 
-        return redirect()->route('products.index')->with([
-              'notification' => 'Product saved with success!',
-              'type-notification' => 'success'
-            ]);
+    }
 
-  }
+    public function update(Request $request, Product $product) {
 
-  public function show(Product $product) {
+          $this->validation($request, $product);
 
+          $fields = $request->all();
 
-        return view('admin.menu.view')->with([
-          'product'     => $product,
-        ]
-        );
+          $product->update($fields);
 
-  }
+          $product->translation->update($fields);
 
+          if ($request->media) {
+              $product->media()->sync( array_unique($request->media) );
+          }
 
-  public function edit(Product $product) {
+          return redirect()->route('products.index')->with([
+                'notification' => 'Product saved with success!',
+                'type-notification' => 'success'
+              ]);
 
-        return view('admin.menu.edit')->with([
-          'product'   => $product,
-
-        ]
-        );
-
-  }
-
-  public function update(Request $request, Product $product) {
-
-        $this->validation($request, $product);
-
-        $fields = $request->all();
-
-        $product->update($fields);
-
-        return redirect()->route('products.index')->with([
-              'notification' => 'Product saved with success!',
-              'type-notification' => 'success'
-            ]);
-
-  }
+    }
 
 
-  public function destroy(Product $product) {
+    public function destroy(Product $product) {
 
-        $product->delete();
+          $product->delete();
 
-        return redirect()->route('products.index')->with([
-              'notification' => 'Image removed with success!',
-              'type-notification' => 'warning'
-            ]);
+          return redirect()->route('products.index')->with([
+                'notification' => 'Image removed with success!',
+                'type-notification' => 'warning'
+              ]);
 
-  }
+    }
+
+
+    public function ajaxDestroy(Product $product) {
+
+          $product->delete();
+
+          return true;
+
+    }
 
 
 

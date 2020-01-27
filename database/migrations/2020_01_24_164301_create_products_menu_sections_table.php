@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMenuSectionTranslationsTable extends Migration
+class CreateProductsMenuSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateMenuSectionTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('menu_section_translations', function (Blueprint $table) {
-          $table->increments('id');
+        Schema::create('product_menu_sections', function (Blueprint $table) {
+          $table->bigIncrements('id');
+          $table->bigInteger('product_id')->unsigned();
           $table->bigInteger('menu_section_id')->unsigned();
-          $table->string('name');
-          $table->string('code', 2);
           $table->timestamps();
 
+          $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
           $table->foreign('menu_section_id')->references('id')->on('menu_sections')->onDelete('cascade');
-          $table->foreign('code')->references('code')->on('languages');
         });
     }
 
@@ -32,6 +31,6 @@ class CreateMenuSectionTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('menu_section_translations');
+        Schema::dropIfExists('product_menu_sections');
     }
 }

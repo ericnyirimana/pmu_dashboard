@@ -73,7 +73,10 @@ class RestaurantController extends Controller
 
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
-            $this->saveMedia($restaurant, $request->media);
+
+            if ($request->media) {
+                $restaurant->media()->sync( array_unique($request->media) );
+            }
 
             return redirect()->route('brand.restaurants.index', $brand)->with([
                   'notification' => 'Restaurant saved with success!',
@@ -139,7 +142,10 @@ class RestaurantController extends Controller
 
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
-            $this->saveMedia($restaurant, $request->media);
+
+            if ($request->media) {
+                $restaurant->media()->sync( array_unique($request->media) );
+            }
 
             return redirect()->route('brand.restaurants.index', $brand)->with([
                   'notification' => 'Restaurant saved with success!',
@@ -197,18 +203,6 @@ class RestaurantController extends Controller
 
 
         }
-
-      }
-
-
-      protected function saveMedia(Restaurant $restaurant, $media) {
-
-        if (!empty($media)) {
-
-            $restaurant->media()->sync( array_unique($media) );
-
-        }
-
 
       }
 

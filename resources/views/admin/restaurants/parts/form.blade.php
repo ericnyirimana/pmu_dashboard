@@ -69,23 +69,6 @@
 $(document).ready(function(){
 
 
-      $(document).on('click', '.close-modal', function(){
-            closeModal();
-      });
-
-      $(document).on('click', '.add-image', function(){
-
-            var id = $('.src-image').val();
-            var file = $('.id-image').val();
-
-            var html_file = "<figure><img src='" + file + "'><input type='hidden' name='media[]' value='" + id + "'><i class='fa fa-trash delete-image'></i></figure>";
-
-            $('.list-images').prepend(html_file);
-
-            closeModal();
-
-      });
-
       // add new time
       $(document).on('click', '.add_time', function(){
 
@@ -115,19 +98,6 @@ $(document).ready(function(){
           }
 
 
-
-      });
-
-
-      // Click outside thumb //
-      // deselect image if click on body
-      $(document).on('click', '.media-search-body', function(e) {
-
-          if(!$(e.target).parent().hasClass('view-file')) {
-
-              $('.view-file img').removeClass('active');
-              $('.preview-image').hide();
-          }
 
       });
 
@@ -172,32 +142,6 @@ function openTimeTable(name) {
   $('.set_'+name).show();
 }
 
-
-// Load Image
-// Load imaged clicked from thumb
-function loadImage(file) {
-
-  $.ajax({
-      url: '{{ env('APP_URL') }}/media/image/'+file,
-      context: document.body
-    }).done(function(media) {
-      $('.add-image-container').show();
-      $('.preview-image').show();
-      $('.preview-file').attr('src', media.files.medium);
-      $('.preview-name').text(media.name);
-      $('.src-image').val(media.id);
-      $('.id-image').val(media.files.small);
-
-  });
-
-}
-
-function closeModal() {
-
-  $('.modal-media').hide(1);
-  $('.preview-image').hide(1);
-
-}
 
 </script>
 @endpush

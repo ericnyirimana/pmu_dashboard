@@ -11,7 +11,7 @@
       </div>
     </div>
 </div>
-<tag-form file :action="route('menu.store')">
+<tag-form :action="route('menu.update', $menu)" method="put" >
   @include('admin.menu.parts.form')
 </tag-form>
 @endsection

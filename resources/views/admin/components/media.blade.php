@@ -83,6 +83,19 @@ $(document).ready(function(){
 
   });
 
+
+  // Click outside thumb //
+  // deselect image if click on body
+  $(document).on('click', '.media-search-body', function(e) {
+
+      if(!$(e.target).parent().hasClass('view-file')) {
+
+          $('.view-file img').removeClass('active');
+          $('.preview-image').hide();
+      }
+
+  });
+
   // Click thumb //
   // Select preview Image
   $(document).on('click', '.view-file', function() {
