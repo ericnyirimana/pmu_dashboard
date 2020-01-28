@@ -8,7 +8,7 @@ class ProductTranslation extends Model
 {
 
 
-  protected $fillable = ['name', 'description', 'ingredients', 'categories', 'allergens', 'dietary', 'code'];
+  protected $fillable = ['product_id', 'name', 'description', 'ingredients', 'categories', 'allergens', 'dietary', 'code'];
 
 
     public function getCategoriesArrayAttribute() {

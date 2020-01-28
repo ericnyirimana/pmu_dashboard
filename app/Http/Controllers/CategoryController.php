@@ -57,7 +57,6 @@ class CategoryController extends Controller
 
             $this->validation($request);
 
-            $locale = \App::getLocale();
             $fields = $request->all();
 
             $category = Category::create($fields);

@@ -1,9 +1,11 @@
 <div class="form-group">
     <label for="{{ $field }}">Add {{ $label }}</label>
     <select class="form-control {{ $field }}-select2" name="{{ $field }}[]" multiple="multiple">
+      @if($list)
       @foreach($list as $item)
         <option value="{{ $item }}">{{ $item }}</option>
       @endforeach
+      @endif
     </select>
 
 </div>
@@ -11,8 +13,9 @@
 <script>
 $(document).ready(function(){
 
+    @if( isset($model->$values) )
     $('.{{ $field }}-select2').val([@foreach($model->$values as $value) "{{ trim($value) }}", @endforeach]);
-
+    @endif
     $('.{{ $field }}-select2').select2();
 
 });

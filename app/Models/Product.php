@@ -8,7 +8,7 @@ class Product extends Model
 {
 
 
-    protected $fillable = ['position'];
+    protected $fillable = ['restaurant_id', 'status', 'price', 'type', 'position'];
 
 
     public function translation() {
@@ -38,7 +38,10 @@ class Product extends Model
 
     public function brand() {
 
-          return $this->restaurant->brand();
+          if ($this->restaurant) {
+              return $this->restaurant->brand();
+          }
+
 
     }
 

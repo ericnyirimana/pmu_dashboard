@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 
 use App\Models\Restaurant;
 use App\Models\Product;
+use App\Models\ProductTranslation;
 use App\Models\ProductSection;
 use App\Models\Brand;
 use App\Models\Media;
+use App\Traits\TranslationTrait;
 
 class ProductController extends Controller
 {
+
+  use TranslationTrait;
 
 
   public function validation(Request $request, $media = null) {
@@ -60,7 +64,12 @@ class ProductController extends Controller
 
           $fields = $request->all();
 
+          $fields['type'] = $request->type ?? 'Dish';
+          $fields['status'] = $request->status ?? false;
+
           $product = Product::create($fields);
+
+          $this->saveTranslation($product, $fields);
 
           if ($request->media) {
               $product->media()->sync( array_unique($request->media) );
