@@ -19,9 +19,9 @@
             <div class="col-12 pb-2">
 
                   @if($section->type == 'Dish')
-                  <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#modalDish"><i class="fa fa-plus"></i> Add Plate</button>
+                  <button type="button" class="btn btn-primary btn-block btn-open-dish" data-section="{{ $section->id }}" ><i class="fa fa-plus"></i> Add Plate</button>
                   @else
-                  <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#modalDrink"><i class="fa fa-plus"></i> Add Drink</button>
+                  <button type="button" class="btn btn-primary btn-block btn-open-drink" data-section="{{ $section->id }}"><i class="fa fa-plus"></i> Add Drink</button>
                   @endif
             </div>
        </div>
@@ -30,6 +30,24 @@
 @push('scripts')
 <script>
  $( function() {
+
+  $(document).on('click', '.btn-open-dish', function(e){
+
+      section = $(this).data('section');
+      $('#modalDish').modal('toggle');
+
+      $("#formAddDishes #add_dish_section_id").val(section);
+
+  });
+
+  $(document).on('click', '.btn-open-drink', function(e){
+
+      section = $(this).data('section');
+      $('#modalDrink').modal('toggle');
+
+      $("#formAddDrinks #add_drink_section_id").val(section);
+
+  });
 
    $( "#sortable_dish_{{ $section->id }}" ).sortable({
      axis: "y",

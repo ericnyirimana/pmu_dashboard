@@ -31,6 +31,7 @@
   flex-direction: row;
   background-color: white;
   margin-bottom: 30px;
+
   figure {
     width: 100px;
     text-align: center;
@@ -97,5 +98,37 @@
 
   }
 
+}
 
+.select-product {
+    cursor: pointer;
+    border: 1px solid $base-blue-light-color;
+    margin: 10px;
+
+    .plate-preview-text {
+      margin: 0;
+      padding-bottom: 10px;
+    }
+    input {
+      opacity: 0;
+    }
+    color: #ccc;
+    p {
+      color: inherit;
+    }
+    h5 {
+      color: inherit;
+    }
+}
+.select-product.selected {
+    border: 1px solid $base-blue-dark-color;
+    background-color: $base-blue-light-color;
+    color: $base-blue-dark-color;
+    p {
+      color: inherit;
+    }
+    h5 {
+
+      color: inherit;
+    }
 }

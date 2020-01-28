@@ -16,37 +16,3 @@
           </div>
     </div>
 </div>
-
-@push('scripts')
-<script>
-$(document).ready(function(){
-
-    $(document).on('click', '.plate-remove', function() {
-
-      var product_id = $(this).data('product_id');
-      var section_id = $(this).data('section_id');
-      var name = $(this).data('name');
-      var type = $(this).data('type');
-
-      $('.register-name').text(name);
-      $("#formDelete").attr('action', "{{ route('product.ajax.destroy') }}");
-      $("#formDelete").attr('data-type', type);
-
-      $("#formDelete .inputs_form").html('');
-
-      $("#formDelete .inputs_form").append('<input type="hidden" value="'+product_id+'" name="product_id" />');
-      $("#formDelete .inputs_form").append('<input type="hidden" value="'+section_id+'" name="section_id" />');
-      $("#typeId").val(type);
-
-      $('.register-name').text(name);
-
-    });
-});
-
-function removeItem(id) {
-
-    $('#item-'+id).remove();
-
-}
-</script>
-@endpush

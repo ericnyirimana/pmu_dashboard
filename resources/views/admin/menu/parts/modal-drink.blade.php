@@ -9,28 +9,70 @@
         </button>
       </div>
       <div class="modal-body">
-
-        <div class="row">
-            <div class="col-12 col-lg-6">
-              <field-text label="Name type" field="drink_name"  required  />
-
-            </div>
-            <div class="col-6 col-lg-3">
-                <field-text-group label="Quantity" field="drink_quantity" mask="9999"  append="ml." required />
-
-            </div>
-            <div class="col-6 col-lg-3">
-                <field-text-group label="Price" field="drink_price" mask="99" prepend="€" append=",00" required />
-
-            </div>
-        </div>
+        <form id="formAddDrinks">
+          <input type="hidden" value="" name="section_id" id="add_drink_section_id" />
+          @foreach ($drinksProducts as $product)
+          <div class="container-plate-preview select-product" data-id="{{ $product->id }}" id="item-{{ $product->id }}">
+              <input type="checkbox" value="{{ $product->id }}" id="select-dish-{{ $product->id }}" class="add-products" name="add_products[]" />
+              <div class="plate-preview-text">
+                <h5>{{ $product->translation->name }}</h5>
+                <p>{{ $product->translation->description }}</p>
+              </div>
+              <div class="plate-preview-price">
+                  € {{ $product->price }}
+              </div>
+          </div>
+          @endforeach
+        </form>
       </div>
       <div class="modal-footer">
 
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-primary btn-block">Save</button>
+          <button type="button" class="btn btn-primary btn-block btn-add-drinks">Add</button>
 
       </div>
     </div>
   </div>
 </div>
+
+@push('scripts')
+<script>
+$(document).ready(function() {
+
+    $(document).on('click', '.btn-add-drinks', function(e) {
+          e.preventDefault();
+
+          $.ajax({
+            url: "{{ route('section.product.add') }}",
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            dataType: 'json',
+            data: $('#formAddDrinks').serialize(),
+            success: function(data) {
+
+                $.each(data.views, function(i, html){
+                    $("#sortable_dish_"+data.id).append(html);
+                });
+
+                $('#modalDrink').modal('toggle');
+
+            }
+          });
+    });
+
+    $(document).on('click', '.select-dish', function(e) {
+
+          if ($(this).find('input').is(':checked')) {
+              $(this).removeClass("selected");
+              $(this).find('input').prop('checked', false);
+
+          } else {
+              $(this).addClass("selected");
+              $(this).find('input').prop('checked', true);
+          }
+
+    });
+
+});
+</script>
+@endpush

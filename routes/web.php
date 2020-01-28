@@ -37,8 +37,9 @@ Route::get('/','LandingController@index');
 
         Route::post('/menu/section/{menu}', 'MenuSectionController@save')->name('menu.section.save');
         Route::put('/menu/section/{menu}', 'MenuSectionController@update')->name('menu.section.update');
-        Route::delete('/menu/section/ajaxDelete', 'MenuSectionController@destroy')->name('menu.section.destroy');
-        Route::post('/menu/section/position/{section}', 'MenuSectionController@setPosition')->name('section.position');
+        Route::delete('/section/ajaxDelete', 'MenuSectionController@destroy')->name('menu.section.destroy');
+        Route::post('/section/position/{section}', 'MenuSectionController@setPosition')->name('section.position');
+        Route::post('/section/product/add', 'MenuSectionController@addProduct')->name('section.product.add');
 
         Route::resource('/products', 'ProductController');
         Route::post('/products/position/{product}', 'ProductController@setPosition')->name('product.position');

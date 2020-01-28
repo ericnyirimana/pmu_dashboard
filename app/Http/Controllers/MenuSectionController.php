@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\MenuSection;
+use App\Models\ProductSection;
+use App\Models\Product;
+
 use App\Traits\TranslationTrait;
 
 class MenuSectionController extends Controller
@@ -87,8 +90,38 @@ class MenuSectionController extends Controller
 
         $section->update(['position' => $request->position]);
 
-        return $section;
+        return response()->json(['id'=>$section->id], 200);
 
+
+    }
+
+
+
+    public function addProduct(Request $request) {
+
+          $products_ids = $request->add_products;
+          $section_id = $request->section_id;
+          $section = MenuSection::find($section_id);
+          $views = array();
+          foreach ($products_ids as $product_id) {
+
+              $productSection = ProductSection::where('menu_section_id', $section_id)->where('product_id', $product_id)->exists();
+
+              if (!$productSection) {
+
+                ProductSection::create(['menu_section_id' => $section_id, 'product_id' => $product_id]);
+
+                $product = Product::find($product_id);
+
+                $html = view('admin.menu.parts.menu-dish-item')->with(['section' => $section, 'product' => $product ])->render();
+
+                array_push($views, $html);
+              }
+
+          }
+
+
+          return response()->json(['id' => $request->section_id, 'views' => $views], 200);
 
     }
 

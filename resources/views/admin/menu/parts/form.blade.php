@@ -39,6 +39,11 @@
         </div>
   </div>
 </div>
+
+@push('modal')
+@include('admin.menu.parts.modal-dish')
+@include('admin.menu.parts.modal-drink')
+@endpush
 @push('scripts')
 <script>
 $(document).ready(function(){

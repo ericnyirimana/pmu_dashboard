@@ -7,6 +7,7 @@ use App\Models\Menu;
 use App\Models\Brand;
 use App\Models\Media;
 use App\Models\Category;
+use App\Models\Product;
 
 class MenuController extends Controller
 {
@@ -84,11 +85,14 @@ class MenuController extends Controller
     public function edit(Menu $menu) {
 
           $brands = Brand::all();
+          $dishesProducts = Product::where('type', 'Dish')->get();
+          $drinksProducts = Product::where('type', 'Drink')->get();
 
-          
           return view('admin.menu.edit')->with([
             'menu'    => $menu,
-            'brands'  => $brands
+            'brands'  => $brands,
+            'dishesProducts' => $dishesProducts,
+            'drinksProducts' => $drinksProducts
           ]
           );
 
@@ -122,6 +126,8 @@ class MenuController extends Controller
               ]);
 
     }
+
+
 
 
 }
