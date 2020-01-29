@@ -20,7 +20,7 @@
                 <datatable route='products' :collection="$products" :fields="[
                 'ID' => 'id',
                 'Name' => 'translation:name',
-                'type'  => 'type'
+                'type'  => 'color:type:color_type'
                 ]"
                 actions="edit, delete" />
         </div>

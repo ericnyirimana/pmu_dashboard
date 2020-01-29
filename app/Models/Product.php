@@ -60,4 +60,15 @@ class Product extends Model
 
     }
 
+
+    public function getColorTypeAttribute() {
+
+        if($this->type == 'Dish') {
+          return 'primary';
+        } else {
+          return 'success';
+        }
+
+    }
+
 }

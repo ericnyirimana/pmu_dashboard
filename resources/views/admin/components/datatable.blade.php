@@ -26,6 +26,9 @@
                 @case ('boolean')
                     <td><span class="label label-{{ $model->{$params[2]} }}">{{ $model->$item }}</span></td>
                 @break
+                @case ('color')
+                    <td><span class="label label-{{ $model->{$params[2]} }}">{{ $model->$item }}</span></td>
+                @break
                 @default
                     <td>{{ $model->$type->$item }}</td>
                 @break
@@ -35,7 +38,7 @@
           @endif
         @endforeach
         <td class="actions">
-          
+
           @if( empty($actions) || strstr($actions, 'view') )
           <a href="{{ route($route.'.show', $model->id )}}" class="btn btn-icon waves-effect waves-light btn-info"><i class="fa fa-search" aria-hidden="true"></i></a>
           @endif
