@@ -44,7 +44,7 @@ class UserController extends Controller
 
           $this->alignUsersFromCognito();
 
-          $users = User::all();
+          $users = User::get();
 
           return view('admin.users.index')
           ->with( compact('users') );
@@ -203,7 +203,7 @@ class UserController extends Controller
             $sub = $cognitoUser['Username'];
             $attributes = $cognitoUser['Attributes'];
 
-            $user = User::where('sub', $sub)->first();
+            $user = User::withTrashed()->where('sub', $sub)->first();
 
             if (!$user) {
 

@@ -24,7 +24,8 @@
               <datatable route='users' :collection='$users' :fields="[
                   'ID'        => 'id',
                   'Name'      => 'name',
-                  'Email'     => 'email'
+                  'Email'     => 'email',
+                  'Role'      => 'role'
               ]"
               actions="edit, delete" />
 
