@@ -34,7 +34,8 @@
                 'ID' => 'id',
                 'Name' => 'name',
                 'City' => 'city'
-                ]" />
+                ]"
+                actions="edit,delete" />
         </div>
     </div>
 </div>

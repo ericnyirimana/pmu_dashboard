@@ -25,7 +25,8 @@
                   'ID'        => 'id',
                   'Name'      => 'name',
                   'Email'     => 'email'
-              ]" />
+              ]"
+              actions="edit, delete" />
 
         </div>
     </div>
