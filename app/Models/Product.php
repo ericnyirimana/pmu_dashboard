@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
 
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+
+
 
     protected $fillable = ['restaurant_id', 'status', 'price', 'type', 'position'];
 
@@ -29,9 +32,15 @@ class Product extends Model
 
     }
 
-    public function section() {
+    public function sections() {
 
         return $this->belongsToMany('App\Models\MenuSection', 'product_menu_sections');
+
+    }
+
+    public function menus() {
+
+        return $this->hasManyDeepFromRelations($this->sections(), (new MenuSection)->menu());
 
     }
 

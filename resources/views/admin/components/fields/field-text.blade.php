@@ -8,7 +8,16 @@
 @if(isset($mask))
 $(document).ready(function(){
 
-  $('#{{ $field }}').mask('{{ $mask }}');
+  $('#{{ isset($id) ? $id : $field }}').mask('{{ $mask }}', {
+      @if(isset($maskreverse))
+      reverse: true
+      @endif
+      @if(isset($maskpattern))
+      'translation': {
+        {{ $maskpattern }}
+      }
+      @endif
+  });
 
 });
 @endif

@@ -1,5 +1,10 @@
 <div class="row">
 
+  <div class="col-12">
+      <h4>{{ $product->type }}</h4>
+      <field-hide field="type" :model="$product" />
+  </div>
+
   <div class="col-12 col-md-6">
         @if($product->id)
         <field-select label="Company" field="brand_id" type="relation" :model="$product" :values="$product->brand" foreignid="brand_id" required />
@@ -14,29 +19,17 @@
         <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$product" foreignid="restaurant_id" required />
         @endif
   </div>
+</div>
+<div class="row">
+  @if($product->type == 'Dish')
+    @include('admin.products.parts.dish')
+  @endif
+  @if($product->type == 'Drink')
+    @include('admin.products.parts.drink')
+  @endif
+</div>
 
-    <div class="col-lg-9 col-md-7">
-          <field-text label="Name" field="name" :model="$product->translation" required  />
-    </div>
-    <div class="col-lg-3 col-md-5">
-          <field-text-group label="Price" field="price" :model="$product" mask="99,99" prepend="€" required />
-    </div>
-    <div class="col-12">
-          <field-tags label="Categories" field="categories" values="categories_array" :model="$product->translation" :list="$categories['foods']" required  />
-    </div>
-    <div class="col-12 col-md-6">
-          <field-area label="Description" field="description" :model="$product->translation" required  />
-    </div>
-    <div class="col-12 col-md-6">
-          <field-area label="Ingredients" field="ingredients" :model="$product->translation" required  />
-    </div>
-    <div class="col-12">
-          <field-tags label="Allergens" field="allergens" values="allergens_array" :model="$product->translation" :list="$categories['allergens']" required  />
-    </div>
-    <div class="col-12">
-          <field-tags label="Diets" field="dietary" values="dietary_array" :model="$product->translation" :list="$categories['dietary']" required  />
-    </div>
-
+<div class="row">
     <div class="col-4">
           <field-media-list label="Image" field="media_id" :model="$product" required="new" />
     </div>
@@ -54,13 +47,13 @@
 <script>
 $(document).ready(function(){
 
+
   $(document).on('change', '#brand_id', function(){
 
       if ($(this).val()) {
 
         $.ajax({
             url: "{{ route('brand.restaurants.data') }}/"+$(this).val(),
-
             type: 'GET',
             success: function(data) {
 

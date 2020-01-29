@@ -35,7 +35,6 @@ $(document).ready(function(){
 
       var id = $('#section_id').val();
 
-
       if (id) {
 
             $.ajax({

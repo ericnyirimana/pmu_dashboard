@@ -18,3 +18,6 @@ Progetto Dashboard - Laravel
 
 #tags
 <field-tags label="{label}" field="{field}" values="{$values}" :model="{$model}" :list="{$list}" required  />
+
+#radio
+<field-radio field="{type}" :model="{$model}" :items="{$items}" required />

@@ -7,7 +7,7 @@
 
 <div class="row m-b-10">
       <div class="col-12">
-          <a href="{{ route('categories.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Brand</a>
+          <a href="{{ route('categories.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Category</a>
     </div>
 </div>
 <div class="row">
@@ -20,7 +20,8 @@
                 'ID' => 'id',
                 'Name' => 'translation:name',
                 'Type' => 'type:name',
-                ]" />
+                ]"
+                actions="edit,delete" />
         </div>
     </div>
 </div>

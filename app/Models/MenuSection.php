@@ -10,7 +10,7 @@ class MenuSection extends Model
 
     protected $fillable = ['menu_id', 'type', 'position'];
 
-    protected $with = ['translation'];
+    protected $with = ['translation', 'menu'];
 
 
     public function translation() {
@@ -28,6 +28,12 @@ class MenuSection extends Model
     public function products() {
 
         return $this->belongsToMany('App\Models\Product', 'product_menu_sections')->orderBy('position','ASC');
+
+    }
+
+    public function menu() {
+
+        return $this->belongsTo('App\Models\Menu');
 
     }
 }

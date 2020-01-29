@@ -42,9 +42,14 @@ class ProductController extends Controller
 
     public function create() {
 
+          $route = \Request::route()->getName();
+          $arrRoute = explode('.', $route);
+
           $product = new Product();
           $brands = Brand::all();
           $restaurants = Restaurant::all();
+
+          $product->type = ucfirst(end($arrRoute));
 
           return view('admin.products.create')->with([
             'product'       => $product,
@@ -84,8 +89,7 @@ class ProductController extends Controller
 
     public function show(Product $product) {
 
-
-          return view('admin.menu.view')->with([
+          return view('admin.products.view')->with([
             'product'     => $product,
           ]
           );
@@ -154,10 +158,7 @@ class ProductController extends Controller
 
           return $product;
 
-
       }
-
-
 
 
 }

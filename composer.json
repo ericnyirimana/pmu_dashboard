@@ -18,7 +18,8 @@
         "laravelcollective/html": "^6.0",
         "league/flysystem-aws-s3-v3": "^1.0",
         "nothingworks/blade-svg": "^0.3.2",
-        "spatie/laravel-blade-x": "^2.4"
+        "spatie/laravel-blade-x": "^2.4",
+        "staudenmeir/eloquent-has-many-deep": "^1.7"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

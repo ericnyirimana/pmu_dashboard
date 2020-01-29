@@ -38,7 +38,7 @@ class MenuController extends Controller
 
     public function create() {
 
-          $menu = null;
+          $menu = new Menu;
           $brands = Brand::all();
           $media = Media::all();
 

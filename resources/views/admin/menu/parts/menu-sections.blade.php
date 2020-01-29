@@ -8,10 +8,12 @@
 </div>
 
 @push('modal')
-@if( $menu )
+@if( $menu->id )
   @include('admin.menu.parts.modal-type-dish')
-@endif
+  @include('admin.menu.parts.modal-dish')
+  @include('admin.menu.parts.modal-drink')
   @include('admin.menu.parts.modal-remove')
+@endif
 @endpush
 
 @push('scripts')

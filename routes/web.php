@@ -42,8 +42,13 @@ Route::get('/','LandingController@index');
         Route::post('/section/product/add', 'MenuSectionController@addProduct')->name('section.product.add');
 
         Route::resource('/products', 'ProductController');
+        Route::get('/products/create/dish', 'ProductController@create')->name('products.create.dish');
+        Route::get('/products/create/drink', 'ProductController@create')->name('products.create.drink');
+
+
         Route::post('/products/position/{product}', 'ProductController@setPosition')->name('product.position');
         Route::delete('/section/products/ajaxDestroy', 'ProductController@ajaxDestroy')->name('product.ajax.destroy');
+
 
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');

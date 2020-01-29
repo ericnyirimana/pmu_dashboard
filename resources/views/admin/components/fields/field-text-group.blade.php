@@ -19,7 +19,16 @@
 @if(isset($mask))
 $(document).ready(function(){
 
-  $('#{{ $field }}').mask('{{ $mask }}');
+  $('#{{ $field }}').mask('{{ $mask }}', {
+      @if(isset($maskreverse))
+      reverse: true
+      @endif
+      @if(isset($maskpattern))
+      'translation': {
+        {{ $maskpattern }}
+      }
+      @endif
+  });
 
 });
 @endif

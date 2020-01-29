@@ -22,7 +22,8 @@ return [
                 'List' => 'menu.index',
                 'New' => 'menu.create',
                 'List Dishes' => 'products.index',
-                'New Dish' => 'products.create'
+                'New Dish' => 'products.create.dish',
+                'New Drink' => 'products.create.drink',
             ],
         ],
         'Categories' => [

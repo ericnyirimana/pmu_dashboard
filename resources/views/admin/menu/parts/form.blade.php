@@ -3,14 +3,14 @@
           <field-text label="Name" field="name" :model="$menu" required  />
     </div>
     <div class="col-6 col-md-4">
-          @if($menu)
+          @if($menu->id)
           <field-select label="Company" field="brand_id" type="relation" :model="$menu" :values="$menu->brand" foreignid="brand_id" required />
           @else
           <field-select label="Company" field="brand_id" type="relation" :model="$menu" :values="$brands" foreignid="brand_id" required />
           @endif
     </div>
     <div class="col-6 col-md-4">
-          @if($menu)
+          @if($menu->id)
           <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$menu" :values="$menu->restaurant" foreignid="restaurant_id" required />
           @else
           <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$menu" foreignid="restaurant_id" required />
@@ -24,7 +24,7 @@
   </div>
 </div>
 
-@if($menu)
+@if($menu->id)
 <div class="row mt-5">
     <div class="col-12">
           <button type="button" class="btn btn-primary btn-block btn-save-menu"  data-toggle="modal" data-target="#modalTypeDish"><i class="fa fa-plus"></i> Add Type of plate</button>
@@ -35,15 +35,10 @@
 <div class="row mt-5">
   <div class="col-12">
         <div class="form-group">
-            <button type="submit" class="btn btn-block w-lg btn-success float-right">@if($menu) Save @else Next @endif</button>
+            <button type="submit" class="btn btn-block w-lg btn-success float-right">@if($menu->id) Save @else Next @endif</button>
         </div>
   </div>
 </div>
-
-@push('modal')
-@include('admin.menu.parts.modal-dish')
-@include('admin.menu.parts.modal-drink')
-@endpush
 @push('scripts')
 <script>
 $(document).ready(function(){

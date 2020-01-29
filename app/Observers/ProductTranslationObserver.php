@@ -9,9 +9,15 @@ class ProductTranslationObserver
 
   public function saving(\App\Models\ProductTranslation $translation) {
 
-          $translation->categories = implode(',', $translation->categories);
-          $translation->allergens = implode(',', $translation->allergens);
-          $translation->dietary = implode(',', $translation->dietary);
+          if(!empty($translation->categories)) {
+              $translation->categories = implode(',', $translation->categories);
+          }
+          if(!empty($translation->allergens)) {
+              $translation->allergens = implode(',', $translation->allergens);
+          }
+          if(!empty($translation->dietary)) {
+              $translation->dietary = implode(',', $translation->dietary);
+          }
 
   }
 

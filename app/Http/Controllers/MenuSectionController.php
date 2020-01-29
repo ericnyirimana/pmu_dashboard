@@ -103,25 +103,27 @@ class MenuSectionController extends Controller
           $section_id = $request->section_id;
           $section = MenuSection::find($section_id);
           $views = array();
-          foreach ($products_ids as $product_id) {
 
-              $productSection = ProductSection::where('menu_section_id', $section_id)->where('product_id', $product_id)->exists();
+          if($products_ids) {
+              foreach ($products_ids as $product_id) {
 
-              if (!$productSection) {
+                  $productSection = ProductSection::where('menu_section_id', $section_id)->where('product_id', $product_id)->exists();
 
-                ProductSection::create(['menu_section_id' => $section_id, 'product_id' => $product_id]);
+                  if (!$productSection) {
 
-                $product = Product::find($product_id);
+                    ProductSection::create(['menu_section_id' => $section_id, 'product_id' => $product_id]);
 
-                $html = view('admin.menu.parts.menu-dish-item')->with(['section' => $section, 'product' => $product ])->render();
+                    $product = Product::find($product_id);
 
-                array_push($views, $html);
+                    $html = view('admin.menu.parts.menu-dish-item')->with(['section' => $section, 'product' => $product ])->render();
+
+                    array_push($views, $html);
+                  }
+
               }
 
-          }
-
-
-          return response()->json(['id' => $request->section_id, 'views' => $views], 200);
+              return response()->json(['id' => $request->section_id, 'views' => $views], 200);
+            }
 
     }
 

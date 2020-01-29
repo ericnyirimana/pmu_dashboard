@@ -35,9 +35,16 @@
           @endif
         @endforeach
         <td class="actions">
+          
+          @if( empty($actions) || strstr($actions, 'view') )
           <a href="{{ route($route.'.show', $model->id )}}" class="btn btn-icon waves-effect waves-light btn-info"><i class="fa fa-search" aria-hidden="true"></i></a>
+          @endif
+          @if( empty($actions) || strstr($actions, 'edit'))
           <a href="{{ route($route.'.edit', $model->id )}}" class="btn btn-icon waves-effect waves-light btn-success"><i class="fa fa-edit" aria-hidden="true"></i></a>
+          @endif
+          @if( empty($actions) || strstr($actions, 'delete'))
           <a href="#remove-register" class="btn btn-icon waves-effect waves-light btn-danger rm-register" data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal" data-target=".remove-register"><i class="fa fa-trash" aria-hidden="true"></i></a>
+          @endif
       </td>
     </tr>
     @endforeach

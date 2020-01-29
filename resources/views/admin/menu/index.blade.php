@@ -22,7 +22,8 @@
                 'Company' => 'brand:name',
                 'ristorante' => 'restaurant:name',
                 'Status' => 'boolean:status_name:status_color'
-                ]" />
+                ]"
+                actions="edit,delete" />
         </div>
     </div>
 </div>

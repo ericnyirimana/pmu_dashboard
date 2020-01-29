@@ -44,7 +44,11 @@ class AppServiceProvider extends ServiceProvider
             $view->with(compact('media'));
           });
 
-        view()->composer('admin.products.parts.form', function ($view) {
+        view()->composer('admin.products.parts.dish', function ($view) {
+            $categories = \App\Models\Category::getCategoriesByType();
+            $view->with(compact('categories'));
+          });
+        view()->composer('admin.products.parts.drink', function ($view) {
             $categories = \App\Models\Category::getCategoriesByType();
             $view->with(compact('categories'));
           });
@@ -59,6 +63,7 @@ class AppServiceProvider extends ServiceProvider
           \App\Models\Menu::observe(IdentifierObserver::class);
           \App\Models\MenuSection::observe(IdentifierObserver::class);
           \App\Models\Product::observe(IdentifierObserver::class);
+          \App\Models\Product::observe(\App\Observers\ProductObserver::class);
           \App\Models\ProductTranslation::observe(\App\Observers\ProductTranslationObserver::class);
     }
 
