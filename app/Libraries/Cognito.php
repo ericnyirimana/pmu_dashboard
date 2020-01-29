@@ -310,6 +310,40 @@ class Cognito
 
 
       /**
+      * Remove user from Cognito
+      *
+      * @return CognitoIdentityProviderClient
+      */
+      public function deleteUser($username) {
+
+        try {
+
+          $result = $this->client->AdminDeleteUser([
+              'UserPoolId'  => env('AWS_COGNITO_USER_POOL_ID'),
+              'Username'    => $username
+          ]);
+
+        } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+              $message = $e->getResponse();
+              $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+              return false;
+
+
+        } catch (\Exception $e) {
+
+              $this->error = $e->getMessage();
+              return false;
+
+        }
+
+          return $result;
+
+
+      }
+
+
+      /**
       * Update user password
       *
       * @return CognitoIdentityProviderClient

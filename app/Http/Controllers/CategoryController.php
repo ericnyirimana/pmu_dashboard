@@ -118,7 +118,6 @@ class CategoryController extends Controller
 
       public function destroy(Category $category) {
 
-            $this->removeImage($category->image);
             $category->delete();
 
             return redirect()->route('categories.index')->with([

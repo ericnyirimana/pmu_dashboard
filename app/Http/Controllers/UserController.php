@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use App\Models\User;
 use Auth;
 use Cookie;
@@ -136,13 +137,24 @@ class UserController extends Controller
     }
 
 
-    /**
-    * Prepare attributes to send in Cognito format
-    *
-    * @return Array
-    */
-    protected function createUniqueSub() {
+    public function removePermanently(User $user) {
 
+          $client = new Cognito();
+          $client->deleteUser($user->sub);
+
+          $user->forceDelete();
+
+          return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'success');
+
+    }
+
+
+
+    public function restore(User $user) {
+
+          $user->restore();
+
+          return redirect()->route('users.index')->with('notification', 'User restored with success!')->with('type-notification', 'success');
 
     }
 
@@ -181,9 +193,10 @@ class UserController extends Controller
     */
     protected function alignUsersFromCognito() {
 
-
+        $collection = new Collection();
         $client = new Cognito();
         $cognito = $client->listUser();
+
 
         foreach ($cognito['Users'] as $cognitoUser) {
 
@@ -195,7 +208,7 @@ class UserController extends Controller
             if (!$user) {
 
                 $user = new User;
-                $user->password = bcrypt( Str::random(12) ); // create random password only for DB, if user login, it ill set the true one
+                $user->password = bcrypt( Str::random(12) ); // create random password only for DB, when user login, it ill update with the true one
                 $user->email = $client->search('email', $attributes);
                 $user->sub = $sub;
                 $user->created_at = $cognitoUser['UserCreateDate'];
@@ -216,8 +229,30 @@ class UserController extends Controller
 
             $user->profile = json_encode($profile);
             $user->save();
+
+            $collection = $collection->merge($user->id);
+
         }
 
+        $this->removeUsersDeletedInCognito($collection);
+
+
+    }
+
+
+    /**
+    * Remove users from database whose not found in Cognito
+    *
+    * @return Array
+    */
+    protected function removeUsersDeletedInCognito($collection) {
+
+        $users = User::whereNotIn('id', $collection->all())->get();
+
+
+        $users->map(function ($user, $key) {
+            $this->removePermanently($user);
+        });
 
     }
 

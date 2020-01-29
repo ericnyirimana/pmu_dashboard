@@ -16,7 +16,8 @@
                 'ID' => 'id',
                 'Name' => 'name',
                 'City' => 'city'
-                ]" />
+                ]"
+                actions='edit' />
         </div>
     </div>
 </div>

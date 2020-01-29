@@ -29,7 +29,7 @@
 
             $('.register-name').text(name);
 
-            $('.rm-accept').attr('action', '/{{ $route }}/'+id);
+            $('.rm-accept').attr('action', '/admin/{{ $route }}/'+id);
     });
 
 });
