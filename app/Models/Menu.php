@@ -33,4 +33,17 @@ class Menu extends Model
     }
 
 
+    public function userCanEdit(User $user) {
+
+        return ($this->brand->owner_id == $user->id);
+
+    }
+
+    public function userCanView(User $user) {
+
+        return ($this->brand->owner_id == $user->id);
+
+    }
+
+
 }

@@ -31,6 +31,14 @@ class User extends Authenticatable
 
 
 
+    public function brand() {
+
+          return $this->hasOne('App\Models\Brand', 'owner_id');
+
+    }
+
+
+
     protected function getJsonAttributes() {
 
           return json_decode($this->profile);
@@ -48,6 +56,12 @@ class User extends Authenticatable
     }
 
 
+    public function getFieldShowAttribute() {
+
+          return $this->getNameAttribute();
+
+    }
+
 
     public function getCreatedAtHFAttribute() {
 
@@ -55,9 +69,51 @@ class User extends Authenticatable
 
     }
 
+
     public function getUpdatedAtHFAttribute() {
 
         return $this->updated_at->format('d-m-Y H:i') ?? '';
 
     }
+
+
+    public function getIsSuperAttribute() {
+
+        return ( ($this->role == 'ADMIN') || ($this->role == 'PMU') );
+
+    }
+
+
+    public function getIsAdminAttribute() {
+
+        return ($this->role == 'ADMIN');
+
+    }
+
+    public function getIsPmuAttribute() {
+
+        return ($this->role == 'PMU');
+
+    }
+
+    public function getIsOwnerAttribute() {
+
+        return ($this->role == 'OWNER');
+
+    }
+
+    public function getIsRestaurantAttribute() {
+
+        return ($this->role == 'RESTAURATEUR');
+
+    }
+
+    public function getIsCustomerAttribute() {
+
+        return ($this->role == 'CUSTOMER');
+
+    }
+
+
+
 }

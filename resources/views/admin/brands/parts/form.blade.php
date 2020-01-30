@@ -12,8 +12,9 @@
 
           <field-text label="Corporate Name" field="corporate_name" :model="$brand" required  />
 
+          @can('create', $brand)
           <field-select label="Owner" field="owner" type="relation" :model="$brand" :values="$users" foreignid="owner_id" />
-
+          @endcan
           <field-area label="Description" field="description" :model="$brand"  />
 
           <field-switch label="Active" field="status" :model="$brand" color="#039cfd" required  />

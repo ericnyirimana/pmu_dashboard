@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\Brand;
 use App\Models\User;
 use App\Models\Media;
+use Auth;
 
 class BrandController extends Controller
 {
+
+
+      public function __construct() {
+
+        $this->authorizeResource(Brand::class);
+
+      }
+
 
 
       public function validation(Request $request, $brand = null) {
@@ -28,7 +37,12 @@ class BrandController extends Controller
 
       public function index() {
 
-          $brands = Brand::all();
+          $brands = Brand::get();
+
+          if (Auth::user()->is_owner) {
+
+            return redirect( route('brands.edit', Auth::user()->brand));
+          }
 
           return view('admin.brands.index')
           ->with( compact('brands') );

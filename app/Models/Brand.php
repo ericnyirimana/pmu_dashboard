@@ -40,6 +40,14 @@ class Brand extends Model
 
 
 
+    public function UserIsOwner(User $user) {
+
+        return ($user->id == $this->owner_id);
+
+    }
+
+
+
     public function getRestaurantsQuantityAttribute() {
 
         return $this->restaurants->count();
