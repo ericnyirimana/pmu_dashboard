@@ -37,7 +37,8 @@
             "database/factories"
         ],
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "BlackBits\\": "app/overrides/"
         }
     },
     "autoload-dev": {
