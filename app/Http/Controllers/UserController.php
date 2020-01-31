@@ -17,6 +17,14 @@ class UserController extends Controller
 
 
 
+    public function __construct() {
+
+      $this->authorizeResource(User::class);
+
+    }
+
+
+
     public function validation(Request $request, $media = null) {
 
         $request->validate(

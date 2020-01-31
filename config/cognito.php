@@ -27,11 +27,11 @@ return [
         'custom:role',
     ],
     'roles' => [
-      'ADMIN',
-      'PMU',
-      'OWNER',
-      'RESTAURATEUR',
-      'CUSTOMER'
+      '21iLAB'          => 'ADMIN',
+      'Pick Meal Up'    => 'PMU',
+      'Owner'           => 'OWNER',
+      'Restaurateur'    => 'RESTAURATEUR',
+      'Customer'        => 'CUSTOMER'
     ]
 
 ];
