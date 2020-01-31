@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="formAddDishes">
+        <form id="formAddDishes" onsubmit="return false;">
           <input type="hidden" value="" name="section_id" id="add_dish_section_id" />
           @foreach ($dishesProducts as $product)
           <div class="container-plate-preview select-product" data-id="{{ $product->id }}" id="item-{{ $product->id }}">
@@ -49,12 +49,21 @@ $(document).ready(function() {
             data: $('#formAddDishes').serialize(),
             success: function(data) {
 
+              if (!data.error) {
                 $.each(data.views, function(i, html){
                     $("#sortable_dish_"+data.id).append(html);
                 });
+            }
 
-                $('#modalDish').modal('toggle');
 
+
+          }, complete: function() {
+
+              $('#formAddDishes input').each(function(i, item){
+                $(item).prop('checked', false);
+                $(item).parent().removeClass('selected');
+              });
+              $('#modalDish').modal('toggle');
             }
           });
     });

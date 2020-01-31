@@ -17,14 +17,14 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
             $table->decimal('price', 5, 2)->nullable();
-            $table->bigInteger('restaurant_id')->unsigned();
+            $table->bigInteger('brand_id')->unsigned();
             $table->smallInteger('status');
             $table->string('type', 20);
             $table->integer('position')->default(100);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('restaurant_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
 
         });
     }

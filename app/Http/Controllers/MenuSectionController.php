@@ -10,6 +10,8 @@ use App\Models\Product;
 
 use App\Traits\TranslationTrait;
 
+use Auth;
+
 class MenuSectionController extends Controller
 {
 
@@ -99,31 +101,73 @@ class MenuSectionController extends Controller
 
     public function addProduct(Request $request) {
 
-          $products_ids = $request->add_products;
-          $section_id = $request->section_id;
-          $section = MenuSection::find($section_id);
+          $section = $this->validationCanAddSection($request->section_id);
+
+
+          if($section) {
+
+              $views = $this->attachProducts($request->add_products, $section);
+
+              if ($views) {
+
+                  return response()->json(['id' => $request->section_id, 'views' => $views], 200);
+              }
+
+          }
+
+          return response()->json(['error' => 'You have no permission.'], 200);
+
+    }
+
+    /**
+    * Validation Section if user can edit the menu related
+    *
+    * @param integer $section_id
+    *
+    * @return Section
+    */
+    protected function validationCanAddSection($section_id) {
+
+            $section = MenuSection::find($section_id);
+
+            if ( $section->menu->userCanEdit( Auth::user() )) {
+
+                return $section;
+            }
+
+    }
+
+    /**
+    * Attach products to section if have permission
+    *
+    * @param array $products_ids
+    * @param MenuSection $section
+    *
+    * @return array
+    */
+    protected function attachProducts(array $products_ids, MenuSection $section) {
+
           $views = array();
+          foreach($products_ids as $id) {
 
-          if($products_ids) {
-              foreach ($products_ids as $product_id) {
+              $product = Product::find($id);
 
-                  $productSection = ProductSection::where('menu_section_id', $section_id)->where('product_id', $product_id)->exists();
+              if ( $product->brand->id == $section->menu->restaurant->brand->id ) {
 
-                  if (!$productSection) {
+                  if (!$section->products()->find($id)) {
 
-                    ProductSection::create(['menu_section_id' => $section_id, 'product_id' => $product_id]);
+                      $section->products()->attach($product);
 
-                    $product = Product::find($product_id);
+                      $html = view('admin.menu.parts.menu-dish-item')->with(['section' => $section, 'product' => $product ])->render();
 
-                    $html = view('admin.menu.parts.menu-dish-item')->with(['section' => $section, 'product' => $product ])->render();
+                      array_push($views, $html);
 
-                    array_push($views, $html);
                   }
 
               }
+          }
 
-              return response()->json(['id' => $request->section_id, 'views' => $views], 200);
-            }
+          return $views;
 
     }
 

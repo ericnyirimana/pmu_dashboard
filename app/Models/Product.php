@@ -45,18 +45,10 @@ class Product extends Model
     }
 
 
+
     public function brand() {
 
-          if ($this->restaurant) {
-              return $this->restaurant->brand();
-          }
-
-
-    }
-
-    public function restaurant() {
-
-          return $this->belongsTo('App\Models\Restaurant');
+          return $this->belongsTo('App\Models\Brand');
 
     }
 

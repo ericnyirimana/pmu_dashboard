@@ -14,7 +14,7 @@
   </div>
   <div class="col-12 col-md-6">
         @if($product->id)
-        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$product" :values="$product->restaurant" foreignid="restaurant_id" required />
+        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$product" :values="$product->brand->restaurants" foreignid="restaurant_id" required />
         @else
         <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$product" foreignid="restaurant_id" required />
         @endif

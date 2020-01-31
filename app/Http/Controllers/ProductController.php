@@ -15,19 +15,28 @@ use App\Traits\TranslationTrait;
 class ProductController extends Controller
 {
 
-  use TranslationTrait;
+    use TranslationTrait;
 
 
-  public function validation(Request $request, $media = null) {
 
-      $request->validate(
-        [
-          'name'          => 'required',
-          'restaurant_id' => 'required',
-        ]
-      );
+    public function __construct() {
 
-  }
+      $this->authorizeResource(Product::class);
+
+    }
+
+
+    public function validation(Request $request, $media = null) {
+
+        $request->validate(
+          [
+            'name'          => 'required',
+            'brand_id'      => 'required',
+          ]
+        );
+
+    }
+
 
 
     public function index() {
@@ -47,14 +56,12 @@ class ProductController extends Controller
 
           $product = new Product();
           $brands = Brand::all();
-          $restaurants = Restaurant::all();
 
           $product->type = ucfirst(end($arrRoute));
 
           return view('admin.products.create')->with([
             'product'       => $product,
             'brands'        => $brands,
-            'restaurants'   => $restaurants
             ]
           );
 

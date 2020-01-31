@@ -19,7 +19,7 @@
         <div class="modal-footer">
             <input type="hidden" name="id" id="section_id" value="" />
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary btn-block" id="save-section">Save</button>
+            <button type="submit" class="btn btn-primary btn-block" id="save-section">Save</button>
 
         </div>
       </form>
@@ -30,7 +30,7 @@
 <script>
 $(document).ready(function(){
 
-  $(document).on('click', '#save-section', function(e){
+  $(document).on('submit', '#formType', function(e){
       e.preventDefault();
 
       var id = $('#section_id').val();

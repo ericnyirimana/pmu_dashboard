@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="formAddDrinks">
+        <form id="formAddDrinks" onsubmit="return false;">
           <input type="hidden" value="" name="section_id" id="add_drink_section_id" />
           @foreach ($drinksProducts as $product)
           <div class="container-plate-preview select-product" data-id="{{ $product->id }}" id="item-{{ $product->id }}">

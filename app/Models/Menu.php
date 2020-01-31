@@ -10,8 +10,8 @@ class Menu extends Model
 
     protected $table = 'menus';
 
-
     protected $fillable = ['name', 'restaurant_id'];
+
 
 
     public function brand() {
@@ -35,13 +35,13 @@ class Menu extends Model
 
     public function userCanEdit(User $user) {
 
-        return ($this->brand->owner_id == $user->id);
+        return ($this->brand->owner_id == $user->id || $user->is_super);
 
     }
 
     public function userCanView(User $user) {
 
-        return ($this->brand->owner_id == $user->id);
+        return ($this->brand->owner_id == $user->id || $user->is_super);
 
     }
 

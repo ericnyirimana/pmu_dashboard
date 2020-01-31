@@ -18,13 +18,13 @@
                     <ul class="nav-second-level" aria-expanded=false>
                         @foreach ($menuInfo['routes'] as $routeName => $routePath)
 
-                          @if( strstr($routeName, 'List') && Auth::user()->can('viewAny', $class ) )
+                          @if( strstr($routePath, 'index') && Auth::user()->can('viewAny', $class ) )
                           <li><a href="{{ route($routePath) }}">{{ $routeName }}</a></li>
                           @endif
-                          @if( strstr($routeName, 'New') && Auth::user()->can('create', $class ) )
+                          @if( strstr($routePath, 'create') && Auth::user()->can('create', $class ) )
                           <li><a href="{{ route($routePath) }}">{{ $routeName }}</a></li>
                           @endif
-                          @if( !strstr($routeName, 'List') && !strstr($routeName, 'New'))
+                          @if( !strstr($routePath, 'index') && !strstr($routeName, 'New'))
                           <li><a href="{{ route($routePath) }}">{{ $routeName }}</a></li>
                           @endif
 
