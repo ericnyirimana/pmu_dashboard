@@ -18,6 +18,12 @@ class Brand extends Model
 
 
 
+    public function products() {
+
+          return $this->hasMany('App\Models\Product');
+
+    }
+
     public function restaurants() {
 
           return $this->hasMany('App\Models\Restaurant');

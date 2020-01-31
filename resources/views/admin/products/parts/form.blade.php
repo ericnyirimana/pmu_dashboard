@@ -5,20 +5,14 @@
       <field-hide field="type" :model="$product" />
   </div>
 
-  <div class="col-12 col-md-6">
+  <div class="col-12">
         @if($product->id)
-        <field-select label="Company" field="brand_id" type="relation" :model="$product" :values="$product->brand" foreignid="brand_id" required />
-        @else
         <field-select label="Company" field="brand_id" type="relation" :model="$product" :values="$brands" foreignid="brand_id" required />
-        @endif
-  </div>
-  <div class="col-12 col-md-6">
-        @if($product->id)
-        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$product" :values="$product->brand->restaurants" foreignid="restaurant_id" required />
         @else
-        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$product" foreignid="restaurant_id" required />
+        <field-select label="Company" field="brand_id" type="relation" :model="$product" :values="$brands" foreignid="brand_id" required disabled  />
         @endif
   </div>
+
 </div>
 <div class="row">
   @if($product->type == 'Dish')

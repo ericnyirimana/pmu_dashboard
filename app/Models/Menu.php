@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UserCanTrait;
 
 class Menu extends Model
 {
 
+    use UserCanTrait;
 
     protected $table = 'menus';
 
@@ -33,17 +35,7 @@ class Menu extends Model
     }
 
 
-    public function userCanEdit(User $user) {
 
-        return ($this->brand->owner_id == $user->id || $user->is_super);
-
-    }
-
-    public function userCanView(User $user) {
-
-        return ($this->brand->owner_id == $user->id || $user->is_super);
-
-    }
 
 
 }

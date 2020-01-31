@@ -3,15 +3,17 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UserCanTrait;
+
 
 class Product extends Model
 {
 
-    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use UserCanTrait, \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 
 
-    protected $fillable = ['restaurant_id', 'status', 'price', 'type', 'position'];
+    protected $fillable = ['brand_id', 'status', 'price', 'type', 'position'];
 
 
     public function translation() {

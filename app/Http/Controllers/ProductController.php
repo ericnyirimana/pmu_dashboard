@@ -12,6 +12,10 @@ use App\Models\Brand;
 use App\Models\Media;
 use App\Traits\TranslationTrait;
 
+use App\Rules\SameBrandProduct;
+
+use Auth;
+
 class ProductController extends Controller
 {
 
@@ -31,7 +35,7 @@ class ProductController extends Controller
         $request->validate(
           [
             'name'          => 'required',
-            'brand_id'      => 'required',
+            'brand_id'      => new SameBrandProduct(),
           ]
         );
 
@@ -41,7 +45,13 @@ class ProductController extends Controller
 
     public function index() {
 
-        $products = Product::all();
+        if (Auth::user()->is_super) {
+          $products = Product::all();
+
+        } else {
+          $products = Auth::user()->brand->products;
+        }
+
 
         return view('admin.products.index')
         ->with( compact('products') );
@@ -55,9 +65,16 @@ class ProductController extends Controller
           $arrRoute = explode('.', $route);
 
           $product = new Product();
-          $brands = Brand::all();
-
           $product->type = ucfirst(end($arrRoute));
+
+          if (Auth::user()->is_super) {
+            $brands = Brand::all();
+
+          } else {
+            $brands = Auth::user()->brand;
+          }
+
+
 
           return view('admin.products.create')->with([
             'product'       => $product,
@@ -106,9 +123,15 @@ class ProductController extends Controller
 
     public function edit(Product $product) {
 
+      if (Auth::user()->is_super) {
+        $brands = Brand::all();
+
+      } else {
+        $brands = Auth::user()->brand;
+      }
           return view('admin.products.edit')->with([
             'product'   => $product,
-
+            'brands'    => $brands,
           ]
           );
 

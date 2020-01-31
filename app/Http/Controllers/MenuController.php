@@ -104,11 +104,22 @@ class MenuController extends Controller
 
     public function edit(Menu $menu) {
 
-          $brands = Brand::all();
-          $restaurants = Restaurant::all();
+          if (Auth::user()->is_super) {
 
-          $dishesProducts = Product::where('type', 'Dish')->get();
-          $drinksProducts = Product::where('type', 'Drink')->get();
+            $brands = Brand::all();
+            $restaurants = Restaurant::all();
+
+            $dishesProducts = Product::where('type', 'Dish')->get();
+            $drinksProducts = Product::where('type', 'Drink')->get();
+
+          } else {
+            $brands = Auth::user()->brand;
+            $restaurants = Auth::user()->brand->restaurants;
+
+            $dishesProducts = Auth::user()->brand->products->where('type', 'Dish');
+            $drinksProducts = Auth::user()->brand->products->where('type', 'Drink');
+          }
+
 
           return view('admin.menu.edit')->with([
             'menu'    => $menu,

@@ -30,7 +30,7 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-        return true;
+        return ($user->is_super || $product->userCanView($user));
     }
 
     /**
@@ -53,7 +53,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        return true;
+        return ($user->is_super || $product->userCanEdit($user));
     }
 
     /**
@@ -65,7 +65,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return true;
+        return ($user->is_super || $product->userCanEdit($user));
     }
 
     /**
