@@ -9,7 +9,7 @@ use App\Libraries\Sidebar;
 use Spatie\BladeX\Facades\BladeX;
 use App\Observers\IdentifierObserver;
 use Ahc\Jwt\JWT;
-
+use Auth;
 use Cookie;
 
 
@@ -40,7 +40,16 @@ class AppServiceProvider extends ServiceProvider
           });
 
         view()->composer('admin.media.parts.modal-media', function ($view) {
-            $media = \App\Models\Media::all();
+
+            if (Auth::user()->is_super) {
+                $media = \App\Models\Media::all();
+            } else {
+                $mediaAll = \App\Models\Media::whereNull('brand_id')->get();
+                $mediaBrand = \App\Models\Media::where('brand_id', Auth::user()->brand->id)->get();
+
+                $media = $mediaAll->merge($mediaBrand);
+            }
+
             $view->with(compact('media'));
           });
 
@@ -65,6 +74,7 @@ class AppServiceProvider extends ServiceProvider
           \App\Models\Product::observe(IdentifierObserver::class);
           \App\Models\Product::observe(\App\Observers\ProductObserver::class);
           \App\Models\ProductTranslation::observe(\App\Observers\ProductTranslationObserver::class);
+          \App\Models\Media::observe(\App\Observers\MediaObserver::class);
     }
 
     /**

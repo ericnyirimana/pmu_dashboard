@@ -11,12 +11,22 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
+use Auth;
+
 class MediaController extends Controller
 {
 
 
 
       protected $folder = 'media';
+
+
+
+      public function __construct() {
+
+        $this->authorizeResource(Media::class);
+
+      }
 
 
       public function validation(Request $request, $media = null) {
@@ -34,8 +44,14 @@ class MediaController extends Controller
 
       public function index() {
 
-          $media = Media::all();
+          if (Auth::user()->is_super) {
+              $media = Media::all();
+          } else {
+              $mediaAll = Media::whereNull('brand_id')->get();
+              $mediaBrand = Media::where('brand_id', Auth::user()->brand->id)->get();
 
+              $media = $mediaAll->merge($mediaBrand);
+          }
 
           return view('admin.media.index')
           ->with( compact('media') );
@@ -167,9 +183,8 @@ class MediaController extends Controller
                 $image['id'] = $media->id;
                 $image['name'] = $media->name;
                 $image['brand_id'] = $media->brand_id;
-                $image['brand_id'] = $media->brand_id;
                 $image['files'] = $files;
-
+                $image['canEdit'] = $media->userCanEdit(Auth::user());
                 return response()->json($image, 200);
             } else {
                 return response()->json(['error' => 'No image found'], 404);

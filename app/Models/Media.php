@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\UserCanTrait;
 
 class Media extends Model
 {
-    //
+
+
+    use UserCanTrait;
 
     protected $fillable = ['brand_id', 'name', 'file'];
 

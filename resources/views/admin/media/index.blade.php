@@ -46,11 +46,16 @@ function loadImage(file) {
       $('.edit-image-container').show();
       var link = $('.edit-image-container .edit-image').attr('href');
 
+      if (media.canEdit) {
       newLink = link.replace(/\d+/, media.id);
+        $('.edit-image-container').show();
+        $('.edit-image-container .edit-image').attr('href', newLink);
+      } else {
+        $('.edit-image-container').hide();
+      }
 
-      $('.edit-image-container .edit-image').attr('href', newLink);
+      console.log(media);
 
-      console.log(link);
       $('.preview-image').show();
       $('.preview-file').attr('src', media.files.medium);
       $('.preview-name').text(media.name);

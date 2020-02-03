@@ -49,9 +49,11 @@
                   <input type="hidden" class="id-image" value="" />
                   <button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal">Add Image</button>
             </div>
+
             <div class="edit-image-container">
               <a  href="{{ route('media.edit', 1)}}" class="btn btn-primary btn-block edit-image">Edit Image</a>
             </div>
+
       </div>
     </div>
 </div>
