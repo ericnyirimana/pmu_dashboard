@@ -34,7 +34,7 @@ class Restaurant extends Model
 
     public function openingHours() {
 
-          return $this->hasMany('App\Models\OpeningHour')->orderBy('hour_from');
+          return $this->hasMany('App\Models\OpeningHour')->orderBy('hour_ini');
 
     }
 
@@ -95,7 +95,7 @@ class Restaurant extends Model
 
                   // only return if it is open
                   if (!$item['closed']) {
-                      array_push($openings[$item->day_of_week], ['from' => $item->hour_from, 'to' => $item->hour_to]);
+                      array_push($openings[$item->day_of_week], ['from' => $item->hour_ini, 'to' => $item->hour_end]);
                   }
 
             }

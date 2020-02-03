@@ -19,7 +19,7 @@ class RestaurantsTableSeeder extends Seeder
       DB::table('restaurants')->insert([
           'identifier'  => (string) Str::uuid(),
           'name' => 'Pizzeria Gino Sorbillo',
-          'location' => 'Milano',
+          'address' => 'Milano',
           'brand_id' => '1'
       ]);
 
@@ -40,20 +40,20 @@ class RestaurantsTableSeeder extends Seeder
         DB::table('opening_hours')->insert([
             'restaurant_id' => 1,
             'day_of_week' => 'monday',
-            'hour_from' => '11:00',
-            'hour_to'  => '15:00'
+            'hour_ini' => '11:00',
+            'hour_end'  => '15:00'
         ]);
         DB::table('opening_hours')->insert([
             'restaurant_id' => 1,
             'day_of_week' => 'monday',
-            'hour_from' => '20:00',
-            'hour_to'  => '23:00'
+            'hour_ini' => '20:00',
+            'hour_end'  => '23:00'
         ]);
         DB::table('opening_hours')->insert([
             'restaurant_id' => 1,
             'day_of_week' => 'tuesday',
-            'hour_from' => '11:00',
-            'hour_to'  => '20:00'
+            'hour_ini' => '11:00',
+            'hour_end'  => '20:00'
         ]);
 
 
@@ -62,7 +62,7 @@ class RestaurantsTableSeeder extends Seeder
       DB::table('restaurants')->insert([
           'identifier'  => (string) Str::uuid(),
           'name' => 'Baobab',
-          'location' => 'Milano',
+          'address' => 'Milano',
           'brand_id' => '3'
       ]);
 
@@ -82,20 +82,20 @@ class RestaurantsTableSeeder extends Seeder
       DB::table('opening_hours')->insert([
           'restaurant_id' => 2,
           'day_of_week' => 'monday',
-          'hour_from' => '11:00',
-          'hour_to'  => '15:00'
+          'hour_ini' => '11:00',
+          'hour_end'  => '15:00'
       ]);
       DB::table('opening_hours')->insert([
           'restaurant_id' => 2,
           'day_of_week' => 'monday',
-          'hour_from' => '20:00',
-          'hour_to'  => '23:00'
+          'hour_ini' => '20:00',
+          'hour_end'  => '23:00'
       ]);
       DB::table('opening_hours')->insert([
           'restaurant_id' => 2,
           'day_of_week' => 'tuesday',
-          'hour_from' => '11:00',
-          'hour_to'  => '20:00'
+          'hour_ini' => '11:00',
+          'hour_end'  => '20:00'
       ]);
 
 
@@ -104,7 +104,7 @@ class RestaurantsTableSeeder extends Seeder
         DB::table('restaurants')->insert([
             'identifier'  => (string) Str::uuid(),
             'name' => 'Sushi fusion',
-            'location' => 'Milano',
+            'address' => 'Milano',
             'brand_id' => '3'
         ]);
 
@@ -124,20 +124,20 @@ class RestaurantsTableSeeder extends Seeder
         DB::table('opening_hours')->insert([
             'restaurant_id' => 3,
             'day_of_week' => 'monday',
-            'hour_from' => '11:00',
-            'hour_to'  => '15:00'
+            'hour_ini' => '11:00',
+            'hour_end'  => '15:00'
         ]);
         DB::table('opening_hours')->insert([
             'restaurant_id' => 3,
             'day_of_week' => 'monday',
-            'hour_from' => '20:00',
-            'hour_to'  => '23:00'
+            'hour_ini' => '20:00',
+            'hour_end'  => '23:00'
         ]);
         DB::table('opening_hours')->insert([
             'restaurant_id' => 3,
             'day_of_week' => 'tuesday',
-            'hour_from' => '11:00',
-            'hour_to'  => '20:00'
+            'hour_ini' => '11:00',
+            'hour_end'  => '20:00'
         ]);
 
         // Testone - id: 4
@@ -145,7 +145,7 @@ class RestaurantsTableSeeder extends Seeder
         DB::table('restaurants')->insert([
             'identifier'  => (string) Str::uuid(),
             'name' => 'Testone',
-            'location' => 'Milano',
+            'address' => 'Milano',
             'brand_id' => '2'
         ]);
 
@@ -165,20 +165,20 @@ class RestaurantsTableSeeder extends Seeder
         DB::table('opening_hours')->insert([
             'restaurant_id' => 4,
             'day_of_week' => 'monday',
-            'hour_from' => '11:00',
-            'hour_to'  => '15:00'
+            'hour_ini' => '11:00',
+            'hour_end'  => '15:00'
         ]);
         DB::table('opening_hours')->insert([
             'restaurant_id' => 4,
             'day_of_week' => 'monday',
-            'hour_from' => '20:00',
-            'hour_to'  => '23:00'
+            'hour_ini' => '20:00',
+            'hour_end'  => '23:00'
         ]);
         DB::table('opening_hours')->insert([
             'restaurant_id' => 4,
             'day_of_week' => 'tuesday',
-            'hour_from' => '11:00',
-            'hour_to'  => '20:00'
+            'hour_ini' => '11:00',
+            'hour_end'  => '20:00'
         ]);
     }
 }

@@ -12,25 +12,13 @@ class PickUpsTableSeeder extends Seeder {
      */
     public function run() {
 
-        // PickUp - TYPE
 
-      DB::table('pu_types')->insert([
-        'name' => 'Single'
-      ]);
 
-      DB::table('pu_types')->insert([
-        'name' => 'Combo'
-      ]);
-
-      DB::table('pu_types')->insert([
-        'name' => 'Subscription'
-      ]);
-
-      DB::table('meal_categories')->insert([
+      DB::table('mealtypes')->insert([
         'name' => 'Pranzo',
       ]);
 
-      DB::table('meal_categories')->insert([
+      DB::table('mealtypes')->insert([
         'name' => 'Cena',
       ]);
 
@@ -39,16 +27,16 @@ class PickUpsTableSeeder extends Seeder {
       DB::table('pu_time_slots')->insert([
         'identifier'  => (string) Str::uuid(),
         'meal_category_id' => 1,
-        'time_ini' => '12:00',
-        'time_end' => '15:00',
+        'hour_ini' => '12:00',
+        'hour_end' => '15:00',
         'main'  => '1'
       ]);
 
       DB::table('pu_time_slots')->insert([
         'identifier'  => (string) Str::uuid(),
         'meal_category_id' => 2,
-        'time_ini' => '18:00',
-        'time_end' => '22:00',
+        'hour_ini' => '18:00',
+        'hour_end' => '22:00',
         'main'  => '1'
       ]);
 
@@ -58,7 +46,7 @@ class PickUpsTableSeeder extends Seeder {
 
         // COMBO - Pizza + bibita
 
-      DB::table('pick_ups')->insert([
+      DB::table('pickups')->insert([
           'identifier'  => (string) Str::uuid(),
           'pu_type_id' => 2,
           'pu_time_slot_id' => 1,
@@ -97,7 +85,7 @@ class PickUpsTableSeeder extends Seeder {
 
         // Pizza a scelta
 
-        DB::table('pick_ups')->insert([
+        DB::table('pickups')->insert([
             'identifier'  => (string) Str::uuid(),
             'pu_type_id' => 1,
             'pu_time_slot_id' => 2,
@@ -127,7 +115,7 @@ class PickUpsTableSeeder extends Seeder {
 
         // Margherita
 
-        DB::table('pick_ups')->insert([
+        DB::table('pickups')->insert([
             'identifier'  => (string) Str::uuid(),
             'pu_type_id' => 1,
             'pu_time_slot_id' => 2,
@@ -149,7 +137,7 @@ class PickUpsTableSeeder extends Seeder {
 
         // Hamburger a scelta
 
-      DB::table('pick_ups')->insert([
+      DB::table('pickups')->insert([
           'identifier'  => (string) Str::uuid(),
           'pu_type_id' => 1,
           'pu_time_slot_id' => 2,
@@ -173,7 +161,7 @@ class PickUpsTableSeeder extends Seeder {
 
     // Hamburger
 
-    DB::table('pick_ups')->insert([
+    DB::table('pickups')->insert([
         'identifier'  => (string) Str::uuid(),
         'pu_type_id' => 1,
         'pu_time_slot_id' => 2,
@@ -194,7 +182,7 @@ class PickUpsTableSeeder extends Seeder {
 
       // Uramaki
 
-    DB::table('pick_ups')->insert([
+    DB::table('pickups')->insert([
         'identifier'  => (string) Str::uuid(),
         'pu_type_id' => 1,
         'pu_time_slot_id' => 2,
@@ -215,7 +203,7 @@ class PickUpsTableSeeder extends Seeder {
 
       // Pasta
 
-    DB::table('pick_ups')->insert([
+    DB::table('pickups')->insert([
         'identifier'  => (string) Str::uuid(),
         'pu_type_id' => 1,
         'pu_time_slot_id' => 1,

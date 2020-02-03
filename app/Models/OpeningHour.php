@@ -9,5 +9,5 @@ class OpeningHour extends Model
 
 
 
-    public $fillable = ['restaurant_id', 'day_of_week', 'hour_from', 'hour_to', 'closed'];
+    public $fillable = ['restaurant_id', 'day_of_week', 'hour_ini', 'hour_end', 'closed'];
 }
