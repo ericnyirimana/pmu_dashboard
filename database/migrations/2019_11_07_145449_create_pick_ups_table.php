@@ -13,23 +13,21 @@ class CreatePickUpsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pick_ups', function (Blueprint $table) {
+        Schema::create('pickups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier');
-            $table->integer('pu_type_id')->unsigned();
-            $table->bigInteger('pu_time_slot_id')->unsigned();
+            $table->uuid('identifier')->index();
+            $table->string('type_pickup', 20); //offer, subscribtion
+            $table->bigInteger('timeslot_id')->unsigned();
             $table->bigInteger('restaurant_id')->unsigned();
-            $table->string('name');
-            $table->string('cover_image');
-            $table->integer('quantity');
-            $table->decimal('price', 5, 2);
-            $table->integer('status');
+            $table->bigInteger('media_id')->unsigned()->nullable();
+            $table->smallInteger('status')->default(0);
+            $table->date('data_ini');
+            $table->date('data_end');
             $table->timestamps();
             $table->softDeletes();
 
-
-            $table->foreign('pu_type_id')->references('id')->on('pu_types');
-            $table->foreign('pu_time_slot_id')->references('id')->on('pu_time_slots');
+            $table->foreign('media_id')->references('id')->on('media');
+            $table->foreign('timeslot_id')->references('id')->on('timeslots')->onDelete('cascade');
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
 
         });
@@ -42,6 +40,6 @@ class CreatePickUpsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pick_ups');
+        Schema::dropIfExists('pickups');
     }
 }

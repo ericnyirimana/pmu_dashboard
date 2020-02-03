@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOperatorsTable extends Migration
+class CreateMealtypeTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,15 @@ class CreateOperatorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('operators', function (Blueprint $table) {
+        Schema::create('mealtype_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('mealtype_id')->unsigned();
             $table->string('name');
-            $table->string('last_name')->nullable();
-            $table->string('email');
-            $table->rememberToken();
-
+            $table->string('code', 2);
             $table->timestamps();
-            $table->softDeletes();
 
-
+            $table->foreign('mealtype_id')->references('id')->on('mealtypes')->onDelete('cascade');
+            $table->foreign('code')->references('code')->on('languages');
         });
     }
 
@@ -34,6 +32,6 @@ class CreateOperatorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('operators');
+        Schema::dropIfExists('mealtype_translations');
     }
 }

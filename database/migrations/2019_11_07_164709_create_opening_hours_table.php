@@ -17,8 +17,8 @@ class CreateOpeningHoursTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('restaurant_id')->unsigned();
             $table->string('day_of_week')->nullable();
-            $table->string('hour_from',5);
-            $table->string('hour_to',5);
+            $table->time('hour_ini');
+            $table->time('hour_end');
             $table->boolean('closed')->default(false);
             $table->timestamps();
 

@@ -16,7 +16,8 @@ class CreateShowcasesTable extends Migration
         Schema::create('showcases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
-            $table->string('title');
+            $table->string('type');
+            $table->text('items')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

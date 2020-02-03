@@ -18,12 +18,10 @@ class CreateRestaurantsTable extends Migration
             $table->uuid('identifier')->index();
             $table->bigInteger('brand_id')->unsigned();
             $table->string('name');
-            $table->bigInteger('logo')->nullable();
-            $table->bigInteger('image')->nullable();
             $table->string('merchant_stripe')->nullable();
-            $table->string('location')->nullable();
+            $table->string('address')->nullable();
             $table->string('coordinates', 40)->nullable();
-
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

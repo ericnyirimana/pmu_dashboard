@@ -15,7 +15,7 @@ class CreateBrandsTable extends Migration
     {
         Schema::create('brands', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier');
+            $table->uuid('identifier')->index();
             $table->string('name');
             $table->string('media_id')->nullable();
             $table->text('description')->nullable();
@@ -26,7 +26,7 @@ class CreateBrandsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('owner_id')->references('id')->on('users');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

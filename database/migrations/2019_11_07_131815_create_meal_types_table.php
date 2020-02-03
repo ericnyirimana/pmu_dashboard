@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnTokenUsers extends Migration
+class CreateMealTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class AddColumnTokenUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
-
-            $table->string('remember_token')->nullable();
-
+        Schema::create('mealtypes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->time('hour_ini');
+            $table->time('hour_end');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,10 +29,6 @@ class AddColumnTokenUsers extends Migration
      */
     public function down()
     {
-      Schema::table('users', function(Blueprint $table){
-
-          $table->dropColumn('remember_token');
-
-      });
+        Schema::dropIfExists('mealtypes');
     }
 }

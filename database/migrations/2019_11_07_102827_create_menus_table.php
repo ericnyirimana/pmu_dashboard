@@ -18,7 +18,7 @@ class CreateMenusTable extends Migration
             $table->uuid('identifier')->index();
             $table->string('name');
             $table->bigInteger('restaurant_id')->unsigned();
-
+            $table->smallInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
 

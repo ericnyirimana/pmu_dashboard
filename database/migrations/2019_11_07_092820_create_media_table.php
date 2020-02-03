@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSubscriptionsTable extends Migration
+class CreateMediaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscriptions', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier');
-            $table->integer('quantity');
-            $table->integer('duration');
-            $table->decimal('total_price', 5, 3);
-            $table->integer('discount');
+            $table->string('name')->nullable();
+            $table->string('file');
+            $table->bigInteger('brand_id')->unsigned()->nullable();
             $table->timestamps();
-            $table->softDeletes();
+
+            $table->foreign('brand_id')->references('id')->on('brands');
+
+
         });
     }
 
@@ -32,6 +33,6 @@ class CreateSubscriptionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('media');
     }
 }

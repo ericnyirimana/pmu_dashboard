@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOfferTranslationsTable extends Migration
+class CreatePickupTranslationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateOfferTranslationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('offer_translations', function (Blueprint $table) {
+        Schema::create('pickup_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('offer_id')->unsigned();
-            $table->string('description');
+            $table->bigInteger('pickup_id')->unsigned();
+            $table->string('name');
+            $table->string('description')->nullable();
             $table->string('code', 2);
             $table->timestamps();
 
             $table->foreign('code')->references('code')->on('languages');
-            $table->foreign('offer_id')->references('id')->on('offers')->onDelete('cascade');
+            $table->foreign('pickup_id')->references('id')->on('pickups')->onDelete('cascade');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateOfferTranslationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offer_translations');
+        Schema::dropIfExists('pickup_translations');
     }
 }

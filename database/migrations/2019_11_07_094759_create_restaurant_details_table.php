@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePuTimeSlotsTable extends Migration
+class CreateRestaurantDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,21 @@ class CreatePuTimeSlotsTable extends Migration
      */
     public function up()
     {
-        Schema::create('timeslots', function (Blueprint $table) {
+        Schema::create('restaurant_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier')->index();
             $table->bigInteger('restaurant_id')->unsigned();
-            $table->integer('mealtypes_id')->unsigned();
-            $table->time('hour_ini');
-            $table->time('hour_end');
-            $table->tinyInteger('fixed')->default(1);
+            $table->bigInteger('logo_media_id')->unsigned()->nullable();
+            $table->string('billing_address')->nullable();
+            $table->string('iva')->nullable();
+            $table->string('iban')->nullable();
+            $table->string('fee');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
-            $table->foreign('mealtypes_id')->references('id')->on('mealtypes')->onDelete('cascade');
+            $table->foreign('logo_media_id')->references('id')->on('media')->onDelete('cascade');
         });
     }
 
@@ -36,6 +38,6 @@ class CreatePuTimeSlotsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('timeslots');
+        Schema::dropIfExists('restaurant_details');
     }
 }

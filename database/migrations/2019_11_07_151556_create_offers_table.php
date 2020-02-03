@@ -13,12 +13,17 @@ class CreateOffersTable extends Migration
      */
     public function up()
     {
-        Schema::create('offers', function (Blueprint $table) {
+        Schema::create('pickup_offers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier')->index();
-            $table->text('duration_dates');
+            $table->bigInteger('pickup_id')->unsigned();
+            $table->string('type_offer'); //single, combo
+            $table->integer('quantity_offer')->default(1);
+            $table->integer('quantity_remain')->default(1);
+            $table->integer('price'); // will only accepts 7 or 14
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('pickup_id')->references('id')->on('pickups')->onDelete('cascade');
         });
     }
 
@@ -29,6 +34,6 @@ class CreateOffersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('offers');
+        Schema::dropIfExists('pickup_offers');
     }
 }
