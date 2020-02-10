@@ -54,8 +54,6 @@ function loadImage(file) {
         $('.edit-image-container').hide();
       }
 
-      console.log(media);
-
       $('.preview-image').show();
       $('.preview-file').attr('src', media.files.medium);
       $('.preview-name').text(media.name);
