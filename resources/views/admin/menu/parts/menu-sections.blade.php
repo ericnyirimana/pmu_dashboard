@@ -4,6 +4,7 @@
       @foreach($menu->sections as $section)
           @include('admin.menu.parts.menu-dish')
       @endforeach
+
   @endif
 </div>
 
