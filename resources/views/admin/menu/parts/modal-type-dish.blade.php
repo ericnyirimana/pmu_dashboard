@@ -43,7 +43,6 @@ $(document).ready(function(){
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 data: $('#formType').serialize(),
                 success: function(data) {
-                    console.log(data);
 
                     $('#section-'+data.id).find('.title-section').html( $('#dish_name').val() );
 
@@ -61,12 +60,14 @@ $(document).ready(function(){
                 success: function(data) {
 
                     $('#section-'+id).remove();
-                    console.log(id, $('#section-'+id).text());
 
                     $('.list-menu-section').append(data);
 
                     $('#modalTypeDish').modal('toggle');
 
+                }, error: function(data){
+                    $('#formType .parsley-errors-list').remove();
+                    $('#dish_name').parent().append('<ul class="parsley-errors-list filled" id="parsley-id-24"><li class="parsley-required">'+data.responseText+'</li></ul>');
                 }
             });
         }

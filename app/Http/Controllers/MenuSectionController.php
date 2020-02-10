@@ -38,10 +38,16 @@ class MenuSectionController extends Controller
 
           $fields = $request->all();
 
+          if (MenuSection::whereHas('translation', function($q) use($request) {
+              $q->where('name', $request->name);
+          })->exists()) {
+            return response()->json('Section already exists', 401);
+          }
+
           $section = $menu->sections()->create($fields);
 
           if (!$section) {
-              return response()->json('error: Section not found', 404);
+              return response()->json('Section not found', 404);
           }
 
           $this->saveTranslation($section, $fields);
