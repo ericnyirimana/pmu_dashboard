@@ -6,8 +6,8 @@
   </div>
 
   <div class="col-12">
-        @if($product->id)
-        <field-select label="Company" field="brand_id" type="relation" :model="$product" :values="$brands" foreignid="brand_id" required />
+        @if(Auth::user()->is_super)
+        <field-select label="Company" field="brand_id" type="relation" :model="$product" :values="$brands" foreignid="brand_id" required />        
         @else
         <field-select label="Company" field="brand_id" type="relation" :model="$product" :values="$brands" foreignid="brand_id" required disabled  />
         @endif
