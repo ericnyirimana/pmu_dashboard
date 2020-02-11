@@ -38,7 +38,7 @@ class MenuSectionController extends Controller
 
           $fields = $request->all();
 
-          if (MenuSection::whereHas('translation', function($q) use($request) {
+          if (MenuSection::where('menu_id', $menu->id)->whereHas('translation', function($q) use($request) {
               $q->where('name', $request->name);
           })->exists()) {
             return response()->json('Section already exists', 401);
@@ -158,11 +158,13 @@ class MenuSectionController extends Controller
 
               $product = Product::find($id);
 
-              if ( $product->brand->id == $section->menu->restaurant->brand->id ) {
+              // check if belongs to same restaurant
+              if ( $product->restaurant->id == $section->menu->restaurant->id ) {
 
                   if (!$section->products()->find($id)) {
 
-                      $section->products()->attach($product);
+                      $product->menu_section_id = $section->id;
+                      $product->save();
 
                       $html = view('admin.menu.parts.menu-dish-item')->with(['section' => $section, 'product' => $product ])->render();
 

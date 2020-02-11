@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SubscriptionTranslation extends Model
+class ShowcaseTranslation extends Model
 {
     //
 }

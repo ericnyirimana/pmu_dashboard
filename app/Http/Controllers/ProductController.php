@@ -129,11 +129,13 @@ class ProductController extends Controller
       } else {
         $brands = Auth::user()->brand;
       }
-          return view('admin.products.edit')->with([
-            'product'   => $product,
-            'brands'    => $brands,
-          ]
-          );
+
+      
+      return view('admin.products.edit')->with([
+        'product'   => $product,
+        'brands'    => $brands,
+      ]
+      );
 
     }
 

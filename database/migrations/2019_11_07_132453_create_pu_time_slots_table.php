@@ -17,7 +17,7 @@ class CreatePuTimeSlotsTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
             $table->bigInteger('restaurant_id')->unsigned();
-            $table->integer('mealtypes_id')->unsigned();
+            $table->integer('mealtype_id')->unsigned();
             $table->time('hour_ini');
             $table->time('hour_end');
             $table->tinyInteger('fixed')->default(1);
@@ -25,7 +25,7 @@ class CreatePuTimeSlotsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
-            $table->foreign('mealtypes_id')->references('id')->on('mealtypes')->onDelete('cascade');
+            $table->foreign('mealtype_id')->references('id')->on('mealtypes')->onDelete('cascade');
         });
     }
 

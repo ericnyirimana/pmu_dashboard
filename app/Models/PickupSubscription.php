@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ShowcaseTimeSlot extends Model
+class PickupSubscription extends Model
 {
     //
 }

@@ -15,7 +15,6 @@ class CreatePickUpsTable extends Migration
     {
         Schema::create('pickups', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->uuid('identifier')->index();
             $table->string('type_pickup', 20); //offer, subscribtion
             $table->bigInteger('timeslot_id')->unsigned();
             $table->bigInteger('restaurant_id')->unsigned();

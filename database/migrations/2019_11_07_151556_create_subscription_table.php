@@ -15,6 +15,7 @@ class CreateSubscriptionTable extends Migration
     {
         Schema::create('pickup_subscriptions', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->uuid('identifier')->index();
             $table->bigInteger('pickup_id')->unsigned();
             $table->string('type_offer'); //single, combo
             $table->integer('quantity_offer')->default(1);

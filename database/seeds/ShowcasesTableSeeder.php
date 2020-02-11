@@ -17,41 +17,40 @@ class ShowcasesTableSeeder extends Seeder
 
       DB::table('showcases')->insert([
           'identifier'  => (string) Str::uuid(),
-          'title' => 'Option 1',
+          'type'  => 'timeslots',
+          'items'  =>  'pranzo'
+      ]);
+
+      DB::table('showcase_translations')->insert([
+          'showcase_id' => 1,
+          'name' => 'Pranzo Tempo',
+          'code'  => 'it'
+      ]);
+
+      DB::table('showcase_translations')->insert([
+          'showcase_id' => 1,
+          'name' => 'Lunch Time',
+          'code'  => 'en'
       ]);
 
       DB::table('showcases')->insert([
           'identifier'  => (string) Str::uuid(),
-          'title' => 'Option 2',
+          'type'  => 'timeslots',
+          'items' => 'cena'
       ]);
 
-      /** timeslot **/
-      DB::table('showcase_time_slot')->insert([
-          'showcase_id'   => 1,
-          'time_slot_id'   => 1,
+      DB::table('showcase_translations')->insert([
+          'showcase_id' => 2,
+          'name' => 'Cena Tempo',
+          'code'  => 'it'
       ]);
 
-      DB::table('showcase_time_slot')->insert([
-          'showcase_id'   => 1,
-          'time_slot_id'   => 2,
+      DB::table('showcase_translations')->insert([
+          'showcase_id' => 2,
+          'name' => 'Cena Time',
+          'code'  => 'en'
       ]);
 
-      DB::table('showcase_time_slot')->insert([
-          'showcase_id'   => 2,
-          'time_slot_id'   => 2,
-      ]);
-
-      /** pickups **/
-      DB::table('showcase_pick_up')->insert([
-          'showcase_id'   => 1,
-          'pick_up_id'   => 1,
-      ]);
-
-      /** pickups **/
-      DB::table('showcase_pick_up')->insert([
-          'showcase_id'   => 2,
-          'pick_up_id'   => 1,
-      ]);
 
     }
 }

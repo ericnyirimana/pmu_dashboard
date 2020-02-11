@@ -36,7 +36,7 @@ class Menu extends Model
 
     public function products() {
 
-          return $this->brand->products();
+          return $this->restaurant->products();
 
     }
 

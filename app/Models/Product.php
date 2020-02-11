@@ -13,7 +13,7 @@ class Product extends Model
 
 
 
-    protected $fillable = ['brand_id', 'status', 'price', 'type', 'position'];
+    protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position'];
 
 
     public function translation() {
@@ -34,23 +34,28 @@ class Product extends Model
 
     }
 
-    public function sections() {
+    public function section() {
 
-        return $this->belongsToMany('App\Models\MenuSection', 'product_menu_sections');
-
-    }
-
-    public function menus() {
-
-        return $this->hasManyDeepFromRelations($this->sections(), (new MenuSection)->menu());
+        return $this->belongsTo('App\Models\MenuSection', 'menu_section_id');
 
     }
 
+    public function menu() {
+
+        return $this->section->menu;
+
+    }
 
 
     public function brand() {
 
-          return $this->belongsTo('App\Models\Brand');
+          return $this->restaurant->brand();
+
+    }
+
+    public function restaurant() {
+
+          return $this->belongsTo('App\Models\Restaurant');
 
     }
 

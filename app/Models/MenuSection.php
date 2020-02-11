@@ -27,7 +27,7 @@ class MenuSection extends Model
 
     public function products() {
 
-        return $this->belongsToMany('App\Models\Product', 'product_menu_sections')->orderBy('position','ASC');
+        return $this->hasMany('App\Models\Product')->orderBy('position','ASC');
 
     }
 

@@ -21,7 +21,8 @@
                 'ID' => 'id',
                 'Name' => 'translation:name',
                 'type'  => 'color:type:color_type',
-                'Brand' => 'brand:name'
+                'Brand' => 'brand:name',
+                'Restaurant' => 'restaurant:name'
                 ]"
                 actions="edit, delete" />
         </div>

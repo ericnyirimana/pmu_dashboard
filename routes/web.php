@@ -62,6 +62,9 @@ Route::get('/','LandingController@index');
 
         Route::get('/restaurants/data/{brand?}', 'RestaurantController@data')->name('brand.restaurants.data');
 
+        Route::resource('/showcases', 'ShowcaseController');
+        Route::resource('/offers', 'PickupOfferController');
+
         Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'
 
     });

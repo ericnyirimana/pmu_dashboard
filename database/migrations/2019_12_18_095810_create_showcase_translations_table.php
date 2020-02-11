@@ -17,8 +17,10 @@ class CreateShowcaseTranslationsTable extends Migration
           $table->bigIncrements('id');
           $table->bigInteger('showcase_id')->unsigned();
           $table->string('name');
+          $table->string('code', 2);
           $table->timestamps();
 
+          $table->foreign('code')->references('code')->on('languages');
           $table->foreign('showcase_id')->references('id')->on('showcases')->onDelete('cascade');
 
         });

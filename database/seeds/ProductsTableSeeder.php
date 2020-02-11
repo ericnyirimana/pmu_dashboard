@@ -19,7 +19,7 @@ class ProductsTableSeeder extends Seeder
       DB::table('products')->insert([
           'identifier'  => (string) Str::uuid(),
           'type' => 'Dish',
-          'brand_id' => 1,
+          'restaurant_id' => 1,
           'price' => '7',
           'status' => 1,
       ]);
@@ -49,7 +49,7 @@ class ProductsTableSeeder extends Seeder
       DB::table('products')->insert([
           'identifier'  => (string) Str::uuid(),
           'type' => 'Dish',
-          'brand_id' => 1,
+          'restaurant_id' => 1,
           'price' => '5',
           'status' => 1,
       ]);
@@ -79,7 +79,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'identifier'  => (string) Str::uuid(),
             'type' => 'Dish',
-            'brand_id' => 1,
+            'restaurant_id' => 1,
             'price' => '5',
             'status' => 1,
         ]);
@@ -108,7 +108,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'identifier'  => (string) Str::uuid(),
             'type' => 'Dish',
-            'brand_id' => 1,
+            'restaurant_id' => 1,
             'price' => '15',
             'status' => 1,
         ]);
@@ -137,7 +137,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'identifier'  => (string) Str::uuid(),
             'type' => 'Dish',
-            'brand_id' => 2,
+            'restaurant_id' => 2,
             'price' => '15',
             'status' => 1,
         ]);
@@ -166,7 +166,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'identifier'  => (string) Str::uuid(),
             'type' => 'Dish',
-            'brand_id' => 2,
+            'restaurant_id' => 2,
             'price' => '7',
             'status' => 1,
         ]);
@@ -196,7 +196,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'identifier'  => (string) Str::uuid(),
             'type' => 'Dish',
-            'brand_id' => 2,
+            'restaurant_id' => 2,
             'price' => '9',
             'status' => 1,
         ]);
@@ -228,7 +228,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'identifier'  => (string) Str::uuid(),
             'type' => 'Drink',
-            'brand_id' => 3,
+            'restaurant_id' => 3,
             'price' => '2.5',
             'status' => 1,
         ]);
@@ -257,7 +257,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert([
             'identifier'  => (string) Str::uuid(),
             'type' => 'Drink',
-            'brand_id' => 3,
+            'restaurant_id' => 3,
             'price' => '1.5',
             'status' => 1,
         ]);

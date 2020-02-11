@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class PickUpsTableSeeder extends Seeder {
     /**
@@ -12,107 +13,114 @@ class PickUpsTableSeeder extends Seeder {
      */
     public function run() {
 
+        // Timeslots Pickup
 
+        DB::table('timeslots')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'restaurant_id' => 1,
+            'mealtype_id' => 1,
+            'hour_ini' => '11:00',
+            'hour_end' => '14:00',
+            'fixed'   => true,
+        ]);
 
-      DB::table('mealtypes')->insert([
-        'name' => 'Pranzo',
-      ]);
-
-      DB::table('mealtypes')->insert([
-        'name' => 'Cena',
-      ]);
-
-        // PickUp - TIME SLOT
-
-      DB::table('pu_time_slots')->insert([
-        'identifier'  => (string) Str::uuid(),
-        'meal_category_id' => 1,
-        'hour_ini' => '12:00',
-        'hour_end' => '15:00',
-        'main'  => '1'
-      ]);
-
-      DB::table('pu_time_slots')->insert([
-        'identifier'  => (string) Str::uuid(),
-        'meal_category_id' => 2,
-        'hour_ini' => '18:00',
-        'hour_end' => '22:00',
-        'main'  => '1'
-      ]);
-
-        // PickUps
+        DB::table('timeslots')->insert([
+            'identifier'  => (string) Str::uuid(),
+            'restaurant_id' => 1,
+            'mealtype_id' => 2,
+            'hour_ini' => '19:00',
+            'hour_end' => '21:00',
+            'fixed'   => true,
+        ]);
 
         ######## PICKUPS - Sorbillo #########
 
         // COMBO - Pizza + bibita
 
       DB::table('pickups')->insert([
-          'identifier'  => (string) Str::uuid(),
-          'pu_type_id' => 2,
-          'pu_time_slot_id' => 1,
+          'type_pickup' => 'offer',
+          'timeslot_id' => 1,
           'restaurant_id' => 1,
-          'name' => 'Pizza a scelta + bibita a scelta',
-          'cover_image' => 'https://i.ibb.co/GxFkNnb/Pizza-Margherita.jpg',
-          'quantity' => 10,
-          'price' => 7,
-          'status' => 1
+          'status' => 1,
+          'data_ini'  => Carbon::now(),
+          'data_end'  => Carbon::now()->addDays(10)
       ]);
 
-        DB::table('pick_up_product')->insert([
-           'product_id' => 1,
-           'pick_up_id' => 1,
-         ]);
+      DB::table('pickup_offers')->insert([
+         'identifier'  => (string) Str::uuid(),
+         'pickup_id' => 1,
+         'type_offer' => 'combo',
+         'quantity_offer' => 10,
+         'quantity_remain' => 10,
+         'price' => 7,
+       ]);
 
-         DB::table('pick_up_product')->insert([
-           'product_id' => 2,
-           'pick_up_id' => 1,
-         ]);
+      DB::table('pickup_translations')->insert([
+         'pickup_id' => 1,
+         'name' => 'Pizza a scelta + bibita a scelta',
+         'code' => 'it'
+       ]);
 
-        DB::table('pick_up_product')->insert([
-          'product_id' => 3,
-          'pick_up_id' => 1,
+       DB::table('pickup_translations')->insert([
+          'pickup_id' => 1,
+          'name' => 'Choose Pizza + Choose Drink',
+          'code' => 'en'
         ]);
 
-        DB::table('pick_up_product')->insert([
-          'product_id' => 8,
-          'pick_up_id' => 1,
+        DB::table('pickup_products')->insert([
+          'product_id' => 1,
+          'pickup_id' => 1,
         ]);
 
-        DB::table('pick_up_product')->insert([
-          'product_id' => 9,
-          'pick_up_id' => 1,
+        DB::table('pickup_products')->insert([
+          'product_id' => 2,
+          'pickup_id' => 1,
         ]);
+
 
         // Pizza a scelta
 
         DB::table('pickups')->insert([
-            'identifier'  => (string) Str::uuid(),
-            'pu_type_id' => 1,
-            'pu_time_slot_id' => 2,
-            'restaurant_id' => 1,
-            'name' => 'Pizza a scelta',
-            'cover_image' => 'https://i.ibb.co/YQ94RzM/Pizza-salsiccia-e-friarielli.jpg',
-            'quantity' => 20,
-            'price' => 7,
-            'status' => 1
+          'type_pickup' => 'offer',
+          'timeslot_id' => 2,
+          'restaurant_id' => 1,
+          'status' => 1,
+          'data_ini'  => Carbon::now(),
+          'data_end'  => Carbon::now()->addDays(10)
         ]);
 
-        DB::table('pick_up_product')->insert([
-          'product_id' => 1,
-          'pick_up_id' => 2,
-        ]);
+        DB::table('pickup_offers')->insert([
+           'identifier'  => (string) Str::uuid(),
+           'pickup_id' => 2,
+           'type_offer' => 'simple',
+           'quantity_offer' => 20,
+           'quantity_remain' => 20,
+           'price' => 7,
+         ]);
 
-        DB::table('pick_up_product')->insert([
-          'product_id' => 2,
-          'pick_up_id' => 2,
-        ]);
+        DB::table('pickup_translations')->insert([
+           'pickup_id' => 2,
+           'name' => 'Pizza a scelta',
+           'code' => 'it'
+         ]);
 
-        DB::table('pick_up_product')->insert([
-          'product_id' => 3,
-          'pick_up_id' => 2,
-        ]);
+         DB::table('pickup_translations')->insert([
+            'pickup_id' => 2,
+            'name' => 'Choose Pizza',
+            'code' => 'en'
+          ]);
 
+          DB::table('pickup_products')->insert([
+            'product_id' => 3,
+            'pickup_id' => 2,
+          ]);
 
+          DB::table('pickup_products')->insert([
+            'product_id' => 4,
+            'pickup_id' => 2,
+          ]);
+
+          /*
         // Margherita
 
         DB::table('pickups')->insert([
@@ -134,6 +142,26 @@ class PickUpsTableSeeder extends Seeder {
 
 
     ######## PICKUPS - Baobab #########
+
+    // Timeslots Pickup
+
+    DB::table('timeslots')->insert([
+        'identifier'  => (string) Str::uuid(),
+        'restaurant_id' => 2,
+        'mealtype_id' => 1,
+        'hour_ini' => '11:00',
+        'hour_end' => '15:00',
+        'fixed'   => true,
+    ]);
+
+    DB::table('timeslots')->insert([
+        'identifier'  => (string) Str::uuid(),
+        'restaurant_id' => 2,
+        'mealtype_id' => 2,
+        'hour_ini' => '18:00',
+        'hour_end' => '22:00',
+        'fixed'   => true,
+    ]);
 
         // Hamburger a scelta
 
@@ -219,5 +247,7 @@ class PickUpsTableSeeder extends Seeder {
          'product_id' => 6,
          'pick_up_id' => 7,
        ]);
+
+       */
     }
 }
