@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\Restaurant;
+
 use App\Models\Product;
-use App\Models\ProductTranslation;
 use App\Models\ProductSection;
 use App\Models\Brand;
-use App\Models\Media;
+use App\Models\Category;
 use App\Traits\TranslationTrait;
 
 use App\Rules\SameBrandProduct;
@@ -49,6 +48,7 @@ class ProductController extends Controller
           $products = Product::all();
 
         } else {
+
           $products = Auth::user()->brand->products;
         }
 
@@ -74,11 +74,18 @@ class ProductController extends Controller
             $brands = Auth::user()->brand;
           }
 
+          $foods = Category::where('type', 'Food')->with('translation')->get()->pluck('translation.name');
+          $allergens = Category::where('type', 'Allergen')->with('translation')->get()->pluck('translation.name');
+          $dietaries = Category::where('type', 'Dietary')->with('translation')->get()->pluck('translation.name');
+
 
 
           return view('admin.products.create')->with([
             'product'       => $product,
             'brands'        => $brands,
+            'foods'      => $foods,
+            'allergens'  => $allergens,
+            'dietaries'  => $dietaries
             ]
           );
 
@@ -98,7 +105,9 @@ class ProductController extends Controller
 
           $product = Product::create($fields);
 
-          $this->saveTranslation($product, $fields);
+          $product->translation->update($fields);
+
+          $this->saveCategories($product, $fields);
 
           if ($request->media) {
               $product->media()->sync( array_unique($request->media) );
@@ -130,10 +139,17 @@ class ProductController extends Controller
         $brands = Auth::user()->brand;
       }
 
-      
+      $foods = Category::where('type', 'Food')->with('translation')->get()->pluck('translation.name');
+      $allergens = Category::where('type', 'Allergen')->with('translation')->get()->pluck('translation.name');
+      $dietaries = Category::where('type', 'Dietary')->with('translation')->get()->pluck('translation.name');
+
+
       return view('admin.products.edit')->with([
-        'product'   => $product,
-        'brands'    => $brands,
+        'product'     => $product,
+        'brands'      => $brands,
+        'foods'      => $foods,
+        'allergens'  => $allergens,
+        'dietaries'  => $dietaries
       ]
       );
 
@@ -145,9 +161,13 @@ class ProductController extends Controller
 
           $fields = $request->all();
 
+          $this->saveCategories($product, $fields);
+
           $product->update($fields);
 
           $product->translation->update($fields);
+
+
 
           if ($request->media) {
               $product->media()->sync( array_unique($request->media) );
@@ -192,5 +212,41 @@ class ProductController extends Controller
 
       }
 
+
+      public function saveCategories(Product $product, array $fields) {
+
+            $list = array();
+
+            $categoriesList = $this->getCategoriesId($fields['foods']);
+            $allergensList = $this->getCategoriesId($fields['allergens']);
+            $dietaryList = $this->getCategoriesId($fields['dietaries']);
+
+            $categories = array_merge($categoriesList, $allergensList, $dietaryList);
+
+            $product->categories()->sync($categories);
+
+      }
+
+
+
+      public function getCategoriesId($array) {
+
+        $list = array();
+
+        foreach($array as $key=>$category) {
+
+              $categoryModel = Category::whereHas('translation', function($q) use ($category) {
+                  $q->where('name', $category);
+              })->first();
+
+              if($categoryModel) {
+                  array_push($list, $categoryModel->id);
+              }
+
+        }
+
+        return $list;
+
+      }
 
 }

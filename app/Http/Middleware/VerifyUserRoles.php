@@ -20,7 +20,7 @@ class VerifyUserRoles
 
         $role = Auth::user()->role;
 
-        if(!in_array($role, config('cognito.roles'))) {
+        if(!in_array($role, config('cognito.roles')) || (empty(Auth::user()->brand) && !Auth::user()->is_super) ) {
 
           Auth::logout();
           return redirect()->route('login')->withErrors(['login' => 'You do not have permissions to view this page.' ]);

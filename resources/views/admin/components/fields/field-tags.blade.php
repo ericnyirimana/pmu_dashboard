@@ -11,10 +11,11 @@
 </div>
 @push('scripts')
 <script>
+
 $(document).ready(function(){
 
-    @if( isset($model->$values) )
-    $('.{{ $field }}-select2').val([@foreach($model->$values as $value) "{{ trim($value) }}", @endforeach]);
+    @if( isset($values) )
+    $('.{{ $field }}-select2').val([@foreach($values as $value) "{{ trim($value) }}", @endforeach]);
     @endif
     $('.{{ $field }}-select2').select2();
 

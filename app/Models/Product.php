@@ -22,6 +22,33 @@ class Product extends Model
 
     }
 
+
+    public function categories() {
+
+        return $this->belongsToMany('App\Models\Category', 'products_categories');
+
+    }
+
+    public function foods() {
+
+        return $this->belongsToMany('App\Models\Category', 'products_categories')->where('type', 'Food');
+
+    }
+
+    public function allergens() {
+
+        return $this->belongsToMany('App\Models\Category', 'products_categories')->where('type', 'Allergen');
+
+    }
+
+    public function dietaries() {
+
+        return $this->belongsToMany('App\Models\Category', 'products_categories')->where('type', 'Dietary');
+
+    }
+
+
+
     public function translations() {
 
         return $this->hasMany('App\Models\ProductTranslation');
@@ -69,5 +96,8 @@ class Product extends Model
         }
 
     }
+
+
+
 
 }

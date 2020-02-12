@@ -53,15 +53,6 @@ class AppServiceProvider extends ServiceProvider
             $view->with(compact('media'));
           });
 
-        view()->composer('admin.products.parts.dish', function ($view) {
-            $categories = \App\Models\Category::getCategoriesByType();
-            $view->with(compact('categories'));
-          });
-        view()->composer('admin.products.parts.drink', function ($view) {
-            $categories = \App\Models\Category::getCategoriesByType();
-            $view->with(compact('categories'));
-          });
-
 
           BladeX::component('admin.components.fields.*');
           BladeX::component('admin.components.*');

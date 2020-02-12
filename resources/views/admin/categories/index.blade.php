@@ -19,7 +19,7 @@
                 <datatable route='categories' :collection="$categories" :fields="[
                 'ID' => 'id',
                 'Name' => 'translation:name',
-                'Type' => 'type:name',
+                'Type' => 'type',
                 ]"
                 actions="edit,delete" />
         </div>

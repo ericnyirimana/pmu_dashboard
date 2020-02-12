@@ -15,22 +15,10 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
 
-      DB::table('category_types')->insert([
-          'name' => 'Food Category',
-      ]);
-
-      DB::table('category_types')->insert([
-          'name' => 'Dietary',
-      ]);
-
-      DB::table('category_types')->insert([
-          'name' => 'Allergens',
-      ]);
-
       // Pizza - id: 1
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '1',
+            'type' => 'Food',
         ]);
 
         DB::table('category_translations')->insert([
@@ -51,7 +39,7 @@ class CategoriesTableSeeder extends Seeder
         // Hamburger - id: 2
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '1',
+            'type' => 'Food',
         ]);
 
         DB::table('category_translations')->insert([
@@ -71,7 +59,7 @@ class CategoriesTableSeeder extends Seeder
         // Pasta - id: 3
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '1',
+            'type' => 'Food',
         ]);
 
         DB::table('category_translations')->insert([
@@ -92,7 +80,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '1',
+            'type' => 'Food',
         ]);
 
         DB::table('category_translations')->insert([
@@ -113,7 +101,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '2',
+            'type' => 'Allergen',
         ]);
 
         DB::table('category_translations')->insert([
@@ -134,7 +122,7 @@ class CategoriesTableSeeder extends Seeder
 
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '1',
+            'type' => 'Food',
         ]);
 
         DB::table('category_translations')->insert([
@@ -155,7 +143,7 @@ class CategoriesTableSeeder extends Seeder
         // Crustaceans - id: 7
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '3',
+            'type' => 'Dietary',
         ]);
 
         DB::table('category_translations')->insert([
@@ -175,7 +163,7 @@ class CategoriesTableSeeder extends Seeder
         // Eggs - id: 8
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '3',
+            'type' => 'Dietary',
         ]);
 
         DB::table('category_translations')->insert([
@@ -195,7 +183,7 @@ class CategoriesTableSeeder extends Seeder
         // Peanuts - id: 9
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '3',
+            'type' => 'Dietary',
         ]);
 
         DB::table('category_translations')->insert([
@@ -215,7 +203,7 @@ class CategoriesTableSeeder extends Seeder
         // Milk - id: 10
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '3',
+            'type' => 'Dietary',
         ]);
 
         DB::table('category_translations')->insert([
@@ -235,7 +223,7 @@ class CategoriesTableSeeder extends Seeder
         // Kosher - id: 11
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '2',
+            'type' => 'Allergen',
         ]);
 
         DB::table('category_translations')->insert([
@@ -255,7 +243,7 @@ class CategoriesTableSeeder extends Seeder
         // Halal - id: 12
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '2',
+            'type' => 'Allergen',
         ]);
 
         DB::table('category_translations')->insert([
@@ -275,7 +263,7 @@ class CategoriesTableSeeder extends Seeder
         // Gluten free - id: 13
         DB::table('categories')->insert([
             'identifier'  => (string) Str::uuid(),
-            'category_type_id' => '2',
+            'type' => 'Allergen',
         ]);
 
         DB::table('category_translations')->insert([

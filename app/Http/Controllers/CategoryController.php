@@ -15,6 +15,13 @@ class CategoryController extends Controller
       use TranslationTrait;
 
 
+      public function __construct() {
+
+        $this->authorizeResource(Category::class);
+
+      }
+
+
       public function validation(Request $request, $category = null) {
 
           $request->validate(
@@ -42,11 +49,9 @@ class CategoryController extends Controller
       public function create() {
 
             $category = new Category();
-            $types = CategoryType::all();
 
             return view('admin.categories.create')->with([
-              'category'  => $category,
-              'types'     => $types
+              'category'  => $category
             ]
             );
 
@@ -88,11 +93,8 @@ class CategoryController extends Controller
 
       public function edit(Category $category) {
 
-            $types = CategoryType::all();
-
             return view('admin.categories.edit')->with([
-              'category'  => $category,
-              'types'     => $types
+              'category'  => $category
             ]
             );
 

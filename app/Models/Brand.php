@@ -20,7 +20,7 @@ class Brand extends Model
 
     public function products() {
 
-          return $this->restaurants->products();
+          return $this->hasManyThrough('App\Models\Product', 'App\Models\Restaurant');
 
     }
 

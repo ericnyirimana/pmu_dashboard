@@ -17,12 +17,11 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->uuid('identifier')->index();
             $table->bigInteger('media_id')->nullable();
-            $table->integer('category_type_id')->unsigned();
+            $table->string('type')->nullable(); //food, dietary, allergen
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('category_type_id')->references('id')->on('category_types');
-
+          
         });
     }
 
