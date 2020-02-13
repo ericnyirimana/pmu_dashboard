@@ -7,13 +7,13 @@
 
   <div class="col-6 col-md-4">
       @if(Auth::user()->is_super && $product->id)
-      <field-select label="Company" field="id" type="simple" :model="$product->brand" :values="$brands->pluck('id', 'name')" required  />
+      <field-select label="Company" field="brand_id" type="simple" :model="$product->brand" :values="$brands->pluck('id', 'name')" required  />
       @elseif(Auth::user()->is_super && !$product->id)
-      <field-select label="Company" field="id" type="simple" :model="$product" :values="$brands->pluck('id', 'name')" required  />
+      <field-select label="Company" field="brand_id" type="simple" :model="$product" :values="$brands->pluck('id', 'name')" required  />
       @elseif($product->id)
-      <field-select label="Company" field="id" type="simple" :model="$product->brand" :values="[$product->brand->name => $product->brand->id]"  required disabled />
+      <field-select label="Company" field="brand_id" type="simple" :model="$product->brand" :values="[$product->brand->name => $product->brand->id]"  required disabled />
       @else
-      <field-select label="Company" field="id" type="simple" :model="Auth::user()->brand" :values="[Auth::user()->brand->name => Auth::user()->brand->id]"  required disabled />
+      <field-select label="Company" field="brand_id" type="simple" :model="Auth::user()->brand" :values="[Auth::user()->brand->name => Auth::user()->brand->id]"  required disabled />
       @endif
   </div>
   <div class="col-6 col-md-4">
