@@ -8,34 +8,8 @@ class ProductTranslation extends Model
 {
 
 
-  protected $fillable = ['product_id', 'name', 'description', 'ingredients', 'categories', 'allergens', 'dietary', 'code'];
+  protected $fillable = ['product_id', 'name', 'description', 'ingredients', 'code'];
 
 
-    public function getCategoriesArrayAttribute() {
-
-        $categories = explode(',', $this->categories);
-
-        return $categories;
-
-
-    }
-
-    public function getAllergensArrayAttribute() {
-
-        $allergens = explode(',', $this->allergens);
-
-        return $allergens;
-
-
-    }
-
-    public function getDietaryArrayAttribute() {
-
-        $dietary = explode(',', $this->dietary);
-
-        return $dietary;
-
-
-    }
 
 }

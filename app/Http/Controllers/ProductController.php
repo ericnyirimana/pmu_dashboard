@@ -79,7 +79,6 @@ class ProductController extends Controller
           $dietaries = Category::where('type', 'Dietary')->with('translation')->get()->pluck('translation.name');
 
 
-
           return view('admin.products.create')->with([
             'product'       => $product,
             'brands'        => $brands,
@@ -105,7 +104,7 @@ class ProductController extends Controller
 
           $product = Product::create($fields);
 
-          $product->translation->update($fields);
+          $this->saveTranslation($product, $fields);
 
           $this->saveCategories($product, $fields);
 
@@ -165,8 +164,7 @@ class ProductController extends Controller
 
           $product->update($fields);
 
-          $product->translation->update($fields);
-
+          $this->saveTranslation($product, $fields);
 
 
           if ($request->media) {
@@ -215,6 +213,7 @@ class ProductController extends Controller
 
       public function saveCategories(Product $product, array $fields) {
 
+            if ($fields['type'] == 'Drink') return ;
             $list = array();
 
             $categoriesList = $this->getCategoriesId($fields['foods']);

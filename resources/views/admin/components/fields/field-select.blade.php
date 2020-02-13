@@ -2,7 +2,7 @@
     <label for="{{ $field }}">{{ $label }}</label>
     @if ($type=='relation')
 
-      <select id="{{ $field }}" class="form-control" name="{{ $foreignid }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model)) disabled @endif>
+      <select id="{{ isset($id) ? $id : $field }}" class="form-control" name="{{ $foreignid }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model)) disabled @endif>
           @if (isset($values))
 
             @if( is_array($values) ||  is_a($values, 'Illuminate\Database\Eloquent\Collection') )
@@ -18,11 +18,11 @@
     @endif
 
     @if ($type=='simple')
-      <select id="{{ $field }}" class="form-control" name="{{ $field }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model)) disabled @endif>
+      <select id="{{ isset($id) ? $id : $field }}" class="form-control" name="{{ $field }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model)) disabled @endif>
           <option value="">Select {{ $label }}</option>
 
           @foreach($values as $k=>$value)
-            <option value="{{ $value }}" @if (old( $field, isset($model) ? $model->$field : null ) == $value) selected @endif>{{ $k }}</option>
+            <option value="{{ $value }}" @if (old( $foreignid, $model->$foreignid ) == $value) selected @endif>{{ $k }}</option>
           @endforeach
       </select>
     @endif
