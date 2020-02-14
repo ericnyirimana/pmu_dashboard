@@ -1,10 +1,3 @@
-@extends('admin.layouts.master')
-
-@section('content')
-
-@include('admin.components.fields-require-alert')
-
-
 <div class="row">
 
     <div class="col-12 col-md-6">
@@ -27,25 +20,18 @@
 
     </div>
   </div>
+  @push('scripts')
+  <!-- Bootstrap fileupload js -->
+  <script type="text/javascript" src="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.js")}}"></script>
 
-@endsection
+  <!-- Parsley js -->
+  <script type="text/javascript" src="{{ asset("/plugins/parsleyjs/parsley.min.js")}}"></script>
+  <script type="text/javascript">
+  $(document).ready(function() {
 
-@push('styles')
-<!-- Jquery filer css -->
-<link href="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.css")}}" rel="stylesheet" />
-@endpush
-@push('scripts')
-<!-- Bootstrap fileupload js -->
-<script type="text/javascript" src="{{ asset("/plugins/bootstrap-fileupload/bootstrap-fileupload.js")}}"></script>
-
-<!-- Parsley js -->
-<script type="text/javascript" src="{{ asset("/plugins/parsleyjs/parsley.min.js")}}"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-
-    $('form').parsley();
+      $('form').parsley();
 
 
-});
-</script>
-@endpush
+  });
+  </script>
+  @endpush
