@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">
 
-          <field-select label="Food Category" field="type" type="simple" :model="$category" :values="['Food'=>'Food', 'Allergen'=>'Allergen', 'Dietary'=>'Dietary']" required />
+          <field-select label="Food Category" field="type" foreignid="type" type="simple" :model="$category" :values="['Food'=>'Food', 'Allergen'=>'Allergen', 'Dietary'=>'Dietary']" required />
 
           <field-area label="Description" field="description" :model="$category->translation" required  />
 
