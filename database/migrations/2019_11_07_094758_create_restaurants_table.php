@@ -20,7 +20,8 @@ class CreateRestaurantsTable extends Migration
             $table->string('name');
             $table->string('merchant_stripe')->nullable();
             $table->string('address')->nullable();
-            $table->string('coordinates', 40)->nullable();
+            $table->decimal('latitude', 11, 6);
+            $table->decimal('longitude', 11, 6);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
