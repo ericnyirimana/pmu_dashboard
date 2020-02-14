@@ -26,7 +26,7 @@
           </div>
           <div class="col-12 col-md-6">
 
-                <field-select label="Role" field="role" type="simple" :model="$user" :values="config('cognito.roles')" required />
+                <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user" :values="config('cognito.roles')" required />
           </div>
           <div class="col-12">
                 <div class="form-group mt-auto">

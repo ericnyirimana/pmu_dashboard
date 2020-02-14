@@ -69,7 +69,7 @@ class UserController extends Controller
 
     public function create() {
 
-          $user = null;
+          $user = new User();
           return view('admin.users.form')->with(['user' => $user]);
 
     }

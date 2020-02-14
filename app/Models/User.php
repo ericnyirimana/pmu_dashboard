@@ -51,7 +51,11 @@ class User extends Authenticatable
     public function getNameAttribute() {
 
           $profile = $this->getJsonAttributes();
-          return $profile->name;
+
+          if ($profile) {
+              return $profile->name;
+          }
+
 
     }
 
