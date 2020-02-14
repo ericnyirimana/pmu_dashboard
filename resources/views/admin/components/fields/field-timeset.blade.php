@@ -54,8 +54,20 @@
 
           </div>
           <div class="col-12">
-                <button type="button" class="add_time btn btn-info waves-effect w-sm" name="add_{{ $day }}"> + </button>
+                <button type="button" class="add_time button_{{ $day }} btn btn-info waves-effect w-sm " name="add_{{ $day }}"> + </button>
           </div>
       </div>
 
 </div>
+@push('scripts')
+<script>
+$(document).ready(function(){
+
+    var total = $('.box-time_{{ $day }}').find('.time_{{ $day }}').length;
+
+    if (total == 2) {
+        $('.button_{{ $day }}').hide();
+    }
+});
+</script>
+@endpush

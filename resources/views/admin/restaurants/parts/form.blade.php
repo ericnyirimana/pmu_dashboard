@@ -77,11 +77,13 @@ $(document).ready(function(){
 
           var newTime =$('.time'+name).clone();
 
-          //remove references class to use to copy (otherwise it will copy duplicate every time)
+          //remove references class to use to copy (otherwise it will double copy every time)
           newTime.removeClass("time"+name);
           newTime.removeClass("first_item");
 
           newTime.appendTo('.table'+name);
+
+          $(".button"+name).hide();
 
 
       });
@@ -90,11 +92,14 @@ $(document).ready(function(){
       $(document).on('click', '.remove_time', function(){
 
           var removeTime = $(this).parent().parent();
+          var name = $(this).attr('name');
+          name = name.replace('remove', '');
 
           if (removeTime.hasClass('first_item')) {
               alert("You can`t remove the line");
           } else {
               removeTime.remove();
+              $(".button"+name).show();
           }
 
 
