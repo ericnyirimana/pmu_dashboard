@@ -28,7 +28,7 @@ class CategoryController extends Controller
             [
               'media_id'  => (empty($category)?'required':'').'',
               'name'   => 'required',
-              'category_type_id'   => 'required'
+              'type'   => 'required'
             ]
           );
 

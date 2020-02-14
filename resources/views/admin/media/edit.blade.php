@@ -8,6 +8,6 @@
   @include('admin.media.parts.form')
 </tag-form>
 
-<modal-remove route='admin/media' />
+<modal-remove route='media' />
 
 @endsection

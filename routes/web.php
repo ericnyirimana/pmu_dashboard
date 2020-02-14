@@ -32,7 +32,7 @@ Route::get('/','LandingController@index');
 
         Route::post('/file/upload', 'UploadFileController@upload')->name('file.upload');
 
-        Route::resource('/brands', 'BrandController');
+
         Route::resource('/menu', 'MenuController');
 
         Route::post('/menu/section/{menu}', 'MenuSectionController@save')->name('menu.section.save');
@@ -54,8 +54,9 @@ Route::get('/','LandingController@index');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');
 
-        Route::get('/brands/{brand}/restaurants', 'RestaurantController@index')->name('brand.restaurants.index');
-        Route::get('/brands/{brand}/restaurants{restaurant}', 'RestaurantController@view')->name('brand.restaurants.view');
+        Route::resource('/brands', 'BrandController');
+        
+        Route::get('/brands/{brand}/restaurants/{restaurant}', 'RestaurantController@view')->name('brand.restaurants.view');
         Route::post('/brands/{brand}/restaurants', 'RestaurantController@store')->name('brand.restaurants.store');
         Route::get('/brands/{brand}/restaurants/create', 'RestaurantController@create')->name('brand.restaurants.create');
         Route::put('/brands/{brand}/restaurants/{restaurant}', 'RestaurantController@update')->name('brand.restaurants.update');

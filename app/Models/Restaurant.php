@@ -10,11 +10,11 @@ class Restaurant extends Model
 
 
   public $appends = [
-      'field_show', 'latitude', 'longitude',
+      'field_show'
   ];
 
   public $fillable = [
-      'name', 'brand_id', 'logo', 'image', 'merchant_stripe', 'location', 'coordinates'
+      'name', 'brand_id', 'logo', 'image', 'merchant_stripe', 'address'
   ];
 
 

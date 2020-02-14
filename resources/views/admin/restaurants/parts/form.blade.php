@@ -4,7 +4,7 @@
           <field-text label="Name" field="name" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-          <field-map label="Address" field="location" :model="$restaurant" required  />
+          <field-map label="Address" field="address" :model="$restaurant" required  />
     </div>
 
 </div>

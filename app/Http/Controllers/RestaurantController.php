@@ -78,7 +78,7 @@ class RestaurantController extends Controller
                 $restaurant->media()->sync( array_unique($request->media) );
             }
 
-            return redirect()->route('brand.restaurants.index', $brand)->with([
+            return redirect()->route('brands.show', $brand)->with([
                   'notification' => 'Restaurant saved with success!',
                   'type-notification' => 'success'
                 ]);
@@ -133,7 +133,6 @@ class RestaurantController extends Controller
             $openings = $fields['openings'];
             $closings = $fields['closings'];
 
-
             // remove from fields to not conflict with Restaurant fields
             unset($fields['openings']);
             unset($fields['closings']);
@@ -147,7 +146,7 @@ class RestaurantController extends Controller
                 $restaurant->media()->sync( array_unique($request->media) );
             }
 
-            return redirect()->route('brand.restaurants.index', $brand)->with([
+            return redirect()->route('brands.show', $brand)->with([
                   'notification' => 'Restaurant saved with success!',
                   'type-notification' => 'success'
                 ]);
@@ -170,8 +169,8 @@ class RestaurantController extends Controller
                     OpeningHour::create([
                       'restaurant_id' => $restaurant,
                       'day_of_week'   => $day,
-                      'hour_from'     => $time['from'],
-                      'hour_to'       => $time['to'],
+                      'hour_ini'     => $time['from'],
+                      'hour_end'       => $time['to'],
                       'closed'        => $close
                     ]);
                 }
