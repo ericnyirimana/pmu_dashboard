@@ -40,7 +40,7 @@ $(document).ready(function() {
 function loadImage(file) {
 
   $.ajax({
-      url: "{{ env('APP_URL') }}/admin/media/image/"+file,
+      url: "{{ env('APP_URL') }}/admin/medias/image/"+file,
       context: document.body
     }).done(function(media) {
       $('.edit-image-container').show();
