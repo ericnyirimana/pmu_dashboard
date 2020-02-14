@@ -171,10 +171,7 @@ class MediaController extends Controller
       }
 
 
-      public function viewImageData(Request $request) {
-
-
-            $media = Media::where('file', $request->file)->first();
+      public function viewImageData(Media $media) {
 
             if ($media) {
 

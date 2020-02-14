@@ -67,7 +67,7 @@ Route::get('/','LandingController@index');
 
         Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'
 
-        Route::get('/medias/image/{file}','MediaController@viewImageData');
+        Route::get('/medias/image/{media}','MediaController@viewImageData');
     });
 });
 

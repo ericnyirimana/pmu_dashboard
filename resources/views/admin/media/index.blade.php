@@ -37,10 +37,10 @@ $(document).ready(function() {
 
 // Load Image
 // Load imaged clicked from thumb
-function loadImage(file) {
+function loadImage(media) {
 
   $.ajax({
-      url: "{{ env('APP_URL') }}/admin/medias/image/"+file,
+      url: "{{ env('APP_URL') }}/admin/medias/image/"+media,
       context: document.body
     }).done(function(media) {
       $('.edit-image-container').show();

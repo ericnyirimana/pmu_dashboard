@@ -33,7 +33,7 @@
         @foreach($media as $file)
           <div class="thumb-image">
               <figure class="view-file">
-                  <img src="{{ $file->getImageSize('thumbnail') }}" data-file="{{ $file->file }}">
+                  <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
                   <label>{{ $file->name }}</label>
               </figure>
           </div>
@@ -104,12 +104,11 @@ $(document).ready(function(){
 
         $('.view-file img').removeClass('active');
 
-        var file = $(this).find('img').data('file');
-
+        var id = $(this).find('img').data('id');
         $(this).find('img').addClass('active');
 
         // get from parent JS, it is different if is modal or not
-        loadImage(file);
+        loadImage(id);
 
   });
 
@@ -148,7 +147,7 @@ function add_thumbnail(data) {
 
   html = '<div class="thumb-image">';
   html += '    <figure class="view-file">';
-  html += '        <img src="' + data.url + '" data-file="' + data.file + '">';
+  html += '        <img src="' + data.url + '" data-id="' + data.id + '">';
   html += '        <label>' + data.name + '</label>';
   html += '    </figure>';
   html += '</div>';
