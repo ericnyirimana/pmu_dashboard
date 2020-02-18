@@ -14,8 +14,8 @@ class AddColumnsLatLonRestaurantsTable extends Migration
     public function up()
     {
         Schema::table('restaurants', function(Blueprint $table){
-			$table->float('latitude', 10, 2)->nullable()->after('coordinates');
-			$table->float('longitude', 10, 2)->nullable()->after('coordinates');
+			$table->float('latitude', 10, 2)->nullable();
+			$table->float('longitude', 10, 2)->nullable();
         });
     }
 
