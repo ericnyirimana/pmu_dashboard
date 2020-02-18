@@ -20,8 +20,8 @@ class RestaurantsTableSeeder extends Seeder
           'identifier'  => (string) Str::uuid(),
           'name' => 'Pizzeria Gino Sorbillo',
           'address' => 'Milano',
-          'latitude' = '45.495880',
-          'longitude' = '9.138700',
+          'latitude' => '45.495880',
+          'longitude' => '9.138700',
           'brand_id' => '1'
       ]);
 
@@ -65,8 +65,8 @@ class RestaurantsTableSeeder extends Seeder
           'identifier'  => (string) Str::uuid(),
           'name' => 'Baobab',
           'address' => 'Milano',
-          'latitude' = '45.499454',
-          'longitude' = '9.130831',
+          'latitude' => '45.499454',
+          'longitude' => '9.130831',
           'brand_id' => '3'
       ]);
 
@@ -109,8 +109,8 @@ class RestaurantsTableSeeder extends Seeder
             'identifier'  => (string) Str::uuid(),
             'name' => 'Sushi fusion',
             'address' => 'Milano',
-            'latitude' = '45.504449',
-            'longitude' = '9.140319',
+            'latitude' => '45.504449',
+            'longitude' => '9.140319',
             'brand_id' => '3'
         ]);
 
@@ -152,8 +152,8 @@ class RestaurantsTableSeeder extends Seeder
             'identifier'  => (string) Str::uuid(),
             'name' => 'Testone',
             'address' => 'Milano',
-            'latitude' = '45.496530',
-            'longitude' = '9.161594',
+            'latitude' => '45.496530',
+            'longitude' => '9.161594',
             'brand_id' => '2'
         ]);
 
