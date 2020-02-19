@@ -14,7 +14,7 @@ class AddColumnTitleShowcase extends Migration
     public function up()
     {
         Schema::table('showcases', function (Blueprint $table) {
-
+            $table->string('title')->nullable();
         });
     }
 

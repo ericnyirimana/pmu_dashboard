@@ -15,6 +15,7 @@ class AddColumnNamePickup extends Migration
     {
         Schema::table('pickups', function (Blueprint $table) {
             $table->string('name')->nullable();
+
         });
     }
 
@@ -26,7 +27,8 @@ class AddColumnNamePickup extends Migration
     public function down()
     {
         Schema::table('pickups', function (Blueprint $table) {
-            $table->dropColumn('title');
+            $table->dropColumn('name');
+
         });
     }
 }
