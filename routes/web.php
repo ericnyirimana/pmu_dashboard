@@ -55,8 +55,7 @@ Route::get('/','LandingController@index');
         Route::resource('/restaurants', 'RestaurantController');
 
         Route::resource('/brands', 'BrandController');
-        
-        Route::get('/brands/{brand}/restaurants/{restaurant}', 'RestaurantController@view')->name('brand.restaurants.view');
+
         Route::post('/brands/{brand}/restaurants', 'RestaurantController@store')->name('brand.restaurants.store');
         Route::get('/brands/{brand}/restaurants/create', 'RestaurantController@create')->name('brand.restaurants.create');
         Route::put('/brands/{brand}/restaurants/{restaurant}', 'RestaurantController@update')->name('brand.restaurants.update');

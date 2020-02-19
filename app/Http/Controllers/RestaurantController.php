@@ -43,8 +43,9 @@ class RestaurantController extends Controller
 
       public function create(Brand $brand) {
 
-            $restaurant = null;
+            $restaurant = new Restaurant;
             $media = Media::whereNull('brand_id')->orWhere('brand_id', $brand->id)->get();
+
 
             return view('admin.restaurants.create')->with([
               'brand'     => $brand,
