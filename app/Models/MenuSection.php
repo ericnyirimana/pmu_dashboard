@@ -10,10 +10,10 @@ class MenuSection extends Model
 
     protected $fillable = ['menu_id', 'type', 'position'];
 
-    protected $with = ['translation', 'menu'];
+    protected $with = ['translate', 'menu'];
 
 
-    public function translation() {
+    public function translate() {
 
         return $this->hasOne('App\Models\MenuSectionTranslation')->where('code', \App::getLocale());
 
@@ -35,5 +35,11 @@ class MenuSection extends Model
 
         return $this->belongsTo('App\Models\Menu');
 
+    }
+
+
+    public function getNameAttribute() {
+
+        return $this->translate->name;
     }
 }

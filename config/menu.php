@@ -26,6 +26,14 @@ return [
                 'New' => 'menu.create'
             ],
         ],
+        'Offer and Subscription' => [
+            'class'   => 'Pickup',
+            'icon' => 'fi-tag',
+            'routes' => [
+                'List' => 'pickups.index',
+                'New' => 'pickups.create'
+            ],
+        ],
         'Dishes' => [
             'class'   => 'Product',
             'icon' => 'fi-align-center',

@@ -20,6 +20,7 @@
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="{{ asset("/plugins/timepicker/bootstrap-timepicker.min.css") }}" type="text/css">
         <link rel="stylesheet" href="{{ asset("/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css") }}" type="text/css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
         <link rel="stylesheet" href="{{ asset("/plugins/jquery-ui/jquery-ui.min.css") }}" type="text/css">
 
         <!-- APP overwrite css -->
@@ -79,18 +80,22 @@
 
         <!-- jQuery  -->
 
-        <script src="{{ asset("/adminox/assets/js/jquery.min.js")}}"></script>
-        <script src="{{ asset("/adminox/assets/js/popper.min.js")}}"></script>
-        <script src="{{ asset("/adminox/assets/js/bootstrap.min.js")}}"></script>
-        <script src="{{ asset("/adminox/assets/js/metisMenu.min.js")}}"></script>
-        <script src="{{ asset("/adminox/assets/js/waves.js")}}"></script>
-        <script src="{{ asset("/adminox/assets/js/jquery.slimscroll.js")}}"></script>
-        <script src="{{ asset("/plugins/switchery/switchery.min.js") }}"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
-        <script src="{{ asset("/plugins/timepicker/bootstrap-timepicker.js") }}"></script>
-        <script src="{{ asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}"></script>
-        <script src="{{ asset("/plugins/jquery-ui/jquery-ui.min.js") }}"></script>
-        <script src="{{ asset("/plugins/jquery-mask-plugin/dist/jquery.mask.min.js") }}"></script>
+        <script src="{{ asset("/adminox/assets/js/jquery.min.js")}}" type="text/javascript" ></script>
+        <script src="{{ asset("/adminox/assets/js/popper.min.js")}}" type="text/javascript" ></script>
+        <script src="{{ asset("/adminox/assets/js/bootstrap.min.js")}}" type="text/javascript" ></script>
+        <script src="{{ asset("/adminox/assets/js/metisMenu.min.js")}}" type="text/javascript" ></script>
+        <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" type="text/javascript" ></script>
+        <script src="{{ asset("/adminox/assets/js/waves.js")}}" type="text/javascript" ></script>
+        <script src="{{ asset("/adminox/assets/js/jquery.slimscroll.js")}}" type="text/javascript" ></script>
+        <script src="{{ asset("/adminox/assets/pages/jquery.scrollbar.js")}}" type="text/javascript"></script>
+        <script src="{{ asset("/plugins/switchery/switchery.min.js") }}" type="text/javascript" ></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js" type="text/javascript" ></script>
+        <script src="{{ asset("/plugins/timepicker/bootstrap-timepicker.js") }}" type="text/javascript" ></script>
+        <script src="{{ asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}" type="text/javascript" ></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" type="text/javascript" ></script>
+        <script src="{{ asset("/plugins/jquery-ui/jquery-ui.min.js") }}" type="text/javascript" ></script>
+        <script src="{{ asset("/plugins/jquery-mask-plugin/dist/jquery.mask.min.js") }}" type="text/javascript" ></script>
+
         @stack('scripts')
 
         <!-- App js -->

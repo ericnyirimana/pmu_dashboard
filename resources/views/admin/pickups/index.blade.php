@@ -7,21 +7,18 @@
 
 <div class="row m-b-10">
       <div class="col-12">
-          <a href="{{ route('menu.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Menu</a>
+          <a href="{{ route('pickups.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Pickup</a>
     </div>
 </div>
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
 
-            <h4 class="m-t-0 header-title"><b>List menu</b></h4>
+            <h4 class="m-t-0 header-title"><b>List pickups</b></h4>
 
-                <datatable route='menu' :collection="$menu" :fields="[
+                <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID' => 'id',
                 'Name' => 'name',
-                'Company' => 'brand:name',
-                'ristorante' => 'restaurant:name',
-                'Status' => 'boolean:status_name:status_color'
                 ]"
                 actions="edit,delete" />
         </div>

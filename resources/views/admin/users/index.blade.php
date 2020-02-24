@@ -3,7 +3,7 @@
 @section('content')
 
 @if (session('notification') )
-  @component('admin.components.notification')
+  @component('components.notification')
       @slot('type')
           {{ session('type-notification') }}
       @endslot

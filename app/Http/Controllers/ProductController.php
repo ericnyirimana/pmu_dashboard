@@ -74,9 +74,9 @@ class ProductController extends Controller
             $brands = Auth::user()->brand;
           }
 
-          $foods = Category::where('type', 'Food')->with('translation')->get()->pluck('translation.name');
-          $allergens = Category::where('type', 'Allergen')->with('translation')->get()->pluck('translation.name');
-          $dietaries = Category::where('type', 'Dietary')->with('translation')->get()->pluck('translation.name');
+          $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translation.name');
+          $allergens = Category::where('type', 'Allergen')->with('translate')->get()->pluck('translation.name');
+          $dietaries = Category::where('type', 'Dietary')->with('translate')->get()->pluck('translation.name');
 
 
           return view('admin.products.create')->with([
@@ -138,9 +138,9 @@ class ProductController extends Controller
         $brands = Auth::user()->brand;
       }
 
-      $foods = Category::where('type', 'Food')->with('translation')->get()->pluck('translation.name');
-      $allergens = Category::where('type', 'Allergen')->with('translation')->get()->pluck('translation.name');
-      $dietaries = Category::where('type', 'Dietary')->with('translation')->get()->pluck('translation.name');
+      $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translation.name');
+      $allergens = Category::where('type', 'Allergen')->with('translate')->get()->pluck('translation.name');
+      $dietaries = Category::where('type', 'Dietary')->with('translate')->get()->pluck('translation.name');
 
 
       return view('admin.products.edit')->with([
@@ -216,9 +216,9 @@ class ProductController extends Controller
             if ($fields['type'] == 'Drink') return ;
             $list = array();
 
-            $categoriesList = $this->getCategoriesId($fields['foods']);
-            $allergensList = $this->getCategoriesId($fields['allergens']);
-            $dietaryList = $this->getCategoriesId($fields['dietaries']);
+            $categoriesList = $this->getCategoriesId(@$fields['foods']);
+            $allergensList = $this->getCategoriesId(@$fields['allergens']);
+            $dietaryList = $this->getCategoriesId(@$fields['dietaries']);
 
             $categories = array_merge($categoriesList, $allergensList, $dietaryList);
 
@@ -231,6 +231,8 @@ class ProductController extends Controller
       public function getCategoriesId($array) {
 
         $list = array();
+
+        if (empty($array)) return array();
 
         foreach($array as $key=>$category) {
 

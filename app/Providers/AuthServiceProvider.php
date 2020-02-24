@@ -19,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\User' => 'App\Policies\UserPolicy',
         'App\Models\Media' => 'App\Policies\MediaPolicy',
         'App\Models\Category' => 'App\Policies\CategoryPolicy',
+        'App\Models\Pickup' => 'App\Policies\PickupPolicy',
     ];
 
     /**

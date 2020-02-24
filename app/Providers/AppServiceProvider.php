@@ -54,8 +54,25 @@ class AppServiceProvider extends ServiceProvider
           });
 
 
-          BladeX::component('admin.components.fields.*');
-          BladeX::component('admin.components.*');
+          view()->composer('components.brand-restaurant-select', function ($view) {
+
+            if (Auth::user()->is_super) {
+              $brands = \App\Models\Brand::all();
+              $restaurants = \App\Models\Restaurant::all();
+            } else {
+              $brands = Auth::user()->brand;
+              $restaurants = Auth::user()->brand->restaurants;
+            }
+
+              $view->with([
+                'brands'      => $brands,
+                'restaurants' => $restaurants
+              ]);
+            });
+
+
+          BladeX::component('components.fields.*');
+          BladeX::component('components.*');
 
           \App\Models\Brand::observe(IdentifierObserver::class);
           \App\Models\Restaurant::observe(IdentifierObserver::class);
@@ -63,6 +80,8 @@ class AppServiceProvider extends ServiceProvider
           \App\Models\Menu::observe(IdentifierObserver::class);
           \App\Models\MenuSection::observe(IdentifierObserver::class);
           \App\Models\Product::observe(IdentifierObserver::class);
+          \App\Models\PickupOffer::observe(IdentifierObserver::class);
+          \App\Models\PickupSubscription::observe(IdentifierObserver::class);
           \App\Models\Product::observe(\App\Observers\ProductObserver::class);
           \App\Models\ProductTranslation::observe(\App\Observers\ProductTranslationObserver::class);
           \App\Models\Media::observe(\App\Observers\MediaObserver::class);

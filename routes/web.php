@@ -44,11 +44,10 @@ Route::get('/','LandingController@index');
         Route::resource('/products', 'ProductController');
         Route::get('/products/create/dish', 'ProductController@create')->name('products.create.dish');
         Route::get('/products/create/drink', 'ProductController@create')->name('products.create.drink');
-
-
         Route::post('/products/position/{product}', 'ProductController@setPosition')->name('product.position');
         Route::delete('/section/products/ajaxDestroy', 'ProductController@ajaxDestroy')->name('product.ajax.destroy');
 
+        Route::resource('/pickups', 'PickupController');
 
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');

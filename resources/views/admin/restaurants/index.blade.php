@@ -3,7 +3,7 @@
 @section('content')
 
 
-@include('admin.components.notification')
+@include('components.notification')
 
 
 <div class="row">

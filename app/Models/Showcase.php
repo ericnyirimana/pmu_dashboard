@@ -20,7 +20,7 @@ class Showcase extends Model
 
   }
 
-  public function translation() {
+  public function translate() {
 
       return $this->hasOne('App\Models\ShowcaseTranslation')->where('code', \App::getLocale());
 

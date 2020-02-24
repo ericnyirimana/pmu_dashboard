@@ -3,37 +3,47 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Pickup extends Model
 {
 
 
-  public function offer() {
-
-        return $this->hasOne('App\Models\PickupOffer');
-
-  }
+    protected $fillable = ['type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status'];
 
 
-  public function subscripton() {
+    public function offer() {
 
-        return $this->hasOne('App\Models\PickupSubscription');
+          return $this->hasOne('App\Models\PickupOffer');
 
-  }
-
-
-  public function products() {
-
-        return $this->belongsToMany('App\Models\Product', 'pickup_products');
-
-  }
+    }
 
 
-  public function restaurant() {
+    public function subscripton() {
 
-        return $this->belongsTo('App\Models\Restaurant');
+          return $this->hasOne('App\Models\PickupSubscription');
 
-  }
+    }
+
+
+    public function products() {
+
+          return $this->belongsToMany('App\Models\Product', 'pickup_products')->withPivot('quantity_offer', 'quantity_remain');
+
+    }
+
+
+    public function brand() {
+
+          return $this->restaurant->brand();
+
+    }
+
+    public function restaurant() {
+
+          return $this->belongsTo('App\Models\Restaurant');
+
+    }
 
 
     public function translations() {
@@ -41,8 +51,6 @@ class Pickup extends Model
         return $this->hasMany('App\Models\PickupTranslation');
 
     }
-
-
 
     public function translate() {
 
@@ -53,6 +61,35 @@ class Pickup extends Model
           'description' => ''
         ]);
 
+    }
+
+
+    public function getDateAttribute() {
+
+          return Carbon::create($this->data_ini)->format('d/m/Y') . ' - ' . Carbon::create($this->data_end)->format('d/m/Y');
+
+    }
+
+
+    public function getSectionsAttribute() {
+
+
+          foreach($this->products as $product) {
+                $pos = $product->section->name;
+                if (empty($list[$pos])) $list[$pos] = array();
+
+                array_push($list[$pos], $product);
+
+          }
+
+          return $list;
+
+
+    }
+
+    public function getNameAttribute() {
+
+        return $this->translate->name;
     }
 
 

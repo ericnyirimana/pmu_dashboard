@@ -7,11 +7,11 @@
 <div class="row">
     <div class="col-12">
       <div class="card-box">
-        <a href="{{ route('menu.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Back</a>
+        <a href="{{ route('pickups.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Back</a>
       </div>
     </div>
 </div>
-<tag-form :action="route('menu.update', $menu)" method="put" >
-  @include('admin.menu.parts.form')
+<tag-form :action="route('pickups.update', $pickup)" method="put" >
+  @include('admin.pickups.parts.form')
 </tag-form>
 @endsection

@@ -19,6 +19,23 @@ class Restaurant extends Model
 
 
 
+
+      public function translations() {
+
+          return $this->hasMany('App\Models\RestaurantTranslation');
+
+      }
+
+      public function translate() {
+
+          return $this->hasOne('App\Models\RestaurantTranslation')
+          ->where('code', \App::getLocale())
+          ->withDefault([
+            'description' => ''
+          ]);
+
+      }
+
     public function brand() {
 
           return $this->belongsTo('App\Models\Brand');
@@ -28,6 +45,12 @@ class Restaurant extends Model
     public function products() {
 
           return $this->hasMany('App\Models\Product');
+
+    }
+
+    public function menu() {
+
+          return $this->hasOne('App\Models\Menu');
 
     }
 
@@ -56,30 +79,6 @@ class Restaurant extends Model
         return $this->name;
 
     }
-
-
-    public function getLatitudeAttribute() {
-
-        $coord = explode(',', $this->coordinates);
-
-        if ( count($coord) > 2 ) {
-              return trim($coord[0]);
-        }
-
-    }
-
-
-
-    public function getLongitudeAttribute() {
-
-        $coord = explode(',', $this->coordinates);
-
-        if ( count($coord) > 2 ) {
-              return trim($coord[1]);
-        }
-
-    }
-
 
 
     /**

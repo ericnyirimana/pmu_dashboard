@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('admin.components.notification')
+@include('components.notification')
 <div class="row m-b-10">
       <div class="col-12">
           <a href="{{ route('products.create.dish' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Dish</a>
@@ -19,7 +19,7 @@
 
                 <datatable route='products' :collection="$products" :fields="[
                 'ID' => 'id',
-                'Name' => 'translation:name',
+                'Name' => 'translate:name',
                 'type'  => 'color:type:color_type',
                 'Brand' => 'brand:name',
                 'Restaurant' => 'restaurant:name'

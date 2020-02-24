@@ -8,11 +8,11 @@ class Category extends Model
 {
 
 
-    protected $fillable = ['media_id', 'category_type_id'];
+    protected $fillable = ['media_id', 'category_type_id', 'type'];
 
 
 
-    public function translation() {
+    public function translate() {
 
         return $this->hasOne('App\Models\CategoryTranslation')->where('code', \App::getLocale());
 

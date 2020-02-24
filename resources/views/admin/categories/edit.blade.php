@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('admin.components.fields-require-alert')
+@include('components.fields-require-alert')
 
 <div class="row">
     <div class="col-12">

@@ -16,9 +16,15 @@ class Product extends Model
     protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position'];
 
 
-    public function translation() {
+    public function translate() {
 
         return $this->hasOne('App\Models\ProductTranslation')->where('code', \App::getLocale());
+
+    }
+
+    public function translations() {
+
+        return $this->hasMany('App\Models\ProductTranslation');
 
     }
 
@@ -47,13 +53,6 @@ class Product extends Model
 
     }
 
-
-
-    public function translations() {
-
-        return $this->hasMany('App\Models\ProductTranslation');
-
-    }
 
     public function media() {
 
@@ -84,6 +83,11 @@ class Product extends Model
 
           return $this->belongsTo('App\Models\Restaurant');
 
+    }
+
+    public function getNameAttribute() {
+
+        return $this->translate->name;
     }
 
 

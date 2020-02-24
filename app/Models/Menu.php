@@ -34,6 +34,18 @@ class Menu extends Model
 
     }
 
+    public function sectionsDish() {
+
+          return $this->hasMany('App\Models\MenuSection')->where('type', 'Dish')->orderBy('position', 'ASC');
+
+    }
+    
+    public function sectionsDrink() {
+
+          return $this->hasMany('App\Models\MenuSection')->where('type', 'Drink')->orderBy('position', 'ASC');
+
+    }
+
     public function products() {
 
           return $this->restaurant->products();

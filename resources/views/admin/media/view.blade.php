@@ -3,7 +3,7 @@
 @section('content')
 
 
-@include('admin.components.notification')
+@include('components.notification')
 <div class="row m-b-10 card-box ">
 
     <div class="col-md-8 col-lg-10">

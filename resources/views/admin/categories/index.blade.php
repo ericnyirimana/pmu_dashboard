@@ -3,7 +3,7 @@
 @section('content')
 
 
-@include('admin.components.notification')
+@include('components.notification')
 
 <div class="row m-b-10">
       <div class="col-12">
@@ -18,7 +18,7 @@
 
                 <datatable route='categories' :collection="$categories" :fields="[
                 'ID' => 'id',
-                'Name' => 'translation:name',
+                'Name' => 'translate:name',
                 'Type' => 'type',
                 ]"
                 actions="edit,delete" />

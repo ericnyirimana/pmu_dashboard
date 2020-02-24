@@ -10,11 +10,11 @@ Trait TranslationTrait {
 
       public function saveTranslation($model, $fields) {
 
-            $model->translation()->delete();
+            $model->translate()->delete();
 
             $fields['code'] = \App::getLocale();
 
-            $model->translation()->create($fields);
+            $model->translate()->create($fields);
 
             return $model;
 
