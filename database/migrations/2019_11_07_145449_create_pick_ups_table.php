@@ -20,8 +20,8 @@ class CreatePickUpsTable extends Migration
             $table->bigInteger('restaurant_id')->unsigned();
             $table->bigInteger('media_id')->unsigned()->nullable();
             $table->smallInteger('status')->default(0);
-            $table->date('data_ini');
-            $table->date('data_end');
+            $table->date('date_ini');
+            $table->date('date_end');
             $table->timestamps();
             $table->softDeletes();
 

@@ -17,8 +17,9 @@
             <h4 class="m-t-0 header-title"><b>List pickups</b></h4>
 
                 <datatable route='pickups' :collection="$pickups" :fields="[
-                'ID' => 'id',
-                'Name' => 'name',
+                'ID'    => 'id',
+                'Name'  => 'name',
+                'Type'  => 'color:type_pickup:pickup_color'
                 ]"
                 actions="edit,delete" />
         </div>

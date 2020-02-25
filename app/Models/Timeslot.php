@@ -8,6 +8,7 @@ class Timeslot extends Model
 {
 
 
+      protected $appends = ['name'];
 
       public function pickups() {
 

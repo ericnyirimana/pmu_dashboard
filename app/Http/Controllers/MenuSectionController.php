@@ -38,7 +38,7 @@ class MenuSectionController extends Controller
 
           $fields = $request->all();
 
-          if (MenuSection::where('menu_id', $menu->id)->whereHas('translation', function($q) use($request) {
+          if (MenuSection::where('menu_id', $menu->id)->whereHas('translate', function($q) use($request) {
               $q->where('name', $request->name);
           })->exists()) {
             return response()->json('Section already exists', 401);

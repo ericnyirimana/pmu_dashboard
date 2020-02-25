@@ -11,7 +11,6 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Traits\TranslationTrait;
 
-use App\Rules\SameBrandProduct;
 
 use Auth;
 
@@ -34,7 +33,7 @@ class ProductController extends Controller
         $request->validate(
           [
             'name'          => 'required',
-            'brand_id'      => new SameBrandProduct(),
+            'brand_id'      => new App\Rules\ProductBelongsToBrand(),
           ]
         );
 
@@ -74,9 +73,9 @@ class ProductController extends Controller
             $brands = Auth::user()->brand;
           }
 
-          $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translation.name');
-          $allergens = Category::where('type', 'Allergen')->with('translate')->get()->pluck('translation.name');
-          $dietaries = Category::where('type', 'Dietary')->with('translate')->get()->pluck('translation.name');
+          $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
+          $allergens = Category::where('type', 'Allergen')->with('translate')->get()->pluck('translate.name');
+          $dietaries = Category::where('type', 'Dietary')->with('translate')->get()->pluck('translate.name');
 
 
           return view('admin.products.create')->with([
@@ -138,9 +137,9 @@ class ProductController extends Controller
         $brands = Auth::user()->brand;
       }
 
-      $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translation.name');
-      $allergens = Category::where('type', 'Allergen')->with('translate')->get()->pluck('translation.name');
-      $dietaries = Category::where('type', 'Dietary')->with('translate')->get()->pluck('translation.name');
+      $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
+      $allergens = Category::where('type', 'Allergen')->with('translate')->get()->pluck('translate.name');
+      $dietaries = Category::where('type', 'Dietary')->with('translate')->get()->pluck('translate.name');
 
 
       return view('admin.products.edit')->with([
@@ -236,7 +235,7 @@ class ProductController extends Controller
 
         foreach($array as $key=>$category) {
 
-              $categoryModel = Category::whereHas('translation', function($q) use ($category) {
+              $categoryModel = Category::whereHas('translate', function($q) use ($category) {
                   $q->where('name', $category);
               })->first();
 

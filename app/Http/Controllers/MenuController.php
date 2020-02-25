@@ -25,7 +25,7 @@ class MenuController extends Controller
         $request->validate(
           [
             'name'          => 'required',
-            'restaurant_id' => new \App\Rules\SameBrandRestaurant,
+            'restaurant_id' => new \App\Rules\RestaurantBelongsToBrand,
           ]
         );
 

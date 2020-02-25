@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Auth;
 
-class SameBrandRestaurant implements Rule
+class BrandBelongsToOwner implements Rule
 {
     /**
      * Create a new rule instance.
@@ -27,7 +27,7 @@ class SameBrandRestaurant implements Rule
     public function passes($attribute, $value)
     {
 
-        return ( Auth::user()->is_super || Auth::user()->brand->restaurants()->find($value) );
+        return ( Auth::user()->is_super || Auth::user()->brand->find($value) );
     }
 
     /**

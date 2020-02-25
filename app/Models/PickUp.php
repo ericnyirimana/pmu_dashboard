@@ -9,7 +9,7 @@ class Pickup extends Model
 {
 
 
-    protected $fillable = ['type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status'];
+    protected $fillable = ['type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
 
 
     public function offer() {
@@ -19,7 +19,7 @@ class Pickup extends Model
     }
 
 
-    public function subscripton() {
+    public function subscription() {
 
           return $this->hasOne('App\Models\PickupSubscription');
 
@@ -66,14 +66,14 @@ class Pickup extends Model
 
     public function getDateAttribute() {
 
-          return Carbon::create($this->data_ini)->format('d/m/Y') . ' - ' . Carbon::create($this->data_end)->format('d/m/Y');
+          return Carbon::create($this->date_ini)->format('d/m/Y') . ' - ' . Carbon::create($this->date_end)->format('d/m/Y');
 
     }
 
 
     public function getSectionsAttribute() {
 
-
+      if($this->products->count() > 0) {
           foreach($this->products as $product) {
                 $pos = $product->section->name;
                 if (empty($list[$pos])) $list[$pos] = array();
@@ -83,7 +83,7 @@ class Pickup extends Model
           }
 
           return $list;
-
+        }
 
     }
 
@@ -92,6 +92,94 @@ class Pickup extends Model
         return $this->translate->name;
     }
 
+    public function getPickUpTypeAttribute() {
 
+            return $this->type_pickup;
+
+    }
+
+
+
+    public function getCoverImageAttribute() {
+
+        if ($this->media) {
+
+            return $this->media->getImageSize('medium');
+        }
+
+    }
+
+
+    public function getIdentifierAttribute() {
+
+        if ($this->type_pickup == 'offer') {
+            return $this->offer->identifier;
+        } else {
+          return $this->subscription->identifier;
+        }
+
+    }
+
+    public function getPriceAttribute() {
+
+        if ($this->type_pickup == 'offer') {
+            return $this->offer->price;
+        } else {
+            return $this->subscription->price;
+        }
+
+    }
+
+    public function getTypeOfferAttribute() {
+
+        if ($this->type_pickup == 'offer') {
+            return $this->offer->type_offer;
+        } else {
+            return $this->subscription->type_offer;
+        }
+
+    }
+
+    public function getQuantityOfferAttribute() {
+
+        if ($this->type_pickup == 'offer') {
+            return $this->offer->quantity_offer;
+        } else {
+          return $this->subscription->quantity_offer;
+        }
+
+    }
+
+    public function getQuantityRemainAttribute() {
+
+        if ($this->type_pickup == 'offer') {
+            return $this->offer->quantity_remain;
+        } else {
+          return $this->subscription->quantity_remain;
+        }
+
+    }
+
+    public function getValidateDaysAttribute() {
+
+          return $this->subscription->validate_days;
+
+    }
+
+    public function getQuantityPerSubscriptionAttribute() {
+
+          return $this->subscription->quantity_per_subscription;
+
+    }
+
+    public function getPickupColorAttribute() {
+
+        if ($this->type_pickup == 'offer') {
+          return 'success';
+        }
+
+        return 'primary';
+
+    }
 
 }

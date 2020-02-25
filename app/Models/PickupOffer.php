@@ -9,6 +9,8 @@ class PickupOffer extends Model
 
 
 
+      protected $fillable = ['quantity_offer', 'price', 'type_offer'];
+
       protected $appends = ['pickup'];
 
 

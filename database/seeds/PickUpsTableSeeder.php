@@ -42,8 +42,8 @@ class PickUpsTableSeeder extends Seeder {
           'timeslot_id' => 1,
           'restaurant_id' => 1,
           'status' => 1,
-          'data_ini'  => Carbon::now(),
-          'data_end'  => Carbon::now()->addDays(10)
+          'date_ini'  => Carbon::now(),
+          'date_end'  => Carbon::now()->addDays(10)
       ]);
 
       DB::table('pickup_offers')->insert([
@@ -85,8 +85,8 @@ class PickUpsTableSeeder extends Seeder {
           'timeslot_id' => 2,
           'restaurant_id' => 1,
           'status' => 1,
-          'data_ini'  => Carbon::now(),
-          'data_end'  => Carbon::now()->addDays(10)
+          'date_ini'  => Carbon::now(),
+          'date_end'  => Carbon::now()->addDays(10)
         ]);
 
         DB::table('pickup_offers')->insert([

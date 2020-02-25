@@ -54,6 +54,12 @@ class Restaurant extends Model
 
     }
 
+    public function timeslots() {
+
+          return $this->hasMany('App\Models\Timeslot');
+
+    }
+
 
     public function media() {
 

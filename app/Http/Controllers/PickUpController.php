@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Pickup;
 use App\Models\Timeslot;
 use App\Traits\TranslationTrait;
-
+use Carbon\Carbon;
 
 use Auth;
 
@@ -25,12 +25,28 @@ class PickupController extends Controller
     }
 
 
-    public function validation(Request $request, $media = null) {
+    public function validation(Request $request, $pickup = null) {
+
+        $validation = [
+          'name'          => 'required',
+          'type_pickup'   => 'required',
+          'brand_id'      => ['required', new \App\Rules\BrandBelongsToOwner],
+          'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToBrand],
+          'date'          => ['required'],
+          'timeslot_id'   => ['required', new \App\Rules\TimeslotBelongsToRestaurant],
+
+        ];
+
+        if ($pickup) {
+          $validation += [
+            'price'         => ['required', 'integer'],
+            'products'      => ['required', 'array'],
+            'quantity_offer' => ['required', 'integer']
+          ];
+        }
 
         $request->validate(
-          [
-            'name'  => 'required',
-          ]
+            $validation
         );
 
     }
@@ -55,8 +71,9 @@ class PickupController extends Controller
 
     public function create() {
 
+          $pickup = new Pickup;
           return view('admin.pickups.create')->with([
-
+                'pickup' => $pickup
             ]
           );
 
@@ -71,17 +88,21 @@ class PickupController extends Controller
 
           $fields = $request->all();
 
+          $dates = explode('-', $fields['date']);
+          $fields['date_ini'] = Carbon::create($dates[0]);
+          $fields['date_end'] = Carbon::create($dates[1]);
 
           $pickup = Pickup::create($fields);
-
-          $this->saveTranslation($pickup, $fields);
-          $this->products()->sync($fields['products']);
-
-          if ($request->media) {
-              $pickup->media()->sync( array_unique($request->media) );
+          if($pickup->type_pickup == 'offer') {
+            $pickup->offer()->create(['type_offer' => 'simple', 'quantity_offer' => '10', 'price' => 7]);
+          } else {
+            $pickup->subscription()->create(['type_offer' => 'simple', 'quantity_offer' => '10', 'price' => 7, 'validate_days' => 5]);
           }
+          $this->saveTranslation($pickup, $fields);
 
-          return redirect()->route('pickups.index')->with([
+
+
+          return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => 'Pickup saved with success!',
                 'type-notification' => 'success'
               ]);
@@ -100,17 +121,17 @@ class PickupController extends Controller
 
     public function edit(Pickup $pickup) {
 
-      $timeslots = Timeslot::get();
       $menu = $pickup->restaurant->menu;
 
       return view('admin.pickups.edit')->with([
         'pickup'     => $pickup,
-        'timeslots'  => $timeslots,
         'menu'  => $menu,
       ]
       );
 
     }
+
+
 
     public function update(Request $request, Pickup $pickup) {
 
@@ -119,6 +140,14 @@ class PickupController extends Controller
           $fields = $request->all();
 
           $pickup->update($fields);
+
+          if($pickup->type_pickup == 'offer') {
+              $pickup->offer->update($fields);
+          } else {
+              $pickup->subscription->update($fields);
+          }
+
+
 
           $this->saveTranslation($pickup, $fields);
           $pickup->products()->sync($fields['products']);

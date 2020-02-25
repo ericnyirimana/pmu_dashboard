@@ -61,6 +61,8 @@ Route::get('/','LandingController@index');
 
         Route::get('/restaurants/data/{brand?}', 'RestaurantController@data')->name('brand.restaurants.data');
 
+        Route::get('/timeslots/data/{restaurant?}', 'TimeslotController@data')->name('restaurant.timeslots.data');
+
         Route::resource('/showcases', 'ShowcaseController');
         Route::resource('/offers', 'PickupOfferController');
 

@@ -39,9 +39,10 @@ $(document).ready(function(){
                   $("#restaurant_id").html('');
 
                   $.each(data, function(i, restaurant){
-
-                      $("#restaurant_id").append('<option value="' + restaurant.id + '">' + restaurant.name + '</option>')
+                      $("#restaurant_id").append('<option value="' + restaurant.id + '">' + restaurant.name + '</option>');
                   });
+
+                  $("#restaurant_id").trigger('change');
               }
           });
 
