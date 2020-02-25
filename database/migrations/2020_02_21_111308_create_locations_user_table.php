@@ -20,7 +20,7 @@ class CreateLocationsUserTable extends Migration
           $table->string("address");
           $table->string("latitude");
           $table->string("longitude");
-          
+
           $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
@@ -32,6 +32,6 @@ class CreateLocationsUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('food_preferences');
+        Schema::dropIfExists('locations_user');
     }
 }
