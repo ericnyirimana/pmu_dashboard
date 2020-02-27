@@ -13,7 +13,7 @@ class CreateLocationsUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations_user', function (Blueprint $table) {
+        Schema::create('user_locations', function (Blueprint $table) {
           $table->bigIncrements('id');
           $table->bigInteger('user_id')->unsigned();
           $table->string("name");
@@ -32,6 +32,6 @@ class CreateLocationsUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations_user');
+        Schema::dropIfExists('user_locations');
     }
 }
