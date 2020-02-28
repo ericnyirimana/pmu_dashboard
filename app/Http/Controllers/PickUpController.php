@@ -43,6 +43,8 @@ class PickupController extends Controller
             'products'      => ['required', 'array'],
             'quantity_offer' => ['required', 'integer']
           ];
+
+          unset($validation['type_pickup']);
         }
 
         $request->validate(
@@ -89,8 +91,8 @@ class PickupController extends Controller
           $fields = $request->all();
 
           $dates = explode('-', $fields['date']);
-          $fields['date_ini'] = Carbon::create($dates[0]);
-          $fields['date_end'] = Carbon::create($dates[1]);
+          $fields['date_ini'] = Carbon::parse($dates[0]);
+          $fields['date_end'] = Carbon::parse($dates[1]);
 
           $pickup = Pickup::create($fields);
           if($pickup->type_pickup == 'offer') {
@@ -138,6 +140,12 @@ class PickupController extends Controller
           $this->validation($request, $pickup);
 
           $fields = $request->all();
+
+          $dates = explode('|', $fields['date']);
+
+          $fields['date_ini'] = Carbon::parse($dates[0]);
+          $fields['date_end'] = Carbon::parse($dates[1]);
+;
 
           $pickup->update($fields);
 

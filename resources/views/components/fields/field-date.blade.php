@@ -21,12 +21,14 @@ $(document).ready(function(){
 
     $('#{{ isset($id) ? $id : $field }}').daterangepicker({
         autoUpdateInput: false,
-        minDate: '{{ date("d/m/Y") }}',
+        minDate: '{{ date("d-m-Y") }}',
         @if(!isset($range)) singleDatePicker: true, @endif
         locale: {
-          format: 'DD/MM/YYY'
+          format: 'DD-MM-YYYY'
         }
-  });
+      }, function(start, end, label) {
+        $('#{{ isset($id) ? $id : $field }}').val(start.format('DD-MM-YYYY') + ' | ' + end.format('DD-MM-YYYY'));
+      });
 
 });
 
