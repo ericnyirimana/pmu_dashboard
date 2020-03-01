@@ -16,6 +16,8 @@ RUN yum -y update && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
+    composer install && \
+    composer update && \
     mkdir -p /opt/pmu_dashboard
 
 RUN groupadd -g 1000 www
