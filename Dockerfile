@@ -16,8 +16,6 @@ RUN yum -y update && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
-    composer install && \
-    composer update && \
     mkdir -p /opt/pmu_dashboard
 
 RUN groupadd -g 1000 www
@@ -26,7 +24,9 @@ RUN useradd -u 1000 -ms /bin/bash -g www www
 COPY . /opt/pmu_dashboard
 
 RUN cd /opt/pmu_dashboard && \
-    cp /opt/pmu_dashboard/.env.example /opt/pmu_dashboard/.env
+    cp /opt/pmu_dashboard/.env.example /opt/pmu_dashboard/.env && \
+    composer install && \
+    composer update
 
 RUN sed -i "s/.*DB_HOST=.*/DB_HOST=${DB_HOST}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*DB_PORT=.*/DB_PORT=${DB_PORT}/" /opt/pmu_dashboard/.env && \
