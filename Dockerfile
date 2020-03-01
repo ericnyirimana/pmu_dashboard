@@ -26,8 +26,8 @@ COPY . /opt/pmu_dashboard
 RUN cd /opt/pmu_dashboard && \
     cp /opt/pmu_dashboard/.env.example /opt/pmu_dashboard/.env && \
     composer install && \
-    composer update && \
-    composer dump-autoload
+    composer update
+    #composer dump-autoload
 
 RUN sed -i "s/.*DB_HOST=.*/DB_HOST=${DB_HOST}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*DB_PORT=.*/DB_PORT=${DB_PORT}/" /opt/pmu_dashboard/.env && \
