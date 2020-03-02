@@ -22,3 +22,19 @@ Progetto Dashboard - Laravel
 
 #radio
 <field-radio field="{type}" :model="{$model}" :items="{$items}" required />
+
+## Docker info
+Building the container
+```
+docker build -t pmu_dashboard \
+  --build-arg DB_HOST=pickmealup-dev.cvpqpiq5fzvi.eu-west-1.rds.amazonaws.com \
+  --build-arg DB_PORT=5510 \
+  --build-arg DB_DATABASE=pickmealup \
+  --build-arg DB_USERNAME=admin \
+  --build-arg DB_PASSWORD=<pwd> .
+```
+
+Running the ocntainer
+```
+docker run -p 7000:7000 -it pmu_dashboard
+```
