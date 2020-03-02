@@ -46,7 +46,7 @@ RUN sed -i "s/.*AWS_COGNITO_KEY=.*/AWS_COGNITO_KEY=${AWS_COGNITO_KEY}/" /opt/pmu
 
 RUN sed -i "s/.*AWS_ACCESS_KEY_ID=.*/AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_SECRET_ACCESS_KEY=.*/AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}/" /opt/pmu_dashboard/.env && \
-    sed -i "s/.*AWS_DEFAULT_REGION=.*/AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_DEFAULT_REGION=.*/AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION_USED}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_BUCKET=.*/AWS_BUCKET=${AWS_BUCKET}/" /opt/pmu_dashboard/.env
 
 # (marco/mirco) 20200229 : workaround to fix "the no such file" error
