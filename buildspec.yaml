@@ -16,7 +16,7 @@ phases:
 
   build:
     commands:
-      - docker build -t pmu_dashboard --build-arg DB_HOST=pickmealup-dev.cvpqpiq5fzvi.eu-west-1.rds.am --build-arg DB_PORT=5510 --build-arg DB_DATABASE=pickmealup --build-arg DB_USERNAME=admin --build-arg DB_PASSWORD=$DB_PWD .
+      - docker build -t pmu_dashboard --build-arg DB_HOST=pickmealup-dev.cvpqpiq5fzvi.eu-west-1.rds.amazonaws.com --build-arg DB_PORT=5510 --build-arg DB_DATABASE=pickmealup --build-arg DB_USERNAME=admin --build-arg DB_PASSWORD=$DB_PWD .
       - docker tag pmu_dashboard 948108788286.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
       - docker push 948108788286.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
 
