@@ -2,6 +2,10 @@ version: 0.2
 
 env:
   parameter-store:
+    DB_HOST: DEV-RDS-DB-HOST
+    DB_PORT: DEV-RDS-DB-PORT
+    DB_DATABASE: DEV-RDS-DB-DATABASE
+    DB_USERNAME: DEV-RDS-DB-USERNAME
     DB_PWD: DEV-RDS-ADMIN-PASSWORD
 
 phases:
@@ -16,7 +20,7 @@ phases:
 
   build:
     commands:
-      - docker build -t pmu_dashboard --build-arg DB_HOST=pickmealup-dev.cvpqpiq5fzvi.eu-west-1.rds.amazonaws.com --build-arg DB_PORT=5510 --build-arg DB_DATABASE=pickmealup --build-arg DB_USERNAME=admin --build-arg DB_PASSWORD=$DB_PWD .
+      - docker build -t pmu_dashboard --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_DATABASE=$DB_DATABASE --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PWD .
       - docker tag pmu_dashboard 948108788286.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
       - docker push 948108788286.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
 
