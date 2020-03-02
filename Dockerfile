@@ -18,9 +18,6 @@ RUN yum -y update && \
     chmod +x /usr/local/bin/composer && \
     mkdir -p /opt/pmu_dashboard
 
-#RUN groupadd -g 1000 www
-#RUN useradd -u 1000 -ms /bin/bash -g www www
-
 COPY . /opt/pmu_dashboard
 
 RUN cd /opt/pmu_dashboard && \
@@ -29,22 +26,33 @@ RUN cd /opt/pmu_dashboard && \
     composer update
     #composer dump-autoload
 
+# Inject DB parameters
+
 RUN sed -i "s/.*DB_HOST=.*/DB_HOST=${DB_HOST}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*DB_PORT=.*/DB_PORT=${DB_PORT}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*DB_USERNAME=.*/DB_USERNAME=${DB_USERNAME}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" /opt/pmu_dashboard/.env
 
+# Inject Cognito parameters
+
+RUN sed -i "s/.*AWS_COGNITO_KEY=.*/AWS_COGNITO_KEY=${AWS_COGNITO_KEY}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_COGNITO_SECRET=.*/AWS_COGNITO_SECRET=${AWS_COGNITO_SECRET}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_COGNITO_REGION=.*/AWS_COGNITO_REGION=${AWS_COGNITO_REGION}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_COGNITO_CLIENT_ID=.*/AWS_COGNITO_CLIENT_ID=${AWS_COGNITO_CLIENT_ID}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_COGNITO_USER_POOL_ID=.*/AWS_COGNITO_USER_POOL_ID=${AWS_COGNITO_USER_POOL_ID}/" /opt/pmu_dashboard/.env
+	
+# Inject S3 parameters
+
+RUN sed -i "s/.*AWS_ACCESS_KEY_ID=.*/AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_SECRET_ACCESS_KEY=.*/AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_DEFAULT_REGION=.*/AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_BUCKET=.*/AWS_BUCKET=${AWS_BUCKET}/" /opt/pmu_dashboard/.env
+
 # (marco/mirco) 20200229 : workaround to fix "the no such file" error
 RUN mkdir -p /opt/pmu_api/storage/framework/sessions
 
-#COPY --chown=www:www . /opt/pmu_dashboard
-
 WORKDIR /opt/pmu_dashboard
-
-#RUN chown -R www:www /opt/pmu_dashboard
-
-#USER www
 
 EXPOSE 7000
 
