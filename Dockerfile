@@ -18,8 +18,8 @@ RUN yum -y update && \
     chmod +x /usr/local/bin/composer && \
     mkdir -p /opt/pmu_dashboard
 
-RUN groupadd -g 1000 www
-RUN useradd -u 1000 -ms /bin/bash -g www www
+#RUN groupadd -g 1000 www
+#RUN useradd -u 1000 -ms /bin/bash -g www www
 
 COPY . /opt/pmu_dashboard
 
@@ -38,13 +38,13 @@ RUN sed -i "s/.*DB_HOST=.*/DB_HOST=${DB_HOST}/" /opt/pmu_dashboard/.env && \
 # (marco/mirco) 20200229 : workaround to fix "the no such file" error
 RUN mkdir -p /opt/pmu_api/storage/framework/sessions
 
-COPY --chown=www:www . /opt/pmu_dashboard
+#COPY --chown=www:www . /opt/pmu_dashboard
 
 WORKDIR /opt/pmu_dashboard
 
-RUN chown -R www:www /opt/pmu_dashboard
+#RUN chown -R www:www /opt/pmu_dashboard
 
-USER www
+#USER www
 
 EXPOSE 7000
 
