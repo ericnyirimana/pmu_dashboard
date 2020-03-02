@@ -1,16 +1,18 @@
 <div class="d-flex flex-row row">
     <div class="col-md-12 col-lg-6">
 
-          <field-text label="Name" field="name" :model="$category->translation" required  />
+          <field-text label="Name" field="name" :model="$category->translate" required  />
 
           <field-media label="Image" field="media_id" :model="$category" required="new" />
 
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">
 
+          <field-text label="Emoji" field="emoji" :model="$category"  />
+
           <field-select label="Food Category" field="type" foreignid="type" type="simple" :model="$category" :values="['Food'=>'Food', 'Allergen'=>'Allergen', 'Dietary'=>'Dietary']" required />
 
-          <field-area label="Description" field="description" :model="$category->translation" required  />
+          <field-area label="Description" field="description" :model="$category->translate" required  />
 
     </div>
 </div>
