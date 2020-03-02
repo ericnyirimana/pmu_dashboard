@@ -10,7 +10,7 @@ RUN yum -y update && \
     yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
     dnf module install -y php:remi-7.4 && \
-    dnf -y install dnf-utils php-mysqlnd && \
+    dnf -y install dnf-utils php-mysqlnd php-gd && \
     yum -y update && \
     yum -y install unzip && \
     curl -sS https://getcomposer.org/installer | php && \
