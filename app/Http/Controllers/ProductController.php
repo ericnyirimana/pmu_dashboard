@@ -33,7 +33,7 @@ class ProductController extends Controller
         $request->validate(
           [
             'name'          => 'required',
-            'brand_id'      => new App\Rules\ProductBelongsToBrand(),
+            'brand_id'      => new \App\Rules\ProductBelongsToBrand(),
           ]
         );
 

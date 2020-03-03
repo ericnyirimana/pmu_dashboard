@@ -8,7 +8,7 @@ class Category extends Model
 {
 
 
-    protected $fillable = ['media_id', 'category_type_id', 'type'];
+    protected $fillable = ['media_id', 'category_type_id', 'type', 'emoji'];
 
 
 

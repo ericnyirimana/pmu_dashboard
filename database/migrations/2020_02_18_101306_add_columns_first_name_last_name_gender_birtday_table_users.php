@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class AddColumnsFirstNameLastNameGenderBirtdayTableUsers extends Migration
-      
+
 {
     /**
      * Run the migrations.
@@ -20,8 +20,7 @@ class AddColumnsFirstNameLastNameGenderBirtdayTableUsers extends Migration
     public function up()
     {
         Schema::table('users', function(Blueprint $table){
-
-            
+      
             $table->string('birthday')->after('sub');
             $table->string('gender')->after('sub');
             $table->string('first_name')->after('sub');
@@ -43,7 +42,7 @@ class AddColumnsFirstNameLastNameGenderBirtdayTableUsers extends Migration
           $table->dropColumn('gender');
           $table->dropColumn('first_name');
           $table->dropColumn('last_name');
-          
+
 
       });
     }

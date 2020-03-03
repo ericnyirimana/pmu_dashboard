@@ -2,7 +2,8 @@
     <label for="{{ $field }}">{{ $label }}</label>
     <input  type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" aria-describedby="{{ $field }}Help" placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif>
     @if(isset($help))<small id="{{ $field }}Help" class="form-text text-muted">{{ $help }}</small>@endif
-    <input type="hidden" class="coordinates" name="coordinates" value="{{ old('coordinates', isset($model) ? $model->coordinates : '') }}">
+    <input type="hidden" id="latitude" name="latitude" value="{{ old('latitude', isset($model) ? $model->latitude : '') }}">
+    <input type="hidden" id="longitude" name="longitude" value="{{ old('longitude', isset($model) ? $model->longitude : '') }}">
 </div>
 <!-- Modal -->
 <div id="map-modal" class="modal fade map-modal" tabindex="-1" role="dialog" aria-labelledby="mapModal" aria-hidden="true">
@@ -103,7 +104,11 @@ function fillInAddress() {
   initMap(location);
 
 
-  var full_address = place.address_components[1].short_name + ', ' + place.address_components[0].short_name + ', ' + place.address_components[2].short_name;
+  var full_address = place.address_components[1].short_name + ', ' + place.address_components[0].short_name + ', ' + place.address_components[2].short_name + ' - ' + place.address_components[(place.address_components.length-1)].short_name;
+
+
+  $('#latitude').val(location.lat);
+  $('#longitude').val(location.lng);
 
   tmp_lat = lat;
   tmp_lng = lng;
@@ -119,6 +124,8 @@ function initMap(location) {
         document.getElementById('map{{ $field }}'), {zoom: 16, center: location});
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: location, map: map});
+
+
 }
   </script>
 @endpush

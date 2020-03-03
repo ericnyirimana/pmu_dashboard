@@ -14,7 +14,7 @@ class Restaurant extends Model
   ];
 
   public $fillable = [
-      'name', 'brand_id', 'logo', 'image', 'merchant_stripe', 'address'
+      'name', 'brand_id', 'logo', 'image', 'merchant_stripe', 'address', 'latitude', 'longitude'
   ];
 
 

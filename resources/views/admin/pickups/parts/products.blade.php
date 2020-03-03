@@ -7,7 +7,7 @@
 <div class="row clearfix">
   <field-hide :model="$pickup" field="type_offer" />
   <div class="col-6">
-        <span class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'simple') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-simple">simple</span>
+        <span class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">single</span>
   </div>
   <div class="col-6 text-center">
         <span class="text-center btn @if(!empty($pickup->type_offer) && $pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">combo</span>
@@ -64,7 +64,7 @@
                       <li class="list-group-item" data-id="{{ $product->id }}">
                           <i class="fa fa-minus-square remove"></i>
                           <div class="name">{{ $product->name }}</div>
-                          <div class="quantity"><input type="text" value="{{ $product->pivot->quantity_offer }}" maxlength="3" /></div>
+                          <div class="quantity"><input type="text" name="quantity[]" value="{{ $product->pivot->quantity_offer }}" maxlength="3" /></div>
                           <input type="hidden" name="products[]" value="{{ $product->id }}" />
                       </li>
                       @endforeach
@@ -147,8 +147,8 @@ $(document).ready(function(){
         $('.btn-type_offer').toggleClass('btn-primary');
         $('.btn-type_offer').toggleClass('btn-secondary');
 
-        if($(this).hasClass('type-simple')) {
-          $('#type_offer').val('simple');
+        if($(this).hasClass('type-single')) {
+          $('#type_offer').val('single');
         } else {
           $('#type_offer').val('combo');
         }

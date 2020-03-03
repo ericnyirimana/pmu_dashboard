@@ -11,6 +11,8 @@ class Pickup extends Model
 
     protected $fillable = ['type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
 
+    protected $dates = ['date_ini', 'date_end'];
+
 
     public function offer() {
 
@@ -66,7 +68,7 @@ class Pickup extends Model
 
     public function getDateAttribute() {
 
-          return Carbon::create($this->date_ini)->format('d/m/Y') . ' - ' . Carbon::create($this->date_end)->format('d/m/Y');
+          return Carbon::parse($this->date_ini)->format('d-m-Y') . ' | ' . Carbon::parse($this->date_end)->format('d-m-Y');
 
     }
 
