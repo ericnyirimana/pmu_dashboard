@@ -64,7 +64,7 @@
                       <li class="list-group-item" data-id="{{ $product->id }}">
                           <i class="fa fa-minus-square remove"></i>
                           <div class="name">{{ $product->name }}</div>
-                          <div class="quantity"><input type="text" value="{{ $product->pivot->quantity_offer }}" maxlength="3" /></div>
+                          <div class="quantity"><input type="text" name="quantity[]" value="{{ $product->pivot->quantity_offer }}" maxlength="3" /></div>
                           <input type="hidden" name="products[]" value="{{ $product->id }}" />
                       </li>
                       @endforeach

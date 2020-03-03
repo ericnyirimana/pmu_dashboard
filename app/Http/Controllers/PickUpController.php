@@ -145,7 +145,7 @@ class PickupController extends Controller
 
           $fields['date_ini'] = Carbon::parse($dates[0]);
           $fields['date_end'] = Carbon::parse($dates[1]);
-;
+
 
           $pickup->update($fields);
 
@@ -155,10 +155,13 @@ class PickupController extends Controller
               $pickup->subscription->update($fields);
           }
 
+          foreach($fields['products'] as $k=>$v) {
 
+              $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
+          }
 
           $this->saveTranslation($pickup, $fields);
-          $pickup->products()->sync($fields['products']);
+          $pickup->products()->sync($products);
 
           if ($request->media) {
               $pickup->media()->sync( array_unique($request->media) );
