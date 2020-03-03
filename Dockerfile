@@ -49,7 +49,7 @@ RUN sed -i "s/.*AWS_COGNITO_KEY=.*/AWS_COGNITO_KEY=${AWS_COGNITO_KEY}/" /opt/pmu
     sed -i "s/.*AWS_COGNITO_REGION=.*/AWS_COGNITO_REGION=${AWS_COGNITO_REGION}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_COGNITO_CLIENT_ID=.*/AWS_COGNITO_CLIENT_ID=${AWS_COGNITO_CLIENT_ID}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_COGNITO_USER_POOL_ID=.*/AWS_COGNITO_USER_POOL_ID=${AWS_COGNITO_USER_POOL_ID}/" /opt/pmu_dashboard/.env
-	
+
 # Inject S3 parameters
 
 RUN sed -i "s/.*AWS_ACCESS_KEY_ID=.*/AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}/" /opt/pmu_dashboard/.env && \
@@ -57,7 +57,7 @@ RUN sed -i "s/.*AWS_ACCESS_KEY_ID=.*/AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}/" /op
     sed -i "s/.*AWS_DEFAULT_REGION=.*/AWS_DEFAULT_REGION=${S3_DEF_REGION}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_BUCKET=.*/AWS_BUCKET=${S3_BUCKET}/" /opt/pmu_dashboard/.env
 
-RUN sed -i "s@.*APP_URL=.*@APP_URL=http://dev-api.pickmealup.com@" /opt/pmu_dashboard/.env
+RUN sed -i "s@.*APP_URL=.*@APP_URL=http://dev.pickmealup.com@" /opt/pmu_dashboard/.env
 
 RUN cat /opt/pmu_dashboard/.env
 
