@@ -5,14 +5,22 @@ ARG DB_PORT
 ARG DB_DATABASE
 ARG DB_USERNAME
 ARG DB_PASSWORD
+ARG AWS_COGNITO_KEY
+ARG AWS_COGNITO_SECRET
+ARG AWS_COGNITO_REGION
+ARG AWS_COGNITO_CLIENT_ID
+ARG AWS_COGNITO_USER_POOL_ID
+ARG S3_ACCESS_KEY_ID
+ARG S3_SECRET_ACCESS_KEY
+ARG S3_DEF_REGION
+ARG S3_BUCKET
 
-RUN yum -y update && \
-    yum -y install epel-release && \
+#RUN yum -y update && \
+RUN yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
     dnf module install -y php:remi-7.4 && \
-    dnf -y install dnf-utils php-mysqlnd php-gd && \
+    dnf -y install dnf-utils php-mysqlnd php-gd unzip && \
     yum -y update && \
-    yum -y install unzip && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
