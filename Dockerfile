@@ -30,7 +30,7 @@ COPY . /opt/pmu_dashboard
 
 RUN cd /opt/pmu_dashboard && \
     cp /opt/pmu_dashboard/.env.example /opt/pmu_dashboard/.env && \
-    composer install && \
+    composer install --optimize-autoloader --no-dev && \
     composer update
     #composer dump-autoload
 
