@@ -67,8 +67,12 @@ class RestaurantController extends Controller
             // save on aux
             $openings = $fields['openings'];
 
+            // save on aux
+            $closings = $fields['closings'];
+
             // remove from fields to not conflict with Restaurant fields
             unset($fields['openings']);
+            unset($fields['closings']);
 
             $restaurant = Restaurant::create($fields);
 
@@ -155,28 +159,41 @@ class RestaurantController extends Controller
       }
 
 
+      public function destroy(Restaurant $restaurant) {
+
+            $brand = $restaurant->brand;
+            $restaurant->delete();
+
+            return redirect()->route('brands.show', $brand)->with([
+                  'notification' => 'Restaurant removed with success!',
+                  'type-notification' => 'warning'
+                ]);
+
+      }
+
 
       protected function saveOpeningsHours(int $restaurant, array $fields) {
 
             // clean all openings hours
             OpeningHour::where('restaurant_id', $restaurant)->delete();
 
-            foreach ($fields as $day => $list) {
+            if ($fields) {
+              foreach ($fields as $day => $list) {
 
-                $close = isset($list['closed']) ? true : false;
+                  $close = isset($list['closed']) ? true : false;
 
-                foreach ($list['times'] as $time) {
+                  foreach ($list['times'] as $time) {
 
-                    OpeningHour::create([
-                      'restaurant_id' => $restaurant,
-                      'day_of_week'   => $day,
-                      'hour_ini'     => $time['from'],
-                      'hour_end'       => $time['to'],
-                      'closed'        => $close
-                    ]);
-                }
+                      OpeningHour::create([
+                        'restaurant_id' => $restaurant,
+                        'day_of_week'   => $day,
+                        'hour_ini'     => $time['from'],
+                        'hour_end'       => $time['to'],
+                        'closed'        => $close
+                      ]);
+                  }
 
-
+              }
             }
 
       }
@@ -187,24 +204,27 @@ class RestaurantController extends Controller
         // clean all openings hours
         ClosedDay::where('restaurant_id', $restaurant)->delete();
 
+        if ($fields) {
+            foreach ($fields as $day => $list) {
 
-        foreach ($fields as $day => $list) {
+                $repeat = isset($list['repeat']) ? true : false;
 
-            $repeat = isset($list['repeat']) ? true : false;
+                if (!empty($list['name']) && !empty($list['date'])) {
+                  $closed = ClosedDay::create([
+                    'restaurant_id' => $restaurant,
+                    'name'          => $list['name'],
+                    'date'          => Carbon::parse($list['date']),
+                    'repeat'        => $repeat
+                  ]);
+              }
 
-            if (!empty($list['name']) && !empty($list['date'])) {
-              $closed = ClosedDay::create([
-                'restaurant_id' => $restaurant,
-                'name'          => $list['name'],
-                'date'          => Carbon::parse($list['date']),
-                'repeat'        => $repeat
-              ]);
-          }
-
-
+            }
         }
 
       }
+
+
+
 
 
 }
