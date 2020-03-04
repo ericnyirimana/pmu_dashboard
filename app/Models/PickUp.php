@@ -9,7 +9,7 @@ class Pickup extends Model
 {
 
 
-    protected $fillable = ['type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
+    protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
 
     protected $dates = ['date_ini', 'date_end'];
 
@@ -111,16 +111,6 @@ class Pickup extends Model
 
     }
 
-
-    public function getIdentifierAttribute() {
-
-        if ($this->type_pickup == 'offer') {
-            return $this->offer->identifier;
-        } else {
-          return $this->subscription->identifier;
-        }
-
-    }
 
     public function getPriceAttribute() {
 

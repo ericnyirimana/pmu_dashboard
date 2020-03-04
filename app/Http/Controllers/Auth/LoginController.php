@@ -209,7 +209,7 @@ class LoginController extends Controller
           #Update all information from Cognito, it ensures to have Cognito and DB aligned
           $user->password = bcrypt($request->password);
           $user->sub = $cognitoUser['sub'];
-          $user->role = $cognitoUser['role'];
+          $user->role = $cognitoUser['role'] ?? 'CUSTOMER';
           $user->profile = json_encode($cognitoUser);
 
           $user->save();
