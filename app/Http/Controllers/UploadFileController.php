@@ -34,8 +34,9 @@ class UploadFileController extends Controller
             return response()->json($e,401);
       }
 
-
-      return response()->json(['name' => $name, 'url' => $media->getImageSize('thumbnail'),'file' => $file], 200);
+      $media->url = $media->getImageSize('thumbnail');
+      
+      return response()->json($media, 200);
 
 
     }
