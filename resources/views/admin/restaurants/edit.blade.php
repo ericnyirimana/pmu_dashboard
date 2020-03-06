@@ -11,7 +11,7 @@
       </div>
     </div>
 </div>
-<tag-form file :action="route('brand.restaurants.update', [$restaurant->brand, $restaurant])" method="put" >
+<tag-form file :action="route('company.restaurants.update', [$restaurant->company, $restaurant])" method="put" >
   @include('admin.restaurants.parts.form')
 </tag-form>
 @endsection

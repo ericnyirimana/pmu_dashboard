@@ -39,7 +39,7 @@ $(document).ready(function(){
         if ($(this).val()) {
 
           $.ajax({
-              url: "{{ route('brand.restaurants.data') }}/"+$(this).val(),
+              url: "{{ route('company.restaurants.data') }}/"+$(this).val(),
 
               type: 'GET',
               success: function(data) {

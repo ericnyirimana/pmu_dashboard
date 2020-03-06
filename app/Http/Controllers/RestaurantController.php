@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Brand;
+use App\Models\Company;
 use App\Models\Restaurant;
 use App\Models\OpeningHour;
 use App\Models\ClosedDay;
@@ -16,11 +16,11 @@ class RestaurantController extends Controller
 
 
 
-      protected $brand_path = '/app/public/restaurants/';
+      protected $company_path = '/app/public/restaurants/';
 
 
 
-      public function validation(Request $request, $brand = null) {
+      public function validation(Request $request, $company = null) {
 
           $request->validate(
             [
@@ -41,14 +41,14 @@ class RestaurantController extends Controller
       }
 
 
-      public function create(Brand $brand) {
+      public function create(Company $company) {
 
             $restaurant = new Restaurant;
-            $media = Media::whereNull('brand_id')->orWhere('brand_id', $brand->id)->get();
+            $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
 
             return view('admin.restaurants.create')->with([
-              'brand'     => $brand,
+              'company'     => $company,
               'restaurant'     => $restaurant,
               'media'     => $media,
               ]);
@@ -56,13 +56,13 @@ class RestaurantController extends Controller
       }
 
 
-      public function store(Brand $brand, Request $request) {
+      public function store(Company $company, Request $request) {
 
             $this->validation($request);
 
             $fields = $request->all();
 
-            $fields['brand_id'] = $brand->id;
+            $fields['brand_id'] = $company->id;
 
             // save on aux
             $openings = $fields['openings'];
@@ -83,7 +83,7 @@ class RestaurantController extends Controller
                 $restaurant->media()->sync( array_unique($request->media) );
             }
 
-            return redirect()->route('brands.show', $brand)->with([
+            return redirect()->route('companies.show', $company)->with([
                   'notification' => 'Restaurant saved with success!',
                   'type-notification' => 'success'
                 ]);
@@ -91,10 +91,10 @@ class RestaurantController extends Controller
       }
 
 
-      public function data(Brand $brand) {
+      public function data(Company $company) {
 
-            if($brand) {
-                return response()->json($brand->restaurants , 200);
+            if($company) {
+                return response()->json($company->restaurants , 200);
             }
 
 
@@ -105,29 +105,29 @@ class RestaurantController extends Controller
 
       public function show(Restaurant $restaurant) {
 
-            $brand = $restaurant->brand;
+            $company = $restaurant->company;
 
             return view('admin.restaurants.view')
             ->with( compact('restaurant') )
-            ->with( compact('brand') );
+            ->with( compact('company') );
 
       }
 
 
-      public function edit(Brand $brand, Restaurant $restaurant) {
+      public function edit(Company $company, Restaurant $restaurant) {
 
-            $media = Media::whereNull('brand_id')->orWhere('brand_id', $brand->id)->get();
+            $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
             return view('admin.restaurants.edit')->with([
               'restaurant'     => $restaurant,
-              'brand'     => $brand,
+              'company'     => $company,
               'media'     => $media,
               ]);
 
       }
 
 
-      public function update(Request $request, Brand $brand, Restaurant $restaurant) {
+      public function update(Request $request, Company $company, Restaurant $restaurant) {
 
 
             $this->validation($request, $restaurant);
@@ -151,7 +151,7 @@ class RestaurantController extends Controller
                 $restaurant->media()->sync( array_unique($request->media) );
             }
 
-            return redirect()->route('brands.show', $brand)->with([
+            return redirect()->route('companies.show', $company)->with([
                   'notification' => 'Restaurant saved with success!',
                   'type-notification' => 'success'
                 ]);
@@ -161,10 +161,10 @@ class RestaurantController extends Controller
 
       public function destroy(Restaurant $restaurant) {
 
-            $brand = $restaurant->brand;
+            $company = $restaurant->company;
             $restaurant->delete();
 
-            return redirect()->route('brands.show', $brand)->with([
+            return redirect()->route('companies.show', $company)->with([
                   'notification' => 'Restaurant removed with success!',
                   'type-notification' => 'warning'
                 ]);

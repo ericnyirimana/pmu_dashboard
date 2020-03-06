@@ -53,18 +53,16 @@ Route::get('/','LandingController@index');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');
 
-        Route::resource('/brands', 'BrandController');
+        Route::resource('/companies', 'CompanyController');
 
-        Route::post('/brands/{brand}/restaurants', 'RestaurantController@store')->name('brand.restaurants.store');
-        Route::get('/brands/{brand}/restaurants/create', 'RestaurantController@create')->name('brand.restaurants.create');
-        Route::put('/brands/{brand}/restaurants/{restaurant}', 'RestaurantController@update')->name('brand.restaurants.update');
+        Route::post('/companies/{company}/restaurants', 'RestaurantController@store')->name('company.restaurants.store');
+        Route::get('/companies/{company}/restaurants/create', 'RestaurantController@create')->name('company.restaurants.create');
+        Route::put('/companies/{company}/restaurants/{restaurant}', 'RestaurantController@update')->name('company.restaurants.update');
 
-        Route::get('/restaurants/data/{brand?}', 'RestaurantController@data')->name('brand.restaurants.data');
+        Route::get('/restaurants/data/{company?}', 'RestaurantController@data')->name('company.restaurants.data');
 
         Route::get('/timeslots/data/{restaurant?}', 'TimeslotController@data')->name('restaurant.timeslots.data');
 
-        Route::resource('/showcases', 'ShowcaseController');
-        Route::resource('/offers', 'PickupOfferController');
 
         Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'
 

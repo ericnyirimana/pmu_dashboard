@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Brand extends Model
+class Company extends Model
 {
 
+
+    protected $table = 'brands';
 
     public $appends = [
         'field_show'
@@ -26,7 +28,7 @@ class Brand extends Model
 
     public function restaurants() {
 
-          return $this->hasMany('App\Models\Restaurant');
+          return $this->hasMany('App\Models\Restaurant', 'brand_id');
 
     }
 

@@ -2,7 +2,7 @@
 
     <!-- LOGO -->
     <div class="topbar-left">
-        <a href="/" class="logo">
+        <a href="{{ route('dashboard.index') }}" class="logo">
             <span>
                 @svg('pmu-logo-base64', 'image-logo')
             </span>

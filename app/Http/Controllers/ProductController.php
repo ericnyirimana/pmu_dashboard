@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\ProductSection;
-use App\Models\Brand;
+use App\Models\Company;
 use App\Models\Category;
 use App\Traits\TranslationTrait;
 
@@ -33,7 +33,7 @@ class ProductController extends Controller
         $request->validate(
           [
             'name'          => 'required',
-            'brand_id'      => new \App\Rules\ProductBelongsToBrand(),
+            'brand_id'      => new \App\Rules\ProductBelongsToCompany(),
           ]
         );
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
 
         } else {
 
-          $products = Auth::user()->brand->products;
+          $products = Auth::user()->company->products;
         }
 
 
@@ -67,10 +67,10 @@ class ProductController extends Controller
           $product->type = ucfirst(end($arrRoute));
 
           if (Auth::user()->is_super) {
-            $brands = Brand::all();
+            $companies = Company::all();
 
           } else {
-            $brands = Auth::user()->brand;
+            $companies = Auth::user()->company;
           }
 
           $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
@@ -80,7 +80,7 @@ class ProductController extends Controller
 
           return view('admin.products.create')->with([
             'product'       => $product,
-            'brands'        => $brands,
+            'companies'        => $companies,
             'foods'      => $foods,
             'allergens'  => $allergens,
             'dietaries'  => $dietaries
@@ -131,10 +131,10 @@ class ProductController extends Controller
     public function edit(Product $product) {
 
       if (Auth::user()->is_super) {
-        $brands = Brand::all();
+        $companies = Company::all();
 
       } else {
-        $brands = Auth::user()->brand;
+        $companies = Auth::user()->company;
       }
 
       $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
@@ -144,7 +144,7 @@ class ProductController extends Controller
 
       return view('admin.products.edit')->with([
         'product'     => $product,
-        'brands'      => $brands,
+        'companies'      => $companies,
         'foods'      => $foods,
         'allergens'  => $allergens,
         'dietaries'  => $dietaries

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
-use App\Models\Brand;
+use App\Models\Company;
 use App\Models\Restaurant;
 use App\Models\Product;
 
@@ -25,7 +25,7 @@ class MenuController extends Controller
         $request->validate(
           [
             'name'          => 'required',
-            'restaurant_id' => new \App\Rules\RestaurantBelongsToBrand,
+            'restaurant_id' => new \App\Rules\RestaurantBelongsToCompany,
           ]
         );
 
@@ -41,7 +41,7 @@ class MenuController extends Controller
 
         if (Auth::user()->is_owner) {
             $menu = Menu::whereHas('restaurant', function($q){
-              $q->whereHas('brand', function($q){
+              $q->whereHas('company', function($q){
                 $q->where('owner_id', Auth::user()->id);
               });
             })->get();
@@ -60,12 +60,12 @@ class MenuController extends Controller
     public function create() {
 
           $menu = new Menu;
-          $brands = Brand::all();
+          $companies = Company::all();
           $restaurants = Restaurant::all();
 
           return view('admin.menu.create')->with([
             'menu'   => $menu,
-            'brands'   => $brands,
+            'companies'   => $companies,
             'restaurants'   => $restaurants,
           ]
           );
@@ -105,11 +105,11 @@ class MenuController extends Controller
     public function edit(Menu $menu) {
 
           if (Auth::user()->is_super) {
-            $brands = Brand::all();
+            $companies = Company::all();
             $restaurants = Restaurant::all();
           } else {
-            $brands = Auth::user()->brand;
-            $restaurants = Auth::user()->brand->restaurants;
+            $companies = Auth::user()->company;
+            $restaurants = Auth::user()->company->restaurants;
           }
 
           $dishesProducts = $menu->products()->where('type', 'Dish')->get();
@@ -118,7 +118,7 @@ class MenuController extends Controller
 
           return view('admin.menu.edit')->with([
             'menu'    => $menu,
-            'brands'  => $brands,
+            'companies'  => $companies,
             'restaurants' => $restaurants,
             'dishesProducts' => $dishesProducts,
             'drinksProducts' => $drinksProducts

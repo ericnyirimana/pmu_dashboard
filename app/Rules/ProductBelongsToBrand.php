@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Auth;
 
-class ProductBelongsToBrand implements Rule
+class ProductBelongsToCompany implements Rule
 {
     /**
      * Create a new rule instance.
@@ -27,7 +27,7 @@ class ProductBelongsToBrand implements Rule
     public function passes($attribute, $value)
     {
 
-        return ( Auth::user()->is_super || Auth::user()->brand->products()->find($value) );
+        return ( Auth::user()->is_super || Auth::user()->company->products()->find($value) );
     }
 
     /**

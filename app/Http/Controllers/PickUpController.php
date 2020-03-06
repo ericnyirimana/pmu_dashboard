@@ -30,8 +30,8 @@ class PickupController extends Controller
         $validation = [
           'name'          => 'required',
           'type_pickup'   => 'required',
-          'brand_id'      => ['required', new \App\Rules\BrandBelongsToOwner],
-          'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToBrand],
+          'brand_id'      => ['required', new \App\Rules\CompanyBelongsToOwner],
+          'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
           'date'          => ['required'],
           'timeslot_id'   => ['required', new \App\Rules\TimeslotBelongsToRestaurant],
 

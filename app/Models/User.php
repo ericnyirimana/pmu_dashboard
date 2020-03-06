@@ -31,9 +31,9 @@ class User extends Authenticatable
 
 
 
-    public function brand() {
+    public function company() {
 
-          return $this->hasOne('App\Models\Brand', 'owner_id');
+          return $this->hasOne('App\Models\Company', 'owner_id');
 
     }
 

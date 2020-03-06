@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Libraries\FileManager;
 use App\Models\Media;
-use App\Models\Brand;
+use App\Models\Company;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Image;
@@ -48,9 +48,9 @@ class MediaController extends Controller
               $media = Media::all();
           } else {
               $mediaAll = Media::whereNull('brand_id')->get();
-              $mediaBrand = Media::where('brand_id', Auth::user()->brand->id)->get();
+              $mediaCompany = Media::where('brand_id', Auth::user()->company->id)->get();
 
-              $media = $mediaAll->merge($mediaBrand);
+              $media = $mediaAll->merge($mediaCompany);
           }
 
           return view('admin.media.index')
@@ -62,10 +62,10 @@ class MediaController extends Controller
       public function show(Media $media) {
 
 
-            $brands = Brand::all();
+            $companies = Company::all();
             return view('admin.media.view')->with([
               'media' => $media,
-              'brands' => $brands
+              'companies' => $companies
             ]
             );
 
@@ -75,11 +75,11 @@ class MediaController extends Controller
       public function create() {
 
             $media = null;
-            $brands = Brand::all();
+            $companies = Company::all();
 
             return view('admin.media.create')->with([
               'media' => $media,
-              'brands' => $brands
+              'companies' => $companies
             ]
             );
 
@@ -109,10 +109,10 @@ class MediaController extends Controller
       public function edit(Media $media) {
 
 
-            $brands = Brand::all();
+            $companies = Company::all();
             return view('admin.media.edit')->with([
               'media' => $media,
-              'brands' => $brands
+              'companies' => $companies
             ]
             );
 

@@ -36,9 +36,9 @@ class Restaurant extends Model
 
       }
 
-    public function brand() {
+    public function company() {
 
-          return $this->belongsTo('App\Models\Brand');
+          return $this->belongsTo('App\Models\Company', 'brand_id');
 
     }
 

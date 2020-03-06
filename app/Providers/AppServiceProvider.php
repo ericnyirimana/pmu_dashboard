@@ -45,27 +45,27 @@ class AppServiceProvider extends ServiceProvider
                 $media = \App\Models\Media::all();
             } else {
                 $mediaAll = \App\Models\Media::whereNull('brand_id')->get();
-                $mediaBrand = \App\Models\Media::where('brand_id', Auth::user()->brand->id)->get();
+                $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->company->id)->get();
 
-                $media = $mediaAll->merge($mediaBrand);
+                $media = $mediaAll->merge($mediaCompany);
             }
 
             $view->with(compact('media'));
           });
 
 
-          view()->composer('components.brand-restaurant-select', function ($view) {
+          view()->composer('components.company-restaurant-select', function ($view) {
 
             if (Auth::user()->is_super) {
-              $brands = \App\Models\Brand::all();
+              $companies = \App\Models\Company::all();
               $restaurants = \App\Models\Restaurant::all();
             } else {
-              $brands = Auth::user()->brand;
-              $restaurants = Auth::user()->brand->restaurants;
+              $companies = Auth::user()->company;
+              $restaurants = Auth::user()->company->restaurants;
             }
 
               $view->with([
-                'brands'      => $brands,
+                'companies'      => $companies,
                 'restaurants' => $restaurants
               ]);
             });
@@ -74,7 +74,7 @@ class AppServiceProvider extends ServiceProvider
           BladeX::component('components.fields.*');
           BladeX::component('components.*');
 
-          \App\Models\Brand::observe(IdentifierObserver::class);
+          \App\Models\Company::observe(IdentifierObserver::class);
           \App\Models\Restaurant::observe(IdentifierObserver::class);
           \App\Models\Category::observe(IdentifierObserver::class);
           \App\Models\Menu::observe(IdentifierObserver::class);

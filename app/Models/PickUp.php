@@ -35,9 +35,9 @@ class Pickup extends Model
     }
 
 
-    public function brand() {
+    public function company() {
 
-          return $this->restaurant->brand();
+          return $this->restaurant->company();
 
     }
 

@@ -1,8 +1,8 @@
 <div class="col-6 col-md-6">
     @if(Auth::user()->is_super && $model->id)
-    <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model->brand" :values="$brands->pluck('name', 'id')" required  />
+    <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model->brand" :values="$companies->pluck('name', 'id')" required  />
     @elseif(Auth::user()->is_super && !$model->id)
-    <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model" :values="$brands->pluck('name', 'id')" required  />
+    <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model" :values="$companies->pluck('name', 'id')" required  />
     @elseif($model->id)
     <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model->brand" :values="[$model->brand->id => $model->brand->name]"  required disabled />
     @else
@@ -31,7 +31,7 @@ $(document).ready(function(){
         if ($(this).val()) {
 
           $.ajax({
-              url: "{{ route('brand.restaurants.data') }}/"+$(this).val(),
+              url: "{{ route('company.restaurants.data') }}/"+$(this).val(),
 
               type: 'GET',
               success: function(data) {

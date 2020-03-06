@@ -7,13 +7,14 @@
 <div class="row">
     <div class="col-12">
       <div class="card-box">
-        <a href="{{ route('brands.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Back</a>
+        <a href="{{ route('companies.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Back</a>
       </div>
     </div>
 </div>
+<tag-form file :action="route('companies.store')">
 
-<tag-form file :action="route('brands.update', $brand)" method="put" >
-  @include('admin.brands.parts.form')
+    @include('admin.companies.parts.form')
+
 </tag-form>
 
 @endsection

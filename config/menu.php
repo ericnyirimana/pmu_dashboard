@@ -7,15 +7,31 @@ return [
             'icon' => 'fi-air-play',
             'routes' => [
                 'Dashboard' => 'dashboard.index',
-                'Blank' => 'dashboard.blank',
             ],
         ],
         'Company' => [
-            'class'   => 'Brand',
+            'class'   => 'Company',
             'icon'    => 'fi-star',
             'routes'  => [
-                'List'  => 'brands.index',
-                'New'   => 'brands.create',
+                'List'  => 'companies.index',
+                'New'   => 'companies.create',
+            ],
+        ],
+        'Categories' => [
+            'class'   => 'Category',
+            'icon' => 'fi-align-center',
+            'routes' => [
+                'List' => 'categories.index',
+                'New' => 'categories.create',
+            ],
+        ],
+        'Dishes' => [
+            'class'   => 'Product',
+            'icon' => 'fi-align-center',
+            'routes' => [
+                'List' => 'products.index',
+                'New Dish' => 'products.create.dish',
+                'New Drink' => 'products.create.drink',
             ],
         ],
         'Menu' => [
@@ -32,30 +48,6 @@ return [
             'routes' => [
                 'List' => 'pickups.index',
                 'New' => 'pickups.create'
-            ],
-        ],
-        'Dishes' => [
-            'class'   => 'Product',
-            'icon' => 'fi-align-center',
-            'routes' => [
-                'List' => 'products.index',
-                'New Dish' => 'products.create.dish',
-                'New Drink' => 'products.create.drink',
-            ],
-        ],
-        'Categories' => [
-            'class'   => 'Category',
-            'icon' => 'fi-align-center',
-            'routes' => [
-                'List' => 'categories.index',
-                'New' => 'categories.create',
-            ],
-        ],
-        'Restaurants' => [
-            'class'   => 'Restaurant',
-            'icon' => 'fi-paper',
-            'routes' => [
-                'List' => 'restaurants.index',
             ],
         ],
         'Account' => [
