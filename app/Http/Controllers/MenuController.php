@@ -150,7 +150,7 @@ class MenuController extends Controller
           $menu->delete();
 
           return redirect()->route('menu.index')->with([
-                'notification' => 'Image removed with success!',
+                'notification' => 'Menu removed with success!',
                 'type-notification' => 'warning'
               ]);
 

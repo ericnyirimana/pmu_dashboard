@@ -5,7 +5,7 @@
 
 </div>
 <div class="row">
-  <brand-restaurant-select :model="$menu" />
+  <company-restaurant-select :model="$menu" />
 </div>
 
 <div class="row">
@@ -34,6 +34,7 @@
 $(document).ready(function(){
 
     $(document).on('click', '.btn-add-type-menu', function(){
+      $('#formType')[0].reset();
       $('#formType .parsley-errors-list').remove();
     });
 

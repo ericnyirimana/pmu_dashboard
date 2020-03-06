@@ -129,7 +129,7 @@ class CompanyController extends Controller
             $company->delete();
 
             return redirect()->route('companies.index')->with([
-                  'notification' => 'Image removed with success!',
+                  'notification' => 'Company removed with success!',
                   'type-notification' => 'warning'
                 ]);
 

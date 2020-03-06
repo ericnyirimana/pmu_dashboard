@@ -14,7 +14,7 @@
 </div>
 
 <div class="row">
-  <brand-restaurant-select :model="$pickup" />
+  <company-restaurant-select :model="$pickup" />
 </div>
 
 

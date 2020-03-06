@@ -123,5 +123,50 @@ function removeItem(id) {
     $('#item-'+id).remove();
 
 }
-</script>
+
+$( function() {
+
+  $(document).on('click', '.btn-open-dish', function(e){
+      console.log('ipen this');
+      section = $(this).data('section');
+
+      $('#modalDish').modal('toggle');
+
+      $("#formAddDishes #add_dish_section_id").val(section);
+
+  });
+
+  $(document).on('click', '.btn-open-drink', function(e){
+
+      section = $(this).data('section');
+
+      $('#modalDrink').modal('toggle');
+
+      $("#formAddDrinks #add_drink_section_id").val(section);
+
+  });
+
+   $( ".sortable_dish" ).sortable({
+     axis: "y",
+     update: function( event, ui ) {
+
+        $(this).children('.container-plate-preview').each(function(item, element) {
+
+            $.ajax({
+                url: "/admin/products/position/"+$(element).data('id'),
+                type: 'POST',
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                dataType: 'json',
+                data: {position: item},
+                success: function(data) {
+
+                }
+            });
+
+        })
+     }
+   });
+
+ } );
+ </script>
 @endpush

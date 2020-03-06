@@ -183,7 +183,7 @@ class ProductController extends Controller
           $product->delete();
 
           return redirect()->route('products.index')->with([
-                'notification' => 'Image removed with success!',
+                'notification' => 'Product removed with success!',
                 'type-notification' => 'warning'
               ]);
 

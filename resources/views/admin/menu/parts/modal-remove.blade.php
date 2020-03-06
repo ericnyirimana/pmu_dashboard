@@ -7,7 +7,7 @@
 
             </div>
             <div class="modal-body">
-                Do you want to the <span class="register-name"></span>?
+                Do you want remove <span class="register-name"></span>?
             </div>
             <div class="modal-footer">
                 <form id="formDelete" action="#" class="rm-accept" method="POST">

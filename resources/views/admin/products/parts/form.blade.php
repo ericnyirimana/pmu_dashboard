@@ -7,7 +7,7 @@
 
 </div>
 <div class="row">
-  <brand-restaurant-select :model="$product" />
+  <company-restaurant-select :model="$product" />
 </div>
 
 <div class="row">

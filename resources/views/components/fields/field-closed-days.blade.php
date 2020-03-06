@@ -97,12 +97,20 @@
 <script>
 $(document).ready(function(){
 
-      initDatePicker($('.datepicker'));
-
-      $(document).on('click', '.datepicker', function () {
-          initDatePicker($(this)).datepicker('show');
+      $('.datepicker').datepicker({
+          dateFormat: 'dd-mm-yy',
+          autoclose: true,
+          todayHighlight: true
       });
 
+
+      $('body').on('focus',".datepicker", function(){
+
+          if( $(this).hasClass('hasDatepicker') === false )  {
+              $(this).datepicker();
+          }
+
+      });
 
       $(document).on('click', '.add_date', function() {
 
@@ -136,21 +144,12 @@ $(document).ready(function(){
           box.find('.closing_repeat').attr('id', 'checkbox'+seq);
           box.find('.closing_repeat').parent().find('label').attr('for', 'checkbox'+seq);
 
+
           $('.list_dates').append(box);
+
+
 
       }
 });
-
-function initDatePicker($this) {
-
-    $this.datepicker({
-        format: 'dd-mm-yyyy',
-        autoclose: true,
-        todayHighlight: true
-    });
-
-    return $this;
-
-};
 </script>
 @endpush

@@ -11,7 +11,7 @@
       <form id="formType" action="" method="post">
         <div class="modal-body">
 
-            <field-radio field="type" :items="['Dish', 'Drink']" required />
+            <field-radio field="type" :items="['Dish' => 'Dish', 'Drink' => 'Drink']" required />
 
             <field-text label="Name type" field="name" id="dish_name" required  />
 

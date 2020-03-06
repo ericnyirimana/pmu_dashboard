@@ -180,7 +180,7 @@ class PickupController extends Controller
           $pickup->delete();
 
           return redirect()->route('pickups.index')->with([
-                'notification' => 'Image removed with success!',
+                'notification' => 'Offer removed with success!',
                 'type-notification' => 'warning'
               ]);
 
