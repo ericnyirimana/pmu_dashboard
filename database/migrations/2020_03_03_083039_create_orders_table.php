@@ -16,14 +16,10 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
-            $table->string('type');
-            $table->bigInteger('pickup_id')->unsigned();
             $table->bigInteger('user_id')->unsigned();
             $table->integer('status')->default(0);
-            $table->integer('price')->default(0);
             $table->timestamps();
 
-            $table->foreign('pickup_id')->references('id')->on('pickups')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
