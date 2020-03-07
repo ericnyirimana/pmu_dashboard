@@ -57,7 +57,7 @@ RUN sed -i "s/.*AWS_ACCESS_KEY_ID=.*/AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}/" /op
     sed -i "s/.*AWS_DEFAULT_REGION=.*/AWS_DEFAULT_REGION=${S3_DEF_REGION}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_BUCKET=.*/AWS_BUCKET=${S3_BUCKET}/" /opt/pmu_dashboard/.env
 
-RUN sed -i "s@.*APP_URL=.*@APP_URL=http://dev.pickmealup.com@" /opt/pmu_dashboard/.env
+RUN sed -i "s@.*APP_URL=.*@APP_URL=https://dev.pickmealup.com@" /opt/pmu_dashboard/.env
 
 RUN cat /opt/pmu_dashboard/.env
 
