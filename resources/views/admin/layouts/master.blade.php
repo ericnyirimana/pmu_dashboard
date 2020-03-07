@@ -12,21 +12,21 @@
         <link rel="shortcut icon" href="{{ asset("/images/favicon2.ico")}}">
 
         <!-- Adminnox css -->
-        <link rel="stylesheet" href="{{ asset("/adminox/assets/css/bootstrap.min.css")}}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset("/adminox/assets/css/icons.css")}}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset("/adminox/assets/css/metismenu.min.css")}}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset("/adminox/assets/css/style.css")}}" type="text/css" />
-        <link rel="stylesheet" href="{{ asset("/plugins/switchery/switchery.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ secure_asset("/adminox/assets/css/bootstrap.min.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ secure_asset("/adminox/assets/css/icons.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ secure_asset("/adminox/assets/css/metismenu.min.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ secure_asset("/adminox/assets/css/style.css")}}" type="text/css" />
+        <link rel="stylesheet" href="{{ secure_asset("/plugins/switchery/switchery.min.css") }}" type="text/css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
-        <link rel="stylesheet" href="{{ asset("/plugins/timepicker/bootstrap-timepicker.min.css") }}" type="text/css">
-        <link rel="stylesheet" href="{{ asset("/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ secure_asset("/plugins/timepicker/bootstrap-timepicker.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ secure_asset("/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css") }}" type="text/css">
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-        <link rel="stylesheet" href="{{ asset("/plugins/jquery-ui/jquery-ui.min.css") }}" type="text/css">
+        <link rel="stylesheet" href="{{ secure_asset("/plugins/jquery-ui/jquery-ui.min.css") }}" type="text/css">
 
         <!-- APP overwrite css -->
-        <link href="{{ asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
+        <link href="{{ secure_asset("/css/app.css")}}" rel="stylesheet" type="text/css" />
 
-        <script src="{{ asset("/adminox/assets/js/modernizr.min.js")}}"></script>
+        <script src="{{ secure_asset("/adminox/assets/js/modernizr.min.js")}}"></script>
 
         @stack('styles')
 
@@ -80,27 +80,27 @@
 
         <!-- jQuery  -->
 
-        <script src="{{ asset("/adminox/assets/js/jquery.min.js")}}" type="text/javascript" ></script>
-        <script src="{{ asset("/adminox/assets/js/popper.min.js")}}" type="text/javascript" ></script>
-        <script src="{{ asset("/adminox/assets/js/bootstrap.min.js")}}" type="text/javascript" ></script>
-        <script src="{{ asset("/adminox/assets/js/metisMenu.min.js")}}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/adminox/assets/js/jquery.min.js")}}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/adminox/assets/js/popper.min.js")}}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/adminox/assets/js/bootstrap.min.js")}}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/adminox/assets/js/metisMenu.min.js")}}" type="text/javascript" ></script>
         <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js" type="text/javascript" ></script>
-        <script src="{{ asset("/adminox/assets/js/waves.js")}}" type="text/javascript" ></script>
-        <script src="{{ asset("/adminox/assets/js/jquery.slimscroll.js")}}" type="text/javascript" ></script>
-        <script src="{{ asset("/adminox/assets/pages/jquery.scrollbar.js")}}" type="text/javascript"></script>
-        <script src="{{ asset("/plugins/switchery/switchery.min.js") }}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/adminox/assets/js/waves.js")}}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/adminox/assets/js/jquery.slimscroll.js")}}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/adminox/assets/pages/jquery.scrollbar.js")}}" type="text/javascript"></script>
+        <script src="{{ secure_asset("/plugins/switchery/switchery.min.js") }}" type="text/javascript" ></script>
         <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js" type="text/javascript" ></script>
-        <script src="{{ asset("/plugins/timepicker/bootstrap-timepicker.js") }}" type="text/javascript" ></script>
-        <script src="{{ asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/plugins/timepicker/bootstrap-timepicker.js") }}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js") }}" type="text/javascript" ></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js" type="text/javascript" ></script>
-        <script src="{{ asset("/plugins/jquery-ui/jquery-ui.min.js") }}" type="text/javascript" ></script>
-        <script src="{{ asset("/plugins/jquery-mask-plugin/dist/jquery.mask.min.js") }}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/plugins/jquery-ui/jquery-ui.min.js") }}" type="text/javascript" ></script>
+        <script src="{{ secure_asset("/plugins/jquery-mask-plugin/dist/jquery.mask.min.js") }}" type="text/javascript" ></script>
 
         @stack('scripts')
 
         <!-- App js -->
-        <script src="{{ asset("/adminox/assets/js/jquery.core.js")}}"></script>
-        <script src="{{ asset("/adminox/assets/js/jquery.app.js")}}"></script>
+        <script src="{{ secure_asset("/adminox/assets/js/jquery.core.js")}}"></script>
+        <script src="{{ secure_asset("/adminox/assets/js/jquery.app.js")}}"></script>
         <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLUUH3H4en_Be_lwXe91KvayRpTnWso50&libraries=places"></script>
 
     </body>
