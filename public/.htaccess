@@ -5,9 +5,13 @@
 
     RewriteEngine On
 
+	RewriteEngine On
+	RewriteCond %{HTTP:X-Forwarded-Proto} =http
+	RewriteRule .* https://%{HTTP:Host}%{REQUEST_URI} [L,R=permanent]
+
     # Handle Authorization Header
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+    #RewriteCond %{HTTP:Authorization} .
+    #RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     # Redirect Trailing Slashes If Not A Folder...
     RewriteCond %{REQUEST_FILENAME} !-d
