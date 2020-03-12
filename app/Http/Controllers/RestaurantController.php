@@ -8,6 +8,7 @@ use App\Models\Restaurant;
 use App\Models\OpeningHour;
 use App\Models\ClosedDay;
 use App\Models\Media;
+use App\Models\Order;
 
 use Carbon\Carbon;
 
