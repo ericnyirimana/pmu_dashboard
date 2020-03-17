@@ -52,7 +52,13 @@ class UserController extends Controller
 
           $this->alignUsersFromCognito();
 
-          $users = User::get();
+
+
+          if (Auth::user()->is_super) {
+              $users = User::withTrashed()->get();
+          } else {
+              $users = User::get();
+          }
 
           return view('admin.users.index')
           ->with( compact('users') );
@@ -95,6 +101,13 @@ class UserController extends Controller
           $client = new Cognito();
           $client->createUser($user->email, $arrayAttributes);
 
+          if($client->error) {
+            return redirect()->route('users.index')->with([
+                  'notification' => $client->error,
+                  'type-notification' => 'danger'
+                ]);
+          }
+
           return redirect()->route('users.index')->with([
                 'notification' => 'User saved with success!',
                 'type-notification' => 'success'
@@ -128,6 +141,7 @@ class UserController extends Controller
 
           $client->updateUser($user->sub, $arrayAttributes);
 
+
           return redirect()->route('users.index')->with([
                 'notification' => 'User saved with success!',
                 'type-notification' => 'success'
@@ -138,23 +152,15 @@ class UserController extends Controller
 
     public function destroy(User $user) {
 
-          $user->delete();
-
-          return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'success');
-
-    }
-
-
-    public function removePermanently(User $user) {
-
           $client = new Cognito();
           $client->deleteUser($user->sub);
 
           $user->forceDelete();
 
-          return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'success');
+          return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'danger');
 
     }
+
 
 
 
@@ -205,25 +211,29 @@ class UserController extends Controller
         $client = new Cognito();
         $cognito = $client->listUser();
 
-
         foreach ($cognito['Users'] as $cognitoUser) {
 
             $sub = $cognitoUser['Username'];
+
+
             $attributes = $cognitoUser['Attributes'];
 
-            $user = User::withTrashed()->where('sub', $sub)->first();
+            $email = $client->search('email', $attributes);
+
+            $user = User::withTrashed()->where('email', $email)->first();
 
             if (!$user) {
 
                 $user = new User;
                 $user->password = bcrypt( Str::random(12) ); // create random password only for DB, when user login, it ill update with the true one
                 $user->email = $client->search('email', $attributes);
-                $user->sub = $sub;
+
                 $user->created_at = $cognitoUser['UserCreateDate'];
 
 
             }
 
+            $user->sub = $sub;
             $user->updated_at = $cognitoUser['UserLastModifiedDate'];
             $user->role = $client->search('custom:role', $attributes) ?? 'CUSTOMER';
 
@@ -236,7 +246,10 @@ class UserController extends Controller
             }
 
             $user->profile = json_encode($profile);
+            $user->deleted_at = NULL;
             $user->save();
+
+
 
             $collection = $collection->merge($user->id);
 

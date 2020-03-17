@@ -11,7 +11,7 @@
     <tbody>
 
     @foreach ($collection as $model)
-    <tr>
+    <tr @if(!empty($model->deleted_at)) class="bg-danger text-white" @endif>
         @foreach ($fields as $field)
           @php $params = explode(':', $field) @endphp
           @if( isset($params[1]) )
@@ -46,7 +46,11 @@
           <a href="{{ route($route.'.edit', $model->id )}}" class="btn btn-icon waves-effect waves-light btn-success"><i class="fa fa-edit" aria-hidden="true"></i></a>
           @endif
           @if( empty($actions) || strstr($actions, 'delete'))
-          <a href="#remove-register" class="btn btn-icon waves-effect waves-light btn-danger rm-register" data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal" data-target=".remove-register"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              @if(empty($model->deleted_at))
+              <a href="#remove-register" class="btn btn-icon waves-effect waves-light btn-danger rm-register" data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal" data-target=".remove-register"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              @else
+              <a href="#remove-register" class="btn btn-icon waves-effect waves-light btn-warning rm-register" data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal" data-target=".remove-register"><i class="fa fa-ban" aria-hidden="true"></i></a>
+              @endif
           @endif
       </td>
     </tr>
