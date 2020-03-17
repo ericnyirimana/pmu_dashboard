@@ -272,7 +272,7 @@ class UserController extends Controller
 
 
         $users->map(function ($user, $key) {
-            $this->removePermanently($user);
+            $this->destroy($user);
         });
 
     }
