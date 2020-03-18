@@ -22,3 +22,13 @@ Progetto Dashboard - Laravel
 
 #radio
 <field-radio field="{type}" :model="{$model}" :items="{$items}" required />
+
+
+#checkbox
+<field-radio field="{type}" :model="{$model}" :items="{$items}" required />
+
+#button
+<field-button group="{true|false}" type="simple" label="{Label}" name="{name}" class="{class}" />
+
+#switch
+<field-switch label="{label}" field="{field}" :model="{$model}" color="#039cfd" required  />

@@ -64,6 +64,8 @@ class CategoryController extends Controller
 
             $fields = $request->all();
 
+            $fields['hide'] = isset($fields['hide']) ? true : false;
+
             $category = Category::create($fields);
 
             $this->saveTranslation($category, $fields);
@@ -105,6 +107,8 @@ class CategoryController extends Controller
             $this->validation($request, $category);
 
             $fields = $request->all();
+
+            $fields['hide'] = isset($fields['hide']) ? true : false;
 
             $this->saveTranslation($category, $fields);
 
