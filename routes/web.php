@@ -53,6 +53,8 @@ Route::get('/','LandingController@index');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');
 
+        Route::resource('/orders', 'OrderController');
+
         Route::resource('/companies', 'CompanyController');
 
         Route::post('/companies/{company}/restaurants', 'RestaurantController@store')->name('company.restaurants.store');

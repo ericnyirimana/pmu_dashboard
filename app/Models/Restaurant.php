@@ -54,6 +54,12 @@ class Restaurant extends Model
 
     }
 
+    public function orders() {
+
+          return $this->hasMany('App\Models\Order');
+
+    }
+
     public function timeslots() {
 
           return $this->hasMany('App\Models\Timeslot');

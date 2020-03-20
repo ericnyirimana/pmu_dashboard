@@ -183,6 +183,20 @@ _iub.csConfiguration = {"lang":"it","siteId":1773473,"cookiePolicyId":65092557, 
 
 $(document).ready(function(){
 
+  $.ajax({
+      url: 'https://pickmealup.com.dev7.21ilab.com/api/v1/user',
+      type: 'GET',
+      beforeSend: function (xhr) {
+          xhr.setRequestHeader('Authorization', 'Bearer eyJraWQiOiIxUHlUQ3Q1MFI1SGI0ZTVUVGsycDhlTXpCb2hDdGk3MnNnVkFBZjR3dytvPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiIxZjRkYWFmMi1iNzEzLTQ0ZjktOWI3MC1kOWRiNDBkMjkzZjQiLCJldmVudF9pZCI6IjU4MjJjYzVkLTY3ZTQtNDY1Mi04NDBhLTEwMzM3YzMxZmQ4MCIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE1ODQ1NDAzMTgsImlzcyI6Imh0dHBzOlwvXC9jb2duaXRvLWlkcC5ldS13ZXN0LTEuYW1hem9uYXdzLmNvbVwvZXUtd2VzdC0xX1VBMUxGMDdndyIsImV4cCI6MTU4NDU0MzkxOCwiaWF0IjoxNTg0NTQwMzE4LCJqdGkiOiI1YWQ2Y2UyYS1hOTFkLTQ5MWYtYjBiYy1kYjZlNmQzMjMzZGUiLCJjbGllbnRfaWQiOiI1MnM3cXI2YWJsNnMxamNhZWQzcTluZWR2dCIsInVzZXJuYW1lIjoiMWY0ZGFhZjItYjcxMy00NGY5LTliNzAtZDlkYjQwZDI5M2Y0In0.XpB8lN4GDyS6TmAduMx-TMp7rZDRg4A8AHkWfd9ooXrNRkZMYycJY-Ja_K1CWEu4QV7Vx7toBSGvEiS99PPzoC_ohiieNDYNgBcl4dNBHN4i_M5nKNYcRr12oiAHBSWXSOQQuFWVMA8vX7tEiK7NjqdovMAHF7wyK4s9YPfq7PVr3dzgNe7fDu_MZ-9zqZmWx8RKGhnYFIfCmYd597NH6tCOvKvaApVSeOaQvBhtNlmgFIrl_W4G-07fXXmzEEHE1VmADX2TxV1n0_jB0sQnf4UQo2F_H18i50Jg5CJDfTHAT7StgYqI-ZGQsBPCDoRnzcmeJdBSD1Di-GrtpVcPBg');
+      },
+      data: {},
+      success: function (data) {
+      console.log(data);
+    },
+      error: function () { },
+  });
+
+
   $('#myModal').on('shown.bs.modal', function () {
       $('#myInput').trigger('focus')
    });

@@ -4,7 +4,7 @@
 
             <h4 class="m-t-0 header-title"><b>List Orders</b></h4>
 
-                <datatable route='orders' :collection="$orders" :fields="[
+                <datatable route='orders' :collection="$restaurant->orders" :fields="[
                 'ID' => 'id',
                 ]"
                 actions='edit' />
