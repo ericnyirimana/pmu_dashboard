@@ -7,7 +7,7 @@
 
 <div class="row m-b-10">
       <div class="col-12">
-          <a href="{{ route('companies.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Brand</a>
+          <a href="{{ route('companies.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Company</a>
     </div>
 </div>
 <div class="row">
