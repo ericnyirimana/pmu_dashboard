@@ -4,6 +4,11 @@
 
 
 @include('components.notification')
+
+<div class="row card-box">
+    <a href="{{ route('companies.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Back</a>
+</div>
+
 <div class="row m-b-10 card-box ">
       <div class="col-md-4 col-lg-2">
           <figure>
