@@ -91,8 +91,8 @@ class PickupController extends Controller
           $fields = $request->all();
 
           $dates = explode('-', $fields['date']);
-          $fields['date_ini'] = Carbon::parse($dates[0]);
-          $fields['date_end'] = Carbon::parse($dates[1]);
+          $fields['date_ini'] = Carbon::now($dates[0]);
+          $fields['date_end'] = Carbon::now($dates[1]);
 
           $pickup = Pickup::create($fields);
           if($pickup->type_pickup == 'offer') {

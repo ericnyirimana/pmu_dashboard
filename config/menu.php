@@ -55,7 +55,7 @@ return [
             'icon' => 'fi-head',
             'routes' => [
                 'Profile' => 'users.profile',
-                'List' => 'users.index',
+                'User' => 'users.index',
                 'New' => 'users.create',
             ],
         ],
