@@ -7,10 +7,10 @@
 <div class="row clearfix">
   <field-hide :model="$pickup" field="type_offer" />
   <div class="col-6">
-        <span class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">single</span>
+        <span class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">Single</span>
   </div>
   <div class="col-6 text-center">
-        <span class="text-center btn @if(!empty($pickup->type_offer) && $pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">combo</span>
+        <span class="text-center btn @if(!empty($pickup->type_offer) || $pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">Combo</span>
   </div>
 </div>
 <div class="row mt-4">

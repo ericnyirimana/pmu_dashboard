@@ -1,7 +1,7 @@
 <div class="form-group">
     <label for="{{ $field }}">{{ $label }}</label>
     <div class="input-group">
-        <input type="date" class="form-control" name="{{ $field }}" id="{{ isset($id) ? $id : $field }}" aria-describedby="{{ $field }}Help" placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model->id)) disabled @endif>
+        <input type="text" class="form-control" name="{{ $field }}" id="{{ isset($id) ? $id : $field }}" aria-describedby="{{ $field }}Help" placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model->id)) disabled @endif>
         <div class="input-group-append">
           <span class="input-group-text" id="{{ isset($id) ? $id : $field }}_date"><i class="mdi mdi-calendar"></i></span>
         </div>
