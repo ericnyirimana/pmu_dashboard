@@ -65,7 +65,6 @@ function loadTimeslots(id) {
 
     $.ajax({
         url: "{{ route('restaurant.timeslots.data') }}/"+id,
-
         type: 'GET',
         success: function(data) {
 

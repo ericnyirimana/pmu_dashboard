@@ -96,9 +96,9 @@ class PickupController extends Controller
 
           $pickup = Pickup::create($fields);
           if($pickup->type_pickup == 'offer') {
-            $pickup->offer()->create(['type_offer' => 'simple', 'quantity_offer' => '10', 'price' => 7]);
+            $pickup->offer()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7]);
           } else {
-            $pickup->subscription()->create(['type_offer' => 'simple', 'quantity_offer' => '10', 'price' => 7, 'validate_days' => 5]);
+            $pickup->subscription()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7, 'validate_days' => 5]);
           }
           $this->saveTranslation($pickup, $fields);
 

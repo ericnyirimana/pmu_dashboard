@@ -10,7 +10,7 @@
         <span class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">Single</span>
   </div>
   <div class="col-6 text-center">
-        <span class="text-center btn @if(!empty($pickup->type_offer) || $pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">Combo</span>
+        <span class="text-center btn @if($pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">Combo</span>
   </div>
 </div>
 <div class="row mt-4">
@@ -213,7 +213,7 @@ function addItem(el) {
     var html = '<li class="list-group-item" data-id="' + id + '">';
         html += '<i class="fa fa-minus-square remove"></i>';
         html += '<div class="name">' + name + '</div>';
-        html += '<div class="quantity"><input type="text" value="1" maxlength="3" /></div>';
+        html += '<div class="quantity"><input type="text" name="quantity[]" value="1" maxlength="3" /></div>';
         html += '<input type="hidden" name="products[]" value="' + id + '" />';
       html += '</li>';
 

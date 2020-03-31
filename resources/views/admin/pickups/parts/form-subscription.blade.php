@@ -10,8 +10,6 @@
 @include('admin.pickups.parts.products')
 
 <div class="row card-box bg-light p-3 mt-4 mr-1 ml-1">
-
-
     <div class="col-8">
           <label>COMBO</label>
 
@@ -23,6 +21,10 @@
     <div class="col-2">
           <field-text label="Numero offerte (x giorno)" field="quantity_per_subscription" :model="$pickup" class="text-right" />
     </div>
+</div>
 
-
+<div class="row">
+    <div class="col-4">
+        <field-media-list label="Image" field="media_id" :model="$pickup" required="new" />
+    </div>
 </div>
