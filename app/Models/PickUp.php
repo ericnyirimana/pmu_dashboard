@@ -100,7 +100,11 @@ class Pickup extends Model
 
     }
 
+    public function media() {
 
+        return $this->belongsToMany('App\Models\Media', 'pickup_media');
+
+    }
 
     public function getCoverImageAttribute() {
 

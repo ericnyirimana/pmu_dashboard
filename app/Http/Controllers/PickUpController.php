@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Pickup;
 use App\Models\Timeslot;
+use App\Models\Media;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
 
@@ -124,10 +125,12 @@ class PickupController extends Controller
     public function edit(Pickup $pickup) {
 
       $menu = $pickup->restaurant->menu;
+      $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
 
-      return view('admin.pickups.edit')->with([
+        return view('admin.pickups.edit')->with([
         'pickup'     => $pickup,
         'menu'  => $menu,
+        'media'     => $media,
       ]
       );
 
