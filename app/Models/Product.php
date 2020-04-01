@@ -18,7 +18,11 @@ class Product extends Model
 
     public function translate() {
 
-        return $this->hasOne('App\Models\ProductTranslation')->where('code', \App::getLocale());
+        return $this->hasOne('App\Models\ProductTranslation')
+            ->where('code', \App::getLocale())
+            ->withDefault([
+                'name' => ''
+            ]);
 
     }
 
