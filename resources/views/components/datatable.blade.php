@@ -4,7 +4,7 @@
         @foreach ($fields as $key=>$field)
         <th>{{ $key }}</th>
         @endforeach
-        <th style="width: 320px;">Actions</th>
+        <th style="width: 320px;" class="sorting_desc_disabled sorting_asc_disabled">Actions</th>
     </tr>
     </thead>
 
