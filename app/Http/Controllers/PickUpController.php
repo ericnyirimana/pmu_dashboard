@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 
 use App\Models\Pickup;
-use App\Models\Timeslot;
 use App\Models\Media;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
@@ -75,8 +74,12 @@ class PickupController extends Controller
     public function create() {
 
           $pickup = new Pickup;
+
+          $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
+
           return view('admin.pickups.create')->with([
-                'pickup' => $pickup
+                'pickup' => $pickup,
+                'media'     => $media,
             ]
           );
 
@@ -85,15 +88,13 @@ class PickupController extends Controller
 
     public function store(Request $request) {
 
-          $inputs = $request->all();
-
           $this->validation($request);
 
           $fields = $request->all();
 
-          $dates = explode('-', $fields['date']);
-          $fields['date_ini'] = Carbon::now($dates[0]);
-          $fields['date_end'] = Carbon::now($dates[1]);
+          $dates = explode('|', $fields['date']);
+          $fields['date_ini'] = Carbon::parse($dates[0]);
+          $fields['date_end'] = Carbon::parse($dates[1]);
 
           $pickup = Pickup::create($fields);
           if($pickup->type_pickup == 'offer') {
@@ -103,7 +104,9 @@ class PickupController extends Controller
           }
           $this->saveTranslation($pickup, $fields);
 
-
+          if ($request->media) {
+              $pickup->media()->sync( array_unique($request->media) );
+          }
 
           return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => 'Pickup saved with success!',
@@ -144,11 +147,10 @@ class PickupController extends Controller
 
           $fields = $request->all();
 
-          $dates = explode('-', $fields['date']);
+          $dates = explode('|', $fields['date']);
 
-          $fields['date_ini'] = Carbon::now($dates[0]);
-          $fields['date_end'] = Carbon::now($dates[1]);
-
+          $fields['date_ini'] = Carbon::parse($dates[0]);
+          $fields['date_end'] = Carbon::parse($dates[1]);
 
           $pickup->update($fields);
 

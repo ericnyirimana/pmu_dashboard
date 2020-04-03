@@ -114,7 +114,7 @@ $(document).ready(function(){
 
       $(document).on('click', '.add_date', function() {
 
-        var box = $('.standard_closed_day_item').clone();
+        var box = $('.standard_closed_day_item');
 
         seq = $('.list_dates .date_box').length;
 

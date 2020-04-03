@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Restaurant;
-use App\Models\Timeslot;
 
 
 class TimeslotController extends Controller
