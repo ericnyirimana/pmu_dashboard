@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Timeslot;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Restaurant;
 use App\Models\OpeningHour;
 use App\Models\ClosedDay;
 use App\Models\Media;
-use App\Models\Order;
 
 use Carbon\Carbon;
 
@@ -79,6 +79,7 @@ class RestaurantController extends Controller
 
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
+            $this->saveTimeslots($restaurant->id);
 
             if ($request->media) {
                 $restaurant->media()->sync( array_unique($request->media) );
@@ -99,7 +100,7 @@ class RestaurantController extends Controller
             }
 
 
-            return response()->json(['erro' => 'No company selected' ], 404);
+            return response()->json(['error' => 'No company selected' ], 404);
 
       }
 
@@ -211,7 +212,7 @@ class RestaurantController extends Controller
                 $repeat = isset($list['repeat']) ? true : false;
 
                 if (!empty($list['name']) && !empty($list['date'])) {
-                  $closed = ClosedDay::create([
+                  ClosedDay::create([
                     'restaurant_id' => $restaurant,
                     'name'          => $list['name'],
                     'date'          => Carbon::parse($list['date']),
@@ -225,7 +226,29 @@ class RestaurantController extends Controller
       }
 
 
+    protected function saveTimeslots(int $restaurant) {
 
+        // clean all openings hours
+        Timeslot::where('restaurant_id', $restaurant)->delete();
+
+        // create two default timeslots
+        Timeslot::create([
+            'restaurant_id' => $restaurant,
+            'mealtype_id' => 1,
+            'hour_ini' => '11:00',
+            'hour_end' => '15:00',
+            'fixed'   => true,
+        ]);
+
+        Timeslot::create([
+            'restaurant_id' => $restaurant,
+            'mealtype_id' => 2,
+            'hour_ini' => '19:00',
+            'hour_end' => '23:00',
+            'fixed'   => true,
+        ]);
+
+    }
 
 
 }

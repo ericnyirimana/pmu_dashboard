@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 
 use App\Models\Pickup;
-use App\Models\Timeslot;
 use App\Models\Media;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
@@ -75,8 +74,12 @@ class PickupController extends Controller
     public function create() {
 
           $pickup = new Pickup;
+
+          $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
+
           return view('admin.pickups.create')->with([
-                'pickup' => $pickup
+                'pickup' => $pickup,
+                'media'     => $media,
             ]
           );
 
@@ -103,7 +106,9 @@ class PickupController extends Controller
           }
           $this->saveTranslation($pickup, $fields);
 
-
+          if ($request->media) {
+              $pickup->media()->sync( array_unique($request->media) );
+          }
 
           return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => 'Pickup saved with success!',
