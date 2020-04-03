@@ -67,7 +67,6 @@ class RestaurantController extends Controller
 
             // save on aux
             $openings = $fields['openings'];
-
             // save on aux
             $closings = $fields['closings'];
 
@@ -76,7 +75,6 @@ class RestaurantController extends Controller
             unset($fields['closings']);
 
             $restaurant = Restaurant::create($fields);
-
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
 
@@ -144,7 +142,6 @@ class RestaurantController extends Controller
             unset($fields['closings']);
 
             $restaurant->update($fields);
-
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
 

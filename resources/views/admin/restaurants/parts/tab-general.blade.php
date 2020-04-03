@@ -66,12 +66,17 @@ $(document).ready(function(){
 
           var name = $(this).attr('name');
           name = name.replace('add', '');
-
+            console.log(name);
           var newTime =$('.time'+name).clone();
 
           //remove references class to use to copy (otherwise it will double copy every time)
           newTime.removeClass("time"+name);
           newTime.removeClass("first_item");
+
+          newTime.find('#from'+name+'0').attr({'id': 'from'+name+'1', 'name': 'openings['+ name.replace('_', '')
+                  +'][times][1][from]'});
+          newTime.find('#to'+name+'0').attr({'id': 'to'+name+'1', 'name': 'openings['+ name.replace('_', '')
+                  +'][times][1][to]'});
 
           newTime.appendTo('.table'+name);
 

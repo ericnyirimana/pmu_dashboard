@@ -2,7 +2,9 @@
 <div class="row setTime set_{{ $day }} @if (isset($open)) keep_open  @endif">
       <div class="col-12">
         <div class="form-group">
-            <input type="checkbox" data-name="{{ $day }}" class="closed_day" name="openings[{{ $day }}][closed]" @if( empty($openingDay) ) checked @endif data-plugin="switchery" data-color="#2b3d51" /><label for="closed_{{ $day }}"> Closed
+            <input type="checkbox" data-name="{{ $day }}" class="closed_day" name="openings[{{ $day }}][closed]" @if(
+             empty($openingDay) ) checked @endif data-plugin="switchery" data-color="#2b3d51" /><label for="closed_{{
+              $day }}"> Closed</label>
         </div>
 
       </div>
