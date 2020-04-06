@@ -10,16 +10,16 @@
 @include('admin.pickups.parts.products')
 
 <div class="row card-box bg-light p-3 mt-4 mr-1 ml-1">
-    <div class="col-8">
+    <div class="col-6">
           <label>COMBO</label>
 
           <p>@if($pickup->sections) @php print implode(' + ', array_keys($pickup->sections) ); @endphp @endif</p>
     </div>
-    <div class="col-2">
-          <field-text label="q.tà abbonamenti (x giorno)" field="quantity_offer" :model="$pickup" class="text-right" />
+    <div class="col-3">
+          <field-text label="Q.tà abbonamenti (x giorno)" field="quantity_offer" :model="$pickup" class="text-right" />
     </div>
-    <div class="col-2">
-          <field-text label="Numero offerte (x giorno)" field="quantity_per_subscription" :model="$pickup" class="text-right" />
+    <div class="col-3">
+          <field-select label="Numero offerte (x abbonamento)" field="quantity_per_subscription" :model="$pickup" type="simple" :values="['5' => '5', '10' => '10']" />
     </div>
 </div>
 
