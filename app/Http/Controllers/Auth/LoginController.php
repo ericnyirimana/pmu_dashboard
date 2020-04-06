@@ -100,7 +100,7 @@ class LoginController extends Controller
                 #The user from DB is a clone from Cognito, it copies every time it log
                 if ($sync && Auth::attempt($credentials, $request->remember)) {
 
-                    return redirect()->route('dashboard.index');
+                    return redirect()->route('dashboard.blank');
                 } else {
 
                     return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
