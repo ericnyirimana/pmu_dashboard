@@ -11,6 +11,7 @@ use App\Models\ClosedDay;
 use App\Models\Media;
 
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class RestaurantController extends Controller
 {
@@ -67,7 +68,6 @@ class RestaurantController extends Controller
 
             // save on aux
             $openings = $fields['openings'];
-
             // save on aux
             $closings = $fields['closings'];
 
@@ -76,7 +76,6 @@ class RestaurantController extends Controller
             unset($fields['closings']);
 
             $restaurant = Restaurant::create($fields);
-
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
             $this->saveTimeslots($restaurant->id);
@@ -145,7 +144,6 @@ class RestaurantController extends Controller
             unset($fields['closings']);
 
             $restaurant->update($fields);
-
             $this->saveOpeningsHours($restaurant->id, $openings);
             $this->saveClosedDays($restaurant->id, $closings);
 
@@ -238,6 +236,7 @@ class RestaurantController extends Controller
             'hour_ini' => '11:00',
             'hour_end' => '15:00',
             'fixed'   => true,
+            'identifier' => (string) Str::uuid()
         ]);
 
         Timeslot::create([
@@ -246,6 +245,7 @@ class RestaurantController extends Controller
             'hour_ini' => '19:00',
             'hour_end' => '23:00',
             'fixed'   => true,
+            'identifier'  => (string) Str::uuid()
         ]);
 
     }

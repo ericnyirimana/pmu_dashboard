@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\CategoryType;
 use App\Models\Category;
+use App\Models\CategoryType;
 use App\Models\Media;
 use App\Traits\TranslationTrait;
+use Illuminate\Http\Request;
 
 
 class CategoryController extends Controller
