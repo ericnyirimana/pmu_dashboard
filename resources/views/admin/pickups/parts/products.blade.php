@@ -33,10 +33,11 @@
                                     @foreach($section->products as $product)
 
                                       <li @if(!in_array($product->id, $pickup->products->pluck('id')->toArray() ) )
-                                          class="add" @endif data-id="{{ str_replace('
-                                           ', '_', $product->id) }}" data-name="{{ str_replace('
-                                           ', '_', $product->name) }}"  data-section="{{ str_replace(' ', '_',
-                                           $section->name) }}">{{ $product->name }}</li>
+                                          class="add" @endif data-id="{{ $product->id }}"
+                                          data-name="{{ $product->name }}"
+                                          data-section="{{ str_replace(' ', '_', $section->name) }}">
+                                          {{ $product->name }}
+                                      </li>
                                       @endforeach
                                   </ul>
                               </li>
@@ -172,8 +173,9 @@ $(document).ready(function(){
 
           var section = $(this).text();
 
-          if (!$('#'+section).length)
-          addSection(section);
+          /*if (!$('#'+section).length) {
+              addSection(section);
+          }*/
 
           $(this).parent().children('ul').children('li').each(function(i,item) {
             addItem( item );
