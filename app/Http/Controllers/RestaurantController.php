@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Showcase;
 use App\Models\Timeslot;
 use Illuminate\Http\Request;
 use App\Models\Company;
@@ -230,7 +231,7 @@ class RestaurantController extends Controller
         Timeslot::where('restaurant_id', $restaurant)->delete();
 
         // create two default timeslots
-        Timeslot::create([
+        $timeslot1 = Timeslot::create([
             'restaurant_id' => $restaurant,
             'mealtype_id' => 1,
             'hour_ini' => '11:00',
@@ -239,7 +240,10 @@ class RestaurantController extends Controller
             'identifier' => (string) Str::uuid()
         ]);
 
-        Timeslot::create([
+        $showcase1 = Showcase::find(1); //showcase pranzo
+        $showcase1->timeslots()->sync($timeslot1, false);
+
+        $timeslot2 = Timeslot::create([
             'restaurant_id' => $restaurant,
             'mealtype_id' => 2,
             'hour_ini' => '19:00',
@@ -248,6 +252,8 @@ class RestaurantController extends Controller
             'identifier'  => (string) Str::uuid()
         ]);
 
+        $showcase2 = Showcase::find(2); //showcase cena
+        $showcase2->timeslots()->sync($timeslot2, false);
     }
 
 
