@@ -11,13 +11,12 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title mt-0">Choose Address</h5>
-
             </div>
             <div class="modal-body">
               <div class="form-group">
                     <div class="input-group">
                         <label for="{{ $field }}">{{ $label }}</label>
-                        <input id="searchMap{{ $field }}"  type="text" class="form-control"  placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}">
+                        <input id="searchMap{{ $field }}"  type="text" class="form-control save-location{{ $field }}"  placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}">
                         <span class="input-group-append">
                             <button type="button" id="search-map" class="btn waves-effect waves-light btn-primary">Search</button>
                         </span>
@@ -30,9 +29,9 @@
             <div class="modal-footer">
                 <button class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="save-location{{ $field }} btn btn-success"  data-dismiss="modal">Save</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div> <!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div> <!-- /.modal -->
 @push('scripts')
 
 <script>
@@ -48,7 +47,7 @@ $(document).ready(function(){
 
   initAutocomplete();
 
-  $(document).on('click', '#{{ $field }}', function(){
+  $(document).on('focus', '#{{ $field }}', function(){
 
       $('#map-modal').modal();
 
@@ -124,7 +123,6 @@ function initMap(location) {
         document.getElementById('map{{ $field }}'), {zoom: 16, center: location});
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: location, map: map});
-
 
 }
   </script>
