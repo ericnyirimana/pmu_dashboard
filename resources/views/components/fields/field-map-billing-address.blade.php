@@ -64,7 +64,7 @@
 		});
 
 
-		var placeSearch, autocomplete;
+		var placeSearch, autocompleteBilling;
 
 		var componentForm = {
 			route: 'long_name',
@@ -80,21 +80,21 @@
 
 			// Create the autocomplete object, restricting the search predictions to
 			// geographical location types.
-			autocomplete = new google.maps.places.Autocomplete(
+			autocompleteBilling = new google.maps.places.Autocomplete(
 					document.getElementById('searchMap{{ $field }}'));
 
 			// Avoid paying for data that you don't need by restricting the set of
 			// place fields that are returned to just the address components.
-			autocomplete.setFields(['address_component', 'geometry']);
+            autocompleteBilling.setFields(['address_component', 'geometry']);
 
 			// When the user selects an address from the drop-down, populate the
 			// address fields in the form.
-			autocomplete.addListener('place_changed', fillInAddressBilling);
+            autocompleteBilling.addListener('place_changed', fillInAddressBilling);
 		}
 
 		function fillInAddressBilling() {
 			// Get the place details from the autocomplete object.
-			var place = autocomplete.getPlace();
+			var place = autocompleteBilling.getPlace();
 
 			var lng = place.geometry.location.lng();
 			var lat = place.geometry.location.lat();
