@@ -2,15 +2,13 @@
     <div class="col-12">
         <div class="card-box table-responsive">
 
-            <h4 class="m-t-0 header-title"><b>List users</b></h4>
-
-            {{--<datatable route='users' :collection='$restaurants->users' :fields="[--}}
-                  {{--'ID'        => 'id',--}}
-                  {{--'Name'      => 'name',--}}
-                  {{--'Email'     => 'email',--}}
-                  {{--'Role'      => 'role'--}}
-              {{--]"--}}
-                       {{--actions="edit, delete" />--}}
+            <datatable route='users' :collection='$users' :fields="[
+                  'ID'        => 'id',
+                  'Name'      => 'name',
+                  'Email'     => 'email',
+                  'Role'      => 'role'
+              ]"
+                       actions="edit, delete" />
 
         </div>
     </div>
@@ -20,10 +18,10 @@
     <script type="text/javascript">
 			$(document).ready(function() {
 
-				// $('#datatable').DataTable({
-                //
-                //
-				// });
+				$('#datatable').DataTable({
+
+
+				});
 
 			});
 

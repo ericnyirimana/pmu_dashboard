@@ -10,6 +10,7 @@ use App\Models\Restaurant;
 use App\Models\OpeningHour;
 use App\Models\ClosedDay;
 use App\Models\Media;
+use App\Models\User;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -38,8 +39,17 @@ class RestaurantController extends Controller
 
           $restaurants = Restaurant::all();
 
+          $this->alignUsersFromCognito();
+
+          if (Auth::user()->is_super) {
+              $users = User::withTrashed()->get();
+          } else {
+              $users = User::get();
+          }
+
           return view('admin.restaurants.index')
-          ->with( compact('restaurants') );
+          ->with( compact('restaurants') )
+          ->with( compact('users') );;
 
       }
 
@@ -49,11 +59,10 @@ class RestaurantController extends Controller
             $restaurant = new Restaurant;
             $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
-
             return view('admin.restaurants.create')->with([
               'company'     => $company,
               'restaurant'     => $restaurant,
-              'media'     => $media,
+              'media'     => $media
               ]);
 
       }
@@ -116,7 +125,7 @@ class RestaurantController extends Controller
       }
 
 
-      public function edit(Company $company, Restaurant $restaurant) {
+      public function edit(Company $company, Restaurant $restaurant, User $users) {
 
             $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
@@ -124,6 +133,7 @@ class RestaurantController extends Controller
               'restaurant'     => $restaurant,
               'company'     => $company,
               'media'     => $media,
+              'user' => $users
               ]);
 
       }
