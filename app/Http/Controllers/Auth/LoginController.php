@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Libraries\BasicToken;
 use App\Libraries\Cognito;
-
 use App\Models\User;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 
@@ -55,6 +51,7 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
+        Session::flush();
         return redirect()->route('login');
 
 
