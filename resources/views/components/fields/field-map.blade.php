@@ -16,9 +16,9 @@
               <div class="form-group">
                     <div class="input-group">
                         <label for="{{ $field }}">{{ $label }}</label>
-                        <input id="searchMap{{ $field }}"  type="text" class="form-control save-location{{ $field }}"  placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}">
+                        <input id="searchMap{{ $field }}"  type="text" class="form-control"  placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}">
                         <span class="input-group-append">
-                            <button type="button" id="search-map" class="btn waves-effect waves-light btn-primary">Cerca</button>
+                            <button type="submit" id="search-map" class="btn waves-effect waves-light btn-primary">Cerca</button>
                         </span>
                       </div>
                 </div>
