@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Libraries\StripeIntegration;
 use App\Models\Showcase;
 use App\Models\Timeslot;
 use Illuminate\Http\Request;
@@ -10,7 +11,6 @@ use App\Models\Restaurant;
 use App\Models\OpeningHour;
 use App\Models\ClosedDay;
 use App\Models\Media;
-use App\Models\User;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
@@ -19,176 +19,185 @@ class RestaurantController extends Controller
 {
 
 
+    protected $company_path = '/app/public/restaurants/';
+    protected $stripe;
 
-      protected $company_path = '/app/public/restaurants/';
+    public function __construct(StripeIntegration $stripe) {
+        $this->stripe = $stripe;
+    }
 
-
-
-      public function validation(Request $request, $company = null) {
+      public function validation(Request $request, $company = null)
+      {
 
           $request->validate(
-            [
-              'name'  => 'required',
-            ]
+              [
+                  'name' => 'required',
+              ]
           );
 
       }
 
 
-      public function index() {
+      public function index()
+      {
 
           $restaurants = Restaurant::all();
 
-          $this->alignUsersFromCognito();
+          return view('admin.restaurants.index')
+              ->with(compact('restaurants'));
 
-          if (Auth::user()->is_super) {
-              $users = User::withTrashed()->get();
-          } else {
-              $users = User::get();
+      }
+
+
+      public function create(Company $company)
+      {
+
+          $restaurant = new Restaurant;
+          $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
+
+
+          return view('admin.restaurants.create')->with([
+              'company' => $company,
+              'restaurant' => $restaurant,
+              'media' => $media,
+          ]);
+
+      }
+
+
+      public function store(Company $company, Request $request)
+      {
+
+          $this->validation($request);
+
+          $fields = $request->all();
+
+          $fields['brand_id'] = $company->id;
+
+          // save on aux
+          $openings = $fields['openings'];
+          // save on aux
+          $closings = $fields['closings'];
+
+          // remove from fields to not conflict with Restaurant fields
+          unset($fields['openings']);
+          unset($fields['closings']);
+
+          $restaurant = Restaurant::create($fields);
+          $this->saveOpeningsHours($restaurant->id, $openings);
+          $this->saveClosedDays($restaurant->id, $closings);
+          $this->saveTimeslots($restaurant->id);
+
+          if ($request->media) {
+              $restaurant->media()->sync(array_unique($request->media));
           }
 
-          return view('admin.restaurants.index')
-          ->with( compact('restaurants') )
-          ->with( compact('users') );;
+          //Create Stripe Account
+          $this->createAccountStripe($restaurant);
+
+          return redirect()->route('companies.show', $company)->with([
+              'notification' => 'Restaurant saved with success!',
+              'type-notification' => 'success'
+          ]);
 
       }
 
 
-      public function create(Company $company) {
+      public function data(Company $company)
+      {
 
-            $restaurant = new Restaurant;
-            $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
-
-            return view('admin.restaurants.create')->with([
-              'company'     => $company,
-              'restaurant'     => $restaurant,
-              'media'     => $media
-              ]);
-
-      }
+          if ($company) {
+              return response()->json($company->restaurants, 200);
+          }
 
 
-      public function store(Company $company, Request $request) {
-
-            $this->validation($request);
-
-            $fields = $request->all();
-
-            $fields['brand_id'] = $company->id;
-
-            // save on aux
-            $openings = $fields['openings'];
-            // save on aux
-            $closings = $fields['closings'];
-
-            // remove from fields to not conflict with Restaurant fields
-            unset($fields['openings']);
-            unset($fields['closings']);
-
-            $restaurant = Restaurant::create($fields);
-            $this->saveOpeningsHours($restaurant->id, $openings);
-            $this->saveClosedDays($restaurant->id, $closings);
-            $this->saveTimeslots($restaurant->id);
-
-            if ($request->media) {
-                $restaurant->media()->sync( array_unique($request->media) );
-            }
-
-            return redirect()->route('companies.show', $company)->with([
-                  'notification' => 'Restaurant saved with success!',
-                  'type-notification' => 'success'
-                ]);
+          return response()->json(['error' => 'No company selected'], 404);
 
       }
 
 
-      public function data(Company $company) {
+      public function show(Restaurant $restaurant)
+      {
 
-            if($company) {
-                return response()->json($company->restaurants , 200);
-            }
+          $company = $restaurant->company;
 
-
-            return response()->json(['error' => 'No company selected' ], 404);
-
-      }
-
-
-      public function show(Restaurant $restaurant) {
-
-            $company = $restaurant->company;
-
-            return view('admin.restaurants.view')
-            ->with( compact('restaurant') )
-            ->with( compact('company') );
+          return view('admin.restaurants.view')
+              ->with(compact('restaurant'))
+              ->with(compact('company'));
 
       }
 
 
-      public function edit(Company $company, Restaurant $restaurant, User $users) {
+      public function edit(Company $company, Restaurant $restaurant)
+      {
 
-            $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
+          $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
-            return view('admin.restaurants.edit')->with([
-              'restaurant'     => $restaurant,
-              'company'     => $company,
-              'media'     => $media,
-              'user' => $users
-              ]);
-
-      }
-
-
-      public function update(Request $request, Company $company, Restaurant $restaurant) {
-
-
-            $this->validation($request, $restaurant);
-
-            $fields = $request->all();
-
-            // save on aux
-            $openings = $fields['openings'];
-            $closings = $fields['closings'];
-
-            // remove from fields to not conflict with Restaurant fields
-            unset($fields['openings']);
-            unset($fields['closings']);
-
-            $restaurant->update($fields);
-            $this->saveOpeningsHours($restaurant->id, $openings);
-            $this->saveClosedDays($restaurant->id, $closings);
-
-            if ($request->media) {
-                $restaurant->media()->sync( array_unique($request->media) );
-            }
-
-            return redirect()->route('companies.show', $company)->with([
-                  'notification' => 'Restaurant saved with success!',
-                  'type-notification' => 'success'
-                ]);
+          return view('admin.restaurants.edit')->with([
+              'restaurant' => $restaurant,
+              'company' => $company,
+              'media' => $media,
+          ]);
 
       }
 
 
-      public function destroy(Restaurant $restaurant) {
+      public function update(Request $request, Company $company, Restaurant $restaurant)
+      {
 
-            $company = $restaurant->company;
-            $restaurant->delete();
 
-            return redirect()->route('companies.show', $company)->with([
-                  'notification' => 'Restaurant removed with success!',
-                  'type-notification' => 'warning'
-                ]);
+          $this->validation($request, $restaurant);
+
+          $fields = $request->all();
+
+          // save on aux
+          $openings = $fields['openings'];
+          $closings = $fields['closings'];
+
+          // remove from fields to not conflict with Restaurant fields
+          unset($fields['openings']);
+          unset($fields['closings']);
+
+          $restaurant->update($fields);
+          $this->saveOpeningsHours($restaurant->id, $openings);
+          $this->saveClosedDays($restaurant->id, $closings);
+
+          if ($request->media) {
+              $restaurant->media()->sync(array_unique($request->media));
+          }
+
+          //Create Stripe Account
+          $this->createAccountStripe($restaurant);
+
+          return redirect()->route('companies.show', $company)->with([
+              'notification' => 'Restaurant saved with success!',
+              'type-notification' => 'success'
+          ]);
 
       }
 
 
-      protected function saveOpeningsHours(int $restaurant, array $fields) {
+      public function destroy(Restaurant $restaurant)
+      {
 
-            // clean all openings hours
-            OpeningHour::where('restaurant_id', $restaurant)->delete();
+          $company = $restaurant->company;
+          $restaurant->delete();
 
-            if ($fields) {
+          return redirect()->route('companies.show', $company)->with([
+              'notification' => 'Restaurant removed with success!',
+              'type-notification' => 'warning'
+          ]);
+
+      }
+
+
+      protected function saveOpeningsHours(int $restaurant, array $fields)
+      {
+
+          // clean all openings hours
+          OpeningHour::where('restaurant_id', $restaurant)->delete();
+
+          if ($fields) {
               foreach ($fields as $day => $list) {
 
                   $close = isset($list['closed']) ? true : false;
@@ -196,46 +205,48 @@ class RestaurantController extends Controller
                   foreach ($list['times'] as $time) {
 
                       OpeningHour::create([
-                        'restaurant_id' => $restaurant,
-                        'day_of_week'   => $day,
-                        'hour_ini'     => $time['from'],
-                        'hour_end'       => $time['to'],
-                        'closed'        => $close
+                          'restaurant_id' => $restaurant,
+                          'day_of_week' => $day,
+                          'hour_ini' => $time['from'],
+                          'hour_end' => $time['to'],
+                          'closed' => $close
                       ]);
                   }
 
               }
-            }
+          }
 
       }
 
 
-      protected function saveClosedDays(int $restaurant, array $fields) {
+      protected function saveClosedDays(int $restaurant, array $fields)
+      {
 
-        // clean all openings hours
-        ClosedDay::where('restaurant_id', $restaurant)->delete();
+          // clean all openings hours
+          ClosedDay::where('restaurant_id', $restaurant)->delete();
 
-        if ($fields) {
-            foreach ($fields as $day => $list) {
+          if ($fields) {
+              foreach ($fields as $day => $list) {
 
-                $repeat = isset($list['repeat']) ? true : false;
+                  $repeat = isset($list['repeat']) ? true : false;
 
-                if (!empty($list['name']) && !empty($list['date'])) {
-                  ClosedDay::create([
-                    'restaurant_id' => $restaurant,
-                    'name'          => $list['name'],
-                    'date'          => Carbon::parse($list['date']),
-                    'repeat'        => $repeat
-                  ]);
+                  if (!empty($list['name']) && !empty($list['date'])) {
+                      ClosedDay::create([
+                          'restaurant_id' => $restaurant,
+                          'name' => $list['name'],
+                          'date' => Carbon::parse($list['date']),
+                          'repeat' => $repeat
+                      ]);
+                  }
+
               }
-
-            }
-        }
+          }
 
       }
 
 
-    protected function saveTimeslots(int $restaurant) {
+    protected function saveTimeslots(int $restaurant)
+    {
 
         // clean all openings hours
         Timeslot::where('restaurant_id', $restaurant)->delete();
@@ -246,8 +257,8 @@ class RestaurantController extends Controller
             'mealtype_id' => 1,
             'hour_ini' => '11:00',
             'hour_end' => '15:00',
-            'fixed'   => true,
-            'identifier' => (string) Str::uuid()
+            'fixed' => true,
+            'identifier' => (string)Str::uuid()
         ]);
 
         $showcase1 = Showcase::find(1); //showcase pranzo
@@ -258,12 +269,26 @@ class RestaurantController extends Controller
             'mealtype_id' => 2,
             'hour_ini' => '19:00',
             'hour_end' => '23:00',
-            'fixed'   => true,
-            'identifier'  => (string) Str::uuid()
+            'fixed' => true,
+            'identifier' => (string)Str::uuid()
         ]);
 
         $showcase2 = Showcase::find(2); //showcase cena
         $showcase2->timeslots()->sync($timeslot2, false);
+    }
+
+    /**
+     * @param $restaurant
+     */
+    protected function createAccountStripe($restaurant): void
+    {
+        if (!$restaurant->stripe_account_id) {
+            $accountStripe = $this->stripe->createAccount($restaurant);
+            $restaurant->stripe_account_id = $accountStripe->id;
+
+            $restaurant->save();
+        }
+
     }
 
 
