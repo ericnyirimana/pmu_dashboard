@@ -15,7 +15,7 @@ class Restaurant extends Model
 
   public $fillable = [
       'name', 'brand_id', 'logo', 'image', 'merchant_stripe', 'address', 'latitude', 'longitude',
-      'billing_address', 'billing_latitude', 'billing_longitude', 'iva', 'iban', 'fee', 'pec', 'id_code'
+      'billing_address', 'billing_latitude', 'billing_longitude', 'iva', 'iban', 'fee', 'pec', 'id_code', 'stripe_account_id'
   ];
 
 
