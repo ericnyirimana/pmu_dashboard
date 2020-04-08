@@ -118,15 +118,15 @@ class RestaurantController extends Controller
 
       public function edit(Company $company, Restaurant $restaurant) {
 
-            $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
+    $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
-            return view('admin.restaurants.edit')->with([
-              'restaurant'     => $restaurant,
-              'company'     => $company,
-              'media'     => $media,
-              ]);
+    return view('admin.restaurants.edit')->with([
+        'restaurant'     => $restaurant,
+        'company'     => $company,
+        'media'     => $media,
+    ]);
 
-      }
+}
 
 
       public function update(Request $request, Company $company, Restaurant $restaurant) {

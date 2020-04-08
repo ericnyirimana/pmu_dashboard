@@ -284,13 +284,17 @@
         }
 
         function checkRightTypeOffer() {
-            $('.btn-type_offer').toggleClass('btn-primary');
-            $('.btn-type_offer').toggleClass('btn-secondary');
+            $('.btn-type_offer').removeClass('btn-primary');
+            $('.btn-type_offer').removeClass('btn-secondary');
 
             if ($(".card").length <= 1) {
                 $('#type_offer').val('single');
+                $('.btn-type_offer.type-single').addClass('btn-primary');
+                $('.btn-type_offer.type-combo').addClass('btn-secondary');
             } else {
                 $('#type_offer').val('combo');
+                $('.btn-type_offer.type-combo').addClass('btn-primary');
+                $('.btn-type_offer.type-single').addClass('btn-secondary');
             }
         }
 
