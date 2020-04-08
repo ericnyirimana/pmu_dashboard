@@ -5,7 +5,7 @@ namespace App\Rules;
 use Illuminate\Contracts\Validation\Rule;
 use Auth;
 
-class CompanyBelongsToOwner implements Rule
+class BrandBelongsToOwner implements Rule
 {
     /**
      * Create a new rule instance.
