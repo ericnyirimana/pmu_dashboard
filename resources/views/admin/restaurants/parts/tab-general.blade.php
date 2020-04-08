@@ -1,65 +1,91 @@
-<h6 class="">General information</h6>
+<h6 class="">Informazioni generali</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
-          <field-text label="Name" field="name" :model="$restaurant" required  />
+          <field-text label="Nome" field="name" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-          <field-map label="Address" field="address" :model="$restaurant" required  />
+          <field-map label="Indirizzo" field="address" :model="$restaurant" required  />
+    </div>
+</div>
+
+<hr />
+
+<h6 class="">Dati bancari</h6>
+<div class="d-flex flex-row row card-body">
+    <div class="col-md-12 col-lg-6">
+        <field-map-billing-address label="Indirizzo fatturazione" field="billing_address" :model="$restaurant" required  />
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <field-text label="P. Iva o codice fiscale" field="iva" :model="$restaurant" required  />
     </div>
 
-</div>
-<hr />
-<h6 class="">Opening hours</h6>
+    <div class="col-md-12 col-lg-10">
+        <field-text label="IBAN" field="iban" :model="$restaurant" required  />
+    </div>
+    <div class="col-md-12 col-lg-2">
+        <field-text label="Fee PMU" field="fee" :model="$restaurant" required />
+    </div>
 
+    <div class="col-md-12 col-lg-6">
+        <field-text label="PEC" field="pec" :model="$restaurant" required />
+    </div>
+    <div class="col-md-12 col-lg-6">
+        <field-text label="Codice identificativo" field="id_code" :model="$restaurant" required />
+    </div>
+</div>
+
+<hr />
+
+<h6 class="">Opening hours</h6>
 <div class="card-body">
     <div class="row">
       <div class="col-12">
-              <div class="button-list">
-                  <div class="form-group">
-                    <field-button group="true" type="simple" label="Monday" name="monday" class="btn btn-primary waves-effect w-lg" />
-                    <field-button group="true" type="simple" label="Tuesday" name="tuesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                    <field-button group="true" type="simple" label="Wednesday" name="wednesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                    <field-button group="true" type="simple" label="Thursday" name="thursday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                    <field-button group="true" type="simple" label="Friday" name="friday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                    <field-button group="true" type="simple" label="Saturday" name="saturday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                    <field-button group="true" type="simple" label="Sunday" name="sunday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                 </div>
+          <div class="button-list">
+              <div class="form-group">
+                  <field-button group="true" type="simple" label="Monday" name="monday" class="btn btn-primary waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Tuesday" name="tuesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Wednesday" name="wednesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Thursday" name="thursday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Friday" name="friday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Saturday" name="saturday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Sunday" name="sunday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
               </div>
           </div>
       </div>
+    </div>
 
-      <field-timeset day="monday" :model="$restaurant" open="true" />
-      <field-timeset day="tuesday" :model="$restaurant" />
-      <field-timeset day="wednesday" :model="$restaurant" />
-      <field-timeset day="thursday" :model="$restaurant" />
-      <field-timeset day="friday" :model="$restaurant" />
-      <field-timeset day="saturday" :model="$restaurant" />
-      <field-timeset day="sunday" :model="$restaurant" />
+    <field-timeset day="monday" :model="$restaurant" open="true" />
+    <field-timeset day="tuesday" :model="$restaurant" />
+    <field-timeset day="wednesday" :model="$restaurant" />
+    <field-timeset day="thursday" :model="$restaurant" />
+    <field-timeset day="friday" :model="$restaurant" />
+    <field-timeset day="saturday" :model="$restaurant" />
+    <field-timeset day="sunday" :model="$restaurant" />
 
-  </div>
+</div>
 
-  <hr />
-  <h6 class="">Extraordinary close</h6>
-  <div class="card-body">
-      <div class="col-12">
-              <field-closed-days :model="$restaurant" />
-      </div>
-  </div>
+<hr />
+<h6 class="">Extraordinary close</h6>
+<div class="card-body">
+    <div class="col-12">
+        <field-closed-days :model="$restaurant" />
+    </div>
+</div>
 
-  <hr />
-  <h6 class="">Gallery Restaurant</h6>
-  <div class="card-body">
-      <div class="col-12">
-            <field-media-list label="Images" :model="$restaurant"  />
-      </div>
-  </div>
+<hr />
+
+<h6 class="">Gallery Restaurant</h6>
+<div class="card-body">
+    <div class="col-12">
+        <field-media-list label="Images" :model="$restaurant"  />
+    </div>
+</div>
 
 <modal-media :media="$media" />
 
 @push('scripts')
 <script>
 $(document).ready(function(){
-
 
       // add new time
       $(document).on('click', '.add_time', function(){
