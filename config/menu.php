@@ -50,6 +50,14 @@ return [
                 'New' => 'pickups.create'
             ],
         ],
+        'Fasce orarie' => [
+            'class'   => 'Timeslot',
+            'icon' => 'fi-clock',
+            'routes' => [
+                'List' => 'timeslots.index',
+                'New' => 'timeslots.create'
+            ],
+        ],
         'Account' => [
             'class'   => 'User',
             'icon' => 'fi-head',
