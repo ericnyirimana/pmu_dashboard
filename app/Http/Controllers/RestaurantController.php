@@ -66,13 +66,13 @@ class RestaurantController extends Controller
 
           $restaurant = new Restaurant;
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
-          $user = User::get();
+          $users = User::get();
 
           return view('admin.restaurants.create')->with([
               'company' => $company,
               'restaurant' => $restaurant,
               'media' => $media,
-              'user'  => $user
+              'users'  => $users
           ]);
 
       }
@@ -142,16 +142,16 @@ class RestaurantController extends Controller
       }
 
 
-      public function edit(Company $company, Restaurant $restaurant, User $user)
+      public function edit(Company $company, Restaurant $restaurant)
       {
 
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
-
+          $users = User::get();
           return view('admin.restaurants.edit')->with([
               'restaurant' => $restaurant,
               'company' => $company,
               'media' => $media,
-              'user' => $user
+              'users' => $users
           ]);
 
       }
