@@ -6,19 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Restaurant;
 use App\Models\Timeslot;
-use App\Traits\TranslationTrait;
 
 
 class TimeslotController extends Controller
 {
-
-    use TranslationTrait;
-
-//    public function __construct() {
-//
-//        $this->authorizeResource(Timeslot::class);
-//
-//    }
 
     public function validation(Request $request) {
 
@@ -37,10 +28,10 @@ class TimeslotController extends Controller
     public function index()
     {
 
-        $timeslots = Timeslot::all();
+        $timeslot = Timeslot::all();
 
         return view('admin.timeslots.index')
-            ->with(compact('timeslots'));
+            ->with(compact('timeslot'));
 
     }
 
@@ -71,6 +62,42 @@ class TimeslotController extends Controller
         ]);
 
     }
+
+    public function show(Timeslot $timeslot) {
+
+        return view('admin.timeslots.view')->with([
+                'timeslot'     => $timeslot,
+            ]
+        );
+
+    }
+
+
+    public function edit(Timeslot $timeslot) {
+
+        return view('admin.timeslots.edit')->with([
+                'timeslot'     => $timeslot,
+            ]
+        );
+
+    }
+
+
+    public function update(Request $request, Timeslot $timeslot) {
+
+        $this->validation($request, $timeslot);
+
+        $fields = $request->all();
+
+        $timeslot->update($fields);
+
+        return redirect()->route('timeslots.index')->with([
+            'notification' => 'Orario salvato con successo!',
+            'type-notification' => 'success'
+        ]);
+
+    }
+
 
   public function data(Restaurant $restaurant) {
 

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Timeslot extends Model
 {
 
-     public $fillable = ['restaurant_id', 'mealtype_id', 'hour_ini', 'hour_end', 'fixed', 'identifier'];
+     public $fillable = ['restaurant_id', 'mealtype_id', 'hour_ini', 'hour_end', 'fixed', 'identifier', 'range_clock'];
 
       protected $appends = ['name'];
 

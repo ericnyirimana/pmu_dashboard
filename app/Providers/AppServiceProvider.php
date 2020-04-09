@@ -82,6 +82,7 @@ class AppServiceProvider extends ServiceProvider
           \App\Models\Product::observe(IdentifierObserver::class);
           \App\Models\Pickup::observe(IdentifierObserver::class);
           \App\Models\Order::observe(IdentifierObserver::class);
+          \App\Models\Timeslot::observe(IdentifierObserver::class);
 
           \App\Models\Product::observe(\App\Observers\ProductObserver::class);
           \App\Models\ProductTranslation::observe(\App\Observers\ProductTranslationObserver::class);

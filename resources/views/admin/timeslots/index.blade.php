@@ -13,12 +13,11 @@
     <div class="row">
         <div class="col-12">
             <div class="card-box table-responsive">
-                {{--<datatable route='timeslots' :collection='$timeslot' :fields="[--}}
-                  {{--'Type'        => 'mealtype_id',--}}
-                  {{--'Orario inizio'      => 'hour_ini',--}}
-                  {{--'Orario fine'     => 'hour_end'--}}
-              {{--]"--}}
-                           {{--actions="edit, delete" />--}}
+                <datatable route='timeslots' :collection='$timeslot' :fields="[
+                  'Pasto'        => 'mealtype_id',
+                  'Orario'      => 'range_clock',
+              ]"
+                           actions="edit, delete" />
             </div>
         </div>
     </div>
