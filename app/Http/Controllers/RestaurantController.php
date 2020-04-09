@@ -93,7 +93,7 @@ class RestaurantController extends Controller
           }
 
           //Create Stripe Account
-          $this->createAccountStripe($restaurant);
+          //$this->createAccountStripe($restaurant);
 
           return redirect()->route('companies.show', $company)->with([
               'notification' => 'Restaurant saved with success!',
@@ -167,7 +167,7 @@ class RestaurantController extends Controller
           }
 
           //Create Stripe Account
-          $this->createAccountStripe($restaurant);
+          //$this->createAccountStripe($restaurant);
 
           return redirect()->route('companies.show', $company)->with([
               'notification' => 'Restaurant saved with success!',
@@ -282,9 +282,9 @@ class RestaurantController extends Controller
      */
     protected function createAccountStripe($restaurant): void
     {
-        if (!$restaurant->stripe_account_id) {
+        if (!$restaurant->merchant_stripe) {
             $accountStripe = $this->stripe->createAccount($restaurant);
-            $restaurant->stripe_account_id = $accountStripe->id;
+            $restaurant->merchant_stripe = $accountStripe->id;
 
             $restaurant->save();
         }

@@ -6,6 +6,9 @@
     <div class="col-md-12 col-lg-6">
           <field-map label="Indirizzo" field="address" :model="$restaurant" required  />
     </div>
+    <div class="col-md-12 col-lg-6">
+        <field-text label="Merchant ID (Stripe)" field="merchant_stripe" :model="$restaurant" />
+    </div>
 </div>
 
 <hr />

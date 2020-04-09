@@ -5,6 +5,7 @@ namespace App\Libraries;
 
 
 use App\Models\Restaurant;
+use App\Models\User;
 
 class StripeIntegration
 {
@@ -25,9 +26,21 @@ class StripeIntegration
             'country' => 'IT',
             'requested_capabilities' => [
                 'card_payments',
-                'transfers',
+                'transfers'
             ],
-            'business_type' => 'individual',
+            'business_type' => 'company',
+            'company' => [
+                'name' => $restaurant->name,
+                'owners_provided' => true
+            ],
+            'tos_acceptance' => [
+                'date' => time(),
+                'ip' => $_SERVER['REMOTE_ADDR']
+            ]
         ]);
+    }
+
+    protected function createOwner(User $user) {
+
     }
 }
