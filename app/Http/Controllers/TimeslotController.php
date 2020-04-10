@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Models\Restaurant;
+use App\Models\Mealtype;
 use App\Models\Timeslot;
+use App\Traits\TranslationTrait;
+use App\Models\Restaurant;
 
 
 class TimeslotController extends Controller
 {
 
+    use TranslationTrait;
+
+//    public function __construct() {
+//
+//        $this->authorizeResource(Timeslot::class);
+//
+//    }
+
     public function validation(Request $request) {
 
         $validation = [
-            'mealtype_id'  => 'required',
+            'id',
+            'name',
             'range_clock'     => 'required'
-
         ];
 
         $request->validate(
@@ -29,19 +38,22 @@ class TimeslotController extends Controller
     {
 
         $timeslot = Timeslot::all();
+        $mealtype = Mealtype::all();
 
         return view('admin.timeslots.index')
-            ->with(compact('timeslot'));
+            ->with(compact('timeslot'))
+            ->with(compact('mealtype'));
 
     }
 
     public function create() {
 
         $timeslot = new Timeslot();
+        $mealtype = new Mealtype();
 
         return view('admin.timeslots.create')->with([
-                'timeslot'   => $timeslot
-
+                'timeslot'   => $timeslot,
+                'mealtype'   => $mealtype
             ]
         );
 
@@ -63,20 +75,22 @@ class TimeslotController extends Controller
 
     }
 
-    public function show(Timeslot $timeslot) {
+    public function show(Timeslot $timeslot, Mealtype $mealtype) {
 
         return view('admin.timeslots.view')->with([
-                'timeslot'     => $timeslot,
+                'timeslot'  => $timeslot,
+                'mealtype'  => $mealtype
             ]
         );
 
     }
 
 
-    public function edit(Timeslot $timeslot) {
+    public function edit(Timeslot $timeslot, Mealtype $mealtype) {
 
         return view('admin.timeslots.edit')->with([
-                'timeslot'     => $timeslot,
+                'timeslot'  => $timeslot,
+                'mealtype'  => $mealtype
             ]
         );
 

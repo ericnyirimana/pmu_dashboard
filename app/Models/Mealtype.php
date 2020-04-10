@@ -7,11 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Mealtype extends Model
 {
 
-
+    public $fillable = ['id', 'hour_ini', 'hour_end', 'range_clock'];
 
   public function translate() {
 
-      return $this->hasOne('App\Models\MealtypeTranslation')->where('code', \App::getLocale());
+      return $this->hasOne('App\Models\MealtypeTranslation')
+          ->where('code', \App::getLocale())
+          ->withDefault([
+              'name' => ''
+          ]);
 
   }
 

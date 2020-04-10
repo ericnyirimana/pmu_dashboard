@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Timeslot extends Model
 {
 
-     public $fillable = ['restaurant_id', 'mealtype_id', 'hour_ini', 'hour_end', 'fixed', 'identifier', 'range_clock'];
+     public $fillable = ['restaurant_id', 'mealtype_id', 'hour_ini', 'hour_end', 'fixed', 'identifier'];
 
       protected $appends = ['name'];
 
@@ -24,6 +24,20 @@ class Timeslot extends Model
 
       }
 
+
+      public function translate() {
+          return $this->hasOne('App\Models\TimeslotTranslation')
+              ->where('code', \App::getLocale())
+              ->withDefault([
+                  'name' => ''
+              ]);
+      }
+
+      public function translations() {
+
+          return $this->hasMany('App\Models\TimeslotTranslation');
+
+      }
 
 
       public function getNameAttribute() {
