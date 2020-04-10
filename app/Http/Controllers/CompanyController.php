@@ -135,5 +135,12 @@ class CompanyController extends Controller
 
       }
 
+    public function data()
+    {
+
+        return response()->json(Company::all(), 200);
+
+    }
+
 
 }

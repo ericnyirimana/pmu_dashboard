@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Libraries\StripeIntegration;
 use App\Models\Showcase;
 use App\Models\Timeslot;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use App\Models\Restaurant;
@@ -43,8 +44,19 @@ class RestaurantController extends Controller
 
           $restaurants = Restaurant::all();
 
+          $this->alignUsersFromCognito();
+
+
+
+          if (Auth::user()->is_super) {
+              $users = User::withTrashed()->get();
+          } else {
+              $users = User::get();
+          }
+
           return view('admin.restaurants.index')
-              ->with(compact('restaurants'));
+              ->with(compact('restaurants'))
+              ->with(compact('users'));
 
       }
 
@@ -54,12 +66,13 @@ class RestaurantController extends Controller
 
           $restaurant = new Restaurant;
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
-
+          $users = $restaurant->users();
 
           return view('admin.restaurants.create')->with([
               'company' => $company,
               'restaurant' => $restaurant,
               'media' => $media,
+              'users'  => $users
           ]);
 
       }
@@ -116,14 +129,15 @@ class RestaurantController extends Controller
       }
 
 
-      public function show(Restaurant $restaurant)
+      public function show(Restaurant $restaurant, User $user)
       {
 
           $company = $restaurant->company;
 
           return view('admin.restaurants.view')
               ->with(compact('restaurant'))
-              ->with(compact('company'));
+              ->with(compact('company'))
+              ->with(compact('user'));
 
       }
 
@@ -132,11 +146,12 @@ class RestaurantController extends Controller
       {
 
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
-
+          $users = $restaurant->users()->get();
           return view('admin.restaurants.edit')->with([
               'restaurant' => $restaurant,
               'company' => $company,
               'media' => $media,
+              'users' => $users
           ]);
 
       }
