@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -16,196 +17,216 @@ class UserController extends Controller
 {
 
 
+    public function __construct()
+    {
 
-    public function __construct() {
-
-      $this->authorizeResource(User::class);
+        $this->authorizeResource(User::class);
 
     }
 
 
-
-    public function validation(Request $request, $media = null) {
+    public function validation(Request $request, $media = null)
+    {
 
         $request->validate(
-          [
-            'name'  => 'required',
-          ]
+            [
+                'name' => 'required',
+            ]
         );
 
     }
 
 
+    public function me()
+    {
 
-    public function me() {
+        $user = Auth::user();
 
-          $user = Auth::user();
-
-          return view('admin.users.profile')
-          ->with( compact('user') );
-
-    }
-
-
-
-    public function index() {
-
-          $this->alignUsersFromCognito();
-
-
-
-          if (Auth::user()->is_super) {
-              $users = User::withTrashed()->get();
-          } else {
-              $users = User::get();
-          }
-
-          return view('admin.users.index')
-          ->with( compact('users') );
+        return view('admin.users.profile')
+            ->with(compact('user'));
 
     }
 
 
-    public function show(User $user) {
+    public function index()
+    {
 
-          return redirect()->route('users.index');
+        $this->alignUsersFromCognito();
+
+
+        if (Auth::user()->is_super) {
+            $users = User::withTrashed()->get();
+        } else {
+            $users = User::get();
+        }
+
+        return view('admin.users.index')
+            ->with(compact('users'));
 
     }
 
 
-    public function create() {
-
-          $user = new User();
-          return view('admin.users.create')->with(['user' => $user]);
+    public function show(User $user)
+    {
+        return redirect()->route('users.index');
 
     }
 
 
-    public function store(Request $request) {
+    public function create()
+    {
 
-          $this->validation($request);
+        $user = new User();
+        $company = Company::all();
+        return view('admin.users.create')->with([
+            'user' => $user,
+            'company' => $company
+        ]);
 
-          $fields = $request->all();
-
-          $arrayAttributes = $this->prepareAttributes($fields);
-
-          $uuid = (string) Str::uuid();
-          $fields['sub'] = $uuid;
-          $fields['password'] = bcrypt( Str::random(12) );
-
-          $fields['profile'] = json_encode($arrayAttributes);
-
-          $user = User::create($fields);
+    }
 
 
-          $client = new Cognito();
-          $client->createUser($user->email, $arrayAttributes);
+    public function store(Request $request)
+    {
 
-          if($client->error) {
+        $this->validation($request);
+
+        $fields = $request->all();
+
+        $arrayAttributes = $this->prepareAttributes($fields);
+
+        $uuid = (string)Str::uuid();
+        $fields['sub'] = $uuid;
+        $fields['password'] = bcrypt(Str::random(12));
+
+        $fields['profile'] = json_encode($arrayAttributes);
+
+        $user = User::create($fields);
+
+        if ($fields['brand_id']) {
+            $user->brand()->sync($fields['brand_id']);
+            if ($fields['restaurant_id']) {
+                $user->restaurant()->sync($fields['restaurant_id']);
+            }
+        }
+
+        $client = new Cognito();
+        $client->createUser($user->email, $arrayAttributes);
+
+        if ($client->error) {
             return redirect()->route('users.index')->with([
-                  'notification' => $client->error,
-                  'type-notification' => 'danger'
-                ]);
-          }
+                'notification' => $client->error,
+                'type-notification' => 'danger'
+            ]);
+        }
 
-          return redirect()->route('users.index')->with([
-                'notification' => 'User saved with success!',
-                'type-notification' => 'success'
-              ]);
-
-    }
-
-
-    public function edit(User $user) {
-
-          return view('admin.users.edit')->with(['user' => $user]);
+        return redirect()->route('users.index')->with([
+            'notification' => 'User saved with success!',
+            'type-notification' => 'success'
+        ]);
 
     }
 
 
-    public function update(User $user, Request $request) {
-
-          $this->validation($request);
-
-          $fields = $request->all();
-
-          $arrayAttributes = $this->prepareAttributes($fields);
-
-          $fields['profile'] = json_encode($arrayAttributes);
-
-          $user->update($fields);
-
-
-          $client = new Cognito();
-          $us = $client->getUser($user->sub);
-
-          $client->updateUser($user->sub, $arrayAttributes);
-
-
-          return redirect()->route('users.index')->with([
-                'notification' => 'User saved with success!',
-                'type-notification' => 'success'
-              ]);
+    public function edit(User $user)
+    {
+        $company = Company::all();
+        return view('admin.users.edit')->with(['user' => $user, 'company' => $company]);
 
     }
 
 
-    public function destroy(User $user) {
+    public function update(User $user, Request $request)
+    {
 
-          $client = new Cognito();
-          $client->deleteUser($user->sub);
+        $this->validation($request);
 
-          $user->forceDelete();
+        $fields = $request->all();
 
-          return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'danger');
+        $arrayAttributes = $this->prepareAttributes($fields);
+
+        $fields['profile'] = json_encode($arrayAttributes);
+
+        $user->update($fields);
+
+
+        $client = new Cognito();
+        $us = $client->getUser($user->sub);
+
+        $client->updateUser($user->sub, $arrayAttributes);
+
+        if ($fields['brand_id']) {
+            $user->brand()->sync($fields['brand_id']);
+            if ($fields['restaurant_id']) {
+                $user->restaurant()->sync($fields['restaurant_id']);
+            }
+        }
+
+        return redirect()->route('users.index')->with([
+            'notification' => 'User saved with success!',
+            'type-notification' => 'success'
+        ]);
 
     }
 
 
+    public function destroy(User $user)
+    {
+
+        $client = new Cognito();
+        $client->deleteUser($user->sub);
+
+        $user->forceDelete();
+
+        return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'danger');
+
+    }
 
 
-    public function restore(User $user) {
+    public function restore(User $user)
+    {
 
-          $user->restore();
+        $user->restore();
 
-          return redirect()->route('users.index')->with('notification', 'User restored with success!')->with('type-notification', 'success');
+        return redirect()->route('users.index')->with('notification', 'User restored with success!')->with('type-notification', 'success');
 
     }
 
 
     /**
-    * Prepare attributes to send in Cognito format
-    *
-    * @return Array
-    */
-    protected function prepareAttributes($fields) {
+     * Prepare attributes to send in Cognito format
+     *
+     * @return Array
+     */
+    protected function prepareAttributes($fields)
+    {
 
-      $attributes = config('cognito.user_attributes');
+        $attributes = config('cognito.user_attributes');
 
-      $saveAttributes = array();
+        $saveAttributes = array();
 
-      foreach($attributes as $attr) {
+        foreach ($attributes as $attr) {
 
-          $field = str_replace('custom:', '', $attr);
+            $field = str_replace('custom:', '', $attr);
 
-          if ( isset($fields[$field]) ) {
-            $saveAttributes[$field] = $fields[$field];
-          }
-      }
+            if (isset($fields[$field])) {
+                $saveAttributes[$field] = $fields[$field];
+            }
+        }
 
-      return $saveAttributes;
+        return $saveAttributes;
 
     }
 
 
-
     /**
-    * Sync all users from Cognito and Database
-    * Create new users in DB case it is no exists
-    *
-    * @return Void
-    */
-    protected function alignUsersFromCognito() {
+     * Sync all users from Cognito and Database
+     * Create new users in DB case it is no exists
+     *
+     * @return Void
+     */
+    protected function alignUsersFromCognito()
+    {
 
         $collection = new Collection();
         $client = new Cognito();
@@ -225,7 +246,7 @@ class UserController extends Controller
             if (!$user) {
 
                 $user = new User;
-                $user->password = bcrypt( Str::random(12) ); // create random password only for DB, when user login, it ill update with the true one
+                $user->password = bcrypt(Str::random(12)); // create random password only for DB, when user login, it ill update with the true one
                 $user->email = $client->search('email', $attributes);
 
                 $user->created_at = $cognitoUser['UserCreateDate'];
@@ -238,17 +259,16 @@ class UserController extends Controller
             $user->role = $client->search('custom:role', $attributes) ?? 'CUSTOMER';
 
             $profile = array();
-            foreach(config('cognito.user_attributes') as $attribute) {
+            foreach (config('cognito.user_attributes') as $attribute) {
 
-                  $item = str_replace('custom:', '', $attribute);
-                  $profile[$item] = $client->search($attribute, $attributes);
+                $item = str_replace('custom:', '', $attribute);
+                $profile[$item] = $client->search($attribute, $attributes);
 
             }
 
             $user->profile = json_encode($profile);
             $user->deleted_at = NULL;
             $user->save();
-
 
 
             $collection = $collection->merge($user->id);
@@ -262,11 +282,12 @@ class UserController extends Controller
 
 
     /**
-    * Remove users from database whose not found in Cognito
-    *
-    * @return Array
-    */
-    protected function removeUsersDeletedInCognito($collection) {
+     * Remove users from database whose not found in Cognito
+     *
+     * @return Array
+     */
+    protected function removeUsersDeletedInCognito($collection)
+    {
 
         $users = User::whereNotIn('id', $collection->all())->get();
 
@@ -276,8 +297,6 @@ class UserController extends Controller
         });
 
     }
-
-
 
 
 }

@@ -111,7 +111,7 @@ class Restaurant extends Model
 
             $openings = array();
 
-            foreach ($this->openingHours as $item) {
+            foreach ($this->openinghours as $item) {
 
                   if ( !isset($openings[$item->day_of_week]) ) {
                         $openings[$item->day_of_week] = array();
@@ -149,6 +149,10 @@ class Restaurant extends Model
 
             return $closedDays;
 
+    }
+
+    public function users() {
+        return $this->belongsToMany('App\Models\User', 'user_restaurants', 'restaurant_id', 'user_id');
     }
 
 }

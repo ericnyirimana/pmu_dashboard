@@ -11,7 +11,7 @@
       </div>
     </div>
 </div>
-<tag-form file :action="route('users.store', $user)">
+<tag-form file :action="route('users.store', $user, $company)">
   @include('admin.users.parts.form')
 </tag-form>
 @endsection

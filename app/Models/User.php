@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'sub', 'email', 'password', 'role', 'profile'
+        'sub', 'email', 'password', 'role', 'profile', 'brand'
     ];
 
     /**
@@ -30,94 +30,108 @@ class User extends Authenticatable
     ];
 
 
+    public function company()
+    {
 
-    public function company() {
+        return $this->hasOne('App\Models\Company', 'owner_id');
 
-          return $this->hasOne('App\Models\Company', 'owner_id');
+    }
+
+    public function brand() {
+        return $this->belongsToMany('App\Models\Company', 'user_brands', 'user_id', 'brand_id');
+    }
+
+    public function restaurant()
+    {
+        return $this->belongsToMany('App\Models\Restaurant', 'user_restaurants', 'user_id', 'restaurant_id');
+    }
+
+    protected function getJsonAttributes()
+    {
+
+        return json_decode($this->profile);
+
+    }
+
+    public function getNameAttribute()
+    {
+
+        $profile = $this->getJsonAttributes();
+
+        if ($profile) {
+            return $profile->name;
+        }
+
 
     }
 
 
+    public function getFieldShowAttribute()
+    {
 
-    protected function getJsonAttributes() {
-
-          return json_decode($this->profile);
-
-
-    }
-
-
-
-    public function getNameAttribute() {
-
-          $profile = $this->getJsonAttributes();
-
-          if ($profile) {
-              return $profile->name;
-          }
-
+        return $this->getNameAttribute();
 
     }
 
 
-    public function getFieldShowAttribute() {
-
-          return $this->getNameAttribute();
-
-    }
-
-
-    public function getCreatedAtHFAttribute() {
+    public function getCreatedAtHFAttribute()
+    {
 
         return $this->created_at->format('d-m-Y H:i') ?? '';
 
     }
 
 
-    public function getUpdatedAtHFAttribute() {
+    public function getUpdatedAtHFAttribute()
+    {
 
         return $this->updated_at->format('d-m-Y H:i') ?? '';
 
     }
 
 
-    public function getIsSuperAttribute() {
+    public function getIsSuperAttribute()
+    {
 
-        return ( ($this->role == 'ADMIN') || ($this->role == 'PMU') );
+        return (($this->role == 'ADMIN') || ($this->role == 'PMU'));
 
     }
 
 
-    public function getIsAdminAttribute() {
+    public function getIsAdminAttribute()
+    {
 
         return ($this->role == 'ADMIN');
 
     }
 
-    public function getIsPmuAttribute() {
+    public function getIsPmuAttribute()
+    {
 
         return ($this->role == 'PMU');
 
     }
 
-    public function getIsOwnerAttribute() {
+    public function getIsOwnerAttribute()
+    {
 
         return ($this->role == 'OWNER');
 
     }
 
-    public function getIsRestaurantAttribute() {
+    public function getIsRestaurantAttribute()
+    {
 
         return ($this->role == 'RESTAURATEUR');
 
     }
 
-    public function getIsCustomerAttribute() {
+    public function getIsCustomerAttribute()
+    {
 
         return ($this->role == 'CUSTOMER');
 
     }
-
 
 
 }
