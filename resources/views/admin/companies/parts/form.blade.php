@@ -19,7 +19,6 @@
 
           <field-switch label="Active" field="status" :model="$company" color="#039cfd" required  />
 
-
     </div>
 </div>
 <div class="d-flex flex-row row">

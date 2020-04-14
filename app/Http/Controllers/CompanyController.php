@@ -18,14 +18,13 @@ class CompanyController extends Controller
       }
 
 
-
       public function validation(Request $request, $company = null) {
 
           $request->validate(
             [
               'media_id'  => (empty($company)?'required':'').'',
               'name'  => 'required',
-              'vat'   => 'required'
+              'vat'   => 'required',
             ]
           );
 
@@ -53,11 +52,9 @@ class CompanyController extends Controller
             $company = new Company();
             $users = User::all();
 
-
             return view('admin.companies.create')->with([
               'company'   => $company,
               'users'   => $users,
-
             ]
             );
 
@@ -69,6 +66,8 @@ class CompanyController extends Controller
             $this->validation($request);
 
             $fields = $request->all();
+
+            $fields['status'] = $request->status ? true : false;
 
             Company::create($fields);
 
