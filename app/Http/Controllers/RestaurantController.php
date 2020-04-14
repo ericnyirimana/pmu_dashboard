@@ -15,6 +15,7 @@ use App\Models\Media;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Collection;
 
 class RestaurantController extends Controller
 {
@@ -146,7 +147,10 @@ class RestaurantController extends Controller
       {
 
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
+          $company = $restaurant->company;
+          $owner = $company->owner()->get();
           $users = $restaurant->users()->get();
+         $users = $users->merge($owner);
           return view('admin.restaurants.edit')->with([
               'restaurant' => $restaurant,
               'company' => $company,
