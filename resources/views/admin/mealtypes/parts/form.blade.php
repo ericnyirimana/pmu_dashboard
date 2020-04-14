@@ -7,7 +7,7 @@
         @endif
     </div>
     <div class="col-md-12 col-lg-8">
-        <field-range-clock label="Seleziona orario di ritiro" field="range_clock" :model="$timeslot"  />
+        <field-range-clock label="Seleziona orario di ritiro" field="range_clock" :model="$mealtype"  />
     </div>
 </div>
 <div class="d-flex flex-row row">

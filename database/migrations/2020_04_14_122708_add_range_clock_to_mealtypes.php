@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRangeClockToTimeslots extends Migration
+class AddRangeClockToMealtypes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class AddRangeClockToTimeslots extends Migration
      */
     public function up()
     {
-        Schema::table('timeslots', function (Blueprint $table) {
+        Schema::table('mealtypes', function (Blueprint $table) {
             $table->string('range_clock')->nullable();
         });
     }
@@ -25,7 +25,7 @@ class AddRangeClockToTimeslots extends Migration
      */
     public function down()
     {
-        Schema::table('timeslots', function (Blueprint $table) {
+        Schema::table('mealtypes', function (Blueprint $table) {
             $table->dropColumn('range_clock');
         });
     }

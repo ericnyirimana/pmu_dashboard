@@ -51,11 +51,11 @@ return [
             ],
         ],
         'Fasce orarie' => [
-            'class'   => 'Timeslot',
+            'class'   => 'Mealtype',
             'icon' => 'fi-clock',
             'routes' => [
-                'List' => 'timeslots.index',
-                'New' => 'timeslots.create'
+                'List' => 'mealtypes.index',
+                'New' => 'mealtypes.create'
             ],
         ],
         'Account' => [

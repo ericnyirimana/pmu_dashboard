@@ -43,7 +43,7 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/pickups', 'PickupController');
 
-        Route::resource('/timeslots', 'TimeslotController');
+        Route::resource('/mealtypes', 'MealTypeController');
 
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');

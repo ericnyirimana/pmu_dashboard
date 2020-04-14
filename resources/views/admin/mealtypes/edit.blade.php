@@ -7,14 +7,11 @@
     <div class="row">
         <div class="col-12">
             <div class="card-box">
-                <a href="{{ route('timeslots.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Indietro</a>
+                <a href="{{ route('mealtypes.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Indietro</a>
             </div>
         </div>
     </div>
-    <tag-form file :action="route('timeslots.store')">
-
-        @include('admin.timeslots.parts.form')
-
+    <tag-form :action="route('mealtypes.update', $mealtype)" method="put" >
+        @include('admin.mealtypes.parts.form')
     </tag-form>
-
 @endsection

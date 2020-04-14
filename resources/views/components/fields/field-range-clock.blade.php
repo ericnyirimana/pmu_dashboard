@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="{{ $field }}">{{ $label }}</label>
-    <input type="text" name="{{ $field }}" id="{{ $field }}" placeholder="Inserisci {{ $label }} qui" style="border: none;" readonly>
+    <input type="text" name="{{ $field }}" id="{{ $field }}" placeholder="11:00 - 15:00" style="border: none;" readonly>
 
     <div id="slider-range"></div>
 </div>
@@ -14,13 +14,11 @@
 					min: 0,
 					max: 1440,
 					values: [ 660, 900 ],
-
                     step: 30,
                     slide: function(e, ui) {
                         formatTime(ui);
                     }
 				});
-				formatTime($( "#slider-range" ));
 				function formatTime(ui) {
                     var hoursStart = Math.floor(ui.values[0] / 60);
                     var minutesStart = ui.values[0] - (hoursStart * 60);
