@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mealtype extends Model
 {
 
-    public $fillable = ['id', 'hour_ini', 'hour_end', 'range_clock'];
+    public $fillable = ['id', 'hour_ini', 'hour_end'];
 
   public function translate() {
 

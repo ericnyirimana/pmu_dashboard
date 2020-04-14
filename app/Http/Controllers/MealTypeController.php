@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Mealtype;
 use Illuminate\Http\Request;
+use App\Traits\TranslationTrait;
 
 class MealTypeController extends Controller
 {
+
+    use TranslationTrait;
 
     public function __construct() {
 
@@ -17,8 +20,9 @@ class MealTypeController extends Controller
     public function validation(Request $request) {
 
         $validation = [
-            'id',
-            'range_clock'     => 'required'
+            'name',
+            'hour_ini' => 'required',
+            'hour_end' => 'required'
         ];
 
         $request->validate(
@@ -57,7 +61,9 @@ class MealTypeController extends Controller
 
         $mealtype = Mealtype::create($fields);
 
-        return redirect()->route('mealtypes.edit', $mealtype)->with([
+        $this->saveTranslation($mealtype, $fields);
+
+        return redirect()->route('mealtypes.index', $mealtype)->with([
             'notification' => 'Nuovo orario salvato con successo!',
             'type-notification' => 'success'
         ]);
@@ -89,6 +95,8 @@ class MealTypeController extends Controller
         $fields = $request->all();
 
         $mealtype->update($fields);
+
+        $this->saveTranslation($mealtype, $fields);
 
         return redirect()->route('mealtypes.index')->with([
             'notification' => 'Orario salvato con successo!',

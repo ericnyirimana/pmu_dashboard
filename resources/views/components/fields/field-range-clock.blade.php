@@ -9,21 +9,24 @@
 
     <script>
 			$( function() {
+                var model = @json($model);
+                var start = model.hour_ini != '00:00:00' ? model.hour_ini : 660;
+                var end = model.hour_end != '00:00:00' ? model.hour_end : 900;
 				$( "#slider-range" ).slider({
 					range: true,
 					min: 0,
 					max: 1440,
-					values: [ 660, 900 ],
+					values: [ start, end ],
                     step: 30,
                     slide: function(e, ui) {
                         formatTime(ui);
                     }
 				});
 				function formatTime(ui) {
-                    var hoursStart = Math.floor(ui.values[0] / 60);
-                    var minutesStart = ui.values[0] - (hoursStart * 60);
-                    var hoursEnd = Math.floor(ui.values[1] / 60);
-                    var minutesEnd = ui.values[1] - (hoursEnd * 60);
+                    var hoursStart = Math.floor(ui.values[start] / 60);
+                    var minutesStart = ui.values[start] - (hoursStart * 60);
+                    var hoursEnd = Math.floor(ui.values[end] / 60);
+                    var minutesEnd = ui.values[end] - (hoursEnd * 60);
 
                     if(hoursStart.toString().length == 1) hoursStart = '0' + hoursStart;
                     if(minutesStart.toString().length == 1) minutesStart = '0' + minutesStart;

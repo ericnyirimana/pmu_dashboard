@@ -15,7 +15,8 @@
             <div class="card-box table-responsive">
                 <datatable route='mealtypes' :collection='$mealtype' :fields="[
                   'Pasto'        => 'name',
-                  'Orario'      => 'range_clock',
+                  'Orario apertura'  => 'hour_ini',
+                  'Orario chiusura'  => 'hour_end'
               ]"
                            actions="edit, delete" />
             </div>
