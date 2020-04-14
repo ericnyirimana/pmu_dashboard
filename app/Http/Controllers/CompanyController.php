@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Company;
 use App\Models\User;
-use App\Models\Media;
 use Auth;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {

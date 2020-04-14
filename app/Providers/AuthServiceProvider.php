@@ -20,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Media' => 'App\Policies\MediaPolicy',
         'App\Models\Category' => 'App\Policies\CategoryPolicy',
         'App\Models\Pickup' => 'App\Policies\PickupPolicy',
+        'App\Models\Timeslot' => 'App\Policies\TimeslotPolicy'
     ];
 
     /**

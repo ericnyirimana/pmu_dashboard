@@ -14,11 +14,11 @@ class TimeslotController extends Controller
 
     use TranslationTrait;
 
-//    public function __construct() {
-//
-//        $this->authorizeResource(Timeslot::class);
-//
-//    }
+    public function __construct() {
+
+        $this->authorizeResource(Timeslot::class);
+
+    }
 
     public function validation(Request $request) {
 
