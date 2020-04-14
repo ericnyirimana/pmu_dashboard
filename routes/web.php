@@ -64,7 +64,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/medias/image/{media}', 'MediaController@viewImageData');
 
-        Route::get('/company/data', 'CompanyController@data')->name('company.data');
+        Route::get('/company/data/{company?}', 'CompanyController@data')->name('company.data');
     });
 
     Route::post('login', 'Auth\LoginController@login')->name('authenticate');

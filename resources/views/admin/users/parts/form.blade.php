@@ -49,7 +49,7 @@
       });
 
       $(document).on('change', '#brand_id', function(){
-
+          $('#brand_id').parsley().removeError('company_owner');
           loadRestaurants( $(this).val() );
 
       });
@@ -58,6 +58,7 @@
   });
 
   function loadCompany(id) {
+      var companyElem = $("#brand_id");
       if (id === 'OWNER' || id === 'RESTAURATEUR') {
 
           $.ajax({
@@ -65,35 +66,51 @@
               type: 'GET',
               success: function(data) {
 
-                  $("#brand_id").html('');
+                  companyElem.html('<option>Select Company</option>');
 
                   $.each(data, function(i, company){
 
-                      $("#brand_id").append('<option value="' + company.id + '">' + company.name + '</option>')
+                      companyElem.append('<option value="' + company.id + '">' + company.name + '</option>')
                   });
               }
           });
 
+      } else {
+          companyElem.html('<option>Select Company</option>');
       }
   }
 
   function loadRestaurants(id) {
+      var restaurantElem = $("#restaurant_id");
       if (id) {
-
           $.ajax({
               url: "{{ route('company.restaurants.data') }}/"+id,
               type: 'GET',
               success: function(data) {
 
-                  $("#restaurant_id").html('');
+                  restaurantElem.html('<option>Select Restaurant</option>');
 
-                  $.each(data, function(i, company){
+                  $.each(data, function(i, restaurant){
 
-                      $("#restaurant_id").append('<option value="' + company.id + '">' + company.name + '</option>')
+                      restaurantElem.append('<option value="' + restaurant.id + '">' + restaurant.name + '</option>')
                   });
+                  if ($('#role').val() === 'OWNER') {
+                      $.ajax({
+                          url: "{{ route('company.data') }}/"+id,
+                          type: 'GET',
+                          success: function(data) {
+                              if (data.owner_id != null) {
+                                  $('#brand_id').parsley().addError('company_owner', {'message': 'Company ' + data
+                                          .name + ' already has an owner'});
+                              }
+
+                          }
+                      });
+                  }
               }
           });
-
+      } else {
+          restaurantElem.html('<option>Select Restaurant</option>');
       }
   }
   </script>

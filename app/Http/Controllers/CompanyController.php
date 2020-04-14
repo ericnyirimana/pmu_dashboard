@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 use App\Models\Company;
 use App\Models\User;
-use App\Models\Media;
 use Auth;
+use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
@@ -135,12 +133,16 @@ class CompanyController extends Controller
 
       }
 
-    public function data()
+    public function data(Company $company = null)
     {
-
+        if ($company) {
+            return response()->json($company, 200);
+        }
         return response()->json(Company::all(), 200);
 
     }
+
+
 
 
 }
