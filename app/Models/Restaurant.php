@@ -67,6 +67,12 @@ class Restaurant extends Model
 
     }
 
+    public function mealtype() {
+
+        return $this->hasMany('App\Models\Mealtype');
+
+    }
+
 
     public function media() {
 
