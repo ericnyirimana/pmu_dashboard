@@ -9,7 +9,7 @@
                    value="{{ $key }}"
                    @if(isset($model) && $model->filter(function($elem) use ($field, $key) {
                         return $elem->$field == $key;
-                   }))
+                   })->first())
                    checked
                    @endif
                    @if(isset($required)) required @endif
