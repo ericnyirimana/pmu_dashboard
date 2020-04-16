@@ -3,17 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
-use App\Models\Mealtype;
-use App\Models\Showcase;
-use App\Models\Timeslot;
-use Illuminate\Http\Request;
-use App\Models\Company;
-use App\Models\Restaurant;
-use App\Models\OpeningHour;
 use App\Models\ClosedDay;
+use App\Models\Company;
+use App\Models\Mealtype;
 use App\Models\Media;
-
+use App\Models\OpeningHour;
+use App\Models\Restaurant;
+use App\Models\Timeslot;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -54,6 +52,7 @@ class RestaurantController extends Controller
       public function create(Company $company)
       {
 
+          $mealtypeList = $this->prepareMealTypeList();
           $restaurant = new Restaurant;
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
@@ -62,6 +61,7 @@ class RestaurantController extends Controller
               'company' => $company,
               'restaurant' => $restaurant,
               'media' => $media,
+              'mealtype' => $mealtypeList
           ]);
 
       }
@@ -135,14 +135,7 @@ class RestaurantController extends Controller
       public function edit(Company $company, Restaurant $restaurant)
       {
 
-          $mealtype = Mealtype::all();
-
-
-          $mealtypeList = new Collection();
-
-          $mealtype->map(function ($mealtypeItem) use ($mealtypeList) {
-              $mealtypeList[$mealtypeItem->id] = $mealtypeItem->name;
-          });
+          $mealtypeList = $this->prepareMealTypeList();
 
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
@@ -305,6 +298,22 @@ class RestaurantController extends Controller
             $restaurant->save();
         }
 
+    }
+
+    /**
+     * @return Collection
+     */
+    protected function prepareMealTypeList(): Collection
+    {
+        $mealtype = Mealtype::all();
+
+
+        $mealtypeList = new Collection();
+
+        $mealtype->map(function ($mealtypeItem) use ($mealtypeList) {
+            $mealtypeList[$mealtypeItem->id] = $mealtypeItem->name;
+        });
+        return $mealtypeList;
     }
 
 
