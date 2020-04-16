@@ -14,6 +14,7 @@ use App\Models\ClosedDay;
 use App\Models\Media;
 
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
 class RestaurantController extends Controller
@@ -136,13 +137,20 @@ class RestaurantController extends Controller
 
           $mealtype = Mealtype::all();
 
+
+          $mealtypeList = new Collection();
+
+          $mealtype->map(function ($mealtypeItem) use ($mealtypeList) {
+              $mealtypeList[$mealtypeItem->id] = $mealtypeItem->name;
+          });
+
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
           return view('admin.restaurants.edit')->with([
               'restaurant' => $restaurant,
               'company' => $company,
               'media' => $media,
-              'mealtype' => $mealtype
+              'mealtype' => $mealtypeList
           ]);
 
       }
