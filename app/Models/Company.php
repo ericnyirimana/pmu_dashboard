@@ -98,4 +98,8 @@ class Company extends Model
         return 'danger';
 
     }
+
+    public function users() {
+        return $this->belongsToMany('App\Models\User', 'user_brands', 'brand_id', 'user_id');
+    }
 }

@@ -55,8 +55,6 @@ $(document).ready(function(){
 
     });
 
-
-
 });
 
 function loadTimeslots(id) {

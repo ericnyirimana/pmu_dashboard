@@ -65,6 +65,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'
 
         Route::get('/medias/image/{media}', 'MediaController@viewImageData');
+
+        Route::get('/company/data/{company?}', 'CompanyController@data')->name('company.data');
     });
 
     Route::post('login', 'Auth\LoginController@login')->name('authenticate');
