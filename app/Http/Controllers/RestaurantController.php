@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
+use App\Models\Mealtype;
 use App\Models\Showcase;
 use App\Models\Timeslot;
 use Illuminate\Http\Request;
@@ -76,17 +77,19 @@ class RestaurantController extends Controller
 
           // save on aux
           $openings = $fields['openings'];
-          // save on aux
           $closings = $fields['closings'];
+          $timeslot = $fields['timeslot'];
 
           // remove from fields to not conflict with Restaurant fields
           unset($fields['openings']);
           unset($fields['closings']);
+          unset($fields['timeslot']);
 
           $restaurant = Restaurant::create($fields);
+
           $this->saveOpeningsHours($restaurant->id, $openings);
           $this->saveClosedDays($restaurant->id, $closings);
-          $this->saveTimeslots($restaurant->id);
+          $this->saveTimeslots($restaurant->id, $timeslot);
 
           if ($request->media) {
               $restaurant->media()->sync(array_unique($request->media));
@@ -131,12 +134,15 @@ class RestaurantController extends Controller
       public function edit(Company $company, Restaurant $restaurant)
       {
 
+          $mealtype = Mealtype::all();
+
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
 
           return view('admin.restaurants.edit')->with([
               'restaurant' => $restaurant,
               'company' => $company,
               'media' => $media,
+              'mealtype' => $mealtype
           ]);
 
       }
@@ -153,14 +159,17 @@ class RestaurantController extends Controller
           // save on aux
           $openings = $fields['openings'];
           $closings = $fields['closings'];
+          $timeslot = $fields['timeslot'];
 
           // remove from fields to not conflict with Restaurant fields
           unset($fields['openings']);
           unset($fields['closings']);
+          unset($fields['timeslot']);
 
           $restaurant->update($fields);
           $this->saveOpeningsHours($restaurant->id, $openings);
           $this->saveClosedDays($restaurant->id, $closings);
+          $this->saveTimeslots($restaurant->id, $timeslot);
 
           if ($request->media) {
               $restaurant->media()->sync(array_unique($request->media));
@@ -245,36 +254,35 @@ class RestaurantController extends Controller
       }
 
 
-    protected function saveTimeslots(int $restaurant)
+    protected function saveTimeslots(int $restaurant, array $fields)
     {
 
-        // clean all openings hours
+        // clean all timeslots
         Timeslot::where('restaurant_id', $restaurant)->delete();
 
-        // create two default timeslots
-        $timeslot1 = Timeslot::create([
-            'restaurant_id' => $restaurant,
-            'mealtype_id' => 1,
-            'hour_ini' => '11:00',
-            'hour_end' => '15:00',
-            'fixed' => true,
-            'identifier' => (string)Str::uuid()
-        ]);
+        if ($fields) {
+            foreach ($fields as $day => $list) {
 
-        $showcase1 = Showcase::find(1); //showcase pranzo
-        $showcase1->timeslots()->sync($timeslot1, false);
+                $repeat = isset($list['repeat']) ? true : false;
 
-        $timeslot2 = Timeslot::create([
-            'restaurant_id' => $restaurant,
-            'mealtype_id' => 2,
-            'hour_ini' => '19:00',
-            'hour_end' => '23:00',
-            'fixed' => true,
-            'identifier' => (string)Str::uuid()
-        ]);
+                if (!empty($list['name']) && !empty($list['date'])) {
+                    Timeslot::create([
+                        'restaurant_id' => $restaurant,
+                        'mealtype_id' => $list['id'],
+                        // 'name' => $list['name'],
+                        'hour_ini' => Carbon::parse($list['hour_ini']),
+                        'hour_end' => Carbon::parse($list['hour_end']),
+                        'fixed' => true,
+                        'identifier' => (string)Str::uuid(),
+                        'repeat' => $repeat
+                    ]);
+                }
 
-        $showcase2 = Showcase::find(2); //showcase cena
-        $showcase2->timeslots()->sync($timeslot2, false);
+            }
+        }
+
+        // $list['id'] = Timeslot::find(1, 2);
+
     }
 
     /**
