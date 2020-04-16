@@ -79,18 +79,18 @@ class RestaurantController extends Controller
           // save on aux
           $openings = $fields['openings'];
           $closings = $fields['closings'];
-          $timeslot = $fields['timeslot'];
+          $timeslots = $fields['timeslots'];
 
           // remove from fields to not conflict with Restaurant fields
           unset($fields['openings']);
           unset($fields['closings']);
-          unset($fields['timeslot']);
+          unset($fields['timeslots']);
 
           $restaurant = Restaurant::create($fields);
 
           $this->saveOpeningsHours($restaurant->id, $openings);
           $this->saveClosedDays($restaurant->id, $closings);
-          $this->saveTimeslots($restaurant->id, $timeslot);
+          $this->saveTimeslots($restaurant->id, $timeslots);
 
           if ($request->media) {
               $restaurant->media()->sync(array_unique($request->media));

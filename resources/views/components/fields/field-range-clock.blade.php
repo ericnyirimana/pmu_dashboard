@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="{{ $field }}">{{ $label }}</label>
-    <input type="text" id="{{ $field }}" name="{{ $field }}" placeholder="11:00 - 15:00" style="border: none;" readonly>
+    <input type="text" id="{{ $field }}" name="{{ $field }}" placeholder="{{ $model->hour_ini }} - {{ $model->hour_end }}" style="border: none;" readonly>
     <input type="text" id="hour_ini" name="hour_ini" value="{{ $model->hour_ini }}" placeholder="" style="border: none;" readonly hidden>
     <input type="text" id="hour_end" name="hour_end" value="{{ $model->hour_end }}" placeholder="" style="border: none;" readonly hidden>
 
@@ -12,8 +12,8 @@
     <script>
 			$( function() {
                 var model = @json($model);
-                var start = model.hour_ini != '00:00:00' ? convertTime(model.hour_ini) : 660;
-                var end = model.hour_end != '00:00:00' ? convertTime(model.hour_end) : 900;
+                var start = model.hour_ini ? convertTime(model.hour_ini) : 660;
+                var end = model.hour_end ? convertTime(model.hour_end) : 900;
 				$( "#slider-range" ).slider({
 					range: true,
 					min: 0,
