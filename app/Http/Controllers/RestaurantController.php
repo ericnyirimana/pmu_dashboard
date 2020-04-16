@@ -160,17 +160,17 @@ class RestaurantController extends Controller
           // save on aux
           $openings = $fields['openings'];
           $closings = $fields['closings'];
-          $timeslot = $fields['timeslot'];
+          $timeslots = $fields['timeslots'];
 
           // remove from fields to not conflict with Restaurant fields
           unset($fields['openings']);
           unset($fields['closings']);
-          unset($fields['timeslot']);
+          unset($fields['timeslots']);
 
           $restaurant->update($fields);
           $this->saveOpeningsHours($restaurant->id, $openings);
           $this->saveClosedDays($restaurant->id, $closings);
-          $this->saveTimeslots($restaurant->id, $timeslot);
+          $this->saveTimeslots($restaurant->id, $timeslots);
 
           if ($request->media) {
               $restaurant->media()->sync(array_unique($request->media));
@@ -262,27 +262,21 @@ class RestaurantController extends Controller
         Timeslot::where('restaurant_id', $restaurant)->delete();
 
         if ($fields) {
-            foreach ($fields as $day => $list) {
-
-                $repeat = isset($list['repeat']) ? true : false;
-
-                if (!empty($list['name']) && !empty($list['date'])) {
+            foreach ($fields as $item) {
+                $mealtype = Mealtype::find($item);
+                if (!empty($mealtype)) {
                     Timeslot::create([
                         'restaurant_id' => $restaurant,
-                        'mealtype_id' => $list['id'],
-                        // 'name' => $list['name'],
-                        'hour_ini' => Carbon::parse($list['hour_ini']),
-                        'hour_end' => Carbon::parse($list['hour_end']),
+                        'mealtype_id' => $mealtype->id,
+                        'hour_ini' => Carbon::parse($mealtype->hour_ini),
+                        'hour_end' => Carbon::parse($mealtype->hour_end),
                         'fixed' => true,
                         'identifier' => (string)Str::uuid(),
-                        'repeat' => $repeat
                     ]);
                 }
 
             }
         }
-
-        // $list['id'] = Timeslot::find(1, 2);
 
     }
 
