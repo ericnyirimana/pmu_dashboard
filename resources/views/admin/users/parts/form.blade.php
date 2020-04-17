@@ -66,7 +66,7 @@
               type: 'GET',
               success: function(data) {
 
-                  companyElem.html('<option>Select Company</option>');
+                  companyElem.html('<option value="">Select Company</option>');
 
                   $.each(data, function(i, company){
 
@@ -76,7 +76,7 @@
           });
 
       } else {
-          companyElem.html('<option>Select Company</option>');
+          companyElem.html('<option value="">Select Company</option>');
       }
   }
 
@@ -88,7 +88,7 @@
               type: 'GET',
               success: function(data) {
 
-                  restaurantElem.html('<option>Select Restaurant</option>');
+                  restaurantElem.html('<option value="">Select Restaurant</option>');
 
                   $.each(data, function(i, restaurant){
 
@@ -110,7 +110,7 @@
               }
           });
       } else {
-          restaurantElem.html('<option>Select Restaurant</option>');
+          restaurantElem.html('<option value="">Select Restaurant</option>');
       }
   }
   </script>
