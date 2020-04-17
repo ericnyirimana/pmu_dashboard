@@ -25,6 +25,20 @@ class Timeslot extends Model
       }
 
 
+      public function translate() {
+          return $this->hasOne('App\Models\TimeslotTranslation')
+              ->where('code', \App::getLocale())
+              ->withDefault([
+                  'name' => ''
+              ]);
+      }
+
+      public function translations() {
+
+          return $this->hasMany('App\Models\TimeslotTranslation');
+
+      }
+
 
       public function getNameAttribute() {
 

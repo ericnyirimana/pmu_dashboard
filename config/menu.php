@@ -50,6 +50,14 @@ return [
                 'New' => 'pickups.create'
             ],
         ],
+        'Fasce orarie' => [
+            'class'   => 'Mealtype',
+            'icon' => 'fi-clock',
+            'routes' => [
+                'List' => 'mealtypes.index',
+                'New' => 'mealtypes.create'
+            ],
+        ],
         'Account' => [
             'class'   => 'User',
             'icon' => 'fi-head',

@@ -3,19 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
-use App\Models\Showcase;
-use App\Models\Timeslot;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Models\Company;
-use App\Models\Restaurant;
-use App\Models\OpeningHour;
 use App\Models\ClosedDay;
+use App\Models\Company;
+use App\Models\Mealtype;
 use App\Models\Media;
-
+use App\Models\OpeningHour;
+use App\Models\Restaurant;
+use App\Models\Timeslot;
 use Carbon\Carbon;
-use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class RestaurantController extends Controller
 {
@@ -65,6 +64,7 @@ class RestaurantController extends Controller
       public function create(Company $company)
       {
 
+          $mealtypeList = $this->prepareMealTypeList();
           $restaurant = new Restaurant;
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
           $users = $restaurant->users();
@@ -73,6 +73,7 @@ class RestaurantController extends Controller
               'company' => $company,
               'restaurant' => $restaurant,
               'media' => $media,
+              'mealtype' => $mealtypeList,
               'users'  => $users
           ]);
 
@@ -92,15 +93,18 @@ class RestaurantController extends Controller
           $openings = $fields['openings'];
           // save on aux
           $closings = $fields['closings'];
+          $timeslots = $fields['timeslots'];
 
           // remove from fields to not conflict with Restaurant fields
           unset($fields['openings']);
           unset($fields['closings']);
+          unset($fields['timeslots']);
 
           $restaurant = Restaurant::create($fields);
+
           $this->saveOpeningsHours($restaurant->id, $openings);
           $this->saveClosedDays($restaurant->id, $closings);
-          $this->saveTimeslots($restaurant->id);
+          $this->saveTimeslots($restaurant->id, $timeslots);
 
           if ($request->media) {
               $restaurant->media()->sync(array_unique($request->media));
@@ -146,6 +150,8 @@ class RestaurantController extends Controller
       public function edit(Company $company, Restaurant $restaurant)
       {
 
+          $mealtypeList = $this->prepareMealTypeList();
+
           $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
           $company = $restaurant->company;
           $owner = $company->owner()->get();
@@ -155,6 +161,7 @@ class RestaurantController extends Controller
               'restaurant' => $restaurant,
               'company' => $company,
               'media' => $media,
+              'mealtype' => $mealtypeList,
               'users' => $users
           ]);
 
@@ -172,14 +179,17 @@ class RestaurantController extends Controller
           // save on aux
           $openings = $fields['openings'];
           $closings = $fields['closings'];
+          $timeslots = $fields['timeslots'];
 
           // remove from fields to not conflict with Restaurant fields
           unset($fields['openings']);
           unset($fields['closings']);
+          unset($fields['timeslots']);
 
           $restaurant->update($fields);
           $this->saveOpeningsHours($restaurant->id, $openings);
           $this->saveClosedDays($restaurant->id, $closings);
+          $this->saveTimeslots($restaurant->id, $timeslots);
 
           if ($request->media) {
               $restaurant->media()->sync(array_unique($request->media));
@@ -264,36 +274,29 @@ class RestaurantController extends Controller
       }
 
 
-    protected function saveTimeslots(int $restaurant)
+    protected function saveTimeslots(int $restaurant, array $fields)
     {
 
-        // clean all openings hours
+        // clean all timeslots
         Timeslot::where('restaurant_id', $restaurant)->delete();
 
-        // create two default timeslots
-        $timeslot1 = Timeslot::create([
-            'restaurant_id' => $restaurant,
-            'mealtype_id' => 1,
-            'hour_ini' => '11:00',
-            'hour_end' => '15:00',
-            'fixed' => true,
-            'identifier' => (string)Str::uuid()
-        ]);
+        if ($fields) {
+            foreach ($fields as $item) {
+                $mealtype = Mealtype::find($item);
+                if (!empty($mealtype)) {
+                    Timeslot::create([
+                        'restaurant_id' => $restaurant,
+                        'mealtype_id' => $mealtype->id,
+                        'hour_ini' => Carbon::parse($mealtype->hour_ini),
+                        'hour_end' => Carbon::parse($mealtype->hour_end),
+                        'fixed' => true,
+                        'identifier' => (string)Str::uuid(),
+                    ]);
+                }
 
-        $showcase1 = Showcase::find(1); //showcase pranzo
-        $showcase1->timeslots()->sync($timeslot1, false);
+            }
+        }
 
-        $timeslot2 = Timeslot::create([
-            'restaurant_id' => $restaurant,
-            'mealtype_id' => 2,
-            'hour_ini' => '19:00',
-            'hour_end' => '23:00',
-            'fixed' => true,
-            'identifier' => (string)Str::uuid()
-        ]);
-
-        $showcase2 = Showcase::find(2); //showcase cena
-        $showcase2->timeslots()->sync($timeslot2, false);
     }
 
     /**
@@ -308,6 +311,22 @@ class RestaurantController extends Controller
             $restaurant->save();
         }
 
+    }
+
+    /**
+     * @return Collection
+     */
+    protected function prepareMealTypeList(): Collection
+    {
+        $mealtype = Mealtype::all();
+
+
+        $mealtypeList = new Collection();
+
+        $mealtype->map(function ($mealtypeItem) use ($mealtypeList) {
+            $mealtypeList[$mealtypeItem->id] = $mealtypeItem->name;
+        });
+        return $mealtypeList;
     }
 
 
