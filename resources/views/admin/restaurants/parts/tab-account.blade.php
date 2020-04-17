@@ -8,7 +8,7 @@
                   'Email'     => 'email',
                   'Role'      => 'role'
               ]"
-                       actions="edit, delete" />
+                       actions="view" />
 
         </div>
     </div>
