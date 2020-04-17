@@ -104,7 +104,7 @@ $(document).ready(function(){
       });
 
 
-      $('body').on('focus',".datepicker", function(){
+      $(document).on('focus', '.datepicker', function(){
 
           if( $(this).hasClass('hasDatepicker') === false )  {
               $(this).datepicker();
@@ -114,12 +114,11 @@ $(document).ready(function(){
 
       $(document).on('click', '.add_date', function() {
 
-        var box = $('.standard_closed_day_item');
+        var box = $('.standard_closed_day_item').clone(true, true);
 
         seq = $('.list_dates .date_box').length;
 
         createClosedDayFields(box, seq);
-
 
       });
 
@@ -128,7 +127,6 @@ $(document).ready(function(){
             var removeDate = $(this).parent();
 
               removeDate.remove();
-
 
       });
 
@@ -144,10 +142,7 @@ $(document).ready(function(){
           box.find('.closing_repeat').attr('id', 'checkbox'+seq);
           box.find('.closing_repeat').parent().find('label').attr('for', 'checkbox'+seq);
 
-
           $('.list_dates').append(box);
-
-
 
       }
 });
