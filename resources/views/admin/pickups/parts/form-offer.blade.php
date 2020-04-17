@@ -16,6 +16,6 @@
 
 <div class="row">
     <div class="col-4">
-        <field-media-list label="Image" field="media_id" :model="$pickup" required="new" />
+        <field-media-list label="Image" field="media_id" :model="$pickup" required />
     </div>
 </div>

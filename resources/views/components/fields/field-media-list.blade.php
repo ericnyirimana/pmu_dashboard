@@ -8,6 +8,10 @@
           @endif
           <div class="btn btn-dark btn-add-image"  data-toggle="modal" data-target="#mediaModal"><span class="fa fa-plus" aria-hidden="true"></span></div>
     </div>
+    <div class="form-group">
+        <input type="text" class="form-control" hidden name="check_media" id="check_media" value=""
+               @if(isset($required))parsley-trigger="change" required @endif>
+    </div>
 </div>
 @push('modal')
 @include('admin.media.parts.modal-media')
@@ -16,7 +20,9 @@
 <script>
 
 $(document).ready(function(){
-
+    if ($('.list-images figure').length > 0) {
+        $('#check_media').val('true');
+    }
     $(document).on('click', '.btn-add-image', function() {
 
         $('.modal-media').show();
@@ -25,8 +31,10 @@ $(document).ready(function(){
 
     $(document).on('click', '.delete-image', function() {
 
-        console.log('delete');
         $(this).parent().remove();
+        if ($('.list-images figure').length <= 0) {
+            $('#check_media').val('');
+        }
 
     });
 
@@ -42,6 +50,8 @@ $(document).ready(function(){
           var html_file = "<figure><img src='" + file + "'><input type='hidden' name='media[]' value='" + id + "'><i class='fa fa-trash delete-image'></i></figure>";
 
           $('.list-images').prepend(html_file);
+
+          $('#check_media').val('true');
 
           closeModal();
 
