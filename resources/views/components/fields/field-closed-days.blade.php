@@ -112,7 +112,7 @@
             $(document).on('focus', '.datepicker', function () {
 
                 if ($(this).hasClass('hasDatepicker') === false) {
-                    $(this).datepicker();
+                    $(this).datepicker({ dateFormat: 'dd-mm-yy' });
                 }
 
             });
