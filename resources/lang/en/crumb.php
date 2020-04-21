@@ -2,6 +2,14 @@
 
 return [
     'page_title' => [
-        'pickups' => 'Offers and subscriptions'
+        'dashboard' => 'Dashboard',
+        'pickups' => 'offers and subscriptions',
+        'companies' => 'companies',
+        'categories' => 'categories',
+        'products' => 'products',
+        'menu' => 'menu',
+        'mealtypes' => 'Mealtypes',
+        'users' => 'users',
+        'media' => 'media'
     ],
 ];
