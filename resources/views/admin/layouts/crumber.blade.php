@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="page-title-box">
-            <h4 class="page-title float-left">{{ ucfirst($crumber[0]) }}</h4>
+            <h4 class="page-title float-left">{{ ucfirst(trans('crumb.page_title.' . $crumber[0])) }}</h4>
             @php
 
              /* endphp

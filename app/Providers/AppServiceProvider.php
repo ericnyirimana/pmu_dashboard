@@ -2,15 +2,13 @@
 
 namespace App\Providers;
 
-use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\ServiceProvider;
 use App\Libraries\Sidebar;
-use Spatie\BladeX\Facades\BladeX;
 use App\Observers\IdentifierObserver;
-use Ahc\Jwt\JWT;
 use Auth;
 use Cookie;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\ServiceProvider;
+use Spatie\BladeX\Facades\BladeX;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -33,9 +31,8 @@ class AppServiceProvider extends ServiceProvider
           });
 
         view()->composer('admin.layouts.crumber', function ($view) {
-            $routeName = \Route::current()->getName();
+            $routeName =  \Route::current()->getName();
             $crumber = explode('.', $routeName);
-
             $view->with(compact('crumber'));
           });
 
