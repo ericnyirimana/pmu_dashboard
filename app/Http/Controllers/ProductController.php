@@ -190,8 +190,13 @@ class ProductController extends Controller
 
     public function ajaxDestroy(Request $request) {
 
-        $productSection = ProductSection::where('product_id', $request->product_id)->where('menu_section_id', $request->section_id)->first();
-        $productSection->delete();
+        /*$productSection = ProductSection::where('product_id', $request->product_id)->where('menu_section_id',
+            $request->section_id)->first();
+        $productSection->delete();*/
+
+        $product = Product::find($request->product_id);
+        $product->section()->dissociate();
+        $product->save();
 
         return response()->json(['id' => $request->product_id], 200);
 
