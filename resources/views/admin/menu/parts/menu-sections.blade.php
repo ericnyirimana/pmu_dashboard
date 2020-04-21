@@ -127,7 +127,7 @@ function removeItem(id) {
 $( function() {
 
   $(document).on('click', '.btn-open-dish', function(e){
-      console.log('ipen this');
+      console.log('open this');
       section = $(this).data('section');
 
       $('#modalDish').modal('toggle');

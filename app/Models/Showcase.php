@@ -7,11 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Showcase extends Model
 {
 
-
-    public $fillable = [
-        'type', 'items'
-    ];
-
+    public $fillable = ['title', 'type', 'items'];
 
     public function pickups()
     {
@@ -23,7 +19,11 @@ class Showcase extends Model
     public function translate()
     {
 
-        return $this->hasOne('App\Models\ShowcaseTranslation')->where('code', \App::getLocale());
+        return $this->hasOne('App\Models\ShowcaseTranslation')
+            ->where('code', \App::getLocale())
+            ->withDefault([
+                'name' => '',
+            ]);
 
     }
 
@@ -34,11 +34,27 @@ class Showcase extends Model
 
     }
 
+    public function getNameAttribute() {
 
-    public function timeslots()
-    {
+        return $this->translate->name;
+    }
 
-        return $this->belongsToMany('App\Models\Timeslot', 'showcase_timeslots');
+    public function categories() {
+
+        return $this->belongsToMany('App\Models\Category', 'showcases_categories')->where('type', 'categories');
 
     }
+
+    public function restaurants() {
+
+        return $this->belongsToMany('App\Models\Restaurant', 'showcases_restaurants')->where('type', 'restaurants');
+
+    }
+
+    public function timeslots() {
+
+        return $this->belongsToMany('App\Models\Timeslot', 'showcases_timeslots')->where('type', 'timeslots');
+
+    }
+
 }
