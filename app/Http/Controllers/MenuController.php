@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Menu;
 use App\Models\Company;
+use App\Models\Menu;
 use App\Models\Restaurant;
-use App\Models\Product;
-
 use Auth;
+use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {

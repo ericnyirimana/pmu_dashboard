@@ -195,6 +195,10 @@ class ProductController extends Controller
         $productSection->delete();*/
 
         $product = Product::find($request->product_id);
+
+        if ($product->pickups->count() > 0) {
+            return response()->json(['error' => trans('messages.product_in_pickup')], 200);
+        }
         $product->section()->dissociate();
         $product->save();
 

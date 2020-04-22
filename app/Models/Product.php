@@ -70,6 +70,10 @@ class Product extends Model
 
     }
 
+    public function pickups() {
+        return $this->hasMany('App\Models\PickupProduct');
+    }
+
     public function menu() {
 
         return $this->section->menu;
