@@ -84,6 +84,13 @@ class MenuSectionController extends Controller
 
         $section = MenuSection::find($request->id);
 
+        foreach ($section->products as $product) {
+            if ($product->pickups->count() > 0) {
+                return response()->json(['error' => trans('messages.menu_section_has_products_in_pickups')], 200);
+            }
+        }
+
+
         $section->delete();
 
         return response()->json(['id'=>$request->id], 200);
