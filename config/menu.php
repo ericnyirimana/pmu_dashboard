@@ -58,7 +58,7 @@ return [
                 'New' => 'mealtypes.create'
             ],
         ],
-        'Vetrina' => [
+        'Vetrine' => [
             'class'   => 'Showcase',
             'icon' => 'fi-align-center',
             'routes' => [

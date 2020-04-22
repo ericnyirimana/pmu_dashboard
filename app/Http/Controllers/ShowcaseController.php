@@ -11,11 +11,11 @@ class ShowcaseController extends Controller
 
     use TranslationTrait;
 
-    public function __construct() {
-
-        $this->authorizeResource(Showcase::class);
-
-    }
+//    public function __construct() {
+//
+//        $this->authorizeResource(Showcase::class);
+//
+//    }
 
     public function validation(Request $request) {
 
