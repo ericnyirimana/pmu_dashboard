@@ -8,7 +8,7 @@ use App\Models\Showcase;
 class ShowcaseController extends Controller
 {
 
-    public function validation(Request $request, $brand = null) {
+    public function validation(Request $request, $company = null) {
 
         $request->validate(
           [

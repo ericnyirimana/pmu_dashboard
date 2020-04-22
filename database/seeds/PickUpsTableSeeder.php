@@ -39,6 +39,7 @@ class PickUpsTableSeeder extends Seeder {
 
       DB::table('pickups')->insert([
           'type_pickup' => 'offer',
+          'identifier'  => (string) Str::uuid(),
           'timeslot_id' => 1,
           'restaurant_id' => 1,
           'status' => 1,
@@ -47,7 +48,6 @@ class PickUpsTableSeeder extends Seeder {
       ]);
 
       DB::table('pickup_offers')->insert([
-         'identifier'  => (string) Str::uuid(),
          'pickup_id' => 1,
          'type_offer' => 'combo',
          'quantity_offer' => 10,
@@ -82,6 +82,7 @@ class PickUpsTableSeeder extends Seeder {
 
         DB::table('pickups')->insert([
           'type_pickup' => 'offer',
+          'identifier'  => (string) Str::uuid(),
           'timeslot_id' => 2,
           'restaurant_id' => 1,
           'status' => 1,
@@ -90,7 +91,6 @@ class PickUpsTableSeeder extends Seeder {
         ]);
 
         DB::table('pickup_offers')->insert([
-           'identifier'  => (string) Str::uuid(),
            'pickup_id' => 2,
            'type_offer' => 'simple',
            'quantity_offer' => 20,

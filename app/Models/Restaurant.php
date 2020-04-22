@@ -14,7 +14,8 @@ class Restaurant extends Model
   ];
 
   public $fillable = [
-      'name', 'brand_id', 'logo', 'image', 'merchant_stripe', 'address', 'latitude', 'longitude'
+      'name', 'brand_id', 'logo', 'image', 'merchant_stripe', 'address', 'latitude', 'longitude',
+      'billing_address', 'billing_latitude', 'billing_longitude', 'iva', 'iban', 'fee', 'pec', 'id_code', 'stripe_account_id'
   ];
 
 
@@ -36,9 +37,9 @@ class Restaurant extends Model
 
       }
 
-    public function brand() {
+    public function company() {
 
-          return $this->belongsTo('App\Models\Brand');
+          return $this->belongsTo('App\Models\Company', 'brand_id');
 
     }
 
@@ -54,9 +55,27 @@ class Restaurant extends Model
 
     }
 
+//    public function user() {
+//
+//        return $this->hasMany('App\Models\User');
+//
+//    }
+
+    public function orders() {
+
+          return $this->hasMany('App\Models\Order');
+
+    }
+
     public function timeslots() {
 
           return $this->hasMany('App\Models\Timeslot');
+
+    }
+
+    public function mealtype() {
+
+        return $this->hasMany('App\Models\Mealtype');
 
     }
 
@@ -98,7 +117,7 @@ class Restaurant extends Model
 
             $openings = array();
 
-            foreach ($this->openingHours as $item) {
+            foreach ($this->openinghours as $item) {
 
                   if ( !isset($openings[$item->day_of_week]) ) {
                         $openings[$item->day_of_week] = array();
@@ -136,6 +155,10 @@ class Restaurant extends Model
 
             return $closedDays;
 
+    }
+
+    public function users() {
+        return $this->belongsToMany('App\Models\User', 'user_restaurants', 'restaurant_id', 'user_id');
     }
 
 }

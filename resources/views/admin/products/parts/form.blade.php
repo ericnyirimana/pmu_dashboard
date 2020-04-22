@@ -7,7 +7,7 @@
 
 </div>
 <div class="row">
-  <brand-restaurant-select :model="$product" />
+  <company-restaurant-select :model="$product" />
 </div>
 
 <div class="row">
@@ -21,9 +21,8 @@
 
 <div class="row">
     <div class="col-4">
-          <field-media-list label="Image" field="media_id" :model="$product" required="new" />
+          <field-media-list label="Image" field="media_id" :model="$product" required />
     </div>
-
 </div>
 
 <div class="d-flex flex-row row mt-5">

@@ -2,7 +2,9 @@
 <div class="row setTime set_{{ $day }} @if (isset($open)) keep_open  @endif">
       <div class="col-12">
         <div class="form-group">
-            <input type="checkbox" data-name="{{ $day }}" class="closed_day" name="openings[{{ $day }}][closed]" @if( empty($openingDay) ) checked @endif data-plugin="switchery" data-color="#2b3d51" /><label for="closed_{{ $day }}"> Closed
+            <input type="checkbox" data-name="{{ $day }}" class="closed_day" name="openings[{{ $day }}][closed]" @if(
+             empty($openingDay) ) checked @endif data-plugin="switchery" data-color="#2b3d51" /><label for="closed_{{
+              $day }}"> Closed</label>
         </div>
 
       </div>
@@ -29,7 +31,7 @@
                   <div class="form-group box-hours">
                         <div class="input-group">
                             <label for="from_{{ $day }}{{ $i }}">From: </label>
-                            <input type="text" id="from_{{ $day }}{{ $i }}" name="openings[{{ $day }}][times][{{ $i }}][from]" class="form-control timepicker" value="{{ $opening['from'] }}" />
+                            <input type="time" id="from_{{ $day }}{{ $i }}" name="openings[{{ $day }}][times][{{ $i }}][from]" class="form-control timepicker" value="{{ $opening['from'] }}" />
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="mdi mdi-clock"></i></span>
                             </div>
@@ -39,7 +41,7 @@
                   <div class="form-group box-hours">
                       <div class="input-group">
                           <label for="to_{{ $day }}{{ $i }}">To: </label>
-                          <input type="text" id="to_{{ $day }}{{ $i }}" name="openings[{{ $day }}][times][{{ $i }}][to]" class="form-control timepicker" value="{{ $opening['to'] }}" />
+                          <input type="time" id="to_{{ $day }}{{ $i }}" name="openings[{{ $day }}][times][{{ $i }}][to]" class="form-control timepicker" value="{{ $opening['to'] }}" />
                           <div class="input-group-append">
                               <span class="input-group-text"><i class="mdi mdi-clock"></i></span>
                           </div>

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\ProductSection;
-use App\Models\Brand;
+use App\Models\Company;
 use App\Models\Category;
 use App\Traits\TranslationTrait;
 
@@ -33,7 +33,7 @@ class ProductController extends Controller
         $request->validate(
           [
             'name'          => 'required',
-            'brand_id'      => new \App\Rules\ProductBelongsToBrand(),
+            'brand_id'      => new \App\Rules\ProductBelongsToCompany(),
           ]
         );
 
@@ -48,7 +48,7 @@ class ProductController extends Controller
 
         } else {
 
-          $products = Auth::user()->brand->products;
+          $products = Auth::user()->company->products;
         }
 
 
@@ -67,10 +67,10 @@ class ProductController extends Controller
           $product->type = ucfirst(end($arrRoute));
 
           if (Auth::user()->is_super) {
-            $brands = Brand::all();
+            $companies = Company::all();
 
           } else {
-            $brands = Auth::user()->brand;
+            $companies = Auth::user()->company;
           }
 
           $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
@@ -80,7 +80,7 @@ class ProductController extends Controller
 
           return view('admin.products.create')->with([
             'product'       => $product,
-            'brands'        => $brands,
+            'companies'        => $companies,
             'foods'      => $foods,
             'allergens'  => $allergens,
             'dietaries'  => $dietaries
@@ -91,8 +91,6 @@ class ProductController extends Controller
 
 
     public function store(Request $request) {
-
-          $inputs = $request->all();
 
           $this->validation($request);
 
@@ -131,10 +129,10 @@ class ProductController extends Controller
     public function edit(Product $product) {
 
       if (Auth::user()->is_super) {
-        $brands = Brand::all();
+        $companies = Company::all();
 
       } else {
-        $brands = Auth::user()->brand;
+        $companies = Auth::user()->company;
       }
 
       $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
@@ -144,7 +142,7 @@ class ProductController extends Controller
 
       return view('admin.products.edit')->with([
         'product'     => $product,
-        'brands'      => $brands,
+        'companies'      => $companies,
         'foods'      => $foods,
         'allergens'  => $allergens,
         'dietaries'  => $dietaries
@@ -183,7 +181,7 @@ class ProductController extends Controller
           $product->delete();
 
           return redirect()->route('products.index')->with([
-                'notification' => 'Image removed with success!',
+                'notification' => 'Product removed with success!',
                 'type-notification' => 'warning'
               ]);
 
@@ -192,8 +190,17 @@ class ProductController extends Controller
 
     public function ajaxDestroy(Request $request) {
 
-        $productSection = ProductSection::where('product_id', $request->product_id)->where('menu_section_id', $request->section_id)->first();
-        $productSection->delete();
+        /*$productSection = ProductSection::where('product_id', $request->product_id)->where('menu_section_id',
+            $request->section_id)->first();
+        $productSection->delete();*/
+
+        $product = Product::find($request->product_id);
+
+        if ($product->pickups->count() > 0) {
+            return response()->json(['error' => trans('messages.product_in_pickup')], 200);
+        }
+        $product->section()->dissociate();
+        $product->save();
 
         return response()->json(['id' => $request->product_id], 200);
 

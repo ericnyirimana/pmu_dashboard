@@ -1,6 +1,6 @@
 <div class="form-group">
     <label for="{{ $field }}">{{ $label }}</label>
-    <input  type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" aria-describedby="{{ $field }}Help" placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif>
+    <input  type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" aria-describedby="{{ $field }}Help" placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif>
     @if(isset($help))<small id="{{ $field }}Help" class="form-text text-muted">{{ $help }}</small>@endif
     <input type="hidden" id="latitude" name="latitude" value="{{ old('latitude', isset($model) ? $model->latitude : '') }}">
     <input type="hidden" id="longitude" name="longitude" value="{{ old('longitude', isset($model) ? $model->longitude : '') }}">
@@ -10,16 +10,15 @@
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title mt-0">Choose Address</h5>
-
+                <h5 class="modal-title mt-0">Scegli indirizzo</h5>
             </div>
             <div class="modal-body">
               <div class="form-group">
                     <div class="input-group">
                         <label for="{{ $field }}">{{ $label }}</label>
-                        <input id="searchMap{{ $field }}"  type="text" class="form-control"  placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}">
+                        <input id="searchMap{{ $field }}"  type="text" class="form-control"  placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}">
                         <span class="input-group-append">
-                            <button type="button" id="search-map" class="btn waves-effect waves-light btn-primary">Search</button>
+                            <button type="submit" id="search-map" class="btn waves-effect waves-light btn-primary">Cerca</button>
                         </span>
                       </div>
                 </div>
@@ -28,11 +27,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="save-location{{ $field }} btn btn-success"  data-dismiss="modal">Save</button>
+                <button class="btn btn-danger" data-dismiss="modal">Cancella</button> <button type="button" class="save-location{{ $field }} btn btn-success"  data-dismiss="modal">Salva</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
+        </div> <!-- /.modal-content -->
+    </div> <!-- /.modal-dialog -->
+</div> <!-- /.modal -->
 @push('scripts')
 
 <script>
@@ -48,7 +47,7 @@ $(document).ready(function(){
 
   initAutocomplete();
 
-  $(document).on('click', '#{{ $field }}', function(){
+  $(document).on('focus', '#{{ $field }}', function(){
 
       $('#map-modal').modal();
 
@@ -124,7 +123,6 @@ function initMap(location) {
         document.getElementById('map{{ $field }}'), {zoom: 16, center: location});
     // The marker, positioned at Uluru
     var marker = new google.maps.Marker({position: location, map: map});
-
 
 }
   </script>

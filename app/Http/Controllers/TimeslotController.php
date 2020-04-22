@@ -2,15 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Restaurant;
-use App\Models\Timeslot;
 
 
 class TimeslotController extends Controller
 {
-
-
 
   public function data(Restaurant $restaurant) {
 
@@ -19,8 +15,7 @@ class TimeslotController extends Controller
             return response()->json($restaurant->timeslots , 200);
         }
 
-
-        return response()->json(['erro' => 'No restaurant selected' ], 404);
+        return response()->json(['error' => 'No restaurant selected' ], 404);
 
   }
 

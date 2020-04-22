@@ -10,9 +10,11 @@
 
           <field-text label="Emoji" field="emoji" :model="$category"  />
 
-          <field-select label="Food Category" field="type" foreignid="type" type="simple" :model="$category" :values="['Food'=>'Food', 'Allergen'=>'Allergen', 'Dietary'=>'Dietary']" required />
+          <field-select label="Type" field="type" foreignid="type" type="simple" :model="$category" :values="['Food'=>'Food', 'Allergen'=>'Allergen', 'Dietary'=>'Dietary']" required />
 
-          <field-area label="Description" field="description" :model="$category->translate" required  />
+          <field-area label="Description" field="description" :model="$category->translate"  />
+
+        <field-switch label="Hide" field="hide" :model="$category" color="#039cfd" required  />
 
     </div>
 </div>

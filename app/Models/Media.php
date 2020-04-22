@@ -14,12 +14,12 @@ class Media extends Model
 
     protected $fillable = ['brand_id', 'name', 'file'];
 
-    protected $appends = [ 'extension', 'brand_name'];
+    protected $appends = [ 'extension', 'company_name'];
 
 
-    public function brand() {
+    public function company() {
 
-          return $this->belongsTo('App\Models\Brand');
+          return $this->belongsTo('App\Models\Company', 'brand_id');
 
     }
 
@@ -50,10 +50,10 @@ class Media extends Model
     }
 
 
-    public function getBrandNameAttribute() {
+    public function getCompanyNameAttribute() {
 
-          if (isset($this->brand)) {
-            return $this->brand->name;
+          if (isset($this->company)) {
+            return $this->company->name;
           }
 
           return '';

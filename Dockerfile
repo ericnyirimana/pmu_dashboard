@@ -14,6 +14,9 @@ ARG S3_ACCESS_KEY_ID
 ARG S3_SECRET_ACCESS_KEY
 ARG S3_DEF_REGION
 ARG S3_BUCKET
+ARG STRIPE_KEY
+ARG STRIPE_SECRET
+
 
 #RUN yum -y update && \
 RUN yum -y install epel-release && \
@@ -56,6 +59,11 @@ RUN sed -i "s/.*AWS_ACCESS_KEY_ID=.*/AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}/" /op
     sed -i "s@.*AWS_SECRET_ACCESS_KEY=.*@AWS_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}@" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_DEFAULT_REGION=.*/AWS_DEFAULT_REGION=${S3_DEF_REGION}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_BUCKET=.*/AWS_BUCKET=${S3_BUCKET}/" /opt/pmu_dashboard/.env
+
+# Inject Stripe parameters
+
+RUN sed -i "s/.*STRIPE_KEY=.*/STRIPE_KEY=${STRIPE_KEY}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*STRIPE_SECRET=.*/STRIPE_SECRET=${STRIPE_SECRET}/" /opt/pmu_dashboard/.env && \
 
 RUN sed -i "s@.*APP_URL=.*@APP_URL=https://dev.pickmealup.com@" /opt/pmu_dashboard/.env
 

@@ -8,29 +8,37 @@ class Showcase extends Model
 {
 
 
-  public $fillable = [
-      'type', 'items'
-  ];
+    public $fillable = [
+        'type', 'items'
+    ];
 
 
+    public function pickups()
+    {
 
-  public function pickups() {
+        return $this->belongsToMany('App\Models\Pickup');
 
-      return $this->belongsToMany('App\Models\Pickup');
+    }
 
-  }
+    public function translate()
+    {
 
-  public function translate() {
+        return $this->hasOne('App\Models\ShowcaseTranslation')->where('code', \App::getLocale());
 
-      return $this->hasOne('App\Models\ShowcaseTranslation')->where('code', \App::getLocale());
+    }
 
-  }
+    public function translations()
+    {
 
-  public function translations() {
+        return $this->hasMany('App\Models\ShowcaseTranslation');
 
-      return $this->hasMany('App\Models\ShowcaseTranslation');
-
-  }
+    }
 
 
+    public function timeslots()
+    {
+
+        return $this->belongsToMany('App\Models\Timeslot', 'showcase_timeslots');
+
+    }
 }

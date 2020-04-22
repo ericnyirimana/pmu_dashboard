@@ -11,7 +11,7 @@
 
           <field-text label="Name" field="name" :model="$media" required  />
 
-          <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$brands" foreignid="brand_id" />
+          <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$companies" foreignid="brand_id" />
 
           <div class="form-group mt-auto">
 

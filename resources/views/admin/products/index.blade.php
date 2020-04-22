@@ -21,7 +21,7 @@
                 'ID' => 'id',
                 'Name' => 'translate:name',
                 'type'  => 'color:type:color_type',
-                'Brand' => 'brand:name',
+                'Brand' => 'company:name',
                 'Restaurant' => 'restaurant:name'
                 ]"
                 actions="edit, delete" />

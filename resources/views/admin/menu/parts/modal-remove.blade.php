@@ -7,7 +7,7 @@
 
             </div>
             <div class="modal-body">
-                Do you want to the <span class="register-name"></span>?
+                Do you want remove <span class="register-name"></span>?
             </div>
             <div class="modal-footer">
                 <form id="formDelete" action="#" class="rm-accept" method="POST">
@@ -16,6 +16,9 @@
                 <button class="btn btn-danger" data-dismiss="modal">No</button> <button class="btn btn-success">Yes</button>
               </form>
             </div>
+            <ul class="parsley-errors-list filled">
+                <li class="parsley-required" id="show-error" style="display:none;"></li>
+            </ul>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -23,6 +26,10 @@
 <script>
 $(document).ready(function(){
 
+    $('#modalRemoveContainer').on('hide.bs.modal', function (e) {
+        console.log('close');
+        $('#show-error').text('').hide();
+    })
 
   $(document).on('submit', '.rm-accept', function(e) {
     e.preventDefault();
@@ -33,18 +40,22 @@ $(document).ready(function(){
         dataType: 'json',
         data: $('#formDelete').serialize(),
         success: function(data) {
-              console.log(data);
-              var type = $('#typeId').val();
+              if (data.id) {
+                  var type = $('#typeId').val();
 
-              if (type == 'section') {
-                removeSection(data.id);
+                  if (type == 'section') {
+                      removeSection(data.id);
+                  }
+
+                  if (type == 'item') {
+                      removeItem(data.id);
+                  }
+
+                  $('#modalRemoveContainer').modal('toggle');
+              } else if (data.error) {
+                  $('#show-error').text(data.error).show();
               }
 
-              if (type == 'item') {
-                removeItem(data.id);
-              }
-
-              $('#modalRemoveContainer').modal('toggle');
         }
     });
 

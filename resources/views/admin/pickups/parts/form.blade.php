@@ -14,7 +14,7 @@
 </div>
 
 <div class="row">
-  <brand-restaurant-select :model="$pickup" />
+  <company-restaurant-select :model="$pickup" />
 </div>
 
 
@@ -55,8 +55,6 @@ $(document).ready(function(){
 
     });
 
-
-
 });
 
 function loadTimeslots(id) {
@@ -65,7 +63,6 @@ function loadTimeslots(id) {
 
     $.ajax({
         url: "{{ route('restaurant.timeslots.data') }}/"+id,
-
         type: 'GET',
         success: function(data) {
 

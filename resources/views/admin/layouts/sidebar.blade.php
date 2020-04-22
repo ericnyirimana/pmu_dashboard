@@ -9,8 +9,8 @@
 
                 @foreach ($routes as $menuName => $menuInfo)
                 @php $class = "App\Models\\" . $menuInfo['class']; @endphp
-
                 @if( empty($menuInfo['class']) || Auth::user()->can('viewAny', $class ) )
+
                 <li>
                     <a href="javascript: void(0);">
                         <i class="{{ $menuInfo['icon'] }}"></i><span> {{ $menuName }} </span>

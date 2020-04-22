@@ -18,7 +18,11 @@ class Product extends Model
 
     public function translate() {
 
-        return $this->hasOne('App\Models\ProductTranslation')->where('code', \App::getLocale());
+        return $this->hasOne('App\Models\ProductTranslation')
+            ->where('code', \App::getLocale())
+            ->withDefault([
+                'name' => ''
+            ]);
 
     }
 
@@ -66,6 +70,10 @@ class Product extends Model
 
     }
 
+    public function pickups() {
+        return $this->hasMany('App\Models\PickupProduct');
+    }
+
     public function menu() {
 
         return $this->section->menu;
@@ -73,9 +81,9 @@ class Product extends Model
     }
 
 
-    public function brand() {
+    public function company() {
 
-          return $this->restaurant->brand();
+          return $this->restaurant->company();
 
     }
 

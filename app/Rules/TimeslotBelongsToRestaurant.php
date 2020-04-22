@@ -27,7 +27,7 @@ class TimeslotBelongsToRestaurant implements Rule
     public function passes($attribute, $value)
     {
 
-        return ( Auth::user()->is_super || Auth::user()->brand->restaurants()->timeslots->find($value) );
+        return ( Auth::user()->is_super || Auth::user()->company->restaurants()->timeslots->find($value) );
     }
 
     /**

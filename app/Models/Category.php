@@ -8,13 +8,17 @@ class Category extends Model
 {
 
 
-    protected $fillable = ['media_id', 'category_type_id', 'type', 'emoji'];
+    protected $fillable = ['media_id', 'category_type_id', 'type', 'emoji', 'hide'];
 
 
 
     public function translate() {
 
-        return $this->hasOne('App\Models\CategoryTranslation')->where('code', \App::getLocale());
+        return $this->hasOne('App\Models\CategoryTranslation')
+            ->where('code', \App::getLocale())
+            ->withDefault([
+                'name' => ''
+            ]);
 
     }
 

@@ -14,12 +14,19 @@ class Order extends Model
 
     }
 
+    public function restaurant() {
+
+          return $this->hasOne('App\Models\Restaurant');
+
+    }
+
 
     public function pickup() {
 
           return $this->hasOne('App\Models\Pickup');
 
     }
+
 
 
     public function products() {

@@ -7,15 +7,31 @@ return [
             'icon' => 'fi-air-play',
             'routes' => [
                 'Dashboard' => 'dashboard.index',
-                'Blank' => 'dashboard.blank',
             ],
         ],
         'Company' => [
-            'class'   => 'Brand',
+            'class'   => 'Company',
             'icon'    => 'fi-star',
             'routes'  => [
-                'List'  => 'brands.index',
-                'New'   => 'brands.create',
+                'List'  => 'companies.index',
+                'New'   => 'companies.create',
+            ],
+        ],
+        'Categories' => [
+            'class'   => 'Category',
+            'icon' => 'fi-align-center',
+            'routes' => [
+                'List' => 'categories.index',
+                'New' => 'categories.create',
+            ],
+        ],
+        'Dishes' => [
+            'class'   => 'Product',
+            'icon' => 'fi-align-center',
+            'routes' => [
+                'List' => 'products.index',
+                'New Dish' => 'products.create.dish',
+                'New Drink' => 'products.create.drink',
             ],
         ],
         'Menu' => [
@@ -34,28 +50,12 @@ return [
                 'New' => 'pickups.create'
             ],
         ],
-        'Dishes' => [
-            'class'   => 'Product',
-            'icon' => 'fi-align-center',
+        'Fasce orarie' => [
+            'class'   => 'Mealtype',
+            'icon' => 'fi-clock',
             'routes' => [
-                'List' => 'products.index',
-                'New Dish' => 'products.create.dish',
-                'New Drink' => 'products.create.drink',
-            ],
-        ],
-        'Categories' => [
-            'class'   => 'Category',
-            'icon' => 'fi-align-center',
-            'routes' => [
-                'List' => 'categories.index',
-                'New' => 'categories.create',
-            ],
-        ],
-        'Restaurants' => [
-            'class'   => 'Restaurant',
-            'icon' => 'fi-paper',
-            'routes' => [
-                'List' => 'restaurants.index',
+                'List' => 'mealtypes.index',
+                'New' => 'mealtypes.create'
             ],
         ],
         'Account' => [
@@ -63,7 +63,7 @@ return [
             'icon' => 'fi-head',
             'routes' => [
                 'Profile' => 'users.profile',
-                'List' => 'users.index',
+                'User' => 'users.index',
                 'New' => 'users.create',
             ],
         ],

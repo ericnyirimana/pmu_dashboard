@@ -35,9 +35,9 @@ class Pickup extends Model
     }
 
 
-    public function brand() {
+    public function company() {
 
-          return $this->restaurant->brand();
+          return $this->restaurant->company();
 
     }
 
@@ -100,7 +100,11 @@ class Pickup extends Model
 
     }
 
+    public function media() {
 
+        return $this->belongsToMany('App\Models\Media', 'pickup_media');
+
+    }
 
     public function getCoverImageAttribute() {
 

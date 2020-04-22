@@ -11,7 +11,7 @@ class MediaPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any brands.
+     * Determine whether the user can view any companies.
      *
      * @param  \App\Models\User  $user
      * @return mixed
@@ -22,7 +22,7 @@ class MediaPolicy
     }
 
     /**
-     * Determine whether the user can view the brand.
+     * Determine whether the user can view the company.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Media  $media
@@ -34,7 +34,7 @@ class MediaPolicy
     }
 
     /**
-     * Determine whether the user can create brands.
+     * Determine whether the user can create companies.
      *
      * @param  \App\Models\User  $user
      * @return mixed
@@ -45,7 +45,7 @@ class MediaPolicy
     }
 
     /**
-     * Determine whether the user can update the brand.
+     * Determine whether the user can update the company.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Media  $media
@@ -57,7 +57,7 @@ class MediaPolicy
     }
 
     /**
-     * Determine whether the user can delete the brand.
+     * Determine whether the user can delete the company.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Media  $media
@@ -69,7 +69,7 @@ class MediaPolicy
     }
 
     /**
-     * Determine whether the user can restore the brand.
+     * Determine whether the user can restore the company.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Media  $media
@@ -81,7 +81,7 @@ class MediaPolicy
     }
 
     /**
-     * Determine whether the user can permanently delete the brand.
+     * Determine whether the user can permanently delete the company.
      *
      * @param  \App\Models\User  $user
      * @param  \App\Media  $media

@@ -11,6 +11,10 @@
       <div class="modal-body">
         <form id="formAddDrinks" onsubmit="return false;">
           <input type="hidden" value="" name="section_id" id="add_drink_section_id" />
+          @if($drinksProducts->isEmpty())
+              The restaurant has no products
+          @endif
+
           @foreach ($drinksProducts as $product)
           <div class="container-plate-preview select-product" data-id="{{ $product->id }}" id="item-{{ $product->id }}">
               <input type="checkbox" value="{{ $product->id }}" id="select-dish-{{ $product->id }}" class="add-products" name="add_products[]" />

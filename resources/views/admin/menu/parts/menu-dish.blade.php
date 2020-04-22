@@ -9,7 +9,7 @@
                     <i class="fa fa-arrows text-white move-section"></i></div>
             </div>
 
-            <div class="col-12 p-3" id="sortable_dish_{{ $section->id }}">
+            <div class="col-12 p-3 sortable_dish" id="sortable_dish_{{ $section->id }}">
                   @if( isset($section->products) )
                       @foreach($section->products as $product)
                         @include('admin.menu.parts.menu-dish-item')
@@ -17,7 +17,6 @@
                   @endif
             </div>
             <div class="col-12 pb-2">
-
                   @if($section->type == 'Dish')
                   <button type="button" class="btn btn-primary btn-block btn-open-dish" data-section="{{ $section->id }}" ><i class="fa fa-plus"></i> Add Plate</button>
                   @else
@@ -27,49 +26,3 @@
        </div>
     </div>
 </div>
-@push('scripts')
-<script>
- $( function() {
-
-  $(document).on('click', '.btn-open-dish', function(e){
-
-      section = $(this).data('section');
-      $('#modalDish').modal('toggle');
-
-      $("#formAddDishes #add_dish_section_id").val(section);
-
-  });
-
-  $(document).on('click', '.btn-open-drink', function(e){
-
-      section = $(this).data('section');
-      $('#modalDrink').modal('toggle');
-
-      $("#formAddDrinks #add_drink_section_id").val(section);
-
-  });
-
-   $( "#sortable_dish_{{ $section->id }}" ).sortable({
-     axis: "y",
-     update: function( event, ui ) {
-
-        $(this).children('.container-plate-preview').each(function(item, element) {
-
-            $.ajax({
-                url: "/admin/products/position/"+$(element).data('id'),
-                type: 'POST',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                dataType: 'json',
-                data: {position: item},
-                success: function(data) {
-
-                }
-            });
-
-        })
-     }
-   });
-
- } );
- </script>
-@endpush
