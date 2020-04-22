@@ -72,6 +72,8 @@ class ShowcaseController extends Controller
 
         $this->saveTranslation($showcases, $fields);
 
+        // $this->saveCategories($showcases, $fields);
+
         return redirect()->route('showcases.index', $showcases)->with([
             'notification' => 'Nuovo vetrina salvata con successo!',
             'type-notification' => 'success'
@@ -119,6 +121,8 @@ class ShowcaseController extends Controller
 
         $this->saveTranslation($showcases, $fields);
 
+        // $this->saveCategories($showcases, $fields);
+
         return redirect()->route('showcases.index')->with([
             'notification' => 'Vetrina salvata con successo!',
             'type-notification' => 'success'
@@ -138,5 +142,40 @@ class ShowcaseController extends Controller
     }
 
 
+//    public function saveCategories(Showcase $showcases, array $fields) {
+//
+//        $categoriesList = $this->getCategoriesId(@$fields['categories']);
+//        $restaurantsList = $this->getCategoriesId(@$fields['restaurants']);
+//        $timeslotsList = $this->getCategoriesId(@$fields['timeslots']);
+//
+//        $categoriesAll = array_merge($categoriesList, $restaurantsList, $timeslotsList);
+//
+//        $showcases->categories()->sync($categoriesAll);
+//
+//    }
+
+
+
+//    public function getCategoriesId($array) {
+//
+//        $list = array();
+//
+//        if (empty($array)) return array();
+//
+//        foreach($array as $key=>$category) {
+//
+//            $categoryModel = Category::whereHas('translate', function($q) use ($category) {
+//                $q->where('name', $category);
+//            })->first();
+//
+//            if($categoryModel) {
+//                array_push($list, $categoryModel->id);
+//            }
+//
+//        }
+//
+//        return $list;
+//
+//    }
 
 }
