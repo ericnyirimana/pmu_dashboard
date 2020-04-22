@@ -7,14 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Showcase extends Model
 {
 
-    public $fillable = ['title', 'type', 'items'];
-
-    public function pickups()
-    {
-
-        return $this->belongsToMany('App\Models\Pickup');
-
-    }
+    public $fillable = ['id', 'title', 'type', 'items'];
 
     public function translate()
     {
@@ -39,22 +32,22 @@ class Showcase extends Model
         return $this->translate->name;
     }
 
-    public function categories() {
-
-        return $this->belongsToMany('App\Models\Category', 'showcases_categories')->where('type', 'categories');
-
-    }
-
-    public function restaurants() {
-
-        return $this->belongsToMany('App\Models\Restaurant', 'showcases_restaurants')->where('type', 'restaurants');
-
-    }
-
-    public function timeslots() {
-
-        return $this->belongsToMany('App\Models\Timeslot', 'showcases_timeslots')->where('type', 'timeslots');
-
-    }
+//    public function categories() {
+//
+//        return $this->belongsToMany('App\Models\Category', 'categories')->where('type', 'categories');
+//
+//    }
+//
+//    public function restaurants() {
+//
+//        return $this->belongsToMany('App\Models\Restaurant', 'restaurants')->where('type', 'restaurants');
+//
+//    }
+//
+//    public function timeslots() {
+//
+//        return $this->belongsToMany('App\Models\Timeslot', 'timeslots')->where('type', 'timeslots');
+//
+//    }
 
 }

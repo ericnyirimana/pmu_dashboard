@@ -18,9 +18,9 @@
 
                 <datatable route='showcases' :collection="$showcases" :fields="[
                 'Titolo'    => 'title',
-                'Tipo'  => 'type',
+                'Tipo'  => 'type'
                 ]"
-                 actions="edit,delete" />
+                           actions="edit,delete" />
             </div>
         </div>
     </div>

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Traits\TranslationTrait;
-use Illuminate\Http\Request;
 use App\Models\Showcase;
+use Illuminate\Http\Request;
+use App\Traits\TranslationTrait;
 
 class ShowcaseController extends Controller
 {
@@ -17,13 +17,14 @@ class ShowcaseController extends Controller
 
     }
 
-    public function validation(Request $request, $company = null) {
+    public function validation(Request $request) {
 
         $request->validate(
           [
-            'id',
+            'name',
             'title'  => 'required',
             'type'  => 'required',
+            'items' => ''
           ]
         );
 
@@ -34,10 +35,8 @@ class ShowcaseController extends Controller
 
         $showcases = Showcase::all();
 
-        return view('admin.showcases.index')->with([
-                'showcases'  => $showcases
-            ]
-        );
+        return view('admin.showcases.index')
+            ->with(compact('showcases'));
 
     }
 
@@ -72,8 +71,6 @@ class ShowcaseController extends Controller
 
         $this->saveTranslation($showcases, $fields);
 
-        // $this->saveCategories($showcases, $fields);
-
         return redirect()->route('showcases.index', $showcases)->with([
             'notification' => 'Nuovo vetrina salvata con successo!',
             'type-notification' => 'success'
@@ -84,7 +81,7 @@ class ShowcaseController extends Controller
 
     public function show(Showcase $showcases) {
 
-          dd($showcases->pickups);
+          // dd($showcases->pickups);
 
           return view('admin.showcases.view')->with([
               'showcases'  => $showcases
@@ -121,8 +118,6 @@ class ShowcaseController extends Controller
 
         $this->saveTranslation($showcases, $fields);
 
-        // $this->saveCategories($showcases, $fields);
-
         return redirect()->route('showcases.index')->with([
             'notification' => 'Vetrina salvata con successo!',
             'type-notification' => 'success'
@@ -141,41 +136,5 @@ class ShowcaseController extends Controller
 
     }
 
-
-//    public function saveCategories(Showcase $showcases, array $fields) {
-//
-//        $categoriesList = $this->getCategoriesId(@$fields['categories']);
-//        $restaurantsList = $this->getCategoriesId(@$fields['restaurants']);
-//        $timeslotsList = $this->getCategoriesId(@$fields['timeslots']);
-//
-//        $categoriesAll = array_merge($categoriesList, $restaurantsList, $timeslotsList);
-//
-//        $showcases->categories()->sync($categoriesAll);
-//
-//    }
-
-
-
-//    public function getCategoriesId($array) {
-//
-//        $list = array();
-//
-//        if (empty($array)) return array();
-//
-//        foreach($array as $key=>$category) {
-//
-//            $categoryModel = Category::whereHas('translate', function($q) use ($category) {
-//                $q->where('name', $category);
-//            })->first();
-//
-//            if($categoryModel) {
-//                array_push($list, $categoryModel->id);
-//            }
-//
-//        }
-//
-//        return $list;
-//
-//    }
 
 }

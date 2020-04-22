@@ -6,7 +6,7 @@
         <field-select label="Tipo" field="type" :model="$showcases" type="simple" :values="['categories' => 'Categoria', 'timeslots' => 'Fasce orarie', 'restaurants' => 'Ristorante' ]"  required  />
     </div>
     <div class="col-12">
-        <field-tags label="Category" field="items" :values="$showcases->categories->pluck('translate.name')" :list="$categories" required  />
+        {{--<field-tags label="Category" field="items" :values="$showcases->categories->pluck('translate.name')" :list="$categories" required  />--}}
     </div>
 </div>
 <div class="d-flex flex-row row">
@@ -16,15 +16,3 @@
         </div>
     </div>
 </div>
-
-
-@push('scripts')
-    <script>
-			$(document).ready(function(){
-
-
-
-
-			});
-    </script>
-@endpush

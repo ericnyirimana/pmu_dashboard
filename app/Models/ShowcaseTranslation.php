@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class ShowcaseTranslation extends Model
 {
 
-    protected $fillable = ['id', 'identifier', 'type', 'items', 'update_at', 'created_at', 'deleted_at', 'title'];
+    protected $fillable = ['name', 'showcase_id', 'update_at', 'created_at', 'code'];
 
 }
