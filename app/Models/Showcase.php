@@ -32,22 +32,22 @@ class Showcase extends Model
         return $this->translate->name;
     }
 
-//    public function categories() {
-//
-//        return $this->belongsToMany('App\Models\Category', 'categories')->where('type', 'categories');
-//
-//    }
-//
-//    public function restaurants() {
-//
-//        return $this->belongsToMany('App\Models\Restaurant', 'restaurants')->where('type', 'restaurants');
-//
-//    }
-//
-//    public function timeslots() {
-//
-//        return $this->belongsToMany('App\Models\Timeslot', 'timeslots')->where('type', 'timeslots');
-//
-//    }
+    public function categories() {
+
+        return $this->belongsToMany('App\Models\Category', 'categories')->where('type', 'categories');
+
+    }
+
+    public function restaurants() {
+
+        return $this->belongsToMany('App\Models\Restaurant', 'restaurants')->where('type', 'restaurants');
+
+    }
+
+    public function timeslots() {
+
+        return $this->belongsToMany('App\Models\Timeslot', 'timeslots')->where('type', 'timeslots');
+
+    }
 
 }

@@ -8,7 +8,8 @@ return [
         'categories' => 'categories',
         'products' => 'products',
         'menu' => 'menu',
-        'mealtypes' => 'Mealtypes',
+        'mealtypes' => 'Fasce orarie',
+        'showcases' => 'Vetrine',
         'users' => 'users',
         'media' => 'media'
     ]
