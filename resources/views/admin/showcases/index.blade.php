@@ -16,7 +16,7 @@
 
                 <h4 class="m-t-0 header-title"><b>Vetrine</b></h4>
 
-                <datatable route='showcases' :collection="$showcases" :fields="[
+                <datatable route='showcases' :collection="$showcase" :fields="[
                 'Titolo'    => 'title',
                 'Tipo'  => 'type'
                 ]"

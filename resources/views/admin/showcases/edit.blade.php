@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <tag-form :action="route('showcases.update', $showcases)" method="put" >
+    <tag-form :action="route('showcases.update', $showcase)" method="put" >
         @include('admin.showcases.parts.form')
     </tag-form>
 @endsection

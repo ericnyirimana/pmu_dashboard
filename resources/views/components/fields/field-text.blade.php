@@ -10,7 +10,7 @@ $(document).ready(function(){
 
   $('#{{ isset($id) ? $id : $field }}').mask('{{ $mask }}', {
       @if(isset($maskreverse))
-      reverse: true
+      reverse: true,
       @endif
       @if(isset($maskpattern))
       'translation': {

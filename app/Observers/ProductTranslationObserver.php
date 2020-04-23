@@ -7,7 +7,7 @@ class ProductTranslationObserver
 
 
 
-  public function saving(\App\Models\ProductTranslation $translation) {
+  public function saving(\App\Models\ProductTranslation $translate) {
 
           if(!empty($translate->categories)) {
               $translate->categories = implode(',', $translate->categories);

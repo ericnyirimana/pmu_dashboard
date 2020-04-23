@@ -9,8 +9,7 @@ class Showcase extends Model
 
     public $fillable = ['id', 'title', 'type', 'items'];
 
-    public function translate()
-    {
+    public function translate() {
 
         return $this->hasOne('App\Models\ShowcaseTranslation')
             ->where('code', \App::getLocale())
@@ -34,20 +33,26 @@ class Showcase extends Model
 
     public function categories() {
 
-        return $this->belongsToMany('App\Models\Category', 'categories')->where('type', 'categories');
+        return $this->belongsToMany('App\Models\Category', 'showcase_categories');
 
     }
 
-    public function restaurants() {
-
-        return $this->belongsToMany('App\Models\Restaurant', 'restaurants')->where('type', 'restaurants');
-
-    }
-
-    public function timeslots() {
-
-        return $this->belongsToMany('App\Models\Timeslot', 'timeslots')->where('type', 'timeslots');
-
-    }
+//    public function restaurants() {
+//
+//        return $this->belongsToMany('App\Models\Restaurant', 'showcase_restaurants');
+//
+//    }
+//
+//    public function timeslots() {
+//
+//        return $this->belongsToMany('App\Models\Timeslot', 'showcase_timeslots');
+//
+//    }
+//
+//    public function mealtypes() {
+//
+//        return $this->belongsToMany('App\Models\Mealtype', 'showcase_mealtypes');
+//
+//    }
 
 }
