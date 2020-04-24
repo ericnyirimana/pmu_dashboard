@@ -45,6 +45,8 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/mealtypes', 'MealTypeController');
 
+        Route::resource('/showcases', 'ShowcaseController');
+
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');

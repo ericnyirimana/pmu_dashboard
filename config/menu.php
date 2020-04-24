@@ -58,6 +58,14 @@ return [
                 'New' => 'mealtypes.create'
             ],
         ],
+        'Vetrine' => [
+            'class'   => 'Showcase',
+            'icon' => 'fi-align-center',
+            'routes' => [
+                'List' => 'showcases.index',
+                'New' => 'showcases.create'
+            ],
+        ],
         'Account' => [
             'class'   => 'User',
             'icon' => 'fi-head',

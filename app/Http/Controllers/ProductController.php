@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 
 use App\Models\Product;
-use App\Models\ProductSection;
 use App\Models\Company;
 use App\Models\Category;
 use App\Traits\TranslationTrait;

@@ -17,7 +17,7 @@
 @if($menu->id)
 <div class="row mt-5">
     <div class="col-12">
-          <button type="button" class="btn btn-primary btn-block btn-add-type-menu"  data-toggle="modal" data-target="#modalTypeDish"><i class="fa fa-plus"></i> Add Type of plate</button>
+          <button type="button" class="btn btn-primary btn-block btn-add-type-menu" data-toggle="modal" data-target="#modalTypeDish"><i class="fa fa-plus"></i> Add Type of plate</button>
     </div>
 </div>
 @endif
