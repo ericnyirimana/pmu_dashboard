@@ -51,14 +51,14 @@ class ShowcaseController extends Controller
         $showcase = new Showcase();
 
         $categories = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
-        //$restaurants = Restaurant::all()->pluck('name');
-        //$mealtypes = Mealtype::all()->pluck('name');
+        $restaurants = Restaurant::all()->pluck('name');
+        $mealtypes = Mealtype::all()->pluck('name');
 
         return view('admin.showcases.create')->with([
                 'showcase'   => $showcase,
                 'categories' => $categories,
-                //'restaurants' => $restaurants,
-                //'mealtypes' => $mealtypes
+                'restaurants' => $restaurants,
+                'mealtypes' => $mealtypes
             ]
         );
 
@@ -76,8 +76,8 @@ class ShowcaseController extends Controller
 
         $this->saveTranslation($showcase, $fields);
         $this->saveCategories($showcase, $fields);
-        //$this->saveRestaurants($showcase, $fields);
-        //$this->saveMealtypes($showcase, $fields);
+        $this->saveRestaurants($showcase, $fields);
+        $this->saveMealtypes($showcase, $fields);
 
         return redirect()->route('showcases.index', $showcase)->with([
             'notification' => 'Nuovo vetrina salvata con successo!',
@@ -102,14 +102,14 @@ class ShowcaseController extends Controller
     public function edit(Showcase $showcase) {
 
         $categories = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
-        //$restaurants = Restaurant::all()->pluck('name');
-        //$mealtypes = Mealtype::all()->pluck('name');
+        $restaurants = Restaurant::all()->pluck('name');
+        $mealtypes = Mealtype::all()->pluck('name');
 
         return view('admin.showcases.edit')->with([
                 'showcase'  => $showcase,
                 'categories' => $categories,
-                //'restaurants' => $restaurants,
-                //'mealtypes' => $mealtypes
+                'restaurants' => $restaurants,
+                'mealtypes' => $mealtypes
             ]
         );
 
@@ -126,8 +126,8 @@ class ShowcaseController extends Controller
 
         $this->saveTranslation($showcase, $fields);
         $this->saveCategories($showcase, $fields);
-        //$this->saveRestaurants($showcase, $fields);
-        //$this->saveMealtypes($showcase, $fields);
+        $this->saveRestaurants($showcase, $fields);
+        $this->saveMealtypes($showcase, $fields);
 
         return redirect()->route('showcases.index')->with([
             'notification' => 'Vetrina salvata con successo!',
@@ -159,26 +159,26 @@ class ShowcaseController extends Controller
     }
 
 
-//    public function saveRestaurants(Showcase $showcase, array $fields) {
-//
-//        $restaurantsList = $this->getRestaurantsId(@$fields['restaurants']);
-//
-//        $restaurants = array_merge($restaurantsList);
-//
-//        $showcase->restaurants()->sync($restaurants);
-//
-//    }
-//
-//
-//    public function saveMealtypes(Showcase $showcase, array $fields) {
-//
-//        $mealtypesList = $this->getMealtypesId(@$fields['mealtypes']);
-//
-//        $mealtypes = array_merge($mealtypesList);
-//
-//        $showcase->mealtypes()->sync($mealtypes);
-//
-//    }
+    public function saveRestaurants(Showcase $showcase, array $fields) {
+
+        $restaurantsList = $this->getRestaurantsId(@$fields['restaurants']);
+
+        $restaurants = array_merge($restaurantsList);
+
+        $showcase->restaurants()->sync($restaurants);
+
+    }
+
+
+    public function saveMealtypes(Showcase $showcase, array $fields) {
+
+        $mealtypesList = $this->getMealtypesId(@$fields['mealtypes']);
+
+        $mealtypes = array_merge($mealtypesList);
+
+        $showcase->mealtypes()->sync($mealtypes);
+
+    }
 
     public function getCategoriesId($array) {
 
@@ -202,47 +202,47 @@ class ShowcaseController extends Controller
 
     }
 
-//    public function getRestaurantsId($array) {
-//
-//        $list = array();
-//
-//        if (empty($array)) return array();
-//
-//        foreach($array as $key=>$restaurant) {
-//
-//            $restaurantModel = Restaurant::where('name', $restaurant)->first();
-//
-//            if($restaurantModel) {
-//                array_push($list, $restaurantModel->id);
-//            }
-//
-//        }
-//
-//        return $list;
-//
-//    }
-//
-//    public function getMealtypesId($array) {
-//
-//        $list = array();
-//
-//        if (empty($array)) return array();
-//
-//        foreach($array as $key=>$mealtype) {
-//
-//            $mealtypeModel = Mealtype::whereHas('translate', function($q) use ($mealtype) {
-//                $q->where('name', $mealtype);
-//            })->first();
-//
-//            if($mealtypeModel) {
-//                array_push($list, $mealtypeModel->id);
-//            }
-//
-//        }
-//
-//        return $list;
-//
-//    }
+    public function getRestaurantsId($array) {
+
+        $list = array();
+
+        if (empty($array)) return array();
+
+        foreach($array as $key=>$restaurant) {
+
+            $restaurantModel = Restaurant::where('name', $restaurant)->first();
+
+            if($restaurantModel) {
+                array_push($list, $restaurantModel->id);
+            }
+
+        }
+
+        return $list;
+
+    }
+
+    public function getMealtypesId($array) {
+
+        $list = array();
+
+        if (empty($array)) return array();
+
+        foreach($array as $key=>$mealtype) {
+
+            $mealtypeModel = Mealtype::whereHas('translate', function($q) use ($mealtype) {
+                $q->where('name', $mealtype);
+            })->first();
+
+            if($mealtypeModel) {
+                array_push($list, $mealtypeModel->id);
+            }
+
+        }
+
+        return $list;
+
+    }
 
 
 }

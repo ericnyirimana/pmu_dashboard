@@ -37,22 +37,22 @@ class Showcase extends Model
 
     }
 
-//    public function restaurants() {
-//
-//        return $this->belongsToMany('App\Models\Restaurant', 'showcase_restaurants');
-//
-//    }
-//
-//    public function timeslots() {
-//
-//        return $this->belongsToMany('App\Models\Timeslot', 'showcase_timeslots');
-//
-//    }
-//
-//    public function mealtypes() {
-//
-//        return $this->belongsToMany('App\Models\Mealtype', 'showcase_mealtypes');
-//
-//    }
+    public function restaurants() {
+
+        return $this->belongsToMany('App\Models\Restaurant', 'showcase_restaurants');
+
+    }
+
+    public function timeslots() {
+
+        return $this->belongsToMany('App\Models\Timeslot', 'showcase_timeslots');
+
+    }
+
+    public function mealtypes() {
+
+        return $this->belongsToMany('App\Models\Mealtype', 'showcase_mealtypes');
+
+    }
 
 }
