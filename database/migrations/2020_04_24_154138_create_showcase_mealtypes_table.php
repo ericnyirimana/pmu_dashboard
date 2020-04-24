@@ -16,7 +16,7 @@ class CreateShowcaseMealtypesTable extends Migration
         Schema::create('showcase_mealtypes', function(Blueprint $table){
             $table->increments('id');
             $table->bigInteger('showcase_id')->unsigned();
-            $table->bigInteger('mealtype_id')->unsigned();
+            $table->integer('mealtype_id')->unsigned();
 
             $table->foreign('showcase_id')->references('id')->on('showcases')->onDelete('cascade');
             $table->foreign('mealtype_id')->references('id')->on('mealtypes')->onDelete('cascade');
