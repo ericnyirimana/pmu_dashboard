@@ -37,11 +37,13 @@ class CompanyController extends Controller
     public function index()
     {
 
-        $companies = Company::get();
+
 
         if (Auth::user()->is_owner) {
-
-            return redirect(route('companies.edit', Auth::user()->company));
+            //return redirect(route('companies.edit', Auth::user()->company));
+            $companies = Auth::user()->brand;
+        } else {
+            $companies = Company::get();
         }
 
         return view('admin.companies.index')

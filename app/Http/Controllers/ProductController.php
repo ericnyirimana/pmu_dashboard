@@ -46,8 +46,7 @@ class ProductController extends Controller
           $products = Product::all();
 
         } else {
-
-          $products = Auth::user()->company->products;
+          $products = Auth::user()->brand->first()->products;
         }
 
 
@@ -69,7 +68,7 @@ class ProductController extends Controller
             $companies = Company::all();
 
           } else {
-            $companies = Auth::user()->company;
+            $companies = Auth::user()->brand->first();
           }
 
           $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');
@@ -188,10 +187,6 @@ class ProductController extends Controller
 
 
     public function ajaxDestroy(Request $request) {
-
-        /*$productSection = ProductSection::where('product_id', $request->product_id)->where('menu_section_id',
-            $request->section_id)->first();
-        $productSection->delete();*/
 
         $product = Product::find($request->product_id);
 
