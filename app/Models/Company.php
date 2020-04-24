@@ -22,7 +22,7 @@ class Company extends Model
 
     public function products() {
 
-          return $this->hasManyThrough('App\Models\Product', 'App\Models\Restaurant');
+        return $this->hasManyThrough('App\Models\Product', 'App\Models\Restaurant', 'brand_id', 'restaurant_id');
 
     }
 

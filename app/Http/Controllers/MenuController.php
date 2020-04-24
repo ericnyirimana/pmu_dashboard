@@ -106,8 +106,8 @@ class MenuController extends Controller
             $companies = Company::all();
             $restaurants = Restaurant::all();
           } else {
-            $companies = Auth::user()->company;
-            $restaurants = Auth::user()->company->restaurants;
+            $companies = Auth::user()->brand->first();
+            $restaurants = Auth::user()->brand->first()->restaurants;
           }
 
           $dishesProducts = $menu->products()->where('type', 'Dish')->get();

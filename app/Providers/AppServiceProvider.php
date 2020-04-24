@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
                 $media = \App\Models\Media::all();
             } else {
                 $mediaAll = \App\Models\Media::whereNull('brand_id')->get();
-                $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->company->id)->get();
+                $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->brand->first()->id)->get();
 
                 $media = $mediaAll->merge($mediaCompany);
             }
@@ -57,8 +57,8 @@ class AppServiceProvider extends ServiceProvider
               $companies = \App\Models\Company::all();
               $restaurants = \App\Models\Restaurant::all();
             } else {
-              $companies = Auth::user()->company;
-              $restaurants = Auth::user()->company->restaurants;
+              $companies = Auth::user()->brand->first();
+              $restaurants = Auth::user()->brand->first()->restaurants;
             }
 
               $view->with([

@@ -27,7 +27,7 @@ class BrandBelongsToOwner implements Rule
     public function passes($attribute, $value)
     {
 
-        return ( Auth::user()->is_super || Auth::user()->company->find($value) );
+        return ( Auth::user()->is_super || Auth::user()->brand->first()->find($value) );
     }
 
     /**
