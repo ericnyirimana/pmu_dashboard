@@ -14,6 +14,10 @@ return [
     'new_restaurant' => 'New restaurant',
     'new_offer' => 'New offer',
     'new_mealtype' => 'New mealtype',
-    'new_menu' => 'New menu'
+    'new_menu' => 'New menu',
+    'new_dish' => 'New dish',
+    'new_drink' => 'New drink',
+    'add_plate' => 'Add plate',
+    'add_drink' => 'Add drink'
 
 ];

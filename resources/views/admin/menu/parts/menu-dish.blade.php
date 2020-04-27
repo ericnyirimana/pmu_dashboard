@@ -18,9 +18,9 @@
             </div>
             <div class="col-12 pb-2">
                   @if($section->type == 'Dish')
-                  <button type="button" class="btn btn-primary btn-block btn-open-dish" data-section="{{ $section->id }}" ><i class="fa fa-plus"></i> Add Plate</button>
+                  <button type="button" class="btn btn-primary btn-block btn-open-dish" data-section="{{ $section->id }}" ><i class="fa fa-plus"></i> {{ ucfirst(trans('button.add_plate')) }}</button>
                   @else
-                  <button type="button" class="btn btn-primary btn-block btn-open-drink" data-section="{{ $section->id }}"><i class="fa fa-plus"></i> Add Drink</button>
+                  <button type="button" class="btn btn-primary btn-block btn-open-drink" data-section="{{ $section->id }}"><i class="fa fa-plus"></i> {{ ucfirst(trans('button.add_drink')) }}</button>
                   @endif
             </div>
        </div>

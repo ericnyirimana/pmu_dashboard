@@ -7,7 +7,7 @@ return [
         'companies' => 'società',
         'restaurants' => 'ristoranti',
         'categories' => 'categorie',
-        'products' => 'products',
+        'products' => 'piatti',
         'menu' => 'menu',
         'mealtypes' => 'Fasce orarie',
         'showcases' => 'Vetrine',
