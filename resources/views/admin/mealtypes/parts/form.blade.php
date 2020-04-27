@@ -9,7 +9,7 @@
 <div class="d-flex flex-row row">
     <div class="col-12">
         <div class="form-group">
-            <button type="submit" class="btn btn-block w-lg btn-success float-right">Salva</button>
+            <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
         </div>
     </div>
 </div>

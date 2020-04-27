@@ -15,7 +15,11 @@ class MenuSection extends Model
 
     public function translate() {
 
-        return $this->hasOne('App\Models\MenuSectionTranslation')->where('code', \App::getLocale());
+        return $this->hasOne('App\Models\MenuSectionTranslation')
+            ->where('code', \App::getLocale())
+            ->withDefault([
+                'name' => ''
+            ]);
 
     }
 
