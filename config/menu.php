@@ -2,84 +2,84 @@
 return [
 
   'admin' => [
-        'Dashboard' => [
+        'dashboard' => [
             'class'   => '',
             'icon' => 'fi-air-play',
             'routes' => [
-                'Dashboard' => 'dashboard.index',
+                'dashboard' => 'dashboard.index',
             ],
         ],
-        'Company' => [
+        'company' => [
             'class'   => 'Company',
             'icon'    => 'fi-star',
             'routes'  => [
-                'List'  => 'companies.index',
-                'New'   => 'companies.create',
+                'list'  => 'companies.index',
+                'new'   => 'companies.create',
             ],
         ],
-        'Categories' => [
+        'categories' => [
             'class'   => 'Category',
             'icon' => 'fi-align-center',
             'routes' => [
-                'List' => 'categories.index',
-                'New' => 'categories.create',
+                'list' => 'categories.index',
+                'new' => 'categories.create',
             ],
         ],
-        'Dishes' => [
+        'dishes' => [
             'class'   => 'Product',
             'icon' => 'fi-align-center',
             'routes' => [
-                'List' => 'products.index',
-                'New Dish' => 'products.create.dish',
-                'New Drink' => 'products.create.drink',
+                'list' => 'products.index',
+                'new_dish' => 'products.create.dish',
+                'new_drink' => 'products.create.drink',
             ],
         ],
-        'Menu' => [
+        'menu' => [
             'class'   => 'Menu',
             'icon' => 'fi-align-center',
             'routes' => [
-                'List' => 'menu.index',
-                'New' => 'menu.create'
+                'list' => 'menu.index',
+                'new' => 'menu.create'
             ],
         ],
-        'Offer and Subscription' => [
+        'offer_subscription' => [
             'class'   => 'Pickup',
             'icon' => 'fi-tag',
             'routes' => [
-                'List' => 'pickups.index',
-                'New' => 'pickups.create'
+                'list' => 'pickups.index',
+                'new' => 'pickups.create'
             ],
         ],
-        'Fasce orarie' => [
+        'timeslots' => [
             'class'   => 'Mealtype',
             'icon' => 'fi-clock',
             'routes' => [
-                'List' => 'mealtypes.index',
-                'New' => 'mealtypes.create'
+                'list' => 'mealtypes.index',
+                'new' => 'mealtypes.create'
             ],
         ],
-        'Vetrine' => [
+        'showcases' => [
             'class'   => 'Showcase',
             'icon' => 'fi-align-center',
             'routes' => [
-                'List' => 'showcases.index',
-                'New' => 'showcases.create'
+                'list' => 'showcases.index',
+                'new' => 'showcases.create'
             ],
         ],
-        'Account' => [
+        'account' => [
             'class'   => 'User',
             'icon' => 'fi-head',
             'routes' => [
-                'Profile' => 'users.profile',
-                'User' => 'users.index',
-                'New' => 'users.create',
+                'profile' => 'users.profile',
+                'user' => 'users.index',
+                'new' => 'users.create',
             ],
         ],
-        'Media' => [
+        'media' => [
             'class'   => 'Media',
             'icon' => 'fi-camera',
             'routes' => [
-                'List' => 'media.index',
+                'list' => 'media.index',
             ],
         ],
     ]
