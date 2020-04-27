@@ -27,7 +27,7 @@
 $(document).ready(function(){
 
     $(document).on('change', '#brand_id', function(){
-
+        $('#restaurant_id').parsley().removeError('error_restaurants');
         if ($(this).val()) {
 
           $.ajax({
@@ -48,7 +48,7 @@ $(document).ready(function(){
                   $("#restaurant_id").trigger('change');
               },
               error: function (xhr, status, error) {
-                  alert(xhr.responseJSON.error);
+                  $('#restaurant_id').parsley().addError('error_restaurants', {message: xhr.responseJSON.error} );
               }
           });
 
