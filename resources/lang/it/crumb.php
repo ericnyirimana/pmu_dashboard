@@ -4,9 +4,9 @@ return [
     'page_title' => [
         'dashboard' => 'Dashboard',
         'pickups' => 'Offerte e abbonamenti',
-        'companies' => 'companies',
+        'companies' => 'società',
         'restaurants' => 'ristoranti',
-        'categories' => 'categories',
+        'categories' => 'categorie',
         'products' => 'products',
         'menu' => 'menu',
         'mealtypes' => 'Fasce orarie',

@@ -18,8 +18,8 @@
         </div>
         <div class="modal-footer">
             <input type="hidden" name="id" id="section_id" value="" />
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary btn-block" id="save-section">Save</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ ucfirst(trans('button.delete')) }}</button>
+            <button type="submit" class="btn btn-primary btn-block" id="save-section">{{ ucfirst(trans('button.save')) }}</button>
 
         </div>
       </form>
