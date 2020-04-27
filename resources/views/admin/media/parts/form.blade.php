@@ -1,6 +1,6 @@
 <div class="d-flex flex-row row">
     <div class="col-12 mb-3">
-        <a href="{{ route('media.index') }}" class="btn btn-md w-lg btn-secondary float-left">Back</a>
+        <a href="{{ route('media.index') }}" class="btn btn-md w-lg btn-secondary float-left">{{ ucfirst(trans('button.back')) }}</a>
     </div>
     <div class="col-md-12 col-lg-6">
 

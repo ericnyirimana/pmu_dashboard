@@ -6,7 +6,7 @@
 @include('components.notification')
 
 <div class="row card-box">
-    <a href="{{ route('companies.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Indietro</a>
+    <a href="{{ route('companies.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">{{ ucfirst(trans('button.back')) }}</a>
 </div>
 
 <div class="row m-b-10 card-box ">
