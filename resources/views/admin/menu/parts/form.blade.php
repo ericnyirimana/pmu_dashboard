@@ -25,7 +25,7 @@
 <div class="row mt-5">
   <div class="col-12">
         <div class="form-group">
-            <button type="submit" class="btn btn-block w-lg btn-success float-right">@if($menu->id) Save @else Next @endif</button>
+            <button type="submit" class="btn btn-block w-lg btn-success float-right">@if($menu->id) {{ ucfirst(trans('button.save')) }} @else {{ ucfirst(trans('button.next')) }} @endif</button>
         </div>
   </div>
 </div>

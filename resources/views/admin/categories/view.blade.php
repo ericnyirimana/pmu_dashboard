@@ -25,7 +25,7 @@
 
 <div class="row card-box">
     <div class="col-12">
-        <a href="{{ route('restaurants.create') }}" class="btn btn-success waves-effect w-md waves-light pull-right">New Restaurant</a>
+        <a href="{{ route('restaurants.create') }}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.new_restaurant')) }}</a>
     </div>
     <div class="col-12">
         <div class="table-responsive">
