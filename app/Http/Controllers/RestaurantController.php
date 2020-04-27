@@ -143,7 +143,7 @@ class RestaurantController extends Controller
               if ($restaurants->count() > 0) {
                   return response()->json($restaurants, 200);
               } else {
-                  return response()->json(['error' => 'No restaurant without menu found'], 404);
+                  return response()->json(['error' => trans('errors.no_restaurant_without_menu')], 404);
               }
           }
           if ($company) {
@@ -151,7 +151,7 @@ class RestaurantController extends Controller
           }
 
 
-          return response()->json(['error' => 'No company selected'], 404);
+          return response()->json(['error' => trans('errors.no_company_selected')], 404);
 
       }
 
