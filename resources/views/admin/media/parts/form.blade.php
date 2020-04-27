@@ -18,7 +18,7 @@
               @if (isset($media))
               <button type="button" class="btn btn-md w-lg btn-danger rm-register" data-name="{{ $media->name }}" data-register="{{ $media->id }}"  data-toggle="modal" data-target=".remove-register">Remove permanently</button>
               @endif
-              <button type="submit" class="btn btn-md w-lg btn-success float-right">Save</button>
+              <button type="submit" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
 
           </div>
 
