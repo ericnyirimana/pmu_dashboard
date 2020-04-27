@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-12">
       <div class="card-box">
-        <a href="{{ route('products.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">Back</a>
+        <a href="{{ route('products.index') }}" class="btn btn-primary btn-bordered waves-effect w-lg">{{ ucfirst(trans('button.back')) }}</a>
       </div>
     </div>
 </div>
