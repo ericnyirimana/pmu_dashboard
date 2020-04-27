@@ -121,9 +121,31 @@ class RestaurantController extends Controller
       }
 
 
-      public function data(Company $company)
+      public function data(Company $company, Request $request)
       {
 
+
+          if ($request->showedin) {
+              $restaurants = new Collection();
+              switch ($request->showedin) {
+                  case 'menu':
+                      $company->restaurants->map(function ($restaurant) use ($restaurants) {
+                          if (!$restaurant->menu()->exists()) {
+                              $restaurants->push($restaurant);
+                          }
+                      });
+                      break;
+                  default:
+                      $restaurants = $company->restaurants;
+                      break;
+              }
+
+              if ($restaurants->count() > 0) {
+                  return response()->json($restaurants, 200);
+              } else {
+                  return response()->json(['error' => 'No restaurant without menu found'], 404);
+              }
+          }
           if ($company) {
               return response()->json($company->restaurants, 200);
           }

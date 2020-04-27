@@ -31,8 +31,11 @@ $(document).ready(function(){
         if ($(this).val()) {
 
           $.ajax({
+              @if(isset($showedIn))
+              url: "{{ route('company.restaurants.data') }}/"+$(this).val()+"?showedin={{ $showedIn }}",
+              @else
               url: "{{ route('company.restaurants.data') }}/"+$(this).val(),
-
+              @endif
               type: 'GET',
               success: function(data) {
 
@@ -43,6 +46,9 @@ $(document).ready(function(){
                   });
 
                   $("#restaurant_id").trigger('change');
+              },
+              error: function (xhr, status, error) {
+                  alert(xhr.responseJSON.error);
               }
           });
 

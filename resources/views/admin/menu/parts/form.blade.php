@@ -5,7 +5,7 @@
 
 </div>
 <div class="row">
-  <company-restaurant-select :model="$menu" />
+  <company-restaurant-select :model="$menu" showedIn="menu" />
 </div>
 
 <div class="row">
