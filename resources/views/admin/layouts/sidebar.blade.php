@@ -13,19 +13,19 @@
 
                 <li>
                     <a href="javascript: void(0);">
-                        <i class="{{ $menuInfo['icon'] }}"></i><span> {{ $menuName }} </span>
+                        <i class="{{ $menuInfo['icon'] }}"></i><span> {{ trans('menu.' . $menuName) }} </span>
                     </a>
                     <ul class="nav-second-level" aria-expanded=false>
                         @foreach ($menuInfo['routes'] as $routeName => $routePath)
 
                           @if( strstr($routePath, 'index') && Auth::user()->can('viewAny', $class ) )
-                          <li><a href="{{ route($routePath) }}">{{ $routeName }}</a></li>
+                          <li><a href="{{ route($routePath) }}">{{ trans('menu.' . $routeName) }}</a></li>
                           @endif
                           @if( strstr($routePath, 'create') && Auth::user()->can('create', $class ) )
-                          <li><a href="{{ route($routePath) }}">{{ $routeName }}</a></li>
+                          <li><a href="{{ route($routePath) }}">{{ trans('menu.' . $routeName) }}</a></li>
                           @endif
-                          @if( !strstr($routePath, 'index') && !strstr($routeName, 'New'))
-                          <li><a href="{{ route($routePath) }}">{{ $routeName }}</a></li>
+                          @if( !strstr($routePath, 'index') && !strstr($routeName, 'new'))
+                          <li><a href="{{ route($routePath) }}">{{ trans('menu.' . $routeName) }}</a></li>
                           @endif
 
                         @endforeach
