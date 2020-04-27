@@ -23,289 +23,301 @@ class RestaurantController extends Controller
     protected $company_path = '/app/public/restaurants/';
     protected $stripe;
 
-    public function __construct(StripeIntegration $stripe) {
+    public function __construct(StripeIntegration $stripe)
+    {
         $this->stripe = $stripe;
     }
 
-      public function validation(Request $request, $company = null)
-      {
+    public function validation(Request $request, $company = null)
+    {
 
-          $request->validate(
-              [
-                  'name' => 'required',
-              ]
-          );
+        $request->validate(
+            [
+                'name' => 'required',
+            ]
+        );
 
-      }
+    }
 
 
-      public function index()
-      {
+    public function index()
+    {
 
-          $restaurants = Restaurant::all();
+        $restaurants = Restaurant::all();
 
-          $this->alignUsersFromCognito();
+        $this->alignUsersFromCognito();
 
 
+        if (Auth::user()->is_super) {
+            $users = User::withTrashed()->get();
+        } else {
+            $users = User::get();
+        }
 
-          if (Auth::user()->is_super) {
-              $users = User::withTrashed()->get();
-          } else {
-              $users = User::get();
-          }
+        return view('admin.restaurants.index')
+            ->with(compact('restaurants'))
+            ->with(compact('users'));
 
-          return view('admin.restaurants.index')
-              ->with(compact('restaurants'))
-              ->with(compact('users'));
+    }
 
-      }
 
+    public function create(Company $company)
+    {
 
-      public function create(Company $company)
-      {
+        $mealtypeList = $this->prepareMealTypeList();
+        $restaurant = new Restaurant;
+        $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
+        $users = $restaurant->users();
 
-          $mealtypeList = $this->prepareMealTypeList();
-          $restaurant = new Restaurant;
-          $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
-          $users = $restaurant->users();
+        return view('admin.restaurants.create')->with([
+            'company' => $company,
+            'restaurant' => $restaurant,
+            'media' => $media,
+            'mealtype' => $mealtypeList,
+            'users' => $users
+        ]);
 
-          return view('admin.restaurants.create')->with([
-              'company' => $company,
-              'restaurant' => $restaurant,
-              'media' => $media,
-              'mealtype' => $mealtypeList,
-              'users'  => $users
-          ]);
+    }
 
-      }
 
+    public function store(Company $company, Request $request)
+    {
 
-      public function store(Company $company, Request $request)
-      {
+        $this->validation($request);
 
-          $this->validation($request);
+        $fields = $request->all();
 
-          $fields = $request->all();
+        $fields['brand_id'] = $company->id;
 
-          $fields['brand_id'] = $company->id;
+        // save on aux
+        $openings = $fields['openings'];
+        // save on aux
+        $closings = $fields['closings'];
+        $timeslots = $fields['timeslots'];
 
-          // save on aux
-          $openings = $fields['openings'];
-          // save on aux
-          $closings = $fields['closings'];
-          $timeslots = $fields['timeslots'];
+        // remove from fields to not conflict with Restaurant fields
+        unset($fields['openings']);
+        unset($fields['closings']);
+        unset($fields['timeslots']);
 
-          // remove from fields to not conflict with Restaurant fields
-          unset($fields['openings']);
-          unset($fields['closings']);
-          unset($fields['timeslots']);
+        $restaurant = Restaurant::create($fields);
 
-          $restaurant = Restaurant::create($fields);
+        $this->saveOpeningsHours($restaurant->id, $openings);
+        $this->saveClosedDays($restaurant->id, $closings);
+        $this->saveTimeslots($restaurant->id, $timeslots);
 
-          $this->saveOpeningsHours($restaurant->id, $openings);
-          $this->saveClosedDays($restaurant->id, $closings);
-          $this->saveTimeslots($restaurant->id, $timeslots);
+        if ($request->media) {
+            $restaurant->media()->sync(array_unique($request->media));
+        }
 
-          if ($request->media) {
-              $restaurant->media()->sync(array_unique($request->media));
-          }
+        //Create Stripe Account
+        //$this->createAccountStripe($restaurant);
 
-          //Create Stripe Account
-          //$this->createAccountStripe($restaurant);
+        return redirect()->route('companies.show', $company)->with([
+            'notification' => 'Restaurant saved with success!',
+            'type-notification' => 'success'
+        ]);
 
-          return redirect()->route('companies.show', $company)->with([
-              'notification' => 'Restaurant saved with success!',
-              'type-notification' => 'success'
-          ]);
+    }
 
-      }
 
+    public function data(Company $company, Request $request)
+    {
 
-      public function data(Company $company, Request $request)
-      {
 
+        if ($request->showedin) {
+            $restaurants = new Collection();
+            switch ($request->showedin) {
+                case 'menu':
+                    $company->restaurants->map(function ($restaurant) use ($restaurants) {
+                        if (!$restaurant->menu()->exists()) {
+                            $restaurants->push($restaurant);
+                        }
+                    });
+                    break;
+                default:
+                    $restaurants = $company->restaurants;
+                    break;
+            }
 
-          if ($request->showedin) {
-              $restaurants = new Collection();
-              switch ($request->showedin) {
-                  case 'menu':
-                      $company->restaurants->map(function ($restaurant) use ($restaurants) {
-                          if (!$restaurant->menu()->exists()) {
-                              $restaurants->push($restaurant);
-                          }
-                      });
-                      break;
-                  default:
-                      $restaurants = $company->restaurants;
-                      break;
-              }
+            if ($restaurants->count() > 0) {
+                return response()->json($restaurants, 200);
+            } else {
+                return response()->json(['error' => trans('errors.no_restaurant_without_menu')], 404);
+            }
+        }
+        if ($company) {
+            return response()->json($company->restaurants, 200);
+        }
 
-              if ($restaurants->count() > 0) {
-                  return response()->json($restaurants, 200);
-              } else {
-                  return response()->json(['error' => trans('errors.no_restaurant_without_menu')], 404);
-              }
-          }
-          if ($company) {
-              return response()->json($company->restaurants, 200);
-          }
 
+        return response()->json(['error' => trans('errors.no_company_selected')], 404);
 
-          return response()->json(['error' => trans('errors.no_company_selected')], 404);
+    }
 
-      }
 
+    public function show(Restaurant $restaurant, User $user)
+    {
 
-      public function show(Restaurant $restaurant, User $user)
-      {
+        $company = $restaurant->company;
 
-          $company = $restaurant->company;
+        return view('admin.restaurants.view')
+            ->with(compact('restaurant'))
+            ->with(compact('company'))
+            ->with(compact('user'));
 
-          return view('admin.restaurants.view')
-              ->with(compact('restaurant'))
-              ->with(compact('company'))
-              ->with(compact('user'));
+    }
 
-      }
 
+    public function edit(Company $company, Restaurant $restaurant)
+    {
 
-      public function edit(Company $company, Restaurant $restaurant)
-      {
+        $mealtypeList = $this->prepareMealTypeList();
 
-          $mealtypeList = $this->prepareMealTypeList();
+        $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
+        $company = $restaurant->company;
+        $owner = $company->owner()->get();
+        $users = $restaurant->users()->get();
+        $users = $users->merge($owner);
+        return view('admin.restaurants.edit')->with([
+            'restaurant' => $restaurant,
+            'company' => $company,
+            'media' => $media,
+            'mealtype' => $mealtypeList,
+            'users' => $users
+        ]);
 
-          $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
-          $company = $restaurant->company;
-          $owner = $company->owner()->get();
-          $users = $restaurant->users()->get();
-         $users = $users->merge($owner);
-          return view('admin.restaurants.edit')->with([
-              'restaurant' => $restaurant,
-              'company' => $company,
-              'media' => $media,
-              'mealtype' => $mealtypeList,
-              'users' => $users
-          ]);
+    }
 
-      }
 
+    public function update(Request $request, Company $company, Restaurant $restaurant)
+    {
 
-      public function update(Request $request, Company $company, Restaurant $restaurant)
-      {
 
+        $this->validation($request, $restaurant);
 
-          $this->validation($request, $restaurant);
+        $fields = $request->all();
 
-          $fields = $request->all();
+        // save on aux
+        $openings = $fields['openings'];
+        $closings = $fields['closings'];
+        $timeslots = $fields['timeslots'];
 
-          // save on aux
-          $openings = $fields['openings'];
-          $closings = $fields['closings'];
-          $timeslots = $fields['timeslots'];
+        // remove from fields to not conflict with Restaurant fields
+        unset($fields['openings']);
+        unset($fields['closings']);
+        unset($fields['timeslots']);
 
-          // remove from fields to not conflict with Restaurant fields
-          unset($fields['openings']);
-          unset($fields['closings']);
-          unset($fields['timeslots']);
+        $restaurant->update($fields);
+        $this->saveOpeningsHours($restaurant->id, $openings);
+        $this->saveClosedDays($restaurant->id, $closings);
+        $this->saveTimeslots($restaurant->id, $timeslots);
 
-          $restaurant->update($fields);
-          $this->saveOpeningsHours($restaurant->id, $openings);
-          $this->saveClosedDays($restaurant->id, $closings);
-          $this->saveTimeslots($restaurant->id, $timeslots);
+        if ($request->media) {
+            $restaurant->media()->sync(array_unique($request->media));
+        }
 
-          if ($request->media) {
-              $restaurant->media()->sync(array_unique($request->media));
-          }
+        //Create Stripe Account
+        //$this->createAccountStripe($restaurant);
 
-          //Create Stripe Account
-          //$this->createAccountStripe($restaurant);
+        return redirect()->route('companies.show', $company)->with([
+            'notification' => 'Restaurant saved with success!',
+            'type-notification' => 'success'
+        ]);
 
-          return redirect()->route('companies.show', $company)->with([
-              'notification' => 'Restaurant saved with success!',
-              'type-notification' => 'success'
-          ]);
+    }
 
-      }
 
+    public function destroy(Restaurant $restaurant)
+    {
 
-      public function destroy(Restaurant $restaurant)
-      {
+        $company = $restaurant->company;
+        $restaurant->delete();
 
-          $company = $restaurant->company;
-          $restaurant->delete();
+        return redirect()->route('companies.show', $company)->with([
+            'notification' => 'Restaurant removed with success!',
+            'type-notification' => 'warning'
+        ]);
 
-          return redirect()->route('companies.show', $company)->with([
-              'notification' => 'Restaurant removed with success!',
-              'type-notification' => 'warning'
-          ]);
+    }
 
-      }
 
+    protected function saveOpeningsHours(int $restaurant, array $fields)
+    {
 
-      protected function saveOpeningsHours(int $restaurant, array $fields)
-      {
+        if ($fields) {
 
-          // clean all openings hours
-          OpeningHour::where('restaurant_id', $restaurant)->delete();
+            // clean all openings hours
+            OpeningHour::where('restaurant_id', $restaurant)->delete();
 
-          if ($fields) {
-              foreach ($fields as $day => $list) {
+            foreach ($fields as $day => $list) {
 
-                  $close = isset($list['closed']) ? true : false;
+                $close = isset($list['closed']) ? true : false;
 
-                  foreach ($list['times'] as $time) {
+                foreach ($list['times'] as $time) {
 
-                      OpeningHour::create([
-                          'restaurant_id' => $restaurant,
-                          'day_of_week' => $day,
-                          'hour_ini' => $time['from'],
-                          'hour_end' => $time['to'],
-                          'closed' => $close
-                      ]);
-                  }
+                    OpeningHour::create([
+                        'restaurant_id' => $restaurant,
+                        'day_of_week' => $day,
+                        'hour_ini' => $time['from'],
+                        'hour_end' => $time['to'],
+                        'closed' => $close
+                    ]);
+                }
 
-              }
-          }
+            }
+        }
 
-      }
+    }
 
 
-      protected function saveClosedDays(int $restaurant, array $fields)
-      {
+    protected function saveClosedDays(int $restaurant, array $fields)
+    {
 
-          // clean all openings hours
-          ClosedDay::where('restaurant_id', $restaurant)->delete();
+        if ($fields) {
 
-          if ($fields) {
-              foreach ($fields as $day => $list) {
+            // clean all openings hours
+            ClosedDay::where('restaurant_id', $restaurant)->delete();
 
-                  $repeat = isset($list['repeat']) ? true : false;
+            foreach ($fields as $day => $list) {
 
-                  if (!empty($list['name']) && !empty($list['date'])) {
-                      ClosedDay::create([
-                          'restaurant_id' => $restaurant,
-                          'name' => $list['name'],
-                          'date' => Carbon::parse($list['date']),
-                          'repeat' => $repeat
-                      ]);
-                  }
+                $repeat = isset($list['repeat']) ? true : false;
 
-              }
-          }
+                if (!empty($list['name']) && !empty($list['date'])) {
+                    ClosedDay::create([
+                        'restaurant_id' => $restaurant,
+                        'name' => $list['name'],
+                        'date' => Carbon::parse($list['date']),
+                        'repeat' => $repeat
+                    ]);
+                }
 
-      }
+            }
+        }
+
+    }
 
 
     protected function saveTimeslots(int $restaurant, array $fields)
     {
 
-        // clean all timeslots
-        Timeslot::where('restaurant_id', $restaurant)->delete();
-
         if ($fields) {
+
+            $timeslots = Timeslot::where('restaurant_id', $restaurant)->get();
+
+            if ($timeslots->count() > 0) {
+                $timeslots->map(function ($timeslot) use ($fields) {
+                    if (!in_array($timeslot->mealtype->id, $fields)) {
+                        Timeslot::find($timeslot->id)->delete();
+                    } else {
+
+                    }
+                });
+            }
             foreach ($fields as $item) {
                 $mealtype = Mealtype::find($item);
-                if (!empty($mealtype)) {
+                if (!empty($mealtype) && !Timeslot::where('restaurant_id', $restaurant)->where('mealtype_id',
+                        $mealtype->id)->first()) {
                     Timeslot::create([
                         'restaurant_id' => $restaurant,
                         'mealtype_id' => $mealtype->id,
