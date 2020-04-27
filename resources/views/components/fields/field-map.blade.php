@@ -16,7 +16,7 @@
               <div class="form-group">
                     <div class="input-group">
                         <label for="{{ $field }}">{{ $label }}</label>
-                        <input id="searchMap{{ $field }}"  type="text" class="form-control"  placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}">
+                        <input id="searchMap{{ $field }}" type="text" class="form-control" placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}">
                         <span class="input-group-append">
                             <button type="submit" id="search-map" class="btn waves-effect waves-light btn-primary">Cerca</button>
                         </span>
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-danger" data-dismiss="modal">Cancella</button> <button type="button" class="save-location{{ $field }} btn btn-success"  data-dismiss="modal">Salva</button>
+                <button class="btn btn-danger" data-dismiss="modal">{{ ucfirst(trans('button.delete')) }}</button> <button type="button" class="save-location{{ $field }} btn btn-success" data-dismiss="modal">{{ ucfirst(trans('button.save')) }}</button>
             </div>
         </div> <!-- /.modal-content -->
     </div> <!-- /.modal-dialog -->
@@ -47,7 +47,7 @@ $(document).ready(function(){
 
   initAutocomplete();
 
-  $(document).on('focus', '#{{ $field }}', function(){
+  $(document).on('click', '#{{ $field }}', function(){
 
       $('#map-modal').modal();
 
