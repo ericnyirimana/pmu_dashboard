@@ -18,6 +18,6 @@ return [
     'new_dish' => 'Nuovo piatto',
     'new_drink' => 'Nuova bevanda',
     'add_plate' => 'Aggiungi piatto',
-    'add_drink' => 'Aggiungi bevanda'
-
+    'add_drink' => 'Aggiungi bevanda',
+    'new_hour' => 'Nuovo orario'
 ];

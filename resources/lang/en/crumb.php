@@ -10,6 +10,7 @@ return [
         'products' => 'products',
         'menu' => 'menu',
         'mealtypes' => 'Mealtypes',
+        'timeslots' => 'Timeslots',
         'showcases' => 'Showcases',
         'users' => 'users',
         'media' => 'media'

@@ -8,17 +8,17 @@
     <div class="row m-b-10">
         <div class="col-12">
             <a href="{{ route('timeslots.create' )}}" class="btn btn-success waves-effect w-md waves-light
-            pull-right">Nuovo orario</a>
+            pull-right">{{ __('button.new_hour') }}</a>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="card-box table-responsive">
-                <datatable route='mealtypes' :collection='$mealtype' :fields="[
-                  'Pasto'        => 'name',
-                  'Orario apertura'  => 'hour_ini',
-                  'Orario chiusura'  => 'hour_end',
-                  '
+                <datatable route='timeslots' :collection='$timeslots' :fields="[
+                  'datatable.headers.meal' => 'name',
+                  'datatable.headers.opening_hours'  => 'hour_ini',
+                  'datatable.headers.closing_time'  => 'hour_end',
+                  'datatable.headers.restaurant' => 'restaurant_name'
               ]"
                            actions="edit, delete" />
             </div>
@@ -31,10 +31,7 @@
     <script type="text/javascript">
 			$(document).ready(function() {
 
-				$('#datatable').DataTable({
-
-
-				});
+				$('#datatable').DataTable({});
 
 			});
 

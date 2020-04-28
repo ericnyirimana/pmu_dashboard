@@ -17,7 +17,7 @@ class TimeslotPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->is_owner);
+        return ($user->is_owner || $user->is_restaurant);
     }
 
     /**

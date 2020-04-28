@@ -8,5 +8,11 @@ return [
     'list_pickups' => 'Lista offerte e abbonamenti',
     'list_menu' => 'Lista menu',
     'list_dishes' => 'Lista piatti',
-
+    'headers' => [
+        'meal' => 'Piatto',
+        'opening_hours' => 'Orario apertura',
+        'closing_time' => 'Orario chiusura',
+        'restaurant' => 'Ristorante',
+        'actions' => 'Azioni'
+    ]
 ];

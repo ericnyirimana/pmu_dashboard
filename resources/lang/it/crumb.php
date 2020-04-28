@@ -10,6 +10,7 @@ return [
         'products' => 'piatti',
         'menu' => 'menu',
         'mealtypes' => 'Fasce orarie',
+        'timeslots' => 'Fasce orarie',
         'showcases' => 'Vetrine',
         'users' => 'users',
         'media' => 'media'
