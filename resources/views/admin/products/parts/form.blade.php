@@ -27,8 +27,18 @@
 
 <div class="d-flex flex-row row mt-5">
   <div class="col-12">
-        <div class="form-group">
-            <button type="submit" class="btn btn-block w-lg btn-success float-right">Save</button>
-        </div>
+        {{--@if(Auth::user()->is_super)--}}
+          {{--<div class="form-group">--}}
+              {{--<button type="submit" class="btn btn-block w-lg btn-success float-left col-6">{{ ucfirst(trans('button.save')) }}</button>--}}
+              {{--<button type="submit" class="btn btn-block w-lg btn-primary float-right col-6">{{ ucfirst(trans('button.approves')) }}</button>--}}
+          {{--</div>--}}
+        {{--@else--}}
+          {{--<div class="form-group">--}}
+              {{--<button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>--}}
+              {{--<button type="submit" class="btn btn-block w-lg btn-primary float-right col-6">{{ ucfirst(trans('button.send_approves')) }}</button>--}}
+      {{--</div>--}}
+        {{--@endif--}}
+      <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
+
   </div>
 </div>

@@ -26,6 +26,8 @@ return [
     'add_new_file' => 'Carica nuovo file',
     'add_image' => 'Aggiungi immagine',
     'change_image' => 'Cambia immagine',
-    'select_image' => 'Seleziona immagine'
+    'select_image' => 'Seleziona immagine',
+    'approves' => 'Approva',
+    'send_approves' => 'Pubblica e manda in approvazione'
 
 ];

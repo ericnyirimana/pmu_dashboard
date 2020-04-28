@@ -19,10 +19,11 @@
 
                 <datatable route='products' :collection="$products" :fields="[
                 'ID' => 'id',
-                'Name' => 'translate:name',
-                'type'  => 'color:type:color_type',
+                'Nome' => 'translate:name',
+                'Tipo'  => 'color:type:color_type',
                 'Brand' => 'company:name',
-                'Restaurant' => 'restaurant:name'
+                'Ristorante' => 'restaurant:name',
+                'Stato' => 'status'
                 ]"
                 actions="edit, delete" />
         </div>

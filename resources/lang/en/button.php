@@ -26,5 +26,7 @@ return [
     'add_new_file' => 'Browser new file',
     'add_image' => 'Add image',
     'change_image' => 'Change',
-    'select_image' => 'Select'
+    'select_image' => 'Select',
+    'approves' => 'Approves',
+    'send_approves' => 'Publishes and sends approval'
 ];

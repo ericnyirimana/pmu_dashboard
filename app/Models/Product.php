@@ -110,6 +110,18 @@ class Product extends Model
     }
 
 
+//    public function getColorStatusAttribute() {
+//
+//        if($this->status == '0') {
+//            return 'success';
+//        } elseif($this->status == '1') {
+//            return 'primary';
+//        } else {
+//            return 'danger';
+//        }
+//
+//    }
+
 
 
 }
