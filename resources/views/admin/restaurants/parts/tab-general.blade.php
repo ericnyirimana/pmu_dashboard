@@ -1,13 +1,13 @@
 <h6 class="">Informazioni generali</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
-          <field-text label="Nome" field="name" :model="$restaurant" required  />
+          <field-text label="name" field="name" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-          <field-map label="Indirizzo" field="address" :model="$restaurant" required  />
+          <field-map label="address" field="address" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="Merchant ID (Stripe)" field="merchant_stripe" :model="$restaurant" />
+        <field-text label="merchant_id" field="merchant_stripe" :model="$restaurant" />
     </div>
 </div>
 
@@ -19,21 +19,21 @@
         <field-map-billing-address label="Indirizzo fatturazione" field="billing_address" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="P. Iva o codice fiscale" field="iva" :model="$restaurant" required  />
+        <field-text label="piva_fiscal_code" field="iva" :model="$restaurant" required  />
     </div>
 
     <div class="col-md-12 col-lg-10">
-        <field-text label="IBAN" field="iban" :model="$restaurant" required  />
+        <field-text label="iban" field="iban" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-2">
-        <field-text label="Fee PMU" field="fee" :model="$restaurant" required />
+        <field-text label="fee_pmu" field="fee" :model="$restaurant" required />
     </div>
 
     <div class="col-md-12 col-lg-6">
-        <field-text label="PEC" field="pec" :model="$restaurant" required />
+        <field-text label="pec" field="pec" :model="$restaurant" required />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="Codice identificativo" field="id_code" :model="$restaurant" required />
+        <field-text label="identifier_code" field="id_code" :model="$restaurant" required />
     </div>
 </div>
 

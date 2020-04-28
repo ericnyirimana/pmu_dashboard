@@ -13,7 +13,7 @@
 
             <field-radio field="type" :items="['Dish' => 'Dish', 'Drink' => 'Drink']" required />
 
-            <field-text label="Name type" field="name" id="dish_name" required  />
+            <field-text label="name_type" field="name" id="dish_name" required  />
 
         </div>
         <div class="modal-footer">

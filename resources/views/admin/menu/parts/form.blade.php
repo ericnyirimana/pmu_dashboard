@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12 col-md-4">
-          <field-text label="Name" field="name" :model="$menu" required  />
+          <field-text label="name" field="name" :model="$menu" required  />
     </div>
 
 </div>
