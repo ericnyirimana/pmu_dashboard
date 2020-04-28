@@ -14,7 +14,7 @@
                 <div id="drag-and-drop-zone" class="dm-uploader">
 
                   <div class="btn btn-primary btn-block">
-                      <span>Browser new file</span>
+                      <span>{{ ucfirst(trans('button.add_new_file')) }}</span>
                       <input name="file" type="file" title='Click to add Files' />
                   </div>
                 </div><!-- /uploader -->
@@ -47,7 +47,7 @@
             <div class="add-image-container">
                   <input type="hidden" class="src-image" value="" />
                   <input type="hidden" class="id-image" value="" />
-                  <button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal">Add Image</button>
+                  <button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal">{{ ucfirst(trans('button.add_image')) }}</button>
             </div>
 
             <div class="edit-image-container">

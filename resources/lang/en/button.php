@@ -22,5 +22,7 @@ return [
     'new_hour' => 'New hour',
     'new_showcase' => 'New showcase',
     'new_user' => 'New user',
-    'generate_pwd' => 'Generate password'
+    'generate_pwd' => 'Generate password',
+    'add_new_file' => 'Browser new file',
+    'add_image' => 'Add image'
 ];

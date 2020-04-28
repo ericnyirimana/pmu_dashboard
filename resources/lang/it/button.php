@@ -22,6 +22,8 @@ return [
     'new_hour' => 'Nuovo orario',
     'new_showcase' => 'Nuova vetrina',
     'new_user' => 'Nuovo utente',
-    'generate_pwd' => 'Genera password'
+    'generate_pwd' => 'Genera password',
+    'add_new_file' => 'Carica nuovo file',
+    'add_image' => 'Aggiungi immagine'
 
 ];
