@@ -99,7 +99,7 @@ class MealTypeController extends Controller
         $this->saveTranslation($mealtype, $fields);
 
         return redirect()->route('mealtypes.index')->with([
-            'notification' => 'Orario salvato con successo!',
+            'notification' => trans('messages.notification.hour_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -110,7 +110,7 @@ class MealTypeController extends Controller
         $mealtype->delete();
 
         return redirect()->route('mealtypes.index')->with([
-            'notification' => 'Orario rimosso con successo!',
+            'notification' => trans('messages.notification.hour_removed'),
             'type-notification' => 'warning'
         ]);
 

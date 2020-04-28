@@ -76,7 +76,7 @@ class TimeslotPolicy
      */
     public function restore(User $user)
     {
-        return ($user->is_super);
+        return ($user->is_restaurant || $user->is_owner);
     }
 
     /**
@@ -88,6 +88,6 @@ class TimeslotPolicy
      */
     public function forceDelete(User $user)
     {
-        return ($user->is_super);
+        return ($user->is_restaurant || $user->is_owner);
     }
 }

@@ -5,12 +5,12 @@
 
     @include('components.notification')
 
-    <div class="row m-b-10">
-        <div class="col-12">
-            <a href="{{ route('timeslots.create' )}}" class="btn btn-success waves-effect w-md waves-light
-            pull-right">{{ __('button.new_hour') }}</a>
+{{--<div class="row m-b-10">
+    <div class="col-12">
+        {{--<a h"{{ route('timeslots.create' )}}" class="btn btn-success waves-effect w-md waves-light
+        pull-right">{{ __('button.new_hour') }}</a>
         </div>
-    </div>
+    </div>--}}
     <div class="row">
         <div class="col-12">
             <div class="card-box table-responsive">
