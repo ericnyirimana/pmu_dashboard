@@ -13,7 +13,7 @@
                 <form id="formDelete" action="#" class="rm-accept" method="POST">
                   <input type="hidden" name="type" value="" id="typeId" />
                   <div class="inputs_form"></div>
-                <button class="btn btn-danger" data-dismiss="modal">No</button> <button class="btn btn-success">Yes</button>
+                <button class="btn btn-danger" data-dismiss="modal">{{ ucfirst(trans('button.no')) }}</button> <button class="btn btn-success">{{ ucfirst(trans('button.yes')) }}</button>
               </form>
             </div>
             <ul class="parsley-errors-list filled">

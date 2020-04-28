@@ -30,11 +30,11 @@
 
 <div class="row card-box">
     <div class="col-12">
-        <a href="{{ route('company.restaurants.create', $company) }}" class="btn btn-success waves-effect w-md waves-light pull-right">Nuovo ristorante</a>
+        <a href="{{ route('company.restaurants.create', $company) }}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.new_restaurant')) }}</a>
     </div>
     <div class="col-12">
         <div class="table-responsive">
-            <h4 class="m-t-0 header-title"><b>Lista Ristoranti</b></h4>
+            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_restaurants')) }}</b></h4>
                 <datatable route='restaurants' :collection="$company->restaurants" :fields="[
                 'ID' => 'id',
                 'Name' => 'name',

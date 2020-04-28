@@ -12,6 +12,11 @@ Trait UserCanTrait
     public function userCanEdit(User $user)
     {
 
+        if ($user->is_super) {
+            return $user->is_super;
+        } else {
+            return (!empty($this->company) && $this->company->id == $user->brand->first()->id);
+        }
         return ((!empty($this->company) && $this->company->id == $user->brand->first()->id) || $user->is_super);
 
     }
@@ -19,7 +24,11 @@ Trait UserCanTrait
     public function userCanView(User $user)
     {
 
-        return ((!empty($this->company) && $this->company->id == $user->brand->first()->id) || $user->is_super);
+        if ($user->is_super) {
+            return $user->is_super;
+        } else {
+            return (!empty($this->company) && $this->company->id == $user->brand->first()->id);
+        }
 
     }
 
