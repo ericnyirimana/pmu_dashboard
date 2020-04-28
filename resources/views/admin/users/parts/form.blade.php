@@ -7,8 +7,7 @@
           <field-text label="Email" field="email" :model="$user" disabled required />
     </div>
     <div class="col-12 col-md-6">
-
-          <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user" :values="config('cognito.roles')" required />
+          <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user" :values="config('cognito.roles')" disabled required />
     </div>
     <div class="col-12 col-md-6">
         <field-select label="Company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
@@ -16,15 +15,25 @@
                       :values="$user->brand" />
     </div>
     <div class="col-12 col-md-6">
-
         <field-select label="Restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id" type="relation"
                       :model="$user->restaurant->first()"
                       :values="$user->restaurant" />
     </div>
+    <div class="col-12 col-md-8">
+        {{--<field-image label="Immagine profilo" field="profile_image" :model="$user" />--}}
+    </div>
+    <div class="col-12 col-md-6 row d-flex align-items-center">
+        <div class="col-8">
+            <field-text label="Password" field="password" {{--:model="$user"--}} />
+        </div>
+        <div class="col-4">
+            <button type="button" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.generate_pwd')) }}</button>
+        </div>
+    </div>
     <div class="col-12">
           <div class="form-group mt-auto">
 
-              <a href="{{ route('users.index') }}" class="btn btn-md w-lg btn-secondary float-left">{{ ucfirst(trans('button.delete')) }}</a>
+              <a href="{{ route('users.index') }}" class="btn btn-md w-lg btn-secondary float-left">{{ ucfirst(trans('button.back')) }}</a>
               <button type="submit" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
 
           </div>

@@ -19,5 +19,9 @@ return [
     'new_drink' => 'Nuova bevanda',
     'add_plate' => 'Aggiungi piatto',
     'add_drink' => 'Aggiungi bevanda',
-    'new_hour' => 'Nuovo orario'
+    'new_hour' => 'Nuovo orario',
+    'new_showcase' => 'Nuova vetrina',
+    'new_user' => 'Nuovo utente',
+    'generate_pwd' => 'Genera password'
+
 ];
