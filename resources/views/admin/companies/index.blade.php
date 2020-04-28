@@ -7,14 +7,14 @@
 
 <div class="row m-b-10">
       <div class="col-12">
-          <a href="{{ route('companies.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">New Company</a>
+          <a href="{{ route('companies.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.new_company')) }}</a>
     </div>
 </div>
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
 
-            <h4 class="m-t-0 header-title"><b>List companies</b></h4>
+            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_companies')) }}</b></h4>
 
                 <datatable route='companies' :collection="$companies" :fields="[
                 'ID' => 'id',

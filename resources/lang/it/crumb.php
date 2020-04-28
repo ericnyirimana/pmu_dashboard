@@ -4,11 +4,13 @@ return [
     'page_title' => [
         'dashboard' => 'Dashboard',
         'pickups' => 'Offerte e abbonamenti',
-        'companies' => 'companies',
-        'categories' => 'categories',
-        'products' => 'products',
+        'companies' => 'società',
+        'restaurants' => 'ristoranti',
+        'categories' => 'categorie',
+        'products' => 'piatti',
         'menu' => 'menu',
-        'mealtypes' => 'Mealtypes',
+        'mealtypes' => 'Fasce orarie',
+        'showcases' => 'Vetrine',
         'users' => 'users',
         'media' => 'media'
     ]

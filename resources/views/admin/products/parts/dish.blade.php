@@ -14,8 +14,8 @@
       <field-area label="Ingredients" field="ingredients" :model="$product->translate" required  />
 </div>
 <div class="col-12">
-      <field-tags label="Allergens" field="allergens" :values="$product->allergens->pluck('translate.name')" :list="$allergens" required  />
+      <field-tags label="Allergens" field="allergens" :values="$product->allergens->pluck('translate.name')" :list="$allergens" />
 </div>
 <div class="col-12">
-      <field-tags label="Dietaries" field="dietaries" :values="$product->dietaries->pluck('translate.name')" :list="$dietaries" required  />
+      <field-tags label="Dietaries" field="dietaries" :values="$product->dietaries->pluck('translate.name')" :list="$dietaries" />
 </div>

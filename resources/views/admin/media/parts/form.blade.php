@@ -1,6 +1,6 @@
 <div class="d-flex flex-row row">
     <div class="col-12 mb-3">
-        <a href="{{ route('media.index') }}" class="btn btn-md w-lg btn-secondary float-left">Back</a>
+        <a href="{{ route('media.index') }}" class="btn btn-md w-lg btn-secondary float-left">{{ ucfirst(trans('button.back')) }}</a>
     </div>
     <div class="col-md-12 col-lg-6">
 
@@ -18,7 +18,7 @@
               @if (isset($media))
               <button type="button" class="btn btn-md w-lg btn-danger rm-register" data-name="{{ $media->name }}" data-register="{{ $media->id }}"  data-toggle="modal" data-target=".remove-register">Remove permanently</button>
               @endif
-              <button type="submit" class="btn btn-md w-lg btn-success float-right">Save</button>
+              <button type="submit" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
 
           </div>
 

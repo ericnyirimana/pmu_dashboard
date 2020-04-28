@@ -228,7 +228,7 @@
             var html = '<li class="list-group-item" data-id="' + id + '">';
             html += '<i class="fa fa-minus-square remove"></i>';
             html += '<div class="name">' + name + '</div>';
-            html += '<div class="quantity"><input type="text" name="quantity[]" value="1" maxlength="3" /></div>';
+            html += '<div class="quantity"><input type="text" name="quantity[]" value="10" maxlength="3" /></div>';
             html += '<input type="hidden" name="products[]" value="' + id + '" />';
             html += '</li>';
 

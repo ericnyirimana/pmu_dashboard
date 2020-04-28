@@ -27,7 +27,7 @@ class CategoryController extends Controller
           $request->validate(
             [
               'media_id'  => (empty($category)?'required':'').'',
-              'name'   => 'required',
+              'name'   => 'required|string|unique:category_translations,name',
               'type'   => 'required'
             ]
           );
@@ -127,7 +127,7 @@ class CategoryController extends Controller
             $category->delete();
 
             return redirect()->route('categories.index')->with([
-                  'notification' => 'Image removed with success!',
+                  'notification' => 'Category removed with success!',
                   'type-notification' => 'warning'
                 ]);
 

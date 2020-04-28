@@ -3,7 +3,7 @@
         <field-select label="Price range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' => '14 €' ]"  required  />
     </div>
     <div class="col-12 col-md-6">
-        <field-select label="Validate Days" field="validate_days" :model="$pickup" type="simple" :values="['5' => '5 Days', '10' => '10 Days', '20' => '20 Days' ]"  required  />
+        <field-select label="Validate Days" field="validate_days" :model="$pickup" type="simple" :values="['20' => '20 Days', '40' => '40 Days']" required />
     </div>
 </div>
 

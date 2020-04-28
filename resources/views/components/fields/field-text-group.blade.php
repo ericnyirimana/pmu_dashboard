@@ -21,7 +21,7 @@ $(document).ready(function(){
 
   $('#{{ $field }}').mask('{{ $mask }}', {
       @if(isset($maskreverse))
-      reverse: true
+      reverse: true,
       @endif
       @if(isset($maskpattern))
       'translation': {

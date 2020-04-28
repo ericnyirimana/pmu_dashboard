@@ -1,6 +1,10 @@
 <div class="form-group">
     <label for="{{ $field }}">Add {{ $label }}</label>
-    <select class="form-control {{ $field }}-select2" name="{{ $field }}[]" multiple="multiple">
+    <select class="form-control {{ $field }}-select2" @if(isset($id))id="{{ $id }}"@endif name="{{ $field }}[]"
+    multiple="multiple"
+            @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && $disabled ==
+            'true') disabled
+        @endif>
       @if($list)
       @foreach($list as $item)
         <option value="{{ $item }}">{{ $item }}</option>

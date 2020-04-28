@@ -2,8 +2,8 @@
 
 namespace App\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
 use Auth;
+use Illuminate\Contracts\Validation\Rule;
 
 class TimeslotBelongsToRestaurant implements Rule
 {
@@ -20,14 +20,18 @@ class TimeslotBelongsToRestaurant implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)
     {
 
-        return ( Auth::user()->is_super || Auth::user()->company->restaurants()->timeslots->find($value) );
+        if (Auth::user()->is_super) {
+            return true;
+        } else {
+            return $this->checkTimeslot($value);
+        }
     }
 
     /**
@@ -38,5 +42,19 @@ class TimeslotBelongsToRestaurant implements Rule
     public function message()
     {
         return 'The :attribute doesn\'t exists.';
+    }
+
+    protected function checkTimeslot($value)
+    {
+        if (Auth::user()->brand->first()->restaurants->map(function ($restaurant) use ($value) {
+            return $restaurant->timeslots->map(function ($timeslot) use ($value) {
+                if ($timeslot->get()->contains($value)) {
+                    return true;
+                }
+            });
+        })) {
+            return true;
+        }
+        return false;
     }
 }

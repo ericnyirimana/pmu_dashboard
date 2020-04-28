@@ -24,8 +24,8 @@
     <div class="col-12">
           <div class="form-group mt-auto">
 
-              <a href="{{ route('users.index') }}" class="btn btn-md w-lg btn-secondary float-left">Cancel</a>
-              <button type="submit" class="btn btn-md w-lg btn-success float-right">Save</button>
+              <a href="{{ route('users.index') }}" class="btn btn-md w-lg btn-secondary float-left">{{ ucfirst(trans('button.delete')) }}</a>
+              <button type="submit" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
 
           </div>
 

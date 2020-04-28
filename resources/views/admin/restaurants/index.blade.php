@@ -10,7 +10,7 @@
     <div class="col-12">
         <div class="card-box table-responsive">
 
-            <h4 class="m-t-0 header-title"><b>List Restaurants</b></h4>
+            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_restaurants')) }}</b></h4>
 
                 <datatable route='restaurants' :collection="$restaurants" :fields="[
                 'ID' => 'id',

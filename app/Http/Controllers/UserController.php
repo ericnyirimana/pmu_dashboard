@@ -105,6 +105,11 @@ class UserController extends Controller
 
         if ($fields['brand_id']) {
             $user->brand()->sync($fields['brand_id']);
+            if ($user->is_owner) {
+                $company = Company::find($fields['brand_id']);
+                $company->owner_id = $user->id;
+                $company->save();
+            }
             if ($fields['restaurant_id']) {
                 $user->restaurant()->sync($fields['restaurant_id']);
             }
@@ -147,6 +152,7 @@ class UserController extends Controller
 
         $fields['profile'] = json_encode($arrayAttributes);
 
+
         $user->update($fields);
 
 
@@ -157,8 +163,23 @@ class UserController extends Controller
 
         if ($fields['brand_id']) {
             $user->brand()->sync($fields['brand_id']);
+            if ($user->is_owner) {
+                $company = Company::find($fields['brand_id']);
+                $company->owner_id = $user->id;
+                $company->save();
+            }
             if ($fields['restaurant_id']) {
                 $user->restaurant()->sync($fields['restaurant_id']);
+            } else {
+                $user->restaurant()->sync([]);
+            }
+        } else {
+            $user->restaurant()->sync([]);
+            $user->brand()->sync([]);
+            if ($user->company) {
+                $company = Company::find($user->company->id);
+                $company->owner_id = null;
+                $company->save();
             }
         }
 
