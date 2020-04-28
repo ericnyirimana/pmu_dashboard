@@ -34,7 +34,7 @@
               img {
                 border: 2px solid $base-blue-light-color;
                 padding: 5px;
-                max-width: 200px;
+                max-width: 240px;
               }
               img:hover {
                 border: 2px solid $base-blue-light-color;
@@ -48,7 +48,10 @@
 
               label {
                 display: block;
-                width: 200px;
+                width: 220px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
               }
 
           }

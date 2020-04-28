@@ -19,11 +19,19 @@
         <field-map-billing-address label="Indirizzo fatturazione" field="billing_address" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="piva_fiscal_code" field="iva" :model="$restaurant" required  />
+        @if(Auth::user()->is_super)
+        <field-text label="piva_fiscal_code" field="iva" :model="$restaurant" required />
+        @else
+        <field-text label="piva_fiscal_code" field="iva" :model="$restaurant" disabled />
+        @endif
     </div>
 
     <div class="col-md-12 col-lg-10">
-        <field-text label="iban" field="iban" :model="$restaurant" required  />
+        @if(Auth::user()->is_super)
+        <field-text label="iban" field="iban" :model="$restaurant" required />
+        @else
+        <field-text label="iban" field="iban" :model="$restaurant" disabled />
+        @endif
     </div>
     <div class="col-md-12 col-lg-2">
         <field-text label="fee_pmu" field="fee" :model="$restaurant" required />

@@ -24,5 +24,7 @@ return [
     'new_user' => 'New user',
     'generate_pwd' => 'Generate password',
     'add_new_file' => 'Browser new file',
-    'add_image' => 'Add image'
+    'add_image' => 'Add image',
+    'change_image' => 'Change',
+    'select_image' => 'Select'
 ];

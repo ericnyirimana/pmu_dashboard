@@ -24,6 +24,8 @@ return [
     'new_user' => 'Nuovo utente',
     'generate_pwd' => 'Genera password',
     'add_new_file' => 'Carica nuovo file',
-    'add_image' => 'Aggiungi immagine'
+    'add_image' => 'Aggiungi immagine',
+    'change_image' => 'Cambia immagine',
+    'select_image' => 'Seleziona immagine'
 
 ];
