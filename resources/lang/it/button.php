@@ -18,6 +18,9 @@ return [
     'new_dish' => 'Nuovo piatto',
     'new_drink' => 'Nuova bevanda',
     'add_plate' => 'Aggiungi piatto',
-    'add_drink' => 'Aggiungi bevanda'
+    'add_drink' => 'Aggiungi bevanda',
+    'new_showcase' => 'Nuova vetrina',
+    'new_user' => 'Nuovo utente',
+    'generate_pwd' => 'Genera password'
 
 ];

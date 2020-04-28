@@ -18,6 +18,9 @@ return [
     'new_dish' => 'New dish',
     'new_drink' => 'New drink',
     'add_plate' => 'Add plate',
-    'add_drink' => 'Add drink'
+    'add_drink' => 'Add drink',
+    'new_showcase' => 'New showcase',
+    'new_user' => 'New user',
+    'generate_pwd' => 'Generate password'
 
 ];
