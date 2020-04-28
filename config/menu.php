@@ -1,24 +1,24 @@
 <?php
 return [
 
-  'admin' => [
+    'admin' => [
         'dashboard' => [
-            'class'   => '',
+            'class' => '',
             'icon' => 'fi-air-play',
             'routes' => [
                 'dashboard' => 'dashboard.index',
             ],
         ],
         'company' => [
-            'class'   => 'Company',
-            'icon'    => 'fi-star',
-            'routes'  => [
-                'list'  => 'companies.index',
-                'new'   => 'companies.create',
+            'class' => 'Company',
+            'icon' => 'fi-star',
+            'routes' => [
+                'list' => 'companies.index',
+                'new' => 'companies.create',
             ],
         ],
         'categories' => [
-            'class'   => 'Category',
+            'class' => 'Category',
             'icon' => 'fi-align-center',
             'routes' => [
                 'list' => 'categories.index',
@@ -26,7 +26,7 @@ return [
             ],
         ],
         'dishes' => [
-            'class'   => 'Product',
+            'class' => 'Product',
             'icon' => 'fi-align-center',
             'routes' => [
                 'list' => 'products.index',
@@ -35,7 +35,7 @@ return [
             ],
         ],
         'menu' => [
-            'class'   => 'Menu',
+            'class' => 'Menu',
             'icon' => 'fi-align-center',
             'routes' => [
                 'list' => 'menu.index',
@@ -43,23 +43,31 @@ return [
             ],
         ],
         'offer_subscription' => [
-            'class'   => 'Pickup',
+            'class' => 'Pickup',
             'icon' => 'fi-tag',
             'routes' => [
                 'list' => 'pickups.index',
                 'new' => 'pickups.create'
             ],
         ],
-        'timeslots' => [
-            'class'   => 'Mealtype',
+        'mealtypes' => [
+            'class' => 'Mealtype',
             'icon' => 'fi-clock',
             'routes' => [
                 'list' => 'mealtypes.index',
                 'new' => 'mealtypes.create'
             ],
         ],
+        'timeslots' => [
+            'class' => 'Timeslot',
+            'icon' => 'fi-clock',
+            'routes' => [
+                'list' => 'timeslots.index',
+                'new' => 'timeslots.create'
+            ],
+        ],
         'showcases' => [
-            'class'   => 'Showcase',
+            'class' => 'Showcase',
             'icon' => 'fi-align-center',
             'routes' => [
                 'list' => 'showcases.index',
@@ -67,7 +75,7 @@ return [
             ],
         ],
         'account' => [
-            'class'   => 'User',
+            'class' => 'User',
             'icon' => 'fi-head',
             'routes' => [
                 'profile' => 'users.profile',
@@ -76,7 +84,7 @@ return [
             ],
         ],
         'media' => [
-            'class'   => 'Media',
+            'class' => 'Media',
             'icon' => 'fi-camera',
             'routes' => [
                 'list' => 'media.index',
