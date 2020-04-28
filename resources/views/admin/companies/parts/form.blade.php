@@ -1,16 +1,16 @@
 <div class="d-flex flex-row row">
     <div class="col-md-12 col-lg-6">
 
-          <field-text label="Name" field="name" :model="$company" required  />
+          <field-text label="name" field="name" :model="$company" required  />
 
-          <field-text label="VAT" field="vat" :model="$company" required  />
+          <field-text label="vat" field="vat" :model="$company" required  />
 
           <field-media label="Image" field="media_id" :model="$company" required="new" />
 
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">
 
-          <field-text label="Corporate Name" field="corporate_name" :model="$company" required  />
+          <field-text label="corporate_name" field="corporate_name" :model="$company" required  />
 
           @can('create', $company)
           <field-select label="Owner" field="owner" type="relation" :model="$company" :values="$users" foreignid="owner_id" />

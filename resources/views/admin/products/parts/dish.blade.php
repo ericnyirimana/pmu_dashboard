@@ -1,5 +1,5 @@
 <div class="col-lg-9 col-md-7">
-      <field-text label="Name" field="name" :model="$product->translate" required  />
+      <field-text label="name" field="name" :model="$product->translate" required  />
 </div>
 <div class="col-lg-3 col-md-5">
       <field-text-group label="Price" field="price" :model="$product" mask="#,##" maskreverse="true" prepend="€" required />
