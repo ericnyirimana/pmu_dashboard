@@ -12,8 +12,7 @@ class Product extends Model
     use UserCanTrait, \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
 
-
-    protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position'];
+    protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position', 'status_product'];
 
 
     public function translate() {
@@ -31,7 +30,6 @@ class Product extends Model
         return $this->hasMany('App\Models\ProductTranslation');
 
     }
-
 
     public function categories() {
 
@@ -57,7 +55,6 @@ class Product extends Model
 
     }
 
-
     public function media() {
 
           return $this->belongsToMany('App\Models\Media', 'products_media');
@@ -79,7 +76,6 @@ class Product extends Model
         return $this->section->menu;
 
     }
-
 
     public function company() {
 
@@ -110,11 +106,29 @@ class Product extends Model
     }
 
 
+    public function getIsApprovedAttribute() {
+
+        return ($this->status_product == 'Approved');
+
+    }
+
+    public function getIsWaitingAttribute() {
+
+        return ($this->status_product == 'Pending approved');
+
+    }
+
+    public function getIsDisabledAttribute() {
+
+        return ($this->status_product == 'Disabled');
+
+    }
+
 //    public function getColorStatusAttribute() {
 //
-//        if($this->status == '0') {
+//        if($this->status_product == 'Approved') {
 //            return 'success';
-//        } elseif($this->status == '1') {
+//        } elseif($this->status_product == 'Pending approved') {
 //            return 'primary';
 //        } else {
 //            return 'danger';

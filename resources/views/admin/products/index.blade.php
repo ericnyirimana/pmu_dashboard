@@ -23,7 +23,7 @@
                 'Tipo'  => 'color:type:color_type',
                 'Brand' => 'company:name',
                 'Ristorante' => 'restaurant:name',
-                'Stato' => 'status'
+                'Stato' => 'status_product'
                 ]"
                 actions="edit, delete" />
         </div>

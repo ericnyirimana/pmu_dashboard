@@ -4,12 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-
 use App\Models\Product;
 use App\Models\Company;
 use App\Models\Category;
 use App\Traits\TranslationTrait;
-
 
 use Auth;
 
@@ -19,13 +17,11 @@ class ProductController extends Controller
     use TranslationTrait;
 
 
-
     public function __construct() {
 
       $this->authorizeResource(Product::class);
 
     }
-
 
     public function validation(Request $request, $media = null) {
 
@@ -48,7 +44,6 @@ class ProductController extends Controller
         } else {
           $products = Auth::user()->brand->first()->products;
         }
-
 
         return view('admin.products.index')
         ->with( compact('products') );
@@ -75,10 +70,9 @@ class ProductController extends Controller
           $allergens = Category::where('type', 'Allergen')->with('translate')->get()->pluck('translate.name');
           $dietaries = Category::where('type', 'Dietary')->with('translate')->get()->pluck('translate.name');
 
-
           return view('admin.products.create')->with([
-            'product'       => $product,
-            'companies'        => $companies,
+            'product'    => $product,
+            'companies'  => $companies,
             'foods'      => $foods,
             'allergens'  => $allergens,
             'dietaries'  => $dietaries
@@ -200,8 +194,6 @@ class ProductController extends Controller
 
     }
 
-
-
       public function setPosition(Product $product, Request $request) {
 
           $product->update(['position' => $request->position]);
@@ -213,7 +205,7 @@ class ProductController extends Controller
 
       public function saveCategories(Product $product, array $fields) {
 
-            if ($fields['type'] == 'Drink') return ;
+            if ($fields['type'] == 'Drink') return;
             $list = array();
 
             $categoriesList = $this->getCategoriesId(@$fields['foods']);
@@ -249,5 +241,6 @@ class ProductController extends Controller
         return $list;
 
       }
+
 
 }

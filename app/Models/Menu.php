@@ -53,7 +53,23 @@ class Menu extends Model
     }
 
 
+    public function getIsApprovedAttribute() {
 
+        return ($this->status_product == 'Approved');
+
+    }
+
+    public function getIsWaitingAttribute() {
+
+        return ($this->status_product == 'Pending approved');
+
+    }
+
+    public function getIsDisabledAttribute() {
+
+        return ($this->status_product == 'Disabled');
+
+    }
 
 
 }
