@@ -17,8 +17,8 @@
                 <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_showcases')) }}</b></h4>
 
                 <datatable route='showcases' :collection="$showcase" :fields="[
-                'Titolo'    => 'title',
-                'Tipo'  => 'type'
+                'datatable.header.title'    => 'title',
+                'datatable.header.type'  => 'type'
                 ]"
                            actions="edit,delete" />
             </div>

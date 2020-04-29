@@ -4,9 +4,9 @@
 
             <datatable route='users' :collection='$users' :fields="[
                   'ID'        => 'id',
-                  'Name'      => 'name',
-                  'Email'     => 'email',
-                  'Role'      => 'role'
+                  'datatable.headers.name'      => 'name',
+                  'datatable.headers.email'     => 'email',
+                  'datatable.headers.role'      => 'role'
               ]"
                        actions="view" />
 

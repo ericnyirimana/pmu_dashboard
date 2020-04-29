@@ -32,8 +32,8 @@
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_restaurants')) }}</b></h4>
                 <datatable route='restaurants' :collection="$company->restaurants" :fields="[
                 'ID' => 'id',
-                'Name' => 'name',
-                'City' => 'city'
+                'datatable.headers.name' => 'name',
+                'datatable.headers.city' => 'city'
                 ]" />
         </div>
     </div>
@@ -46,7 +46,9 @@
     $(document).ready(function() {
 
         $('#datatable').DataTable({
-
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            }
 
         });
 

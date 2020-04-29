@@ -18,8 +18,8 @@
 
                 <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID'    => 'id',
-                'Name'  => 'name',
-                'Type'  => 'color:type_pickup:pickup_color'
+                'datatable.headers.name'  => 'name',
+                'datatable.headers.type'  => 'color:type_pickup:pickup_color'
                 ]"
                 actions="edit,delete" />
         </div>
@@ -33,7 +33,9 @@
     $(document).ready(function() {
 
         $('#datatable').DataTable({
-
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            }
 
         });
 

@@ -20,5 +20,6 @@ return [
     'email' => 'Email',
     'emoji' => 'Emoji',
     'password' => 'Password',
-    'title' => 'Title'
+    'title' => 'Title',
+    'search_placeholder' => 'Search...'
 ];

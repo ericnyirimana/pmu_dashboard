@@ -15,6 +15,17 @@ return [
         'opening_hours' => 'Orario apertura',
         'closing_time' => 'Orario chiusura',
         'restaurant' => 'Ristorante',
-        'actions' => 'Azioni'
-    ]
+        'actions' => 'Azioni',
+        'name' => 'Nome',
+        'number_restaurants' => 'N. Ristoranti',
+        'owner' => 'Owner',
+        'status' => 'Stato',
+        'city' => 'Città',
+        'type' => 'Tipo',
+        'brand' => 'Società',
+        'restaurant' => 'Ristorante',
+        'email' => 'Email',
+        'role' => 'Ruolo',
+        'title' => 'Titolo'
+    ],
 ];

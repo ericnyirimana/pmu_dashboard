@@ -16,6 +16,16 @@ return [
         'closing_time' => 'Closing time',
         'restaurant' => 'Restaurant',
         'actions' => 'Actions',
+        'name' => 'Name',
+        'number_restaurants' => 'N. Restaurants',
+        'owner' => 'Owner',
+        'status' => 'Status',
+        'city' => 'City',
+        'type' => 'Type',
+        'brand' => 'Brand',
+        'restaurant' => 'Restaurant',
+        'email' => 'Email',
+        'role' => 'Role',
+        'title' => 'Title'
     ],
-
 ];
