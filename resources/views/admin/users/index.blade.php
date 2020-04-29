@@ -23,9 +23,9 @@
 
               <datatable route='users' :collection='$users' :fields="[
                   'ID'        => 'id',
-                  'Name'      => 'name',
-                  'Email'     => 'email',
-                  'Role'      => 'role'
+                  'datatable.headers.name'      => 'name',
+                  'datatable.headers.email'     => 'email',
+                  'datatable.headers.role'      => 'role'
               ]"
               actions="edit, delete" />
 
@@ -41,7 +41,9 @@
 
         $('#datatable').DataTable({
 
-
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            }
         });
 
     });

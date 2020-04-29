@@ -14,8 +14,8 @@
 
                 <datatable route='restaurants' :collection="$restaurants" :fields="[
                 'ID' => 'id',
-                'Name' => 'name',
-                'City' => 'city'
+                'datatable.headers.name' => 'name',
+                'datatable.headers.city' => 'city'
                 ]"
                 actions='edit' />
         </div>
@@ -29,7 +29,9 @@
     $(document).ready(function() {
 
         $('#datatable').DataTable({
-
+            "language": {
+                "url": "cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            }
 
         });
 
