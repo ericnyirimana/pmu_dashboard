@@ -48,6 +48,7 @@ class ProductController extends Controller
         return view('admin.products.index')
         ->with( compact('products') );
 
+
     }
 
 
@@ -242,5 +243,32 @@ class ProductController extends Controller
 
       }
 
+//    public function approve($id) {
+//        $status_product = Product::findOrFail($id);
+//        $status_product->update(['status_product' => now()]);
+//
+//        return redirect()->route('products.index')->withMessage('Product approved successfully');
+//    }
+
+
+//    const IS_APPROVED = 0;
+//    const IS_WAITING = 1;
+//    const IS_DISABLED = 2;
+//
+//    public static function listStatus()
+//    {
+//        return [
+//            self::IS_APPROVED => 'Approved',
+//            self::IS_WAITING => 'Pending approved',
+//            self::IS_DISABLED => 'Disabled'
+//        ];
+//    }
+//
+//    public function statusLabel($product)
+//    {
+//        $list = self::listStatus();
+//
+//        return isset($list[$product->status_product]) ? $list[$product->status_product] : $product->status_product;
+//    }
 
 }
