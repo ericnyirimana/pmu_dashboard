@@ -23,9 +23,8 @@ return [
         'city' => 'Città',
         'type' => 'Tipo',
         'brand' => 'Società',
-        'restaurant' => 'Ristorante',
         'email' => 'Email',
         'role' => 'Ruolo',
-        'title' => 'Titolo'
+        'title' => 'Titolo',
     ],
 ];
