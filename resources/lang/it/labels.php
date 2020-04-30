@@ -21,5 +21,9 @@ return [
     'emoji' => 'Emoji',
     'password' => 'Password',
     'title' => 'Titolo',
-    'search_placeholder' => 'Cerca...'
+    'search_placeholder' => 'Cerca...',
+    'welcome' => 'Ciao',
+    'profile' => 'Profilo',
+    'settings' => 'Impostazioni',
+    'logout' => 'Esci',
 ];
