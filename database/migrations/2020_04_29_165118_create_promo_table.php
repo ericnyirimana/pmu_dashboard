@@ -21,7 +21,8 @@ class CreatePromoTable extends Migration
             $table->text('email_message')->nullable();
             $table->boolean('send_email')->default(false);
             $table->text('error_message');
-            $table->string('status');
+            $table->enum('status', ['INCOMPLETE', 'WAITING', 'SCHEDULED', 'RUNNING', 'EXPIRED'])
+                ->default('INCOMPLETE');
             $table->boolean('suspend')->default(false);
             $table->timestamps();
             $table->softDeletes();

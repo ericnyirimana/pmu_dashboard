@@ -24,6 +24,8 @@ class CreatePromoSubsetTable extends Migration
             $table->string('custom_serial')->nullable();
             $table->integer('quantity');
             $table->string('short_identifier ', 3)->nullable();
+            $table->enum('status', ['INCOMPLETE', 'ACTIVATABLE', 'USABLE', 'EXPIRED', 'DEAD'])
+                ->default('INCOMPLETE');
             $table->timestamps();
             $table->softDeletes();
 
