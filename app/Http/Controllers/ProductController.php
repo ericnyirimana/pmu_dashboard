@@ -185,6 +185,17 @@ class ProductController extends Controller
 
     }
 
+    public function softDelete(Product $product) {
+
+        $product->withTrashed()->get();
+
+        return redirect()->route('products.index')->with([
+            'notification' => 'Product removed with success!',
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
 
     public function ajaxDestroy(Request $request) {
 

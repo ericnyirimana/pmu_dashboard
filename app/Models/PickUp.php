@@ -4,14 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pickup extends Model
 {
 
+    use SoftDeletes;
 
     protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
 
-    protected $dates = ['date_ini', 'date_end'];
+    protected $dates = ['date_ini', 'date_end', 'deleted_at'];
 
 
     public function offer() {

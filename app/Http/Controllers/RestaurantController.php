@@ -228,11 +228,22 @@ class RestaurantController extends Controller
     }
 
 
-    public function destroy(Restaurant $restaurant)
-    {
+    public function destroy(Restaurant $restaurant) {
 
         $company = $restaurant->company;
         $restaurant->delete();
+
+        return redirect()->route('companies.show', $company)->with([
+            'notification' => 'Restaurant removed with success!',
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
+    public function softDelete(Restaurant $restaurant) {
+
+        $company = $restaurant->company;
+        $restaurant->withTrashed()->get();
 
         return redirect()->route('companies.show', $company)->with([
             'notification' => 'Restaurant removed with success!',

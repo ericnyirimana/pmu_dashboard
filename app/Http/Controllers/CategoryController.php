@@ -133,4 +133,15 @@ class CategoryController extends Controller
 
       }
 
+    public function softDelete(Category $category) {
+
+        $category->withTrashed()->get();
+
+        return redirect()->route('categories.index')->with([
+            'notification' => 'Category removed with success!',
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
 }

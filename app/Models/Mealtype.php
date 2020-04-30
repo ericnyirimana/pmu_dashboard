@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Mealtype extends Model
 {
 
+    use SoftDeletes;
+
     public $fillable = ['id', 'hour_ini', 'hour_end'];
+
+    protected $dates = ['deleted_at'];
 
   public function translate() {
 

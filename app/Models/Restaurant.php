@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Restaurant extends Model
 {
 
+    use SoftDeletes;
 
   public $appends = [
       'field_show'
@@ -19,7 +21,7 @@ class Restaurant extends Model
   ];
 
 
-
+    protected $dates = ['deleted_at'];
 
       public function translations() {
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UserCanTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Product extends Model
@@ -11,9 +12,11 @@ class Product extends Model
 
     use UserCanTrait, \Staudenmeir\EloquentHasManyDeep\HasRelationships;
 
-
+    use SoftDeletes;
 
     protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position'];
+
+    protected $dates = ['deleted_at'];
 
 
     public function translate() {

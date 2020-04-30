@@ -190,8 +190,7 @@ class PickupController extends Controller
     }
 
 
-    public function destroy(Pickup $pickup)
-    {
+    public function destroy(Pickup $pickup) {
 
         $pickup->delete();
 
@@ -201,6 +200,20 @@ class PickupController extends Controller
         ]);
 
     }
+
+
+    public function softDelete(Pickup $pickup)
+    {
+
+        $pickup->withTrashed()->get();
+
+        return redirect()->route('pickups.index')->with([
+            'notification' => 'Offer removed with success!',
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
 
     /**
      * @param Request $request

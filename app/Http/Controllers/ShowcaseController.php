@@ -147,6 +147,17 @@ class ShowcaseController extends Controller
 
     }
 
+    public function softDelete(Showcase $showcase) {
+
+        $showcase->withTrashed()->get();
+
+        return redirect()->route('showcases.index')->with([
+            'notification' => 'Vetrina rimossa con successo!',
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
 
     public function saveCategories(Showcase $showcase, array $fields) {
 
