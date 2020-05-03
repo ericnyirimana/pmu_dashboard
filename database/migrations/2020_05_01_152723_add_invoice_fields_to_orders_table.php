@@ -14,7 +14,7 @@ class AddInvoiceFieldsToOrdersTable extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->bigInteger('payment_id')->unsigned()->after('user_id');
+            $table->bigInteger('payment_id')->unsigned()->after('user_id')->nullable();
             $table->bigInteger('promo_serial_used_id')->unsigned()->unique()->nullable()->after('user_id');
             $table->string('promo_code')->nullable()->after('promo_serial_used_id');
 
