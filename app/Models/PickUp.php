@@ -178,4 +178,10 @@ class Pickup extends Model
 
     }
 
+    public function getIsActiveTodayAttribute()
+    {
+        $today = Carbon::now();
+        return $today->lte($this->date_end);
+    }
+
 }

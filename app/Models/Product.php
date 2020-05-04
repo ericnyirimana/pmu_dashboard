@@ -71,6 +71,17 @@ class Product extends Model
         return $this->hasMany('App\Models\PickupProduct');
     }
 
+    public function hasActivePickups() {
+        foreach ($this->pickups as $pickupProduct) {
+            $pickup = Pickup::find($pickupProduct->pickup_id);
+            if ($pickup && $pickup->is_active_today) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function menu() {
 
         return $this->section->menu;
@@ -108,19 +119,25 @@ class Product extends Model
 
     public function getIsApprovedAttribute() {
 
-        return ($this->status_product == 'Approved');
+        return ($this->status_product == 'APPROVED');
 
     }
 
     public function getIsWaitingAttribute() {
 
-        return ($this->status_product == 'Pending approved');
+        return ($this->status_product == 'PENDING');
 
     }
 
     public function getIsDisabledAttribute() {
 
-        return ($this->status_product == 'Disabled');
+        return ($this->status_product == 'DISABLED');
+
+    }
+
+    public function getIsDraftAttribute() {
+
+        return ($this->status_product == 'DRAFT');
 
     }
 
