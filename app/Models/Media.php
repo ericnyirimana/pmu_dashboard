@@ -3,19 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\UserCanTrait;
 
 class Media extends Model
 {
 
-
     use UserCanTrait;
+
+    use SoftDeletes;
 
     protected $fillable = ['brand_id', 'name', 'file'];
 
     protected $appends = [ 'extension', 'company_name'];
 
+    protected $dates = ['deleted_at'];
 
     public function company() {
 

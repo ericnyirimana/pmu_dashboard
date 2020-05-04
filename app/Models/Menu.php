@@ -4,17 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UserCanTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
 {
 
     use UserCanTrait;
 
+    use SoftDeletes;
+
     protected $table = 'menus';
 
     protected $fillable = ['name', 'restaurant_id', 'status_menu'];
 
-
+    protected $dates = ['deleted_at'];
 
     public function company() {
 

@@ -117,7 +117,7 @@ class PickupController extends Controller
         }
 
         return redirect()->route('pickups.edit', $pickup)->with([
-            'notification' => 'Pickup saved with success!',
+            'notification' => trans('messages.notification.pickup_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -183,24 +183,37 @@ class PickupController extends Controller
         }
 
         return redirect()->route('pickups.index')->with([
-            'notification' => 'Pickup saved with success!',
+            'notification' => trans('messages.notification.pickup_saved'),
             'type-notification' => 'success'
         ]);
 
     }
 
 
-    public function destroy(Pickup $pickup)
-    {
+    public function destroy(Pickup $pickup) {
 
         $pickup->delete();
 
         return redirect()->route('pickups.index')->with([
-            'notification' => 'Offer removed with success!',
+            'notification' => trans('messages.notification.pickup_removed'),
             'type-notification' => 'warning'
         ]);
 
     }
+
+
+    public function softDelete(Pickup $pickup)
+    {
+
+        $pickup->withTrashed()->get();
+
+        return redirect()->route('pickups.index')->with([
+            'notification' => trans('messages.notification.pickup_removed'),
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
 
     /**
      * @param Request $request

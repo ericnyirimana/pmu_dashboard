@@ -11,7 +11,7 @@ return [
     'list_showcases' => 'Lista vetrine',
     'list_users' => 'List utenti',
     'headers' => [
-        'meal' => 'Piatto',
+        'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',
         'closing_time' => 'Orario chiusura',
         'restaurant' => 'Ristorante',

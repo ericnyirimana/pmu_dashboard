@@ -116,4 +116,15 @@ class MealTypeController extends Controller
 
     }
 
+    public function softDelete(Mealtype $mealtype) {
+
+        $mealtype->withTrashed()->get();
+
+        return redirect()->route('mealtypes.index')->with([
+            'notification' => trans('messages.notification.hour_removed'),
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
 }

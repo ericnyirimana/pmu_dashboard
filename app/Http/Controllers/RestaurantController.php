@@ -114,7 +114,7 @@ class RestaurantController extends Controller
         //$this->createAccountStripe($restaurant);
 
         return redirect()->route('companies.show', $company)->with([
-            'notification' => 'Restaurant saved with success!',
+            'notification' => trans('messages.notification.restaurant_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -221,21 +221,32 @@ class RestaurantController extends Controller
         //$this->createAccountStripe($restaurant);
 
         return redirect()->route('companies.show', $company)->with([
-            'notification' => 'Restaurant saved with success!',
+            'notification' => trans('messages.notification.restaurant_saved'),
             'type-notification' => 'success'
         ]);
 
     }
 
 
-    public function destroy(Restaurant $restaurant)
-    {
+    public function destroy(Restaurant $restaurant) {
 
         $company = $restaurant->company;
         $restaurant->delete();
 
         return redirect()->route('companies.show', $company)->with([
-            'notification' => 'Restaurant removed with success!',
+            'notification' => trans('messages.notification.restaurant_removed'),
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
+    public function softDelete(Restaurant $restaurant) {
+
+        $company = $restaurant->company;
+        $restaurant->withTrashed()->get();
+
+        return redirect()->route('companies.show', $company)->with([
+            'notification' => trans('messages.notification.restaurant_removed'),
             'type-notification' => 'warning'
         ]);
 

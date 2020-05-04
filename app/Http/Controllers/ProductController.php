@@ -107,7 +107,7 @@ class ProductController extends Controller
         }
 
         return redirect()->route('products.index')->with([
-            'notification' => 'Product saved with success!',
+            'notification' => trans('messages.notification.product_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -172,8 +172,9 @@ class ProductController extends Controller
             $product->media()->sync(array_unique($request->media));
         }
 
+
         return redirect()->route('products.index')->with([
-            'notification' => 'Product saved with success!',
+            'notification' => trans('messages.notification.product_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -186,7 +187,19 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect()->route('products.index')->with([
-            'notification' => 'Product removed with success!',
+            'notification' => trans('messages.notification.product_removed'),
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
+    public function softDelete(Product $product)
+    {
+
+        $product->withTrashed()->get();
+
+        return redirect()->route('products.index')->with([
+            'notification' => trans('messages.notification.product_removed'),
             'type-notification' => 'warning'
         ]);
 
