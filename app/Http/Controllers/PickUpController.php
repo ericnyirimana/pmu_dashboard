@@ -137,7 +137,7 @@ class PickupController extends Controller
     public function edit(Pickup $pickup)
     {
 
-        $menu = $pickup->restaurant->menu;
+        $menu = $pickup->restaurant->menu()->where('status_menu', 'APPROVED')->first();
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
 
         return view('admin.pickups.edit')->with([

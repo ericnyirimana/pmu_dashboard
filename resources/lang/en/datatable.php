@@ -23,9 +23,8 @@ return [
         'city' => 'City',
         'type' => 'Type',
         'brand' => 'Brand',
-        'restaurant' => 'Restaurant',
         'email' => 'Email',
         'role' => 'Role',
-        'title' => 'Title'
+        'title' => 'Title',
     ],
 ];

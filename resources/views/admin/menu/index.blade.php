@@ -21,7 +21,7 @@
                 'datatable.headers.name' => 'name',
                 'datatable.headers.brand' => 'company:name',
                 'datatable.headers.restaurant' => 'restaurant:name',
-                'datatable.headers.status' => 'boolean:status_name:status_color'
+                'datatable.headers.status' => 'status_menu'
                 ]"
                 actions="edit,delete" />
         </div>

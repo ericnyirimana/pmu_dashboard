@@ -66,8 +66,8 @@ class UserController extends Controller
     }
 
 
-    public function show(User $user)
-    {
+    public function show(User $user) {
+
         return redirect()->route('users.index');
 
     }

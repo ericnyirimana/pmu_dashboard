@@ -12,25 +12,28 @@ class MenuController extends Controller
 {
 
 
-    public function __construct() {
+    public function __construct()
+    {
 
-      $this->authorizeResource(Menu::class);
+        $this->authorizeResource(Menu::class);
 
     }
 
-    public function validation(Request $request) {
+    public function validation(Request $request)
+    {
 
         $request->validate(
-          [
-            'name'          => 'required',
-            'restaurant_id' => new \App\Rules\RestaurantBelongsToCompany,
-          ]
+            [
+                'name' => 'required',
+                'restaurant_id' => new \App\Rules\RestaurantBelongsToCompany,
+            ]
         );
 
     }
 
 
-    public function index() {
+    public function index()
+    {
 
         if (Auth::user()->is_super) {
             $menu = Menu::all();
@@ -38,114 +41,123 @@ class MenuController extends Controller
 
 
         if (Auth::user()->is_owner) {
-            $menu = Menu::whereHas('restaurant', function($q){
-              $q->whereHas('company', function($q){
-                $q->where('owner_id', Auth::user()->id);
-              });
+            $menu = Menu::whereHas('restaurant', function ($q) {
+                $q->whereHas('company', function ($q) {
+                    $q->where('owner_id', Auth::user()->id);
+                });
             })->get();
         }
 
         if (Auth::user()->is_restaurant) {
-            return redirect( route('menu.edit', $this->getFirstMenuFromRestaurant() ));
+            return redirect(route('menu.edit', $this->getFirstMenuFromRestaurant()));
         }
 
         return view('admin.menu.index')
-        ->with( compact('menu') );
+            ->with(compact('menu'));
 
     }
 
 
-    public function create() {
+    public function create()
+    {
 
-          $menu = new Menu;
-          $companies = Company::all();
-          $restaurants = Restaurant::all();
+        $menu = new Menu;
+        $companies = Company::all();
+        $restaurants = Restaurant::all();
 
-          return view('admin.menu.create')->with([
-            'menu'   => $menu,
-            'companies'   => $companies,
-            'restaurants'   => $restaurants,
-          ]
-          );
-
-    }
-
-
-    public function store(Request $request) {
-
-          $this->validation($request);
-
-          $fields = $request->all();
-
-          $menu = Menu::create($fields);
-
-          return redirect()->route('menu.edit', $menu)->with([
-                'notification' => trans('messages.notification.menu_saved'),
-                'type-notification' => 'success'
-              ]);
+        return view('admin.menu.create')->with([
+                'menu' => $menu,
+                'companies' => $companies,
+                'restaurants' => $restaurants,
+            ]
+        );
 
     }
 
 
-    public function show(Menu $menu) {
+    public function store(Request $request)
+    {
+
+        $this->validation($request);
+
+        $fields = $request->all();
+
+        $menu = Menu::create($fields);
+
+        return redirect()->route('menu.edit', $menu)->with([
+            'notification' => trans('messages.notification.menu_saved'),
+            'type-notification' => 'success'
+        ]);
+    }
 
 
-          return view('admin.menu.view')->with([
-            'menu'     => $menu,
-            'users'     => $users,
-            'media'     => $media
-          ]
-          );
+    public function show(Menu $menu)
+    {
+
+
+        return view('admin.menu.view')->with([
+                'menu' => $menu,
+                'users' => $users,
+                'media' => $media
+            ]
+        );
 
     }
 
 
-    public function edit(Menu $menu) {
+    public function edit(Menu $menu)
+    {
 
-          if (Auth::user()->is_super) {
+        if (Auth::user()->is_super) {
             $companies = Company::all();
             $restaurants = Restaurant::all();
-          } else {
+        } else {
             $companies = Auth::user()->brand->first();
             $restaurants = Auth::user()->brand->first()->restaurants;
-          }
+        }
 
-          $dishesProducts = $menu->products()->where('type', 'Dish')->get();
-          $drinksProducts = $menu->products()->where('type', 'Drink')->get();
+        $dishesProducts = $menu->products()->where('type', 'Dish')->where('status_product', 'APPROVED')->get();
+        $drinksProducts = $menu->products()->where('type', 'Drink')->where('status_product', 'APPROVED')->get();
 
 
-          return view('admin.menu.edit')->with([
-            'menu'    => $menu,
-            'companies'  => $companies,
-            'restaurants' => $restaurants,
-            'dishesProducts' => $dishesProducts,
-            'drinksProducts' => $drinksProducts
-          ]
-          );
-
-    }
-
-    public function update(Request $request, Menu $menu) {
-
-          $this->validation($request, $menu);
-
-          $fields = $request->all();
-
-          $fields['status'] = $request->status ? true : false;
-
-          $menu->update($fields);
-
-          return redirect()->route('menu.edit', $menu)->with([
-                'notification' => trans('messages.notification.menu_saved'),
-                'type-notification' => 'success'
-              ]);
+        return view('admin.menu.edit')->with([
+                'menu' => $menu,
+                'companies' => $companies,
+                'restaurants' => $restaurants,
+                'dishesProducts' => $dishesProducts,
+                'drinksProducts' => $drinksProducts
+            ]
+        );
 
     }
 
+    public function update(Request $request, Menu $menu)
+    {
 
-    public function destroy(Menu $menu) {
+        $this->validation($request, $menu);
 
-          $menu->delete();
+        $fields = $request->all();
+        // if menu is only updated set to DRAFT status
+        if (!isset($fields['status_menu'])) {
+            $fields['status_menu'] = 'DRAFT';
+        }
+        $fields['status'] = $request->status ? true : false;
+
+        $menu->update($fields);
+
+
+        return redirect()->route('menu.edit', $menu)->with([
+            'notification' => trans('messages.notification.menu_saved'),
+            'type-notification' => 'success'
+        ]);
+
+    }
+
+
+    public function destroy(Menu $menu)
+    {
+
+        $menu->delete();
 
           return redirect()->route('menu.index')->with([
                 'notification' => trans('messages.notification.menu_removed'),
@@ -166,7 +178,8 @@ class MenuController extends Controller
     }
 
 
-    protected function getFirstMenuFromRestaurant() {
+    protected function getFirstMenuFromRestaurant()
+    {
 
         $user = Auth::user();
 
@@ -175,8 +188,6 @@ class MenuController extends Controller
         return $menu;
 
     }
-
-
 
 
 }

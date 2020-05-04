@@ -13,7 +13,7 @@ class Menu extends Model
 
     protected $table = 'menus';
 
-    protected $fillable = ['name', 'restaurant_id'];
+    protected $fillable = ['name', 'restaurant_id', 'status_menu'];
 
     protected $dates = ['deleted_at'];
 
@@ -54,7 +54,29 @@ class Menu extends Model
     }
 
 
+    public function getIsApprovedAttribute() {
 
+        return ($this->status_menu == 'APPROVED');
+
+    }
+
+    public function getIsWaitingAttribute() {
+
+        return ($this->status_menu == 'PENDING');
+
+    }
+
+    public function getIsDisabledAttribute() {
+
+        return ($this->status_menu == 'DISABLED');
+
+    }
+
+    public function getIsDraftAttribute() {
+
+        return ($this->status_menu == 'DRAFT');
+
+    }
 
 
 }
