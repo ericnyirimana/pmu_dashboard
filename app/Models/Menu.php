@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Menu extends Model
 {
 
-    use UserCanTrait;
-
-    use SoftDeletes;
+    use UserCanTrait, SoftDeletes;
 
     protected $table = 'menus';
 

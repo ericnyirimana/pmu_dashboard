@@ -10,9 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Product extends Model
 {
 
-    use UserCanTrait, \Staudenmeir\EloquentHasManyDeep\HasRelationships;
-
-    use SoftDeletes;
+    use UserCanTrait, \Staudenmeir\EloquentHasManyDeep\HasRelationships, SoftDeletes;
 
     protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position'];
 
