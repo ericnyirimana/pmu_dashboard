@@ -80,7 +80,7 @@ class MenuController extends Controller
           $menu = Menu::create($fields);
 
           return redirect()->route('menu.edit', $menu)->with([
-                'notification' => 'Menu saved with success!',
+                'notification' => trans('messages.notification.menu_saved'),
                 'type-notification' => 'success'
               ]);
 
@@ -136,7 +136,7 @@ class MenuController extends Controller
           $menu->update($fields);
 
           return redirect()->route('menu.edit', $menu)->with([
-                'notification' => 'Menu saved with success!',
+                'notification' => trans('messages.notification.menu_saved'),
                 'type-notification' => 'success'
               ]);
 
@@ -148,7 +148,7 @@ class MenuController extends Controller
           $menu->delete();
 
           return redirect()->route('menu.index')->with([
-                'notification' => 'Menu removed with success!',
+                'notification' => trans('messages.notification.menu_removed'),
                 'type-notification' => 'warning'
               ]);
 
@@ -159,7 +159,7 @@ class MenuController extends Controller
         $menu->withTrashed()->get();
 
         return redirect()->route('menu.index')->with([
-            'notification' => 'Menu removed with success!',
+            'notification' => trans('messages.notification.menu_removed'),
             'type-notification' => 'warning'
         ]);
 

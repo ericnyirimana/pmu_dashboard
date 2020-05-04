@@ -117,7 +117,7 @@ class PickupController extends Controller
         }
 
         return redirect()->route('pickups.edit', $pickup)->with([
-            'notification' => 'Pickup saved with success!',
+            'notification' => trans('messages.notification.pickup_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -183,7 +183,7 @@ class PickupController extends Controller
         }
 
         return redirect()->route('pickups.index')->with([
-            'notification' => 'Pickup saved with success!',
+            'notification' => trans('messages.notification.pickup_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -195,7 +195,7 @@ class PickupController extends Controller
         $pickup->delete();
 
         return redirect()->route('pickups.index')->with([
-            'notification' => 'Offer removed with success!',
+            'notification' => trans('messages.notification.pickup_removed'),
             'type-notification' => 'warning'
         ]);
 
@@ -208,7 +208,7 @@ class PickupController extends Controller
         $pickup->withTrashed()->get();
 
         return redirect()->route('pickups.index')->with([
-            'notification' => 'Offer removed with success!',
+            'notification' => trans('messages.notification.pickup_removed'),
             'type-notification' => 'warning'
         ]);
 

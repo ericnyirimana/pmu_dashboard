@@ -71,7 +71,7 @@ class CategoryController extends Controller
             $this->saveTranslation($category, $fields);
 
             return redirect()->route('categories.index')->with([
-                  'notification' => 'Category saved with success!',
+                  'notification' => trans('messages.notification.category_saved'),
                   'type-notification' => 'success'
                 ]);
 
@@ -115,7 +115,7 @@ class CategoryController extends Controller
             $category->update($fields);
 
             return redirect()->route('categories.index')->with([
-                  'notification' => 'Category saved with success!',
+                  'notification' => trans('messages.notification.category_saved'),
                   'type-notification' => 'success'
                 ]);
 
@@ -127,7 +127,7 @@ class CategoryController extends Controller
             $category->delete();
 
             return redirect()->route('categories.index')->with([
-                  'notification' => 'Category removed with success!',
+                  'notification' => trans('messages.notification.category_removed'),
                   'type-notification' => 'warning'
                 ]);
 
@@ -138,7 +138,7 @@ class CategoryController extends Controller
         $category->withTrashed()->get();
 
         return redirect()->route('categories.index')->with([
-            'notification' => 'Category removed with success!',
+            'notification' => trans('messages.notification.category_removed'),
             'type-notification' => 'warning'
         ]);
 

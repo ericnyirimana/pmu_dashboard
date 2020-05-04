@@ -80,7 +80,7 @@ class ShowcaseController extends Controller
         $this->saveMealtypes($showcase, $fields);
 
         return redirect()->route('showcases.index', $showcase)->with([
-            'notification' => 'Nuovo vetrina salvata con successo!',
+            'notification' => trans('messages.notification.showcase_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -130,7 +130,7 @@ class ShowcaseController extends Controller
         $this->saveMealtypes($showcase, $fields);
 
         return redirect()->route('showcases.index')->with([
-            'notification' => 'Vetrina salvata con successo!',
+            'notification' => trans('messages.notification.showcase_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -141,7 +141,7 @@ class ShowcaseController extends Controller
         $showcase->delete();
 
         return redirect()->route('showcases.index')->with([
-            'notification' => 'Vetrina rimossa con successo!',
+            'notification' => trans('messages.notification.showcase_removed'),
             'type-notification' => 'warning'
         ]);
 
@@ -152,7 +152,7 @@ class ShowcaseController extends Controller
         $showcase->withTrashed()->get();
 
         return redirect()->route('showcases.index')->with([
-            'notification' => 'Vetrina rimossa con successo!',
+            'notification' => trans('messages.notification.showcase_removed'),
             'type-notification' => 'warning'
         ]);
 

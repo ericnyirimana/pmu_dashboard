@@ -126,7 +126,7 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index')->with([
-            'notification' => 'User saved with success!',
+            'notification' => trans('messages.notification.user_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -184,7 +184,7 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index')->with([
-            'notification' => 'User saved with success!',
+            'notification' => trans('messages.notification.user_saved'),
             'type-notification' => 'success'
         ]);
 

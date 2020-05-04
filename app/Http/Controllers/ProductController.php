@@ -108,7 +108,7 @@ class ProductController extends Controller
           }
 
           return redirect()->route('products.index')->with([
-                'notification' => 'Product saved with success!',
+                'notification' => trans('messages.notification.product_saved'),
                 'type-notification' => 'success'
               ]);
 
@@ -167,7 +167,7 @@ class ProductController extends Controller
           }
 
           return redirect()->route('products.index')->with([
-                'notification' => 'Product saved with success!',
+                'notification' => trans('messages.notification.product_saved'),
                 'type-notification' => 'success'
               ]);
 
@@ -179,7 +179,7 @@ class ProductController extends Controller
           $product->delete();
 
           return redirect()->route('products.index')->with([
-                'notification' => 'Product removed with success!',
+                'notification' => trans('messages.notification.product_removed'),
                 'type-notification' => 'warning'
               ]);
 
@@ -190,7 +190,7 @@ class ProductController extends Controller
         $product->withTrashed()->get();
 
         return redirect()->route('products.index')->with([
-            'notification' => 'Product removed with success!',
+            'notification' => trans('messages.notification.product_removed'),
             'type-notification' => 'warning'
         ]);
 
