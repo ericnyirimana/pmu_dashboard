@@ -82,6 +82,11 @@ class MenuController extends Controller
 
         $fields = $request->all();
 
+        // if menu is only updated set to DRAFT status
+        if (!isset($fields['status_menu'])) {
+            $fields['status_menu'] = 'DRAFT';
+        }
+
         $menu = Menu::create($fields);
 
         return redirect()->route('menu.edit', $menu)->with([

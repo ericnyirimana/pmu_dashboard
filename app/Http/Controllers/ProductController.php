@@ -95,7 +95,10 @@ class ProductController extends Controller
 
         $fields['type'] = $request->type ?? 'Dish';
         $fields['status'] = $request->status ?? false;
-
+        // if products is only updated set to DRAFT status
+        if (!isset($fields['status_product'])) {
+            $fields['status_product'] = 'DRAFT';
+        }
         $product = Product::create($fields);
 
         $this->saveTranslation($product, $fields);

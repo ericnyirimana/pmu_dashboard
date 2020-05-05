@@ -34,7 +34,7 @@
         <div class="form-group d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-block w-lg btn-success col-5" @if($product->hasActivePickups())
             disabled @endif>
-                {{ ucfirst(trans('button.save')) }}
+                {{ ucfirst(trans('button.save_draft')) }}
             </button>
             @if(Auth::user()->is_super)
                 @if(!$product->is_approved)

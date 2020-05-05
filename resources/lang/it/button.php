@@ -4,6 +4,7 @@ return [
 
     'delete' => 'cancella',
     'save' => 'salva',
+    'save_draft' => 'salva bozza',
     'add' => 'aggiungi',
     'back' => 'indietro',
     'next' => 'avanti',
