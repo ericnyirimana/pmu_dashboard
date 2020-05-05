@@ -28,5 +28,6 @@ return [
     'change_image' => 'Change',
     'select_image' => 'Select',
     'approves' => 'Approves',
-    'send_approves' => 'Publishes and sends approval'
+    'send_approves' => 'Publishes and sends approval',
+    'disable' => 'Disable'
 ];

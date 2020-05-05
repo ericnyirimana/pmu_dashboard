@@ -8,7 +8,7 @@ class MenuSection extends Model
 {
 
 
-    protected $fillable = ['menu_id', 'type', 'position'];
+    protected $fillable = ['menu_id', 'type', 'position', 'has_products_in_active_pickup'];
 
     protected $with = ['translate', 'menu'];
 
@@ -45,5 +45,14 @@ class MenuSection extends Model
     public function getNameAttribute() {
 
         return $this->translate->name;
+    }
+
+    public function getHasProductsInActivePickupAttribute() {
+        foreach ($this->products as $product) {
+            if ($product->hasActivePickups()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
