@@ -296,7 +296,7 @@ class UserController extends Controller
 
         }
 
-        $this->removeUsersDeletedInCognito($collection);
+        //$this->removeUsersDeletedInCognito($collection);
 
 
     }
