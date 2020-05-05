@@ -17,7 +17,7 @@ class CreatePromoValidationTable extends Migration
             $table->bigIncrements('id');
             $table->uuid('identifier')->index();
             $table->string('name')->nullable();
-            $table->json('rules');
+            $table->longText('rules');
             $table->timestamps();
             $table->softDeletes();
         });
