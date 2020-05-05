@@ -79,11 +79,14 @@ class Menu extends Model
     }
 
     public function getHasProductsInActivePickupAttribute() {
-        foreach ($this->products as $product) {
-            if ($product->hasActivePickups()) {
-                return true;
+        if ($this->id) {
+            foreach ($this->products as $product) {
+                if ($product->hasActivePickups()) {
+                    return true;
+                }
             }
         }
+
         return false;
     }
 }
