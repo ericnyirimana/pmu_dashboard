@@ -240,18 +240,6 @@ class RestaurantController extends Controller
 
     }
 
-    public function softDelete(Restaurant $restaurant) {
-
-        $company = $restaurant->company;
-        $restaurant->withTrashed()->get();
-
-        return redirect()->route('companies.show', $company)->with([
-            'notification' => trans('messages.notification.restaurant_removed'),
-            'type-notification' => 'warning'
-        ]);
-
-    }
-
 
     protected function saveOpeningsHours(int $restaurant, array $fields)
     {

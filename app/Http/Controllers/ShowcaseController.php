@@ -147,17 +147,6 @@ class ShowcaseController extends Controller
 
     }
 
-    public function softDelete(Showcase $showcase) {
-
-        $showcase->withTrashed()->get();
-
-        return redirect()->route('showcases.index')->with([
-            'notification' => trans('messages.notification.showcase_removed'),
-            'type-notification' => 'warning'
-        ]);
-
-    }
-
 
     public function saveCategories(Showcase $showcase, array $fields) {
 
