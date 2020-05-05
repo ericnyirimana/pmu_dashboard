@@ -148,18 +148,4 @@ class Product extends Model
 
     }
 
-//    public function getColorStatusAttribute() {
-//
-//        if($this->status_product == 'Approved') {
-//            return 'success';
-//        } elseif($this->status_product == 'Pending approved') {
-//            return 'primary';
-//        } else {
-//            return 'danger';
-//        }
-//
-//    }
-
-
-
 }
