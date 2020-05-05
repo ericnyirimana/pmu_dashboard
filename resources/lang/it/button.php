@@ -28,6 +28,7 @@ return [
     'change_image' => 'Cambia immagine',
     'select_image' => 'Seleziona immagine',
     'approves' => 'Approva',
-    'send_approves' => 'Pubblica e manda in approvazione'
+    'send_approves' => 'Pubblica e manda in approvazione',
+    'disable' => 'Disabilita'
 
 ];

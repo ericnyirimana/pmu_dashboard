@@ -13,7 +13,7 @@ class Menu extends Model
 
     protected $table = 'menus';
 
-    protected $fillable = ['name', 'restaurant_id', 'status_menu'];
+    protected $fillable = ['name', 'restaurant_id', 'status_menu', 'has_products_in_active_pickup'];
 
     protected $dates = ['deleted_at'];
 
@@ -78,5 +78,12 @@ class Menu extends Model
 
     }
 
-
+    public function getHasProductsInActivePickupAttribute() {
+        foreach ($this->products as $product) {
+            if ($product->hasActivePickups()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
