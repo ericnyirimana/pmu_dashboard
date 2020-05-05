@@ -14,6 +14,13 @@ class Order extends Model
 
     }
 
+    public function payment() {
+
+        return $this->hasOne('App\Models\Payment');
+
+    }
+
+
     public function restaurant() {
 
           return $this->hasOne('App\Models\Restaurant');

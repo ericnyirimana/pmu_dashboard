@@ -37,7 +37,7 @@ class FileManager
 
             $name = uniqid() . $image->getClientOriginalName();
 
-            Storage::disk('s3')->put( $mainFolder . $name, file_get_contents($image) );
+            Storage::disk('s3')->put( $mainFolder . $name, file_get_contents($image), 'public' );
 
             foreach(self::$sizes as $key => $size) {
                 self::saveResizeImage( $key, $mainFolder, $name, $image );
@@ -67,7 +67,8 @@ class FileManager
             }
 
 
-            Storage::disk('s3')->put( $folder . '/' . self::$sizes[$size]['folder'] . '/' . $name, $file->getEncoded() );
+            Storage::disk('s3')->put( $folder . '/' . self::$sizes[$size]['folder'] . '/' . $name,
+                $file->getEncoded(), 'public' );
 
 
       }
