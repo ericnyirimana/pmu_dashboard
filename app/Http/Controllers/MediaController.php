@@ -158,18 +158,6 @@ class MediaController extends Controller
 
       }
 
-    public function softDelete(Media $media) {
-
-        FileManager::removeImage($this->folder, $media->file);
-        $media->withTrashed()->get();
-
-        return redirect()->route('media.index')->with([
-            'notification' => 'Image removed with success!',
-            'type-notification' => 'warning'
-        ]);
-
-    }
-
 
       protected function saveImage($image) {
 

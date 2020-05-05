@@ -202,19 +202,6 @@ class PickupController extends Controller
     }
 
 
-    public function softDelete(Pickup $pickup)
-    {
-
-        $pickup->withTrashed()->get();
-
-        return redirect()->route('pickups.index')->with([
-            'notification' => trans('messages.notification.pickup_removed'),
-            'type-notification' => 'warning'
-        ]);
-
-    }
-
-
     /**
      * @param Request $request
      * @return Request

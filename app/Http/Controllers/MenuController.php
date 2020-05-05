@@ -166,17 +166,6 @@ class MenuController extends Controller
 
     }
 
-    public function softDelete(Menu $menu) {
-
-        $menu->withTrashed()->get();
-
-        return redirect()->route('menu.index')->with([
-            'notification' => trans('messages.notification.menu_removed'),
-            'type-notification' => 'warning'
-        ]);
-
-    }
-
 
     protected function getFirstMenuFromRestaurant()
     {
