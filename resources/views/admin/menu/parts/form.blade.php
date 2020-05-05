@@ -26,7 +26,8 @@
   <div class="col-12">
         <div class="form-group d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-block w-lg btn-success col-5" @if($menu->has_products_in_active_pickup) disabled @endif>
-                @if($menu->id) {{ ucfirst(trans('button.save')) }} @else {{ ucfirst(trans('button.next')) }} @endif
+                @if($menu->id) {{ ucfirst(trans('button.save_draft')) }} @else {{ ucfirst(trans('button.next')) }}
+                @endif
             </button>
             @if($menu->id)
                 @if(Auth::user()->is_super)

@@ -20,7 +20,7 @@
         <div class="card-box bg-light">
             <div class="visible-always-scroll" style="max-height: 800px;">
                 <h4 class="text-dark header-title m-t-0 m-b-30">Menu</h4>
-                @if($menu->count() > 0)
+                @if(isset($menu))
                <ul class="list-menu">
                     @foreach(['Dish','Drink'] as $type)
                         @php $class = 'sections'.$type; @endphp

@@ -4,6 +4,7 @@ return [
 
     'delete' => 'delete',
     'save' => 'save',
+    'save_draft' => 'save draft',
     'add' => 'add',
     'back' => 'back',
     'next' => 'next',
