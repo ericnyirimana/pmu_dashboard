@@ -26,4 +26,8 @@ return [
     'profile' => 'Profilo',
     'settings' => 'Impostazioni',
     'logout' => 'Esci',
+    'modal' => [
+        'confirm_remove_title' => 'Confermi eliminazione',
+        'confirm_remove_text' => 'Confermi di voler rimuovere'
+    ],
 ];

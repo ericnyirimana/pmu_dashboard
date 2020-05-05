@@ -26,4 +26,8 @@ return [
     'profile' => 'Profile',
     'settings' => 'Settings',
     'logout' => 'Logout',
+    'modal' => [
+        'confirm_remove_title' => 'Remove register',
+        'confirm_remove_text' => 'Do you want to remove register'
+    ],
 ];
