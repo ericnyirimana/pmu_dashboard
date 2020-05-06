@@ -9,7 +9,7 @@ class Order extends Model
 
 
     public $fillable = [
-        'id', 'status', 'total_amount'
+        'id', 'status', 'created_at',
     ];
 
     public function user() {
@@ -39,10 +39,27 @@ class Order extends Model
     }
 
 
-
     public function products() {
 
           return $this->hasMany('App\Models\Product');
+
+    }
+
+    public function getIsApprovedAttribute() {
+
+        return ($this->status == 'APPROVED');
+
+    }
+
+    public function getIsWaitingAttribute() {
+
+        return ($this->status == 'PENDING');
+
+    }
+
+    public function getIsRejectedAttribute() {
+
+        return ($this->status == 'REJECTED');
 
     }
 

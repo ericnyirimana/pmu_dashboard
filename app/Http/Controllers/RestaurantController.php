@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
 use App\Models\Order;
+use App\Models\Pickup;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
@@ -72,7 +73,6 @@ class RestaurantController extends Controller
         $restaurant = new Restaurant;
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
         $users = $restaurant->users();
-        $orders = $restaurant->orders();
 
         return view('admin.restaurants.create')->with([
             'company' => $company,
@@ -80,7 +80,6 @@ class RestaurantController extends Controller
             'media' => $media,
             'mealtype' => $mealtypeList,
             'users' => $users,
-            'orders' => $orders
         ]);
 
     }
@@ -193,7 +192,7 @@ class RestaurantController extends Controller
             'media' => $media,
             'mealtype' => $mealtypeList,
             'users' => $users,
-            'orders' => $orders
+            'orders' => $orders,
         ]);
 
     }

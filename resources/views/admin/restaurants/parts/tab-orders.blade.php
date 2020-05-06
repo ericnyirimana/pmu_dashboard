@@ -5,11 +5,10 @@
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
 
                 <datatable route='orders' :collection="$orders" :fields="[
-                'datatable.headers.date'      => 'date',
-                'datatable.headers.hour'      => 'hour',
+                'datatable.headers.date_hour'      => 'created_at',
                 'ID' => 'id',
-                'datatable.headers.offer'      => 'pickup_id',
-                'datatable.headers.price' => 'offer_price',
+                'datatable.headers.offer'      => 'name',
+                'datatable.headers.price' => 'price',
                 'datatable.headers.status'      => 'status',
                 ]"
                 actions='view' />

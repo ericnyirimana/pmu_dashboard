@@ -30,7 +30,8 @@ return [
         'price' => 'Price',
         'offer' => 'Offer',
         'date' => 'Date',
-        'hour' => 'Hour'
+        'hour' => 'Hour',
+        'date_hour' => 'Date and hour',
     ],
     'tab_restaurant' => [
         'restaurant' => 'Restaurant',
