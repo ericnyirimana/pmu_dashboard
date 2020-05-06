@@ -45,22 +45,4 @@ class Order extends Model
 
     }
 
-    public function getIsApprovedAttribute() {
-
-        return ($this->status == 'APPROVED');
-
-    }
-
-    public function getIsWaitingAttribute() {
-
-        return ($this->status == 'PENDING');
-
-    }
-
-    public function getIsRejectedAttribute() {
-
-        return ($this->status == 'REJECTED');
-
-    }
-
 }

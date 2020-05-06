@@ -6,7 +6,7 @@
 @include('components.notification')
 
 <tag-form :action="route('orders.update', $order)" method="put" >
-    @include('admin.orders.parts.form')
+    @include('admin.tab-orders.parts.form')
 </tag-form>
 
 @endsection

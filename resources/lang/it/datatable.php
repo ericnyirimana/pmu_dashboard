@@ -11,6 +11,7 @@ return [
     'list_showcases' => 'Lista vetrine',
     'list_users' => 'List utenti',
     'list_orders' => 'Lista ordini',
+    'history_payments' => 'Storico pagamenti',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',

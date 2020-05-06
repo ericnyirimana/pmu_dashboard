@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
 use App\Models\Order;
 use App\Models\Pickup;
-use App\Models\Restaurant;
 use App\Traits\TranslationTrait;
 use Illuminate\Http\Request;
 
@@ -38,7 +36,7 @@ class OrderController extends Controller
         $order = Order::all();
         $pickup = Pickup::all();
 
-        return view('admin.orders.index')
+        return view('admin.tab-orders.view')
             ->with(compact('order'))
             ->with(compact('pickup'));
 
@@ -46,7 +44,7 @@ class OrderController extends Controller
 
     public function show(Order $order, Pickup $pickup) {
 
-        return view('admin.orders.view')->with([
+        return view('admin.tab-orders.view')->with([
                 'order'  => $order,
                 'pickup' => $pickup
             ]

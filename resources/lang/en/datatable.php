@@ -11,6 +11,7 @@ return [
     'list_showcases' => 'List showcases',
     'list_users' => 'List users',
     'list_orders' => 'List orders',
+    'history_payments' => 'History payment',
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
