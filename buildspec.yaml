@@ -32,10 +32,8 @@ phases:
   build:
     commands:
       - docker build -t pmu_dashboard --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_DATABASE=$DB_DATABASE --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PWD --build-arg AWS_COGNITO_KEY=$AWS_COGNITO_KEY --build-arg AWS_COGNITO_SECRET=$AWS_COGNITO_SECRET --build-arg AWS_COGNITO_REGION=$AWS_COGNITO_REGION --build-arg AWS_COGNITO_CLIENT_ID=$AWS_COGNITO_CLIENT_ID --build-arg AWS_COGNITO_USER_POOL_ID=$AWS_COGNITO_USER_POOL_ID --build-arg S3_ACCESS_KEY_ID=$S3_ACCESS_KEY_ID --build-arg S3_SECRET_ACCESS_KEY=$S3_SECRET_ACCESS_KEY --build-arg S3_DEF_REGION=$S3_DEF_REGION --build-arg S3_BUCKET=$S3_BUCKET --build-arg STRIPE_KEY=$STRIPE_KEY --build-arg STRIPE_SECRET=$STRIPE_SECRET .
-      - docker tag pmu_dashboard 948108788286.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
-      - docker push 948108788286.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
-      # - docker tag pmu_dashboard 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
-      # - docker push 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
+       - docker tag pmu_dashboard 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
+       - docker push 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
   post_build:
     commands:
       - echo Build completed on `date`
