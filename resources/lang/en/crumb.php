@@ -13,6 +13,7 @@ return [
         'timeslots' => 'Timeslots',
         'showcases' => 'Showcases',
         'users' => 'users',
-        'media' => 'media'
+        'media' => 'media',
+        'orders' => 'Orders'
     ],
 ];

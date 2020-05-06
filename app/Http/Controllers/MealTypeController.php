@@ -64,7 +64,7 @@ class MealTypeController extends Controller
         $this->saveTranslation($mealtype, $fields);
 
         return redirect()->route('mealtypes.index', $mealtype)->with([
-            'notification' => 'Nuovo orario salvato con successo!',
+            'notification' => trans('messages.notification.hour_saved'),
             'type-notification' => 'success'
         ]);
 

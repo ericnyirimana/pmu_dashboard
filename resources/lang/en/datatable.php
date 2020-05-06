@@ -10,6 +10,7 @@ return [
     'list_dishes' => 'List dishes',
     'list_showcases' => 'List showcases',
     'list_users' => 'List users',
+    'list_orders' => 'List orders',
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
@@ -26,5 +27,15 @@ return [
         'email' => 'Email',
         'role' => 'Role',
         'title' => 'Title',
+        'price' => 'Price',
+        'offer' => 'Offer',
+        'date' => 'Date',
+        'hour' => 'Hour'
+    ],
+    'tab_restaurant' => [
+        'restaurant' => 'Restaurant',
+        'payment' => 'Payment history',
+        'order' => 'Orders',
+        'account' => 'Account'
     ],
 ];

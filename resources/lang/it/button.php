@@ -30,6 +30,8 @@ return [
     'select_image' => 'Seleziona immagine',
     'approves' => 'Approva',
     'send_approves' => 'Pubblica e manda in approvazione',
-    'disable' => 'Disabilita'
+    'disable' => 'Disabilita',
+    'reject' => 'Rifiuta',
+    'confirm' => 'Conferma'
 
 ];

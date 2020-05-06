@@ -7,12 +7,13 @@ return [
         'companies' => 'società',
         'restaurants' => 'ristoranti',
         'categories' => 'categorie',
-        'products' => 'piatti',
-        'menu' => 'menu',
+        'products' => 'Piatti',
+        'menu' => 'Menu',
         'mealtypes' => 'Fasce orarie',
         'timeslots' => 'Fasce orarie',
         'showcases' => 'Vetrine',
-        'users' => 'users',
-        'media' => 'media'
+        'users' => 'Utenti',
+        'media' => 'Media',
+        'orders' => 'Ordini'
     ]
 ];

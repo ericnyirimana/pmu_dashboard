@@ -8,6 +8,10 @@ class Order extends Model
 {
 
 
+    public $fillable = [
+        'id', 'status', 'total_amount'
+    ];
+
     public function user() {
 
           return $this->hasOne('App\Models\User');

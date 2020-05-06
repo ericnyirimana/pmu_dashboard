@@ -21,7 +21,9 @@ return [
         'restaurant_saved' => 'Ristorante salvato con successo!',
         'restaurant_removed' => 'Ristorante rimosso con successo!',
         'company_saved' => 'Società salvata con successo!',
-        'company_removed' => 'Società rimossa con successo!'
+        'company_removed' => 'Società rimossa con successo!',
+        'order_confirmed' => 'Ordine confermato con successo!',
+        'order_rejected' => 'Ordine rifiutato con successo!'
     ]
 
 ];

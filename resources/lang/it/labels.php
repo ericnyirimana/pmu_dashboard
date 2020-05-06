@@ -26,6 +26,14 @@ return [
     'profile' => 'Profilo',
     'settings' => 'Impostazioni',
     'logout' => 'Esci',
+    'id' => 'ID',
+    'date' => 'Data',
+    'order_type' => 'Tipo ordine',
+    'offer' => 'Offerta',
+    'detail' => 'Dettaglio',
+    'customer_id' => 'ID cliente',
+    'status' => 'Stato',
+    'price' => 'Prezzo',
     'modal' => [
         'confirm_remove_title' => 'Confermi eliminazione',
         'confirm_remove_text' => 'Confermi di voler rimuovere'

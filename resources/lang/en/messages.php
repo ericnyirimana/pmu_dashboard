@@ -21,6 +21,8 @@ return [
         'restaurant_saved' => 'Restaurant saved with success!',
         'restaurant_removed' => 'Restaurant removed with success!',
         'company_saved' => 'Company saved with success!',
-        'company_removed' => 'Company removed with success!'
+        'company_removed' => 'Company removed with success!',
+        'order_confirmed' => 'Order confirmed with success!',
+        'order_rejected' => 'Order rejected with success!'
     ]
 ];

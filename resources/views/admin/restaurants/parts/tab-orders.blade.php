@@ -2,27 +2,28 @@
     <div class="col-12">
         <div class="card-box table-responsive">
 
-            <h4 class="m-t-0 header-title"><b>List Orders</b></h4>
+            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
 
-                <datatable route='orders' :collection="$restaurant->orders" :fields="[
+                <datatable route='orders' :collection="$orders" :fields="[
+                'datatable.headers.date'      => 'date',
+                'datatable.headers.hour'      => 'hour',
                 'ID' => 'id',
+                'datatable.headers.offer'      => 'pickup_id',
+                'datatable.headers.price' => 'offer_price',
+                'datatable.headers.status'      => 'status',
                 ]"
-                actions='edit' />
+                actions='view' />
         </div>
     </div>
 </div>
+
 @push('scripts')
-<script type="text/javascript">
-    $(document).ready(function() {
+    <script type="text/javascript">
+			$(document).ready(function() {
 
-        $('#datatable').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
-            }
 
-        });
 
-    });
+			});
 
-</script>
+    </script>
 @endpush

@@ -26,6 +26,14 @@ return [
     'profile' => 'Profile',
     'settings' => 'Settings',
     'logout' => 'Logout',
+    'id' => 'ID',
+    'date' => 'Date',
+    'order_type' => 'Order type',
+    'offer' => 'Offer',
+    'detail' => 'Detail',
+    'customer_id' => 'ID customer',
+    'status' => 'Status',
+    'price' => 'Price',
     'modal' => [
         'confirm_remove_title' => 'Remove register',
         'confirm_remove_text' => 'Do you want to remove register'

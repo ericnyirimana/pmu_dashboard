@@ -10,6 +10,7 @@ return [
     'list_dishes' => 'Lista piatti',
     'list_showcases' => 'Lista vetrine',
     'list_users' => 'List utenti',
+    'list_orders' => 'Lista ordini',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',
@@ -26,5 +27,15 @@ return [
         'email' => 'Email',
         'role' => 'Ruolo',
         'title' => 'Titolo',
+        'price' => 'Prezzo',
+        'offer' => 'Offerta',
+        'date' => 'Data',
+        'hour' => 'Ora'
+    ],
+    'tab_restaurant' => [
+        'restaurant' => 'Ristorante',
+        'payment' => 'Storico pagamenti',
+        'order' => 'Ordini',
+        'account' => 'Account'
     ],
 ];

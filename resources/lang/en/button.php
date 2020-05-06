@@ -30,5 +30,7 @@ return [
     'select_image' => 'Select',
     'approves' => 'Approves',
     'send_approves' => 'Publishes and sends approval',
-    'disable' => 'Disable'
+    'disable' => 'Disable',
+    'reject' => 'Reject',
+    'confirm' => 'Confirm'
 ];

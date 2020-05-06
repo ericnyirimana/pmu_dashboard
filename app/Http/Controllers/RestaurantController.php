@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
@@ -54,9 +55,12 @@ class RestaurantController extends Controller
             $users = User::get();
         }
 
+        $orders = Order::all();
+
         return view('admin.restaurants.index')
             ->with(compact('restaurants'))
-            ->with(compact('users'));
+            ->with(compact('users'))
+            ->with(compact('orders'));
 
     }
 
@@ -68,13 +72,15 @@ class RestaurantController extends Controller
         $restaurant = new Restaurant;
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
         $users = $restaurant->users();
+        $orders = $restaurant->orders();
 
         return view('admin.restaurants.create')->with([
             'company' => $company,
             'restaurant' => $restaurant,
             'media' => $media,
             'mealtype' => $mealtypeList,
-            'users' => $users
+            'users' => $users,
+            'orders' => $orders
         ]);
 
     }
@@ -156,7 +162,7 @@ class RestaurantController extends Controller
     }
 
 
-    public function show(Restaurant $restaurant, User $user)
+    public function show(Restaurant $restaurant, User $user, Order $order)
     {
 
         $company = $restaurant->company;
@@ -164,7 +170,8 @@ class RestaurantController extends Controller
         return view('admin.restaurants.view')
             ->with(compact('restaurant'))
             ->with(compact('company'))
-            ->with(compact('user'));
+            ->with(compact('user'))
+            ->with(compact('order'));
 
     }
 
@@ -179,12 +186,14 @@ class RestaurantController extends Controller
         $owner = $company->owner()->get();
         $users = $restaurant->users()->get();
         $users = $users->merge($owner);
+        $orders = Order::all();
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
             'company' => $company,
             'media' => $media,
             'mealtype' => $mealtypeList,
-            'users' => $users
+            'users' => $users,
+            'orders' => $orders
         ]);
 
     }
