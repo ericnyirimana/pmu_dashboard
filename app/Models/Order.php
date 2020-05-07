@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
 
+    //protected $fillable = ['total_commission', 'total_amount', 'subtotal_amount', 'discounted_price'];
 
     public $fillable = [
         'id', 'status', 'created_at',
