@@ -11,7 +11,8 @@ return [
     'list_showcases' => 'List showcases',
     'list_users' => 'List users',
     'list_orders' => 'List orders',
-    'history_payments' => 'History payment',
+    'history_payments' => 'History payments',
+    'history_orders' => 'History orders',
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
@@ -28,11 +29,12 @@ return [
         'email' => 'Email',
         'role' => 'Role',
         'title' => 'Title',
-        'price' => 'Price',
+        'price' => 'Price (€)',
         'offer' => 'Offer',
         'date' => 'Date',
         'hour' => 'Hour',
         'date_hour' => 'Date and hour',
+        'total' => 'Total'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Restaurant',

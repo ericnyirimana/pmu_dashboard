@@ -1,4 +1,4 @@
-<h6 class="">Informazioni generali</h6>
+<h6 class="">{{ ucfirst(trans('labels.general_info')) }}</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
           <field-text label="name" field="name" :model="$restaurant" required  />
@@ -13,7 +13,7 @@
 
 <hr />
 
-<h6 class="">Dati bancari</h6>
+<h6 class="">{{ ucfirst(trans('labels.banking_data')) }}</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
         <field-map-billing-address label="Indirizzo fatturazione" field="billing_address" :model="$restaurant" required  />
@@ -47,7 +47,7 @@
 
 <hr />
 
-<h6 class="">Opening hours</h6>
+<h6 class="">{{ ucfirst(trans('labels.opening_hours')) }}</h6>
 <div class="card-body">
     <div class="row">
       <div class="col-12">
@@ -76,7 +76,7 @@
 </div>
 
 <hr />
-<h6 class="">Extraordinary close</h6>
+<h6 class="">{{ ucfirst(trans('labels.extraordinary_close')) }}</h6>
 <div class="card-body">
     <div class="col-12">
         <field-closed-days :model="$restaurant" />
@@ -84,7 +84,7 @@
 </div>
 
 <hr />
-<h6 class="">Tipologia pasto</h6>
+<h6 class="">{{ ucfirst(trans('labels.meal_type')) }}</h6>
 
 <div class="card-body">
     <div class="col-12">
@@ -94,7 +94,7 @@
 
 <hr />
 
-<h6 class="">Gallery Restaurant</h6>
+<h6 class="">{{ ucfirst(trans('labels.gallery_restaurant')) }}</h6>
 <div class="card-body">
     <div class="col-12">
         <field-media-list label="Images" :model="$restaurant" />

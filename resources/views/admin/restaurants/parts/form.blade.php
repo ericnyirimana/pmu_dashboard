@@ -27,7 +27,7 @@
                 @include('admin.restaurants.parts.tab-general')
             </div>
             <div class="tab-pane" id="payments">
-                {{--@include('admin.restaurants.parts.tab-payments')--}}
+                @include('admin.restaurants.parts.tab-payments')
             </div>
             <div class="tab-pane" id="orders">
                 @include('admin.restaurants.parts.tab-orders')

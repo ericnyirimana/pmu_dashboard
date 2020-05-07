@@ -36,6 +36,11 @@ return [
     'customer_id' => 'ID cliente',
     'status' => 'Stato',
     'price' => 'Prezzo',
+    'general_info' => 'Informazioni generali',
+    'banking_data' => 'Dati bancari',
+    'opening_hours' => 'Orari di apertura',
+    'extraordinary_close' => 'Chiusure straordinarie',
+    'gallery_restaurant' => 'Immagini ristorante',
     'modal' => [
         'confirm_remove_title' => 'Confermi eliminazione',
         'confirm_remove_text' => 'Confermi di voler rimuovere'

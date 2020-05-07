@@ -32,5 +32,6 @@ return [
     'send_approves' => 'Publishes and sends approval',
     'disable' => 'Disable',
     'reject' => 'Reject',
-    'confirm' => 'Confirm'
+    'confirm' => 'Confirm',
+    'order_closed' => 'Close order'
 ];

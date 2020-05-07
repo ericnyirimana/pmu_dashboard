@@ -17,25 +17,15 @@ class PaymentController extends Controller
 
     }
 
-//    public function validation(Request $request) {
-//
-//        $validation = [
-//
-//        ];
-//
-//        $request->validate(
-//            $validation
-//        );
-//
-//    }
+    public function validation(Request $request) {
 
-    public function index()
-    {
+        $validation = [
 
-        $payment = Payment::all();
+        ];
 
-        return view('admin.tab-payments.view')
-            ->with(compact('payment'));
+        $request->validate(
+            $validation
+        );
 
     }
 

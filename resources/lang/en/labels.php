@@ -36,6 +36,11 @@ return [
     'customer_id' => 'ID customer',
     'status' => 'Status',
     'price' => 'Price',
+    'general_info' => 'General',
+    'banking_data' => 'Banking data',
+    'opening_hours' => 'Opening hours',
+    'extraordinary_close' => 'Extraordinary close',
+    'gallery_restaurant' => 'Gallery restaurant',
     'modal' => [
         'confirm_remove_title' => 'Remove register',
         'confirm_remove_text' => 'Do you want to remove register'

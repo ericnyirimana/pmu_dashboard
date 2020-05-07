@@ -32,6 +32,6 @@ return [
     'send_approves' => 'Pubblica e manda in approvazione',
     'disable' => 'Disabilita',
     'reject' => 'Rifiuta',
-    'confirm' => 'Conferma'
-
+    'confirm' => 'Conferma',
+    'order_closed' => 'Chiudi ordine'
 ];

@@ -58,6 +58,9 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/orders', 'OrderController');
 
+        Route::resource('/orders-pickup', 'OrderPickupController');
+
+
         Route::resource('/payments', 'PaymentController');
 
         Route::resource('/companies', 'CompanyController');

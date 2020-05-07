@@ -1,15 +1,16 @@
 <div class="row">
     <div class="col-12">
-        <div class="card-box table-responsive">
+        <div class="table-responsive">
 
-            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
+            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.history_orders')) }}</b></h4>
 
-                <datatable route='orders' :collection="$orders" :fields="[
-                'datatable.headers.date_hour'      => 'created_at',
-                'ID' => 'id',
-                'datatable.headers.offer'      => 'name',
-                'datatable.headers.price' => 'price',
-                'datatable.headers.status'      => 'status',
+                <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
+                'datatable.headers.date'      => 'order:date_format',
+                'datatable.headers.hour'      => 'order:hour_format',
+                'ID' => 'order:id',
+                'datatable.headers.offer'      => 'pickup:name',
+                'datatable.headers.price' => 'pickup:price',
+                'datatable.headers.status'      => 'order:status',
                 ]"
                 actions='view' />
         </div>

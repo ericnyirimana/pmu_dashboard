@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
 use App\Models\Order;
+use App\Models\OrderPickup;
+use App\Models\Payment;
 use App\Models\Pickup;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -56,12 +58,9 @@ class RestaurantController extends Controller
             $users = User::get();
         }
 
-        $orders = Order::all();
-
         return view('admin.restaurants.index')
             ->with(compact('restaurants'))
-            ->with(compact('users'))
-            ->with(compact('orders'));
+            ->with(compact('users'));
 
     }
 
@@ -161,7 +160,7 @@ class RestaurantController extends Controller
     }
 
 
-    public function show(Restaurant $restaurant, User $user, Order $order)
+    public function show(Restaurant $restaurant, User $user)
     {
 
         $company = $restaurant->company;
@@ -169,8 +168,7 @@ class RestaurantController extends Controller
         return view('admin.restaurants.view')
             ->with(compact('restaurant'))
             ->with(compact('company'))
-            ->with(compact('user'))
-            ->with(compact('order'));
+            ->with(compact('user'));
 
     }
 
@@ -185,14 +183,16 @@ class RestaurantController extends Controller
         $owner = $company->owner()->get();
         $users = $restaurant->users()->get();
         $users = $users->merge($owner);
-        $orders = Order::all();
+        $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
+        $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
+
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
             'company' => $company,
             'media' => $media,
             'mealtype' => $mealtypeList,
             'users' => $users,
-            'orders' => $orders,
+            'ordersPickup' => $ordersPickup,
         ]);
 
     }

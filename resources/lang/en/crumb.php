@@ -14,6 +14,7 @@ return [
         'showcases' => 'Showcases',
         'users' => 'users',
         'media' => 'media',
-        'orders' => 'Orders'
+        'orders' => 'Orders',
+        'orders-pickup' => 'Orders'
     ],
 ];

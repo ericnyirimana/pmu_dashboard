@@ -12,6 +12,7 @@ return [
     'list_users' => 'List utenti',
     'list_orders' => 'Lista ordini',
     'history_payments' => 'Storico pagamenti',
+    'history_orders' => 'Storico ordini',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',
@@ -28,11 +29,12 @@ return [
         'email' => 'Email',
         'role' => 'Ruolo',
         'title' => 'Titolo',
-        'price' => 'Prezzo',
+        'price' => 'Prezzo (€)',
         'offer' => 'Offerta',
         'date' => 'Data',
         'hour' => 'Ora',
         'date_hour' => 'Data e ora',
+        'total' => 'Somma',
     ],
     'tab_restaurant' => [
         'restaurant' => 'Ristorante',

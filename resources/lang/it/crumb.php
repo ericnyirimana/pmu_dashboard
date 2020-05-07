@@ -14,6 +14,7 @@ return [
         'showcases' => 'Vetrine',
         'users' => 'Utenti',
         'media' => 'Media',
-        'orders' => 'Ordini'
+        'orders' => 'Ordini',
+        'orders-pickup' => 'Ordini'
     ]
 ];

@@ -1,15 +1,12 @@
 <div class="row">
     <div class="col-12">
-        <div class="card-box table-responsive">
+        <div class="table-responsive">
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.history_payments')) }}</b></h4>
 
-            {{--<datatable route='payment' :collection="$payment" :fields="[--}}
+            {{--<datatable route='payments' :collection="$payments" :fields="[--}}
                 {{--'datatable.headers.date_hour'      => 'created_at',--}}
-                {{--'ID' => 'id',--}}
-                {{--'datatable.headers.offer'      => 'name',--}}
-                {{--'datatable.headers.price' => 'price',--}}
-                {{--'datatable.headers.status'      => 'status',--}}
+                {{--'datatable.headers.total'      => '',--}}
                 {{--]"--}}
                        {{--actions='view' />--}}
         </div>
@@ -19,10 +16,6 @@
     <script type="text/javascript">
 			$(document).ready(function() {
 
-				$('#datatable').DataTable({
-
-
-				});
 
 			});
 

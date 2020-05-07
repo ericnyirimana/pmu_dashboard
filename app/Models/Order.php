@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -42,6 +43,18 @@ class Order extends Model
     public function products() {
 
           return $this->hasMany('App\Models\Product');
+
+    }
+
+    public function getDateFormatAttribute() {
+
+        return Carbon::parse($this->created_at)->format('d/m/Y');
+
+    }
+
+    public function getHourFormatAttribute() {
+
+        return Carbon::parse($this->created_at)->format('H:i');
 
     }
 
