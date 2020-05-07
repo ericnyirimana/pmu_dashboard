@@ -18,7 +18,6 @@ class CreateSubscriptionTicketsTable extends Migration
             $table->bigInteger('pickup_id')->unsigned();
             $table->bigInteger('order_id')->unsigned();
             $table->integer('closed')->default(0);
-            $table->integer('is_coming')->default(0);
             $table->timestamps();
             $table->softDeletes();
 
