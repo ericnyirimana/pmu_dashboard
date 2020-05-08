@@ -34,7 +34,8 @@ return [
         'date' => 'Date',
         'hour' => 'Hour',
         'date_hour' => 'Date and hour',
-        'total' => 'Total'
+        'total' => 'Total',
+        'processing_date' => 'Processing date'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Restaurant',

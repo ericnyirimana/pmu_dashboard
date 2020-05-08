@@ -186,6 +186,16 @@ class RestaurantController extends Controller
         $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
 
+        $payouts = $this->stripe->getPayoutsForDestination($restaurant->merchant_stripe);
+        $payments = new Collection();
+        foreach ($payouts['data'] as $payout) {
+            $payments->push((object)[
+                'id' => $payout->id,
+                'created' => date('d-m-Y', $payout->created),
+                'amount' => number_format(($payout->amount/100), 2, ',', '.').'€'
+            ]);
+        }
+
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
             'company' => $company,
@@ -193,6 +203,7 @@ class RestaurantController extends Controller
             'mealtype' => $mealtypeList,
             'users' => $users,
             'ordersPickup' => $ordersPickup,
+            'payments' => $payments
         ]);
 
     }
