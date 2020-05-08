@@ -23,7 +23,7 @@ RUN yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
     dnf module install -y php:remi-7.4 && \
     dnf -y install dnf-utils php-mysqlnd php-gd unzip && \
-    yum -y update && yum -y install nc telnet \
+    yum -y update && yum -y install nc telnet && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
