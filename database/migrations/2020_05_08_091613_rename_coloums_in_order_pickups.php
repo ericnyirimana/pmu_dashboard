@@ -27,7 +27,8 @@ class RenameColoumsInOrderPickups extends Migration
     public function down()
     {
         Schema::table('order_pickups', function (Blueprint $table) {
-            //
+            $table->renameColumn('offer_price', 'offer_price ');
+            $table->renameColumn('discounted_price', 'discounted_price ');
         });
     }
 }

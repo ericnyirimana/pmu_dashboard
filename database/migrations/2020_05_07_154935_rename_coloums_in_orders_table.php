@@ -31,7 +31,10 @@ class RenameColoumsInOrdersTable extends Migration
     public function down()
     {
         Schema::table('orders', function (Blueprint $table) {
-            //
+            $table->renameColumn('total_commission', 'total_commission ');
+            $table->renameColumn('subtotal_amount', 'subtotal_amount ');
+            $table->renameColumn('discounted_price', 'discounted_price ');
+            $table->renameColumn('total_amount', 'total_amount ');
         });
     }
 }
