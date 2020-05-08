@@ -7,6 +7,7 @@ return [
     'vat' => 'VAT',
     'corporate_name' => 'Nome Società',
     'address' => 'Indirizzo',
+    'billing_address' => 'Indirizzo di fatturazione',
     'merchant_id' => 'Merchant ID (Stripe)',
     'piva_fiscal_code' => 'P. Iva o codice fiscale',
     'iban' => 'IBAN',
@@ -41,6 +42,11 @@ return [
     'opening_hours' => 'Orari di apertura',
     'extraordinary_close' => 'Chiusure straordinarie',
     'gallery_restaurant' => 'Immagini ristorante',
+    'validate_subscription' => 'Abbonamento valido da',
+    'sale_subscriptions' => 'Abbonamenti in vendita',
+    'purchase_subscriptions' => 'Abbonamenti acquistati',
+    'orders_collected' => 'Ordini riscossi',
+    'orders_to_be_collected' => 'Ordini da riscuotere',
     'modal' => [
         'confirm_remove_title' => 'Confermi eliminazione',
         'confirm_remove_text' => 'Confermi di voler rimuovere'

@@ -13,6 +13,7 @@ return [
     'list_orders' => 'Lista ordini',
     'history_payments' => 'Storico pagamenti',
     'history_orders' => 'Storico ordini',
+    'active_subscriptions' => 'Abbonamenti attivi',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',
@@ -40,6 +41,7 @@ return [
         'restaurant' => 'Ristorante',
         'payment' => 'Storico pagamenti',
         'order' => 'Ordini',
+        'subscription' => 'Abbonamenti',
         'account' => 'Account'
     ],
 ];

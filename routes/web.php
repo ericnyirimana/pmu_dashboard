@@ -60,6 +60,12 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/orders-pickup', 'OrderPickupController');
 
+        // Route::resource('/subscriptions', 'SubscriptionController');
+
+//        Route::patch('/subscriptions/',[
+//            'as' => 'admin.subscriptions.view',
+//            'uses' => 'SubscriptionController@view'
+//        ]);
 
         Route::resource('/payments', 'PaymentController');
 

@@ -7,6 +7,7 @@ return [
     'vat' => 'VAT',
     'corporate_name' => 'Corporate name',
     'address' => 'Address',
+    'billing_address' => 'Billing address',
     'merchant_id' => 'Merchant ID (Stripe)',
     'piva_fiscal_code' => 'VAT or Fiscal Code',
     'iban' => 'IBAN',
@@ -41,6 +42,12 @@ return [
     'opening_hours' => 'Opening hours',
     'extraordinary_close' => 'Extraordinary close',
     'gallery_restaurant' => 'Gallery restaurant',
+    'validate_subscription' => 'Validate subscription',
+    'sale_subscriptions' => 'Subscriptions for sale',
+    'purchase_subscriptions' => 'Subscriptions purchased',
+    'orders_collected' => 'Orders collected',
+    'orders_to_be_collected' => 'Orders to be collected',
+    '' => 'Validate subscription',
     'modal' => [
         'confirm_remove_title' => 'Remove register',
         'confirm_remove_text' => 'Do you want to remove register'

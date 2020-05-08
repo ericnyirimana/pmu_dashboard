@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
-use App\Models\Order;
 use App\Models\OrderPickup;
-use App\Models\Payment;
 use App\Models\Pickup;
+use App\Models\PickupSubscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
@@ -185,6 +184,7 @@ class RestaurantController extends Controller
         $users = $users->merge($owner);
         $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
+        $subscriptions = PickupSubscription::all();
 
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
@@ -193,6 +193,7 @@ class RestaurantController extends Controller
             'mealtype' => $mealtypeList,
             'users' => $users,
             'ordersPickup' => $ordersPickup,
+            'subscriptions' => $subscriptions
         ]);
 
     }

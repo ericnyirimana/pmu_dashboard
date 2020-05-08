@@ -33,5 +33,6 @@ return [
     'disable' => 'Disabilita',
     'reject' => 'Rifiuta',
     'confirm' => 'Conferma',
-    'order_closed' => 'Chiudi ordine'
+    'order_closed' => 'Chiudi ordine',
+    'subscription_detail' => 'Dettaglio abbonamento'
 ];
