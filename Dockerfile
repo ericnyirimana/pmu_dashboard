@@ -17,8 +17,6 @@ ARG S3_BUCKET
 ARG STRIPE_KEY
 ARG STRIPE_SECRET
 
-
-#RUN yum -y update && \
 RUN yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
     dnf module install -y php:remi-7.4 && \
@@ -30,6 +28,7 @@ RUN yum -y install epel-release && \
     mkdir -p /opt/pmu_dashboard
 
 COPY . /opt/pmu_dashboard
+COPY php.ini /etc/
 
 RUN cd /opt/pmu_dashboard && \
     cp /opt/pmu_dashboard/.env.example /opt/pmu_dashboard/.env && \
