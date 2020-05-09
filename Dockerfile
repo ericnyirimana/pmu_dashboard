@@ -27,8 +27,10 @@ RUN yum -y install epel-release && \
     chmod +x /usr/local/bin/composer && \
     mkdir -p /opt/pmu_dashboard
 
-COPY src/* /opt/pmu_dashboard
+COPY src/* /opt/pmu_dashboard/
 COPY php.ini /etc/
+
+RUN ls -ali /opt/pmu_dashboard/
 
 RUN cd /opt/pmu_dashboard && \
     cp /opt/pmu_dashboard/.env.example /opt/pmu_dashboard/.env && \
