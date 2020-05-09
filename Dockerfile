@@ -28,7 +28,7 @@ RUN yum -y install epel-release && \
     mkdir -p /opt/pmu_dashboard
 
 COPY . /opt/pmu_dashboard
-RUN move /opt/pmu_dashboard/php.ini /etc/
+RUN mv /opt/pmu_dashboard/php.ini /etc/
 
 RUN ls -ali /opt/pmu_dashboard/
 
