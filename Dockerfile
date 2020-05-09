@@ -79,4 +79,4 @@ WORKDIR /opt/pmu_dashboard
 
 EXPOSE 7000
 
-CMD ["php","-S","0.0.0.0:7000","-t","public"]
+CMD ["php","-S","0.0.0.0:7000","-c","/etc/php.ini","-t","public"]
