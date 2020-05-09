@@ -95,6 +95,7 @@ class Cognito
       */
       public function authenticate(array $credentials)
       {
+            error_log('AAAAA') 
 
             $client = $this->client;
 
