@@ -35,7 +35,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-error_log('AAAAA')
+error_log('AAAAA');
 
 
         return view('auth.login');
@@ -66,7 +66,7 @@ error_log('AAAAA')
      */
     public function login(Request $request)
     {
-error_log('AAAAA')
+error_log('AAAAA');
         #connect with Cognito
         $credentials = $request->only('email', 'password');
 
