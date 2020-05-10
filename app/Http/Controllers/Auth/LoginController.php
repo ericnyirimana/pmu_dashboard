@@ -70,7 +70,7 @@ error_log('AAAAA');
         #connect with Cognito
         $credentials = $request->only('email', 'password');
 
-        /*
+
         $client = new Cognito();
         $response = $client->authenticate($credentials);
 
@@ -87,27 +87,29 @@ error_log('AAAAA');
 
 
         }
+        /*
+                if ($response) {
 
-        if ($response) {
+                    $token = $response['token']['AccessToken'];
 
-            $token = $response['token']['AccessToken'];
+                    #align user from Cognito
+                    $sync = $this->alignUserFromCognito($request);
 
-            #align user from Cognito
-            $sync = $this->alignUserFromCognito($request);
+                    #if Authenticate with cognito, connect with normal DB
+                    #The user from DB is a clone from Cognito, it copies every time it log
+                    if ($sync && Auth::attempt($credentials, $request->remember)) {
 
-            #if Authenticate with cognito, connect with normal DB
-            #The user from DB is a clone from Cognito, it copies every time it log
-            if ($sync && Auth::attempt($credentials, $request->remember)) {
+                        return redirect()->route('dashboard.blank');
+                    } else {
 
-                return redirect()->route('dashboard.blank');
-            } else {
+                        return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
+                    }
 
-                return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
-            }
+                }
+                */
+        //return redirect()->route('dashboard.blank');
+        return response()->json(['response' => $response], 400);
 
-        }
-        */
-        return redirect()->route('dashboard.blank');
     }
 
 
