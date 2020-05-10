@@ -66,10 +66,11 @@ error_log('AAAAA');
      */
     public function login(Request $request)
     {
-error_log('AAAAA');
+        error_log('AAAAA');
         #connect with Cognito
         $credentials = $request->only('email', 'password');
 
+        /*
         $client = new Cognito();
         $response = $client->authenticate($credentials);
 
@@ -105,7 +106,8 @@ error_log('AAAAA');
             }
 
         }
-
+        */
+        return redirect()->route('dashboard.blank');
     }
 
 
