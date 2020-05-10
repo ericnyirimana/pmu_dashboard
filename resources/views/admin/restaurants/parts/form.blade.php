@@ -3,22 +3,22 @@
         <ul class="nav nav-tabs tabs-bordered">
             <li class="nav-item">
                 <a href="#general" data-toggle="tab" aria-expanded="false" class="nav-link active">
-                    Ristorante
+                    {{ ucfirst(trans('datatable.tab_restaurant.restaurant')) }}
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#payments" data-toggle="tab" aria-expanded="true" class="nav-link">
-                    Storico pagamenti
+                    {{ ucfirst(trans('datatable.tab_restaurant.payment')) }}
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#orders" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    Ordini
+                    {{ ucfirst(trans('datatable.tab_restaurant.order')) }}
                 </a>
             </li>
             <li class="nav-item">
                 <a href="#account" data-toggle="tab" aria-expanded="false" class="nav-link">
-                    Account
+                    {{ ucfirst(trans('datatable.tab_restaurant.account')) }}
                 </a>
             </li>
         </ul>
@@ -27,10 +27,10 @@
                 @include('admin.restaurants.parts.tab-general')
             </div>
             <div class="tab-pane" id="payments">
-                {{--@include('admin.restaurants.parts.tab-payments')--}}
+                @include('admin.restaurants.parts.tab-payments')
             </div>
             <div class="tab-pane" id="orders">
-                {{--@include('admin.restaurants.parts.tab-orders')--}}
+                @include('admin.restaurants.parts.tab-orders')
             </div>
             <div class="tab-pane" id="account">
                 @include('admin.restaurants.parts.tab-account')

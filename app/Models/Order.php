@@ -2,17 +2,30 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
 
+    //protected $fillable = ['total_commission', 'total_amount', 'subtotal_amount', 'discounted_price'];
+
+    public $fillable = [
+        'id', 'status', 'created_at',
+    ];
 
     public function user() {
 
           return $this->hasOne('App\Models\User');
 
     }
+
+    public function payment() {
+
+        return $this->hasOne('App\Models\Payment');
+
+    }
+
 
     public function restaurant() {
 
@@ -28,10 +41,21 @@ class Order extends Model
     }
 
 
-
     public function products() {
 
           return $this->hasMany('App\Models\Product');
+
+    }
+
+    public function getDateFormatAttribute() {
+
+        return Carbon::parse($this->created_at)->format('d/m/Y');
+
+    }
+
+    public function getHourFormatAttribute() {
+
+        return Carbon::parse($this->created_at)->format('H:i');
 
     }
 

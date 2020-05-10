@@ -12,8 +12,8 @@
 
           <div>
               <button type="button" class="btn btn-secondary btn-file">
-                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> Select image</span>
-                  <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
+                  <span class="fileupload-new"><i class="fa fa-paper-clip"></i> {{ ucfirst(trans('button.select_image')) }}</span>
+                  <span class="fileupload-exists"><i class="fa fa-undo"></i> {{ ucfirst(trans('button.change_image')) }}</span>
                   <input type="file" class="btn-secondary" id="{{ $field }}" name="{{ $field }}"  accept=".jpg,.jpeg,.gif,.png" @if (isset($required) && ($required != 'new' || ($required == 'new' && empty($model))) ) required @endif />
               </button>
           </div>

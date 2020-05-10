@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Traits\TranslationTrait;
 
 class OrderController extends Controller
 {
-    //
+
+    use TranslationTrait;
+
+    
 }

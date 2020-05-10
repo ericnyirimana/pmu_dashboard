@@ -3,17 +3,17 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title mt-0">Remove register <span class="register-name"></span></h5>
+                <h5 class="modal-title mt-0">{{ ucfirst(trans('labels.modal.confirm_remove_title')) }} <span class="register-name"></span></h5>
 
             </div>
             <div class="modal-body">
-                Do you want to remove the register <span class="register-name"></span>?
+                {{ ucfirst(trans('labels.modal.confirm_remove_text')) }} <span class="register-name"></span>?
             </div>
             <div class="modal-footer">
                 <form action="#" class="rm-accept" method="POST">
                   @csrf
                   @method('delete')
-                <button class="btn btn-danger" data-dismiss="modal">No</button> <button class="btn btn-success">Yes</button>
+                <button class="btn btn-danger" data-dismiss="modal">{{ ucfirst(trans('button.no')) }}</button> <button class="btn btn-success">{{ ucfirst(trans('button.yes')) }}</button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

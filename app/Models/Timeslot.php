@@ -7,58 +7,58 @@ use Illuminate\Database\Eloquent\Model;
 class Timeslot extends Model
 {
 
-     public $fillable = ['restaurant_id', 'mealtype_id', 'hour_ini', 'hour_end', 'fixed', 'identifier'];
+    public $fillable = ['restaurant_id', 'mealtype_id', 'hour_ini', 'hour_end', 'fixed', 'identifier'];
 
-      protected $appends = ['name'];
+    protected $appends = ['name'];
 
-      public function pickups() {
+    public function pickups()
+    {
 
-            return $this->hasMany('App\Models\Pickup');
+        return $this->hasMany('App\Models\Pickup');
 
-      }
-
-
-      public function mealtype() {
-
-            return $this->belongsTo('App\Models\Mealtype');
-
-      }
+    }
 
 
-      public function translate() {
-          return $this->hasOne('App\Models\TimeslotTranslation')
-              ->where('code', \App::getLocale())
-              ->withDefault([
-                  'name' => ''
-              ]);
-      }
+    public function mealtype()
+    {
 
-      public function translations() {
+        return $this->belongsTo('App\Models\Mealtype');
 
-          return $this->hasMany('App\Models\TimeslotTranslation');
+    }
 
-      }
+    public function restaurant()
+    {
+
+        return $this->belongsTo('App\Models\Restaurant');
+
+    }
+
+    public function getRestaurantNameAttribute()
+    {
+        return $this->restaurant->name;
+    }
+
+    public function getNameAttribute()
+    {
+
+        return $this->mealtype->name;
+
+    }
+
+    public function getFieldShowAttribute()
+    {
+
+        return $this->name;
+
+    }
 
 
-      public function getNameAttribute() {
+    public function getUpdatedAtAttribute()
+    {
 
-            return $this->mealtype->name;
+        return $this->updated_at->timestamp ?? '';
 
-      }
-
-      public function getFieldShowAttribute() {
-
-          return $this->name;
-
-      }
-
-
-
-      public function getUpdatedAtAttribute() {
-
-            return $this->updated_at->timestamp ?? '';
-
-      }
+    }
 
 
 }

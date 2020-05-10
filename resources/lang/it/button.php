@@ -4,6 +4,7 @@ return [
 
     'delete' => 'cancella',
     'save' => 'salva',
+    'save_draft' => 'salva bozza',
     'add' => 'aggiungi',
     'back' => 'indietro',
     'next' => 'avanti',
@@ -18,6 +19,19 @@ return [
     'new_dish' => 'Nuovo piatto',
     'new_drink' => 'Nuova bevanda',
     'add_plate' => 'Aggiungi piatto',
-    'add_drink' => 'Aggiungi bevanda'
-
+    'add_drink' => 'Aggiungi bevanda',
+    'new_hour' => 'Nuovo orario',
+    'new_showcase' => 'Nuova vetrina',
+    'new_user' => 'Nuovo utente',
+    'generate_pwd' => 'Genera password',
+    'add_new_file' => 'Carica nuovo file',
+    'add_image' => 'Aggiungi immagine',
+    'change_image' => 'Cambia immagine',
+    'select_image' => 'Seleziona immagine',
+    'approves' => 'Approva',
+    'send_approves' => 'Pubblica e manda in approvazione',
+    'disable' => 'Disabilita',
+    'reject' => 'Rifiuta',
+    'confirm' => 'Conferma',
+    'order_closed' => 'Chiudi ordine'
 ];

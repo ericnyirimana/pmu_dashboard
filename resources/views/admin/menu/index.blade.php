@@ -18,10 +18,10 @@
 
                 <datatable route='menu' :collection="$menu" :fields="[
                 'ID' => 'id',
-                'Name' => 'name',
-                'Company' => 'company:name',
-                'ristorante' => 'restaurant:name',
-                'Status' => 'boolean:status_name:status_color'
+                'datatable.headers.name' => 'name',
+                'datatable.headers.brand' => 'company:name',
+                'datatable.headers.restaurant' => 'restaurant:name',
+                'datatable.headers.status' => 'status_menu'
                 ]"
                 actions="edit,delete" />
         </div>
@@ -35,7 +35,9 @@
     $(document).ready(function() {
 
         $('#datatable').DataTable({
-
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            }
 
         });
 

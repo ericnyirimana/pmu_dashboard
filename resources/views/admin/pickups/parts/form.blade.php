@@ -9,7 +9,7 @@
 </div>
 <div class="row">
     <div class="col-12">
-          <field-text label="Name" field="name" :model="$pickup" required  />
+          <field-text label="name" field="name" :model="$pickup" required  />
     </div>
 </div>
 

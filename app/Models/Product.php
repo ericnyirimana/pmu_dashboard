@@ -4,16 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UserCanTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Product extends Model
 {
 
-    use UserCanTrait, \Staudenmeir\EloquentHasManyDeep\HasRelationships;
+    use UserCanTrait, \Staudenmeir\EloquentHasManyDeep\HasRelationships, SoftDeletes;
+
+    protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position', 'status_product'];
 
 
 
-    protected $fillable = ['restaurant_id', 'menu_section_id', 'status', 'price', 'type', 'position'];
+    protected $dates = ['deleted_at'];
 
 
     public function translate() {
@@ -74,6 +77,17 @@ class Product extends Model
         return $this->hasMany('App\Models\PickupProduct');
     }
 
+    public function hasActivePickups() {
+        foreach ($this->pickups as $pickupProduct) {
+            $pickup = Pickup::find($pickupProduct->pickup_id);
+            if ($pickup && $pickup->is_active_today) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function menu() {
 
         return $this->section->menu;
@@ -110,6 +124,28 @@ class Product extends Model
     }
 
 
+    public function getIsApprovedAttribute() {
 
+        return ($this->status_product == 'APPROVED');
+
+    }
+
+    public function getIsWaitingAttribute() {
+
+        return ($this->status_product == 'PENDING');
+
+    }
+
+    public function getIsDisabledAttribute() {
+
+        return ($this->status_product == 'DISABLED');
+
+    }
+
+    public function getIsDraftAttribute() {
+
+        return ($this->status_product == 'DRAFT');
+
+    }
 
 }

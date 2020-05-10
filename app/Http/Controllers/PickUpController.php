@@ -117,7 +117,7 @@ class PickupController extends Controller
         }
 
         return redirect()->route('pickups.edit', $pickup)->with([
-            'notification' => 'Pickup saved with success!',
+            'notification' => trans('messages.notification.pickup_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -137,7 +137,7 @@ class PickupController extends Controller
     public function edit(Pickup $pickup)
     {
 
-        $menu = $pickup->restaurant->menu;
+        $menu = $pickup->restaurant->menu()->where('status_menu', 'APPROVED')->first();
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
 
         return view('admin.pickups.edit')->with([
@@ -183,24 +183,24 @@ class PickupController extends Controller
         }
 
         return redirect()->route('pickups.index')->with([
-            'notification' => 'Pickup saved with success!',
+            'notification' => trans('messages.notification.pickup_saved'),
             'type-notification' => 'success'
         ]);
 
     }
 
 
-    public function destroy(Pickup $pickup)
-    {
+    public function destroy(Pickup $pickup) {
 
         $pickup->delete();
 
         return redirect()->route('pickups.index')->with([
-            'notification' => 'Offer removed with success!',
+            'notification' => trans('messages.notification.pickup_removed'),
             'type-notification' => 'warning'
         ]);
 
     }
+
 
     /**
      * @param Request $request

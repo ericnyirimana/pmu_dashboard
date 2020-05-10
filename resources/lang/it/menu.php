@@ -8,6 +8,7 @@ return [
     'menu' => 'Menu',
     'offer_subscription' => 'Offerte e abbonamenti',
     'timeslots' => 'Fasce orarie',
+    'mealtypes' => 'Fasce orarie',
     'showcases' => 'Vetrine',
     'account' => 'Account',
     'media' => 'Media',

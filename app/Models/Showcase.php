@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Showcase extends Model
 {
 
+    use SoftDeletes;
+
     public $fillable = ['id', 'title', 'type', 'items'];
+
+    protected $dates = ['deleted_at'];
 
     public function translate() {
 

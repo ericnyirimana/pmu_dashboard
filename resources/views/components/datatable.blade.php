@@ -2,9 +2,9 @@
     <thead>
     <tr>
         @foreach ($fields as $key=>$field)
-            <th>{{ $key }}</th>
+            <th>{{ __($key) }}</th>
         @endforeach
-        <th style="width: 320px; cursor: inherit;" class="sorting_desc_disabled sorting_asc_disabled">Actions</th>
+        <th style="width: 320px; cursor: inherit;" class="sorting_desc_disabled sorting_asc_disabled">{{ __('datatable.headers.actions') }}</th>
     </tr>
     </thead>
 

@@ -18,10 +18,10 @@
 
                 <datatable route='companies' :collection="$companies" :fields="[
                 'ID' => 'id',
-                'Name' => 'name',
-                'N. Restaurants' => 'restaurants_quantity',
-                'Owner' => 'owner_name',
-                'Status' => 'boolean:status_name:status_color'
+                'datatable.headers.name' => 'name',
+                'datatable.headers.number_restaurants' => 'restaurants_quantity',
+                'datatable.headers.owner' => 'owner_name',
+                'datatable.headers.status' => 'boolean:status_name:status_color'
                 ]" />
         </div>
     </div>
@@ -35,7 +35,9 @@
 
         $('#datatable').DataTable({
 
-
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            }
         });
 
     });
