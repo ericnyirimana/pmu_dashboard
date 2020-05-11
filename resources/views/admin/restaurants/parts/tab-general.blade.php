@@ -84,6 +84,8 @@
 </div>
 
 <hr />
+
+@if(Auth::user()->is_super)
 <h6 class="">{{ ucfirst(trans('labels.meal_type')) }}</h6>
 
 <div class="card-body">
@@ -93,6 +95,7 @@
 </div>
 
 <hr />
+@endif
 
 <h6 class="">{{ ucfirst(trans('labels.gallery_restaurant')) }}</h6>
 <div class="card-body">
