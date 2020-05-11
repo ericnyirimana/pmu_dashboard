@@ -22,10 +22,10 @@ RUN yum -y install epel-release && \
     dnf module install -y php:remi-7.4 && \
     dnf -y install dnf-utils php-mysqlnd php-gd unzip && \
     yum -y update && yum -y install nc telnet vim && \
-    dnf install python3 && \
+    dnf -y install python3 && \
     curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python3 get-pip.py --user && \
-    pip3 install awscli --upgrade --user && \
+    python3 get-pip.py && \
+    pip3 install awscli --upgrade && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
     chmod +x /usr/local/bin/composer && \
@@ -75,6 +75,8 @@ RUN sed -i "s/.*STRIPE_KEY=.*/STRIPE_KEY=${STRIPE_KEY}/" /opt/pmu_dashboard/.env
 RUN sed -i "s@.*APP_URL=.*@APP_URL=https://restaurant-dev.pickmealup.it@" /opt/pmu_dashboard/.env
 
 RUN cat /opt/pmu_dashboard/.env
+
+RUN aws cognito-idp sign-up --region eu-west-1 --client-id 35vlfdldmpreh89t3gbtlqf8r2 --username admin5@example.com --password Passw0rd!
 
 # (marco/mirco) 20200229 : workaround to fix "the no such file" error
 RUN mkdir -p /opt/pmu_dashboard/storage/framework/sessions
