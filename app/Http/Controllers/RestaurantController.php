@@ -8,6 +8,7 @@ use App\Models\OrderPickup;
 use App\Models\Payment;
 use App\Models\Pickup;
 use App\Models\User;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
 use App\Models\Company;
@@ -186,7 +187,8 @@ class RestaurantController extends Controller
         $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
 
-        $payouts = $this->stripe->getPayoutsForDestination($restaurant->merchant_stripe);
+        // List of payment/transfer
+        $payouts = $this->stripe->getPayoutsForConnectedAccount($restaurant->merchant_stripe);
         $payments = new Collection();
         foreach ($payouts['data'] as $payout) {
             $payments->push((object)[
@@ -196,6 +198,9 @@ class RestaurantController extends Controller
             ]);
         }
 
+        //Balance
+        $balance = $this->stripe->getBalanceForConnectedAccount($restaurant->merchant_stripe);
+
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
             'company' => $company,
@@ -203,8 +208,36 @@ class RestaurantController extends Controller
             'mealtype' => $mealtypeList,
             'users' => $users,
             'ordersPickup' => $ordersPickup,
-            'payments' => $payments
+            'payments' => $payments,
+            'balance' => $balance
         ]);
+
+    }
+
+    public function payment(Request $request) {
+        $queryString = $request->all();
+        if ($queryString['restaurant_id'] && $queryString['payout_id']) {
+
+
+            $restaurant = Restaurant::find($queryString['restaurant_id'])->first();
+            //payout detail
+            $payout = $this->stripe->getPayoutDetail($queryString['payout_id'], $restaurant->merchant_stripe);
+
+            $transfers = new Collection();
+            $transfers = $this->stripe->getTransfersForBalanceTransaction($restaurant->merchant_stripe, $payout->balance_transaction);
+
+
+            if ($restaurant) {
+                return view('admin.restaurants.payment')->with([
+                    'restaurant' => $restaurant,
+                    'payout' => $payout,
+                    'transfers' => $transfers
+                ]);
+            }
+
+        } else {
+            abort(404);
+        }
 
     }
 

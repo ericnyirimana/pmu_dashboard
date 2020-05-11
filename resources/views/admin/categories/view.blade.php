@@ -34,7 +34,8 @@
                 'ID' => 'id',
                 'datatable.headers.name' => 'name',
                 'datatable.headers.city' => 'city'
-                ]" />
+                ]"
+                           actions='view'/>
         </div>
     </div>
 </div>

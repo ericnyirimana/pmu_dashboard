@@ -15,6 +15,7 @@ return [
         'users' => 'Utenti',
         'media' => 'Media',
         'orders' => 'Ordini',
-        'orders-pickup' => 'Ordini'
+        'orders-pickup' => 'Ordini',
+        'payments' => 'Storico pagamenti'
     ]
 ];
