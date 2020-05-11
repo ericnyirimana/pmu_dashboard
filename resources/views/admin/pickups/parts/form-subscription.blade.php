@@ -16,7 +16,7 @@
           <p>@if($pickup->sections) @php print implode(' + ', array_keys($pickup->sections) ); @endphp @endif</p>
     </div>
     <div class="col-3">
-          <field-text label="Q.tà abbonamenti (x giorno)" field="quantity_offer" :model="$pickup" class="text-right" />
+          <field-text label="subscriptions_number" field="quantity_offer" :model="$pickup" class="text-right" />
     </div>
     <div class="col-3">
           <field-select label="Numero offerte (x abbonamento)" field="quantity_per_subscription" :model="$pickup" type="simple" :values="['5' => '5', '10' => '10']" />

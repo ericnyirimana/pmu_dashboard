@@ -18,8 +18,8 @@
 
                 <datatable route='categories' :collection="$categories" :fields="[
                 'ID' => 'id',
-                'Name' => 'translate:name',
-                'Type' => 'type',
+                'datatable.headers.name' => 'translate:name',
+                'datatable.headers.type' => 'type',
                 ]"
                 actions="edit,delete" />
         </div>
@@ -34,7 +34,9 @@
 
         $('#datatable').DataTable({
 
-
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            }
         });
 
     });

@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\UserCanTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Menu extends Model
 {
 
-    use UserCanTrait;
+    use UserCanTrait, SoftDeletes;
 
     protected $table = 'menus';
 
-    protected $fillable = ['name', 'restaurant_id'];
+    protected $fillable = ['name', 'restaurant_id', 'status_menu', 'has_products_in_active_pickup'];
 
-
+    protected $dates = ['deleted_at'];
 
     public function company() {
 
@@ -53,7 +54,39 @@ class Menu extends Model
     }
 
 
+    public function getIsApprovedAttribute() {
 
+        return ($this->status_menu == 'APPROVED');
 
+    }
 
+    public function getIsWaitingAttribute() {
+
+        return ($this->status_menu == 'PENDING');
+
+    }
+
+    public function getIsDisabledAttribute() {
+
+        return ($this->status_menu == 'DISABLED');
+
+    }
+
+    public function getIsDraftAttribute() {
+
+        return ($this->status_menu == 'DRAFT');
+
+    }
+
+    public function getHasProductsInActivePickupAttribute() {
+        if ($this->id) {
+            foreach ($this->products as $product) {
+                if ($product->hasActivePickups()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

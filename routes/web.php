@@ -48,6 +48,8 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/mealtypes', 'MealTypeController');
 
+        Route::resource('/timeslots', 'TimeslotController');
+
         Route::resource('/showcases', 'ShowcaseController');
 
         Route::resource('/categories', 'CategoryController');
@@ -55,6 +57,11 @@ Route::prefix('admin')->group(function () {
         Route::resource('/restaurants', 'RestaurantController');
 
         Route::resource('/orders', 'OrderController');
+
+        Route::resource('/orders-pickup', 'OrderPickupController');
+
+
+        Route::resource('/payments', 'PaymentController');
 
         Route::resource('/companies', 'CompanyController');
 

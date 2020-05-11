@@ -10,7 +10,7 @@
           <p>@if($pickup->sections) @php print implode(' + ', array_keys($pickup->sections) ); @endphp @endif</p>
     </div>
     <div class="col-2">
-          <field-text label="Numero offerte (x giorno)" field="quantity_offer" :model="$pickup" class="text-right" />
+          <field-text label="offers_number" field="quantity_offer" :model="$pickup" class="text-right" />
     </div>
 </div>
 

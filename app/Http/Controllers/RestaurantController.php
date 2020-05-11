@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\StripeIntegration;
+use App\Models\Order;
+use App\Models\OrderPickup;
+use App\Models\Payment;
+use App\Models\Pickup;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
@@ -74,7 +78,7 @@ class RestaurantController extends Controller
             'restaurant' => $restaurant,
             'media' => $media,
             'mealtype' => $mealtypeList,
-            'users' => $users
+            'users' => $users,
         ]);
 
     }
@@ -114,7 +118,7 @@ class RestaurantController extends Controller
         //$this->createAccountStripe($restaurant);
 
         return redirect()->route('companies.show', $company)->with([
-            'notification' => 'Restaurant saved with success!',
+            'notification' => trans('messages.notification.restaurant_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -179,12 +183,16 @@ class RestaurantController extends Controller
         $owner = $company->owner()->get();
         $users = $restaurant->users()->get();
         $users = $users->merge($owner);
+        $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
+        $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
+
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
             'company' => $company,
             'media' => $media,
             'mealtype' => $mealtypeList,
-            'users' => $users
+            'users' => $users,
+            'ordersPickup' => $ordersPickup,
         ]);
 
     }
@@ -221,21 +229,20 @@ class RestaurantController extends Controller
         //$this->createAccountStripe($restaurant);
 
         return redirect()->route('companies.show', $company)->with([
-            'notification' => 'Restaurant saved with success!',
+            'notification' => trans('messages.notification.restaurant_saved'),
             'type-notification' => 'success'
         ]);
 
     }
 
 
-    public function destroy(Restaurant $restaurant)
-    {
+    public function destroy(Restaurant $restaurant) {
 
         $company = $restaurant->company;
         $restaurant->delete();
 
         return redirect()->route('companies.show', $company)->with([
-            'notification' => 'Restaurant removed with success!',
+            'notification' => trans('messages.notification.restaurant_removed'),
             'type-notification' => 'warning'
         ]);
 

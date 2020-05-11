@@ -64,17 +64,17 @@
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                     <!-- item-->
                     <div class="dropdown-item noti-title">
-                        <h5 class="text-overflow"><small>Welcome, {{ Auth::user()->name }}!</small> </h5>
+                        <h5 class="text-overflow"><small>{{ __('labels.welcome') }}, {{ Auth::user()->name }}!</small> </h5>
                     </div>
 
                     <!-- item-->
                     <a href="{{ route('users.profile') }}" class="dropdown-item notify-item">
-                        <i class="mdi mdi-account-circle"></i> <span>Profile</span>
+                        <i class="mdi mdi-account-circle"></i> <span>{{ __('labels.profile') }}</span>
                     </a>
 
                     <!-- item-->
                     <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <i class="mdi mdi-settings"></i> <span>Settings</span>
+                        <i class="mdi mdi-settings"></i> <span>{{ __('labels.settings') }}</span>
                     </a>
 
                     <!-- item
@@ -84,7 +84,7 @@
                     -->
                     <form id="frm-logout" action="{{ route('logout') }}" method="POST">
                         {{ csrf_field() }}
-                        <button type="submit" class="dropdown-item notify-item" style="cursor: pointer;"><i class="mdi mdi-power"></i> <span>Logout</span></button>
+                        <button type="submit" class="dropdown-item notify-item" style="cursor: pointer;"><i class="mdi mdi-power"></i> <span>{{ __('labels.logout') }}</span></button>
                     </form>
 
                 </div>
@@ -100,7 +100,7 @@
             </li>
             <li class="hide-phone app-search">
                 <form role="search" class="">
-                    <input type="text" placeholder="Search..." class="form-control">
+                    <input type="text" placeholder="{{ __('labels.search_placeholder') }}" class="form-control">
                     <a href=""><i class="fa fa-search"></i></a>
                 </form>
             </li>

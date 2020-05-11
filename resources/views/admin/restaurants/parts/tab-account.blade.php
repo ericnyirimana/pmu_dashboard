@@ -1,12 +1,12 @@
 <div class="row">
     <div class="col-12">
-        <div class="card-box table-responsive">
+        <div class="table-responsive">
 
             <datatable route='users' :collection='$users' :fields="[
                   'ID'        => 'id',
-                  'Name'      => 'name',
-                  'Email'     => 'email',
-                  'Role'      => 'role'
+                  'datatable.headers.name'      => 'name',
+                  'datatable.headers.email'     => 'email',
+                  'datatable.headers.role'      => 'role'
               ]"
                        actions="view" />
 

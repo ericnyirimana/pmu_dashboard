@@ -66,9 +66,10 @@ error_log('AAAAA');
      */
     public function login(Request $request)
     {
-error_log('AAAAA');
+        error_log('AAAAA');
         #connect with Cognito
         $credentials = $request->only('email', 'password');
+
 
         $client = new Cognito();
         $response = $client->authenticate($credentials);
@@ -77,34 +78,39 @@ error_log('AAAAA');
 
             return redirect()->route('login')->withErrors(['login' => 'Incorret login or password.' ]);
         }
+        /*
+                if ($client->forceResetPassword) {
 
-        if ($client->forceResetPassword) {
+                    $this->refreshFlashSetPasswordSession($response->get('ChallengeName'), $response->get('Session'), $response->get('ChallengeParameters')['USER_ID_FOR_SRP'], $request->email);
 
-            $this->refreshFlashSetPasswordSession($response->get('ChallengeName'), $response->get('Session'), $response->get('ChallengeParameters')['USER_ID_FOR_SRP'], $request->email);
-
-            return redirect()->route('password.set');
+                    return redirect()->route('password.set');
 
 
-        }
+                }
 
-        if ($response) {
+                if ($response) {
 
-            $token = $response['token']['AccessToken'];
+                    $token = $response['token']['AccessToken'];
 
-            #align user from Cognito
-            $sync = $this->alignUserFromCognito($request);
+                    #align user from Cognito
+                    $sync = $this->alignUserFromCognito($request);
 
-            #if Authenticate with cognito, connect with normal DB
-            #The user from DB is a clone from Cognito, it copies every time it log
-            if ($sync && Auth::attempt($credentials, $request->remember)) {
+                    #if Authenticate with cognito, connect with normal DB
+                    #The user from DB is a clone from Cognito, it copies every time it log
+                    if ($sync && Auth::attempt($credentials, $request->remember)) {
 
-                return redirect()->route('dashboard.blank');
-            } else {
+                        return redirect()->route('dashboard.blank');
+                    } else {
 
-                return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
-            }
+                        return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
+                    }
 
-        }
+                }
+        */
+        $user = User::where('email', $request->email)->first();
+
+        //return redirect()->route('dashboard.blank');
+        return response()->json(['response' => $user], 400);
 
     }
 

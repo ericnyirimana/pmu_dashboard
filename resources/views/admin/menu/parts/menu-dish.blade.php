@@ -4,8 +4,11 @@
             <div class="col-12 section-header">
                 <h4 class="title-section text-white">{{ $section->translate->name }}</h4>
                 <div class="actions-section">
+                    @if(!$section->has_products_in_active_pickup)
                     <i class="fa fa-trash text-danger remove-section" data-type="section" data-name="{{ $section->translate->name }}" data-register="{{ $section->id }}" data-toggle="modal" data-target=".remove-register"></i>
+
                     <i class="fa fa-edit text-white edit-section" data-type="{{ $section->type }}" data-name="{{ $section->translate->name }}" data-id="{{ $section->id }}"></i>
+                    @endif
                     <i class="fa fa-arrows text-white move-section"></i></div>
             </div>
 

@@ -1,45 +1,53 @@
-<h6 class="">Informazioni generali</h6>
+<h6 class="">{{ ucfirst(trans('labels.general_info')) }}</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
-          <field-text label="Nome" field="name" :model="$restaurant" required  />
+          <field-text label="name" field="name" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-          <field-map label="Indirizzo" field="address" :model="$restaurant" required  />
+          <field-map label="address" field="address" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="Merchant ID (Stripe)" field="merchant_stripe" :model="$restaurant" />
+        <field-text label="merchant_id" field="merchant_stripe" :model="$restaurant" />
     </div>
 </div>
 
 <hr />
 
-<h6 class="">Dati bancari</h6>
+<h6 class="">{{ ucfirst(trans('labels.banking_data')) }}</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
         <field-map-billing-address label="Indirizzo fatturazione" field="billing_address" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="P. Iva o codice fiscale" field="iva" :model="$restaurant" required  />
+        @if(Auth::user()->is_super)
+        <field-text label="piva_fiscal_code" field="iva" :model="$restaurant" required />
+        @else
+        <field-text label="piva_fiscal_code" field="iva" :model="$restaurant" disabled />
+        @endif
     </div>
 
     <div class="col-md-12 col-lg-10">
-        <field-text label="IBAN" field="iban" :model="$restaurant" required  />
+        @if(Auth::user()->is_super)
+        <field-text label="iban" field="iban" :model="$restaurant" required />
+        @else
+        <field-text label="iban" field="iban" :model="$restaurant" disabled />
+        @endif
     </div>
     <div class="col-md-12 col-lg-2">
-        <field-text label="Fee PMU" field="fee" :model="$restaurant" required />
+        <field-text label="fee_pmu" field="fee" :model="$restaurant" required />
     </div>
 
     <div class="col-md-12 col-lg-6">
-        <field-text label="PEC" field="pec" :model="$restaurant" required />
+        <field-text label="pec" field="pec" :model="$restaurant" required />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="Codice identificativo" field="id_code" :model="$restaurant" required />
+        <field-text label="identifier_code" field="id_code" :model="$restaurant" required />
     </div>
 </div>
 
 <hr />
 
-<h6 class="">Opening hours</h6>
+<h6 class="">{{ ucfirst(trans('labels.opening_hours')) }}</h6>
 <div class="card-body">
     <div class="row">
       <div class="col-12">
@@ -68,7 +76,7 @@
 </div>
 
 <hr />
-<h6 class="">Extraordinary close</h6>
+<h6 class="">{{ ucfirst(trans('labels.extraordinary_close')) }}</h6>
 <div class="card-body">
     <div class="col-12">
         <field-closed-days :model="$restaurant" />
@@ -76,7 +84,9 @@
 </div>
 
 <hr />
-<h6 class="">Tipologia pasto</h6>
+
+@if(Auth::user()->is_super)
+<h6 class="">{{ ucfirst(trans('labels.meal_type')) }}</h6>
 
 <div class="card-body">
     <div class="col-12">
@@ -85,8 +95,9 @@
 </div>
 
 <hr />
+@endif
 
-<h6 class="">Gallery Restaurant</h6>
+<h6 class="">{{ ucfirst(trans('labels.gallery_restaurant')) }}</h6>
 <div class="card-body">
     <div class="col-12">
         <field-media-list label="Images" :model="$restaurant" />

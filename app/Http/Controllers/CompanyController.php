@@ -85,7 +85,7 @@ class CompanyController extends Controller
         }
 
         return redirect()->route('companies.index')->with([
-            'notification' => 'Company saved with success!',
+            'notification' => trans('messages.notification.company_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -148,7 +148,7 @@ class CompanyController extends Controller
         }
 
         return redirect()->route('companies.index')->with([
-            'notification' => 'Company saved with success!',
+            'notification' => trans('messages.notification.company_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -161,7 +161,7 @@ class CompanyController extends Controller
         $company->delete();
 
         return redirect()->route('companies.index')->with([
-            'notification' => 'Company removed with success!',
+            'notification' => trans('messages.notification.company_removed'),
             'type-notification' => 'warning'
         ]);
 

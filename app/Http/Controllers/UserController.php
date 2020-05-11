@@ -66,8 +66,8 @@ class UserController extends Controller
     }
 
 
-    public function show(User $user)
-    {
+    public function show(User $user) {
+
         return redirect()->route('users.index');
 
     }
@@ -126,7 +126,7 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index')->with([
-            'notification' => 'User saved with success!',
+            'notification' => trans('messages.notification.user_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -184,7 +184,7 @@ class UserController extends Controller
         }
 
         return redirect()->route('users.index')->with([
-            'notification' => 'User saved with success!',
+            'notification' => trans('messages.notification.user_saved'),
             'type-notification' => 'success'
         ]);
 
@@ -296,7 +296,7 @@ class UserController extends Controller
 
         }
 
-        $this->removeUsersDeletedInCognito($collection);
+        //$this->removeUsersDeletedInCognito($collection);
 
 
     }

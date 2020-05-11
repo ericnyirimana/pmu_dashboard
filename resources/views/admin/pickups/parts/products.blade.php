@@ -20,36 +20,38 @@
         <div class="card-box bg-light">
             <div class="visible-always-scroll" style="max-height: 800px;">
                 <h4 class="text-dark header-title m-t-0 m-b-30">Menu</h4>
-
-                <ul class="list-menu">
+                @if(isset($menu))
+               <ul class="list-menu">
                     @foreach(['Dish','Drink'] as $type)
                         @php $class = 'sections'.$type; @endphp
                         <li><h5>{{ $type }}</h5>
+                            @if(isset($menu->{$class}))
                             <ul>
-
                                 @foreach($menu->{$class} as $section)
                                     <li data-name="{{ str_replace(' ', '_', $section->name) }}"><h6 @if(empty
                               ($pickup->sections) ||
                               !in_array($section->name, array_keys($pickup->sections))) class="add-all" @endif>{{ $section->name }}</h6>
                                         <ul>
                                             @foreach($section->products as $product)
-
+                                                @if($product->is_approved)
                                                 <li @if(!in_array($product->id, $pickup->products->pluck('id')->toArray() ) )
                                                     class="add" @endif data-id="{{ $product->id }}"
                                                     data-name="{{ $product->name }}"
                                                     data-section="{{ str_replace(' ', '_', $section->name) }}">
                                                     {{ $product->name }}
                                                 </li>
+                                                @endif
                                             @endforeach
                                         </ul>
                                     </li>
                                 @endforeach
 
                             </ul>
+                            @endif
                         </li>
                     @endforeach
                 </ul>
-
+                @endif
             </div>
         </div>
     </div><!-- end col -->

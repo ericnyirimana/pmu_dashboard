@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">
 
-          <field-text label="Name" field="name" :model="$media" required  />
+          <field-text label="name" field="name" :model="$media" required  />
 
           <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$companies" foreignid="brand_id" />
 

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12 col-md-4">
-          <field-text label="Name" field="name" :model="$menu" required  />
+          <field-text label="name" field="name" :model="$menu" required  />
     </div>
 
 </div>
@@ -24,8 +24,28 @@
 
 <div class="row mt-5">
   <div class="col-12">
-        <div class="form-group">
-            <button type="submit" class="btn btn-block w-lg btn-success float-right">@if($menu->id) {{ ucfirst(trans('button.save')) }} @else {{ ucfirst(trans('button.next')) }} @endif</button>
+        <div class="form-group d-flex align-items-center justify-content-between">
+            <button type="submit" class="btn btn-block w-lg btn-success col-5" @if($menu->has_products_in_active_pickup) disabled @endif>
+                @if($menu->id) {{ ucfirst(trans('button.save_draft')) }} @else {{ ucfirst(trans('button.next')) }}
+                @endif
+            </button>
+            @if($menu->id)
+                @if(Auth::user()->is_super)
+                    @if(!$menu->is_approved)
+                        <button type="submit" name="status_menu" value="APPROVED" class="btn w-lg btn-primary col-5" @if($menu->has_products_in_active_pickup) disabled @endif>
+                            {{ ucfirst(trans('button.approves')) }}
+                        </button>
+                    @else
+                        <button type="submit" name="status_menu" value="DISABLED" class="btn w-lg btn-primary col-5" @if($menu->has_products_in_active_pickup) disabled @endif>
+                            {{ ucfirst(trans('button.disable'))  }}
+                        </button>
+                    @endif
+                @elseif(!Auth::user()->is_super && !$menu->is_approved)
+                    <button type="submit"  name="status_menu" value="PENDING" class="btn w-lg btn-primary col-5" @if($menu->has_products_in_active_pickup) disabled @endif>
+                        {{ ucfirst(trans('button.send_approves')) }}
+                    </button>
+                @endif
+            @endif
         </div>
   </div>
 </div>

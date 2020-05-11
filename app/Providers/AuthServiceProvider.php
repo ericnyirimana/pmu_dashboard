@@ -20,7 +20,11 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Category' => 'App\Policies\CategoryPolicy',
         'App\Models\Pickup' => 'App\Policies\PickupPolicy',
         'App\Models\Mealtype' => 'App\Policies\MealtypePolicy',
-        'App\Models\Showcase' => 'App\Policies\ShowcasePolicy'
+        'App\Models\Showcase' => 'App\Policies\ShowcasePolicy',
+        'App\Models\Timeslot' => 'App\Policies\TimeslotPolicy',
+        'App\Models\Order' => 'App\Policies\OrderPolicy',
+        'App\Models\OrderPickup' => 'App\Policies\OrderPickupPolicy',
+        'App\Models\Payment' => 'App\Policies\PaymentPolicy',
     ];
 
     /**
