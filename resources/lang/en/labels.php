@@ -47,6 +47,7 @@ return [
     'purchase_subscriptions' => 'Subscriptions purchased',
     'orders_collected' => 'Orders collected',
     'orders_to_be_collected' => 'Orders to be collected',
+    'validate_days' => 'Validate days',
     '' => 'Validate subscription',
     'modal' => [
         'confirm_remove_title' => 'Remove register',

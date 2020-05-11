@@ -184,7 +184,7 @@ class RestaurantController extends Controller
         $users = $users->merge($owner);
         $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
-        $subscriptions = PickupSubscription::all();
+        $pickupSubscriptions = PickupSubscription::whereIn('pickup_id', $pickupsId)->get();
 
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
@@ -193,7 +193,7 @@ class RestaurantController extends Controller
             'mealtype' => $mealtypeList,
             'users' => $users,
             'ordersPickup' => $ordersPickup,
-            'subscriptions' => $subscriptions
+            'pickupSubscriptions' => $pickupSubscriptions
         ]);
 
     }

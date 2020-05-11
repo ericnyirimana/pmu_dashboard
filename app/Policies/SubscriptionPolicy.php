@@ -24,7 +24,7 @@ class SubscriptionPolicy
      * Determine whether the user can view the $category.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Subscription  $subscription
+     * @param  \App\PickupSubscription  $subscription
      * @return mixed
      */
     public function view(User $user)
@@ -47,7 +47,7 @@ class SubscriptionPolicy
      * Determine whether the user can update the $category.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Subscription  $subscription
+     * @param  \App\PickupSubscription  $subscription
      * @return mixed
      */
     public function update(User $user)
@@ -59,7 +59,7 @@ class SubscriptionPolicy
      * Determine whether the user can delete the $category.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Subscription  $subscription
+     * @param  \App\PickupSubscription  $subscription
      * @return mixed
      */
     public function delete(User $user)
@@ -71,7 +71,7 @@ class SubscriptionPolicy
      * Determine whether the user can restore the $category.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Subscription  $subscription
+     * @param  \App\PickupSubscription  $subscription
      * @return mixed
      */
     public function restore(User $user)
@@ -83,7 +83,7 @@ class SubscriptionPolicy
      * Determine whether the user can permanently delete the $category.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Subscription  $subscription
+     * @param  \App\PickupSubscription  $subscription
      * @return mixed
      */
     public function forceDelete(User $user)

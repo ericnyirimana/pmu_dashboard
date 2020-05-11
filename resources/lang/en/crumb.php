@@ -15,6 +15,8 @@ return [
         'users' => 'users',
         'media' => 'media',
         'orders' => 'Orders',
-        'orders-pickup' => 'Orders'
+        'orders-pickup' => 'Orders',
+        'subscriptions' => 'Subscriptions',
+        'subscription' => 'Subscription'
     ],
 ];

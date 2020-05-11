@@ -15,6 +15,8 @@ return [
         'users' => 'Utenti',
         'media' => 'Media',
         'orders' => 'Ordini',
-        'orders-pickup' => 'Ordini'
+        'orders-pickup' => 'Ordini',
+        'subscriptions' => 'Abbonamenti',
+        'subscription' => 'Abbonamento'
     ]
 ];

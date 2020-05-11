@@ -47,6 +47,7 @@ return [
     'purchase_subscriptions' => 'Abbonamenti acquistati',
     'orders_collected' => 'Ordini riscossi',
     'orders_to_be_collected' => 'Ordini da riscuotere',
+    'validate_days' => 'Validità abbonamento',
     'modal' => [
         'confirm_remove_title' => 'Confermi eliminazione',
         'confirm_remove_text' => 'Confermi di voler rimuovere'
