@@ -23,7 +23,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
-        Route::get('blank', 'DashboardController@blank')->name('dashboard.blank');
+        // Route::get('blank', 'DashboardController@blank')->name('dashboard.blank');
 
         Route::get('profile', 'UserController@me')->name('users.profile');
 
@@ -60,9 +60,6 @@ Route::prefix('admin')->group(function () {
         Route::resource('/orders', 'OrderController');
 
         Route::resource('/orders-pickup', 'OrderPickupController');
-
-
-        //Route::resource('/payments', 'PaymentController');
 
         Route::resource('/companies', 'CompanyController');
 
