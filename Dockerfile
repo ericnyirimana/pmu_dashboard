@@ -22,9 +22,9 @@ RUN yum -y install epel-release && \
     dnf module install -y php:remi-7.4 && \
     dnf -y install dnf-utils php-mysqlnd php-gd unzip && \
     yum -y update && yum -y install nc telnet vim && \
-    dnf install python3 && \
+    dnf -y install python3 && \
     curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python3 get-pip.py && \
+    # python3 get-pip.py && \
     pip3 install awscli --upgrade && \
     curl -sS https://getcomposer.org/installer | php && \
     mv composer.phar /usr/local/bin/composer && \
