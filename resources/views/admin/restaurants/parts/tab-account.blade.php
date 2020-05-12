@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         <div class="table-responsive">
-
+            @if(isset($users))
             <datatable class='account-datatable' route='users' :collection='$users' :fields="[
                   'ID'        => 'id',
                   'datatable.headers.name'      => 'name',
@@ -9,7 +9,7 @@
                   'datatable.headers.role'      => 'role'
               ]"
                        actions="view" />
-
+            @endif
         </div>
     </div>
 </div>
