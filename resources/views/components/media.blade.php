@@ -51,7 +51,11 @@
             </div>
 
             <div class="edit-image-container">
-              <a  href="{{ route('media.edit', 1)}}" class="btn btn-primary btn-block edit-image">Edit Image</a>
+              <a  href="{{ route('media.edit', 1)}}" class="btn btn-primary btn-block edit-image">{{ ucfirst(trans('button.edit_image')) }}</a>
+            </div>
+
+            <div class="mt-3">
+                <button type="submit" class="btn btn-md w-lg btn-success w-100">{{ ucfirst(trans('button.approves')) }}</button>
             </div>
 
       </div>

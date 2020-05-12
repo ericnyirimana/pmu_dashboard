@@ -26,6 +26,7 @@ return [
     'generate_pwd' => 'Generate password',
     'add_new_file' => 'Browser new file',
     'add_image' => 'Add image',
+    'edit_image' => 'Edit image',
     'change_image' => 'Change',
     'select_image' => 'Select',
     'approves' => 'Approves',

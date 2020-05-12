@@ -7,6 +7,7 @@ return [
     'list_categories' => 'Lista categorie',
     'list_pickups' => 'Lista offerte e abbonamenti',
     'list_menu' => 'Lista menu',
+    'list_media' => 'Lista media',
     'list_dishes' => 'Lista piatti',
     'list_showcases' => 'Lista vetrine',
     'list_users' => 'List utenti',

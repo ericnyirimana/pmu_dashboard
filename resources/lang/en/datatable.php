@@ -7,6 +7,7 @@ return [
     'list_categories' => 'List categories',
     'list_pickups' => 'List pickups',
     'list_menu' => 'List menu',
+    'list_media' => 'List media',
     'list_dishes' => 'List dishes',
     'list_showcases' => 'List showcases',
     'list_users' => 'List users',

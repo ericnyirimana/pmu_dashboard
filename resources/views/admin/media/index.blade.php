@@ -8,7 +8,7 @@
     <div class="col-12">
         <div class="card-box table-responsive">
 
-            <h4 class="m-t-0 header-title"><b>List media</b></h4>
+            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_media')) }}</b></h4>
 
             <media :media="$media" />
 
