@@ -114,7 +114,7 @@ $(document).ready(function(){
 
 
   $('#drag-and-drop-zone').dmUploader({ //
-    url: '/admin/file/upload',
+    url: '/file/upload',
     maxFileSize: 3000000, // 3 Megs
     headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 
