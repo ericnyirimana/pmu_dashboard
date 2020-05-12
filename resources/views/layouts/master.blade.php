@@ -21,7 +21,7 @@
 
         <script type="text/javascript">var _iub = _iub || {}; _iub.cons_instructions = _iub.cons_instructions || []; _iub.cons_instructions.push(["init", {api_key: "UkPXzwj5tK69op8iAFJrl0yuRli7mltL"}]);</script><script type="text/javascript" src="https://cdn.iubenda.com/cons/iubenda_cons.js" async></script>
         @stack('styles')
-
+        @stack('calendar-styles')
     </head>
 
 
@@ -38,7 +38,7 @@
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
         @stack('scripts')
-
+        @stack('calendar-scripts')
 
     </body>
 </html>

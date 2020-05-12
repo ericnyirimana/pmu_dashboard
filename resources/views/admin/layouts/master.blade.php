@@ -29,7 +29,7 @@
         <script src="{{ asset("/adminox/assets/js/modernizr.min.js")}}"></script>
 
         @stack('styles')
-
+        @stack('calendar-styles')
     </head>
 
 
@@ -97,7 +97,7 @@
         <script src="{{ asset("/plugins/jquery-mask-plugin/dist/jquery.mask.min.js") }}" type="text/javascript" ></script>
 
         @stack('scripts')
-
+        @stack('calendar-scripts')
         <!-- App js -->
         <script src="{{ asset("/adminox/assets/js/jquery.core.js")}}"></script>
         <script src="{{ asset("/adminox/assets/js/jquery.app.js")}}"></script>

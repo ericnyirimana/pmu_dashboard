@@ -44,7 +44,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/products/position/{product}', 'ProductController@setPosition')->name('product.position');
         Route::delete('/section/products/ajaxDestroy', 'ProductController@ajaxDestroy')->name('product.ajax.destroy');
 
+        Route::get('/pickups/calendar', 'PickupController@calendar')->name('pickups.calendar');
         Route::resource('/pickups', 'PickupController');
+
 
         Route::resource('/mealtypes', 'MealTypeController');
 
