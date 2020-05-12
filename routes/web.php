@@ -23,7 +23,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
-        // Route::get('blank', 'DashboardController@blank')->name('dashboard.blank');
+        Route::get('blank', 'DashboardController@blank')->name('dashboard.blank');
 
         Route::get('profile', 'UserController@me')->name('users.profile');
 

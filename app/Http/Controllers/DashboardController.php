@@ -32,10 +32,10 @@ class DashboardController extends Controller
 
     }
 
-//    public function blank() {
-//
-//        return view('admin.blank');
-//
-//    }
+    public function blank() {
+
+        return view('admin.blank');
+
+    }
 
 }
