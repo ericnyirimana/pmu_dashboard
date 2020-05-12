@@ -201,6 +201,9 @@ class PickupController extends Controller
 
     }
 
+    public function calendar() {
+        return view('admin.pickups.calendar');
+    }
 
     /**
      * @param Request $request

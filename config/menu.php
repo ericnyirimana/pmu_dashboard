@@ -47,7 +47,8 @@ return [
             'icon' => 'fi-tag',
             'routes' => [
                 'list' => 'pickups.index',
-                'new' => 'pickups.create'
+                'new' => 'pickups.create',
+                'calendar' => 'pickups.calendar'
             ],
         ],
         'mealtypes' => [
