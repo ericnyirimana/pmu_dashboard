@@ -194,6 +194,11 @@ class UserController extends Controller
     public function destroy(User $user)
     {
 
+        $companies = Company::where('owner_id', $user->id)->get();
+        $companies->map(function ($company) {
+            $company->owner_id = null;
+            $company->save();
+        });
         $client = new Cognito();
         $client->deleteUser($user->sub);
 

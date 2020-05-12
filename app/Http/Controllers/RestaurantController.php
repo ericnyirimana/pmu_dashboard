@@ -187,19 +187,24 @@ class RestaurantController extends Controller
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
         $pickupSubscriptions = PickupSubscription::whereIn('pickup_id', $pickupsId)->get();
 
-        // List of payment/transfer
-        $payouts = $this->stripe->getPayoutsForConnectedAccount($restaurant->merchant_stripe);
-        $payments = new Collection();
-        foreach ($payouts['data'] as $payout) {
-            $payments->push((object)[
-                'id' => $payout->id,
-                'created' => date('d-m-Y', $payout->created),
-                'amount' => number_format(($payout->amount/100), 2, ',', '.').'€'
-            ]);
+        $payments = null;
+        $balance = null;
+        if (isset($restaurant->merchant_stripe)) {
+            // List of payment/transfer
+            $payouts = $this->stripe->getPayoutsForConnectedAccount($restaurant->merchant_stripe);
+            $payments = new Collection();
+            foreach ($payouts['data'] as $payout) {
+                $payments->push((object)[
+                    'id' => $payout->id,
+                    'created' => date('d-m-Y', $payout->created),
+                    'amount' => number_format(($payout->amount/100), 2, ',', '.').'€'
+                ]);
+            }
+
+            //Balance
+            $balance = $this->stripe->getBalanceForConnectedAccount($restaurant->merchant_stripe);
         }
 
-        //Balance
-        $balance = $this->stripe->getBalanceForConnectedAccount($restaurant->merchant_stripe);
 
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
