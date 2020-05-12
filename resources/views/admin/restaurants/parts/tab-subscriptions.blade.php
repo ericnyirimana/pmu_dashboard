@@ -4,7 +4,7 @@
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.active_subscriptions')) }}</b></h4>
 
-
+            @if(isset($pickupSubscriptions))
             <div class="d-flex justify-content-between align-items-center">
                 @foreach($pickupSubscriptions as $pickupSubscription)
                 <div class="col-12 col-md-6">
@@ -37,7 +37,7 @@
                 </div>
                 @endforeach
             </div>
-
+            @endif
         </div>
     </div>
 </div>

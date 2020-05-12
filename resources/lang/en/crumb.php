@@ -5,6 +5,7 @@ return [
         'dashboard' => 'Dashboard',
         'pickups' => 'offers and subscriptions',
         'companies' => 'companies',
+        'company' => 'company',
         'restaurants' => 'restaurants',
         'categories' => 'categories',
         'products' => 'products',

@@ -5,6 +5,7 @@ return [
         'dashboard' => 'Dashboard',
         'pickups' => 'Offerte e abbonamenti',
         'companies' => 'società',
+        'company' => 'società',
         'restaurants' => 'ristoranti',
         'categories' => 'categorie',
         'products' => 'Piatti',
