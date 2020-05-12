@@ -53,7 +53,7 @@
         </div>
     @elseif(Auth::user()->is_restaurateur)
         <div class="row">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-6">
                 <div class="table-responsive">
 
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
@@ -65,11 +65,7 @@
                     />
                 </div>
             </div>
-            <div class="col-12 col-md-4">
 
-            </div>
-        </div>
-        <div class="row">
             <div class="col-12 col-md-6">
                 <div class="card-box table-responsive">
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_pickups')) }}</b></h4>
@@ -86,6 +82,13 @@
                     </div>
                 </div>
             </div>
+            
+            {{--<div class="col-12 col-md-4">--}}
+
+            {{--</div>--}}
+        </div>
+        <div class="row">
+
             {{--<div class="col-12 col-md-6">--}}
                 {{--<div class="card-box table-responsive">--}}
                     {{--<h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.sales_analytics')) }}</b></h4>--}}
