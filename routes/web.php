@@ -55,6 +55,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');
+        Route::get('/payments', 'RestaurantController@payment')->name('payments.show');
 
         Route::resource('/orders', 'OrderController');
 
@@ -62,7 +63,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/subscriptions/{id}', 'PickupSubscriptionController@show')->name('subscription.show');
 
-        Route::resource('/payments', 'PaymentController');
+        //Route::resource('/payments', 'PaymentController');
 
         Route::resource('/companies', 'CompanyController');
 

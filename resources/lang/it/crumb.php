@@ -17,6 +17,8 @@ return [
         'orders' => 'Ordini',
         'orders-pickup' => 'Ordini',
         'subscriptions' => 'Abbonamenti',
-        'subscription' => 'Abbonamento'
+        'subscription' => 'Abbonamento',
+        'payments' => 'Storico pagamenti'
+
     ]
 ];

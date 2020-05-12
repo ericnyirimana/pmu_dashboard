@@ -36,6 +36,12 @@ class Pickup extends Model
 
     }
 
+    public function orders()
+    {
+
+        return $this->hasMany('App\Models\OrderPickup');
+
+    }
 
     public function company() {
 

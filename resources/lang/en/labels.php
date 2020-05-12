@@ -53,4 +53,7 @@ return [
         'confirm_remove_title' => 'Remove register',
         'confirm_remove_text' => 'Do you want to remove register'
     ],
+    'entries_to_be_welded' => 'Entries to be welded',
+    'orders_suspend' => 'Orders suspend',
+    'orders_deleted' => 'Orders deleted'
 ];

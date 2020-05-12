@@ -36,6 +36,7 @@ return [
         'hour' => 'Ora',
         'date_hour' => 'Data e ora',
         'total' => 'Somma',
+        'processing_date' => 'Data eleborazione'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Ristorante',

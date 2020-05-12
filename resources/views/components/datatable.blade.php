@@ -1,10 +1,13 @@
-<table id="datatable" class="table">
+<table id="datatable" class="table @if(isset($class)) {{ $class }} @endif">
     <thead>
     <tr>
         @foreach ($fields as $key=>$field)
             <th>{{ __($key) }}</th>
         @endforeach
-        <th style="width: 320px; cursor: inherit;" class="sorting_desc_disabled sorting_asc_disabled">{{ __('datatable.headers.actions') }}</th>
+        @if(!empty($actions))
+            <th style="width: 320px; cursor: inherit;"
+                class="sorting_desc_disabled sorting_asc_disabled">{{ __('datatable.headers.actions') }}</th>
+        @endif
     </tr>
     </thead>
 
@@ -38,39 +41,47 @@
                         <td>{{ $model->{$field} }}</td>
                     @endif
                 @endforeach
-                <td class="actions">
-
-                    @if( empty($actions) || strstr($actions, 'view') )
-                        <a href="{{ route($route.'.show', $model->id )}}"
-                           class="btn btn-icon waves-effect waves-light btn-info"><i class="fa fa-search"
-                                                                                     aria-hidden="true"></i></a>
-                    @endif
-                    @if( empty($actions) || strstr($actions, 'edit'))
-                        <a href="{{ route($route.'.edit', $model->id )}}"
-                           class="btn btn-icon waves-effect waves-light btn-success"><i class="fa fa-edit"
-                                                                                        aria-hidden="true"></i></a>
-                    @endif
-                    @if( empty($actions) || strstr($actions, 'delete'))
-                        @if(empty($model->deleted_at))
-                            <a href="#remove-register"
-                               class="btn btn-icon waves-effect waves-light btn-danger rm-register"
-                               data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
-                               data-target=".remove-register"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        @else
-                            <a href="#remove-register"
-                               class="btn btn-icon waves-effect waves-light btn-warning rm-register"
-                               data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
-                               data-target=".remove-register"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                @if(!empty($actions))
+                    <td class="actions">
+                        @if(!empty($actions) && strstr($actions, 'view') )
+                            @if(!empty($parent))
+                                <a href="{{ route($route.'.show', ['payout_id' => $model->id, 'restaurant_id'
+                            => '5'] )}}"
+                                   class="btn btn-icon waves-effect waves-light btn-info"><i class="fa fa-search"
+                                                                                                 aria-hidden="true"></i></a>
+                            @else
+                                <a href="{{ route($route.'.show', $model->id )}}"
+                                   class="btn btn-icon waves-effect waves-light btn-info"><i class="fa fa-search"
+                                                                                                 aria-hidden="true"></i></a>
+                            @endif
                         @endif
-                    @endif
-                </td>
+                        @if(!empty($actions) && strstr($actions, 'edit'))
+                            <a href="{{ route($route.'.edit', $model->id )}}"
+                               class="btn btn-icon waves-effect waves-light btn-success"><i class="fa fa-edit"
+                                                                                            aria-hidden="true"></i></a>
+                        @endif
+                        @if( !empty($actions) && strstr($actions, 'delete'))
+                            @if(empty($model->deleted_at))
+                                <a href="#remove-register"
+                                   class="btn btn-icon waves-effect waves-light btn-danger rm-register"
+                                   data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
+                                   data-target=".remove-register"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            @else
+                                <a href="#remove-register"
+                                   class="btn btn-icon waves-effect waves-light btn-warning rm-register"
+                                   data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
+                                   data-target=".remove-register"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                            @endif
+                        @endif
+                    </td>
+                @endif
             </tr>
         @endforeach
     @endif
     </tbody>
 </table>
-@if( empty($actions) || strstr($actions, 'delete'))
-<modal-remove :route='$route'/>
+@if( !empty($actions) && strstr($actions, 'delete'))
+    <modal-remove :route='$route'/>
 @endif
 @push('styles')
     <!-- DataTables -->

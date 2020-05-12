@@ -26,7 +26,7 @@ class RenameColoumsInPromoSerialUsed extends Migration
     public function down()
     {
         Schema::table('promo_serial_used', function (Blueprint $table) {
-            //
+            $table->renameColumn('used', 'used ');
         });
     }
 }

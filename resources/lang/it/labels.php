@@ -52,4 +52,7 @@ return [
         'confirm_remove_title' => 'Confermi eliminazione',
         'confirm_remove_text' => 'Confermi di voler rimuovere'
     ],
+    'entries_to_be_welded' => 'Entrate da saldare',
+    'orders_suspend' => 'Ordini sospesi',
+    'orders_deleted' => 'Ordini cancellati'
 ];

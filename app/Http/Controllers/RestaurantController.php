@@ -7,6 +7,7 @@ use App\Models\OrderPickup;
 use App\Models\Pickup;
 use App\Models\PickupSubscription;
 use App\Models\User;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
 use App\Models\Company;
@@ -186,6 +187,20 @@ class RestaurantController extends Controller
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
         $pickupSubscriptions = PickupSubscription::whereIn('pickup_id', $pickupsId)->get();
 
+        // List of payment/transfer
+        $payouts = $this->stripe->getPayoutsForConnectedAccount($restaurant->merchant_stripe);
+        $payments = new Collection();
+        foreach ($payouts['data'] as $payout) {
+            $payments->push((object)[
+                'id' => $payout->id,
+                'created' => date('d-m-Y', $payout->created),
+                'amount' => number_format(($payout->amount/100), 2, ',', '.').'€'
+            ]);
+        }
+
+        //Balance
+        $balance = $this->stripe->getBalanceForConnectedAccount($restaurant->merchant_stripe);
+
         return view('admin.restaurants.edit')->with([
             'restaurant' => $restaurant,
             'company' => $company,
@@ -193,8 +208,37 @@ class RestaurantController extends Controller
             'mealtype' => $mealtypeList,
             'users' => $users,
             'ordersPickup' => $ordersPickup,
-            'pickupSubscriptions' => $pickupSubscriptions
+            'pickupSubscriptions' => $pickupSubscriptions,
+            'payments' => $payments,
+            'balance' => $balance
         ]);
+
+    }
+
+    public function payment(Request $request) {
+        $queryString = $request->all();
+        if ($queryString['restaurant_id'] && $queryString['payout_id']) {
+
+
+            $restaurant = Restaurant::find($queryString['restaurant_id'])->first();
+            //payout detail
+            $payout = $this->stripe->getPayoutDetail($queryString['payout_id'], $restaurant->merchant_stripe);
+
+            $transfers = new Collection();
+            $transfers = $this->stripe->getTransfersForBalanceTransaction($restaurant->merchant_stripe, $payout->balance_transaction);
+
+
+            if ($restaurant) {
+                return view('admin.restaurants.payment')->with([
+                    'restaurant' => $restaurant,
+                    'payout' => $payout,
+                    'transfers' => $transfers
+                ]);
+            }
+
+        } else {
+            abort(404);
+        }
 
     }
 

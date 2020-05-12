@@ -11,11 +11,11 @@
     <div class="card-box">
         <div class="row m-b-10">
             <div class="col-12">
-                <h2>{{ ucfirst(trans('labels.id_order')) }}: {{ $pickupSubscription->id }}</h2>
+                <h2>{{ ucfirst(trans('labels.id_subscription')) }}: {{ $pickupSubscription->id }}</h2>
             </div>
             <div class="col-md-3 col-lg-5">
                 <p><label>{{ ucfirst(trans('labels.date_hour')) }}:</label> {{ $pickupSubscription->date }}</p>
-                <p><label>{{ ucfirst(trans('labels.order_type')) }}:</label> {{ $pickupSubscription->type_offer }}</p>
+                <p><label>{{ ucfirst(trans('labels.offer_type')) }}:</label> {{ $pickupSubscription->type_offer }}</p>
                 <p><label>{{ ucfirst(trans('labels.offer')) }}:</label> {{ $pickupSubscription->name }}</p>
             </div>
             <div class="col-md-3 col-lg-5">
