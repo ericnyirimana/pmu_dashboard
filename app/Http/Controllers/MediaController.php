@@ -35,6 +35,7 @@ class MediaController extends Controller
             [
               'file'  => (empty($media)?'required|':'').'file|mimes:jpeg,bmp,png',
               'name'  => 'required',
+              'brand_id'
             ]
           );
 
@@ -47,10 +48,11 @@ class MediaController extends Controller
           if (Auth::user()->is_super) {
               $media = Media::all();
           } else {
-              $mediaAll = Media::whereNull('brand_id')->get();
+              // $mediaAll = Media::whereNull('brand_id')->get();
               $mediaCompany = Media::where('brand_id', Auth::user()->company->id)->get();
 
-              $media = $mediaAll->merge($mediaCompany);
+              $media = $mediaCompany;
+              //$media = $mediaAll->merge($mediaCompany);
           }
 
           return view('admin.media.index')
