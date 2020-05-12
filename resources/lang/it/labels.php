@@ -54,5 +54,10 @@ return [
     ],
     'entries_to_be_welded' => 'Entrate da saldare',
     'orders_suspend' => 'Ordini sospesi',
-    'orders_deleted' => 'Ordini cancellati'
+    'orders_deleted' => 'Ordini cancellati',
+    'id_subscription' => 'ID Abbonamento',
+    'working_days' => 'Giorni lavorativi',
+    'validity_range' => 'Periodo di validità',
+    'menu' => 'Menu',
+    'mealtype' => 'Fascia oraria'
 ];

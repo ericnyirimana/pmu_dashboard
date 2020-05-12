@@ -12,9 +12,10 @@ class PickupSubscriptionController extends Controller
     {
 
         $pickupSubscription = PickupSubscription::find($request->id);
-
+        $menu = $pickupSubscription->pickup->sections;
         return view('admin.subscriptions.view')->with([
-                'pickupSubscription'  => $pickupSubscription
+                'pickupSubscription'  => $pickupSubscription,
+                'menu' => $menu
             ]
         );
     }

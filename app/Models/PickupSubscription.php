@@ -38,6 +38,6 @@ class PickupSubscription extends Model
   }
 
   public function getOffersPurchasedAttribute() {
-      return SubscriptionTicket::where('pickup_id', $this->pickup->id)->get()->count();
+      return SubscriptionTicket::where('pickup_id', $this->pickup->id)->get()->sum('quantity');
   }
 }

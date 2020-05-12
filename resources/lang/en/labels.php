@@ -55,5 +55,10 @@ return [
     ],
     'entries_to_be_welded' => 'Entries to be welded',
     'orders_suspend' => 'Orders suspend',
-    'orders_deleted' => 'Orders deleted'
+    'orders_deleted' => 'Orders deleted',
+    'id_subscription' => 'ID Subscription',
+    'working_days' => 'working days',
+    'validity_range' => 'Validity range',
+    'menu' => 'Menu',
+    'mealtype' => 'Mealtype'
 ];
