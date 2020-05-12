@@ -76,7 +76,7 @@ RUN sed -i "s@.*APP_URL=.*@APP_URL=https://restaurant-dev.pickmealup.it@" /opt/p
 
 RUN cat /opt/pmu_dashboard/.env
 
-RUN aws cognito-idp sign-up --region eu-west-1 --client-id 35vlfdldmpreh89t3gbtlqf8r2 --username admin5@example.com --password Passw0rd!
+#RUN aws cognito-idp sign-up --region eu-west-1 --client-id 35vlfdldmpreh89t3gbtlqf8r2 --username admin5@example.com --password Passw0rd!
 
 # (marco/mirco) 20200229 : workaround to fix "the no such file" error
 RUN mkdir -p /opt/pmu_dashboard/storage/framework/sessions
