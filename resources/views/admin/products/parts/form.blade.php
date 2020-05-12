@@ -21,11 +21,7 @@
 
 <div class="row">
     <div class="col-4">
-        @if($product->type == 'Dish')
-        <field-media-list label="Image" field="media_id" :model="$product" required/>
-        @else
         <field-media-list label="Image" field="media_id" :model="$product" />
-        @endif
     </div>
 </div>
 
