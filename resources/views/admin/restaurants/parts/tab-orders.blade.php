@@ -4,6 +4,7 @@
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.history_orders')) }}</b></h4>
 
+            @if(isset($ordersPickup))
                 <datatable class='orders-datatable' route='orders-pickup' :collection="$ordersPickup" :fields="[
                 'datatable.headers.date'      => 'order:date_format',
                 'datatable.headers.hour'      => 'order:hour_format',
@@ -13,6 +14,7 @@
                 'datatable.headers.status'      => 'order:status',
                 ]"
                 actions='view' />
+            @endif
         </div>
     </div>
 </div>
