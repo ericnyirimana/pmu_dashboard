@@ -7,7 +7,6 @@ use App\Models\OrderPickup;
 use App\Models\Pickup;
 use App\Models\PickupSubscription;
 use App\Models\User;
-use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
 use App\Models\Company;
@@ -95,9 +94,10 @@ class RestaurantController extends Controller
 
         // save on aux
         $openings = $fields['openings'];
-        // save on aux
         $closings = $fields['closings'];
-        $timeslots = $fields['timeslots'];
+        if(isset($fields['timeslots'])) {
+            $timeslots = $fields['timeslots'];
+        }
 
         // remove from fields to not conflict with Restaurant fields
         unset($fields['openings']);
@@ -108,7 +108,10 @@ class RestaurantController extends Controller
 
         $this->saveOpeningsHours($restaurant->id, $openings);
         $this->saveClosedDays($restaurant->id, $closings);
-        $this->saveTimeslots($restaurant->id, $timeslots);
+
+        if(isset($restaurant->id, $timeslots)) {
+            $this->saveTimeslots($restaurant->id, $timeslots);
+        }
 
         if ($request->media) {
             $restaurant->media()->sync(array_unique($request->media));
@@ -259,7 +262,9 @@ class RestaurantController extends Controller
         // save on aux
         $openings = $fields['openings'];
         $closings = $fields['closings'];
-        $timeslots = $fields['timeslots'];
+        if(isset($fields['timeslots'])) {
+            $timeslots = $fields['timeslots'];
+        }
 
         // remove from fields to not conflict with Restaurant fields
         unset($fields['openings']);
@@ -269,7 +274,10 @@ class RestaurantController extends Controller
         $restaurant->update($fields);
         $this->saveOpeningsHours($restaurant->id, $openings);
         $this->saveClosedDays($restaurant->id, $closings);
-        $this->saveTimeslots($restaurant->id, $timeslots);
+
+        if(isset($restaurant->id, $timeslots)) {
+            $this->saveTimeslots($restaurant->id, $timeslots);
+        }
 
         if ($request->media) {
             $restaurant->media()->sync(array_unique($request->media));
