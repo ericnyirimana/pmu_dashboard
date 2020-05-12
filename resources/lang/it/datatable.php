@@ -15,6 +15,7 @@ return [
     'history_orders' => 'Storico ordini',
     'sales_analytics' => 'Sales Analytics',
     'last_messages' => 'Ultimi messaggi',
+    'active_subscriptions' => 'Abbonamenti attivi',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',
@@ -43,6 +44,7 @@ return [
         'restaurant' => 'Ristorante',
         'payment' => 'Storico pagamenti',
         'order' => 'Ordini',
+        'subscription' => 'Abbonamenti',
         'account' => 'Account'
     ],
 ];

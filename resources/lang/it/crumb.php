@@ -16,6 +16,9 @@ return [
         'media' => 'Media',
         'orders' => 'Ordini',
         'orders-pickup' => 'Ordini',
+        'subscriptions' => 'Abbonamenti',
+        'subscription' => 'Abbonamento',
         'payments' => 'Storico pagamenti'
+
     ]
 ];

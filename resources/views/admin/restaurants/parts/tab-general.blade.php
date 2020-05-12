@@ -16,7 +16,7 @@
 <h6 class="">{{ ucfirst(trans('labels.banking_data')) }}</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
-        <field-map-billing-address label="Indirizzo fatturazione" field="billing_address" :model="$restaurant" required  />
+        <field-map-billing-address label="billing_address" field="billing_address" :model="$restaurant" required  />
     </div>
     <div class="col-md-12 col-lg-6">
         @if(Auth::user()->is_super)

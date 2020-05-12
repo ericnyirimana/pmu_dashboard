@@ -61,6 +61,9 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/orders-pickup', 'OrderPickupController');
 
+        Route::get('/subscriptions/{id}', 'PickupSubscriptionController@show')->name('subscription.show');
+
+        //Route::resource('/payments', 'PaymentController');
         Route::resource('/companies', 'CompanyController');
 
         Route::post('/companies/{company}/restaurants', 'RestaurantController@store')->name('company.restaurants.store');

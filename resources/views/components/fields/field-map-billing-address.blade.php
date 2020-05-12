@@ -1,5 +1,5 @@
 <div class="form-group">
-	<label for="{{ $field }}">{{ $label }}</label>
+	<label for="{{ $field }}">{{ __('labels.'.$label) }}</label>
 	<input  type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" aria-describedby="{{ $field }}Help" placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif>
 	@if(isset($help))<small id="{{ $field }}Help" class="form-text text-muted">{{ $help }}</small>@endif
 	<input type="hidden" id="billing_latitude" name="billing_latitude" value="{{ old('billing_latitude', isset($model) ? $model->billing_latitude : '') }}">

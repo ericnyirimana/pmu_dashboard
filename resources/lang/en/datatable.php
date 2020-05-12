@@ -15,6 +15,7 @@ return [
     'history_orders' => 'History orders',
     'sales_analytics' => 'Sales Analytics',
     'last_messages' => 'Last messages',
+    'active_subscriptions' => 'Active subscriptions',
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
@@ -43,6 +44,7 @@ return [
         'restaurant' => 'Restaurant',
         'payment' => 'Payment history',
         'order' => 'Orders',
+        'subscription' => 'Subscriptions',
         'account' => 'Account'
     ],
 ];

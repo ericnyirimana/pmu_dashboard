@@ -16,6 +16,13 @@
                     {{ ucfirst(trans('datatable.tab_restaurant.order')) }}
                 </a>
             </li>
+            {{--@if(Auth::user()->is_restaurateur)--}}
+            <li class="nav-item">
+                <a href="#subscriptions" data-toggle="tab" aria-expanded="false" class="nav-link">
+                    {{ ucfirst(trans('datatable.tab_restaurant.subscription')) }}
+                </a>
+            </li>
+            {{--@endif--}}
             <li class="nav-item">
                 <a href="#account" data-toggle="tab" aria-expanded="false" class="nav-link">
                     {{ ucfirst(trans('datatable.tab_restaurant.account')) }}
@@ -32,6 +39,11 @@
             <div class="tab-pane" id="orders">
                 @include('admin.restaurants.parts.tab-orders')
             </div>
+            {{--@if(Auth::user()->is_restaurateur)--}}
+            <div class="tab-pane" id="subscriptions">
+                @include('admin.restaurants.parts.tab-subscriptions')
+            </div>
+            {{--@endif--}}
             <div class="tab-pane" id="account">
                 @include('admin.restaurants.parts.tab-account')
             </div>
