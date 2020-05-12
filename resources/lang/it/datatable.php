@@ -13,6 +13,8 @@ return [
     'list_orders' => 'Lista ordini',
     'history_payments' => 'Storico pagamenti',
     'history_orders' => 'Storico ordini',
+    'sales_analytics' => 'Sales Analytics',
+    'last_messages' => 'Ultimi messaggi',
     'active_subscriptions' => 'Abbonamenti attivi',
     'headers' => [
         'meal' => 'Pasto',
@@ -36,7 +38,8 @@ return [
         'hour' => 'Ora',
         'date_hour' => 'Data e ora',
         'total' => 'Somma',
-        'processing_date' => 'Data eleborazione'
+        'processing_date' => 'Data eleborazione',
+        'quantity' => 'Quantità'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Ristorante',
