@@ -30,6 +30,9 @@
             <button type="button" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.generate_pwd')) }}</button>
         </div>
     </div>
+    <div class="col-12 row">
+        {{--<field-checkbox-permissions field="role" :model="$user" :items="config('cognito.roles')" required />--}}
+    </div>
     <div class="col-12">
           <div class="form-group mt-auto">
 
