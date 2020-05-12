@@ -6,11 +6,13 @@
                     {{ ucfirst(trans('datatable.tab_restaurant.restaurant')) }}
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="#payments" data-toggle="tab" aria-expanded="true" class="nav-link">
-                    {{ ucfirst(trans('datatable.tab_restaurant.payment')) }}
-                </a>
-            </li>
+            @if(isset($restaurant->merchant_stripe))
+                <li class="nav-item">
+                    <a href="#payments" data-toggle="tab" aria-expanded="true" class="nav-link">
+                        {{ ucfirst(trans('datatable.tab_restaurant.payment')) }}
+                    </a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a href="#orders" data-toggle="tab" aria-expanded="false" class="nav-link">
                     {{ ucfirst(trans('datatable.tab_restaurant.order')) }}
@@ -33,9 +35,11 @@
             <div class="tab-pane show active" id="general">
                 @include('admin.restaurants.parts.tab-general')
             </div>
-            <div class="tab-pane" id="payments">
-                @include('admin.restaurants.parts.tab-payments')
-            </div>
+            @if(isset($restaurant->merchant_stripe))
+                <div class="tab-pane" id="payments">
+                    @include('admin.restaurants.parts.tab-payments')
+                </div>
+            @endif
             <div class="tab-pane" id="orders">
                 @include('admin.restaurants.parts.tab-orders')
             </div>
@@ -53,8 +57,9 @@
 
 <div class="d-flex flex-row row card-body">
     <div class="col-12">
-          <div class="form-group">
-              <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
-          </div>
+        <div class="form-group">
+            <button type="submit"
+                    class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
+        </div>
     </div>
 </div>
