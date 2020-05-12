@@ -13,6 +13,8 @@ return [
     'list_orders' => 'Lista ordini',
     'history_payments' => 'Storico pagamenti',
     'history_orders' => 'Storico ordini',
+    'sales_analytics' => 'Sales Analytics',
+    'last_messages' => 'Ultimi messaggi',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',

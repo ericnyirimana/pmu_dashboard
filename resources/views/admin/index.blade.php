@@ -5,11 +5,16 @@
     @include('components.notification')
 
     @if(Auth::user()->is_super)
-        <div class="col-12 col-md-8">
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <div class="card-box table-responsive">
+                    <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.last_messages')) }}</b></h4>
 
-        </div>
-        <div class="col-12 col-md-4">
-            <div class="row">
+
+
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
                 <div class="card-box table-responsive">
                     <div class="col-12 mb-4">
                         <a href="{{ route('companies.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.new_company')) }}</a>
@@ -26,8 +31,8 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-6">
-            <div class="row">
+        <div class="row">
+            <div class="col-12 col-md-6">
                 <div class="card-box table-responsive">
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_pickups')) }}</b></h4>
 
@@ -41,6 +46,14 @@
                     <div class="col-12 mb-3">
                         <a href="{{ route('pickups.index' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.view_all')) }}</a>
                     </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="card-box table-responsive">
+                    <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.sales_analytics')) }}</b></h4>
+
+
+
                 </div>
             </div>
         </div>

@@ -13,6 +13,8 @@ return [
     'list_orders' => 'List orders',
     'history_payments' => 'History payments',
     'history_orders' => 'History orders',
+    'sales_analytics' => 'Sales Analytics',
+    'last_messages' => 'Last messages',
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
