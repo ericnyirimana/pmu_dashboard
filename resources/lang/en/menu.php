@@ -18,4 +18,5 @@ return [
     'new_drink' => 'New drink',
     'profile' => 'Profile',
     'user' => 'Users',
+    'calendar_offer' => 'Calendar offer'
 ];
