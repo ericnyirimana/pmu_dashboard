@@ -13,6 +13,9 @@ return [
     'list_orders' => 'List orders',
     'history_payments' => 'History payments',
     'history_orders' => 'History orders',
+    'sales_analytics' => 'Sales Analytics',
+    'last_messages' => 'Last messages',
+    'active_subscriptions' => 'Active subscriptions',
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
@@ -34,7 +37,9 @@ return [
         'date' => 'Date',
         'hour' => 'Hour',
         'date_hour' => 'Date and hour',
-        'total' => 'Total'
+        'total' => 'Total',
+        'processing_date' => 'Processing date',
+        'quantity' => 'Quantity'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Restaurant',

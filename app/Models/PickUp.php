@@ -16,99 +16,123 @@ class Pickup extends Model
     protected $dates = ['date_ini', 'date_end', 'deleted_at'];
 
 
-    public function offer() {
+    public function offer()
+    {
 
-          return $this->hasOne('App\Models\PickupOffer');
-
-    }
-
-
-    public function subscription() {
-
-          return $this->hasOne('App\Models\PickupSubscription');
+        return $this->hasOne('App\Models\PickupOffer');
 
     }
 
 
-    public function products() {
+    public function subscription()
+    {
 
-          return $this->belongsToMany('App\Models\Product', 'pickup_products')->withPivot('quantity_offer', 'quantity_remain');
-
-    }
-
-
-    public function company() {
-
-          return $this->restaurant->company();
-
-    }
-
-    public function restaurant() {
-
-          return $this->belongsTo('App\Models\Restaurant');
+        return $this->hasOne('App\Models\PickupSubscription');
 
     }
 
 
-    public function translations() {
+    public function products()
+    {
+
+        return $this->belongsToMany('App\Models\Product', 'pickup_products')->withPivot('quantity_offer', 'quantity_remain');
+
+    }
+
+    public function orders()
+    {
+
+        return $this->hasMany('App\Models\OrderPickup');
+
+    }
+
+    public function company()
+    {
+
+        return $this->restaurant->company();
+
+    }
+
+    public function restaurant()
+    {
+
+        return $this->belongsTo('App\Models\Restaurant');
+
+    }
+
+    public function timeslot()
+    {
+        return $this->belongsTo('App\Models\Timeslot');
+    }
+
+
+    public function translations()
+    {
 
         return $this->hasMany('App\Models\PickupTranslation');
 
     }
 
-    public function translate() {
+    public function translate()
+    {
 
         return $this->hasOne('App\Models\PickupTranslation')
-        ->where('code', \App::getLocale())
-        ->withDefault([
-          'name' => '',
-          'description' => ''
-        ]);
+            ->where('code', \App::getLocale())
+            ->withDefault([
+                'name' => '',
+                'description' => ''
+            ]);
 
     }
 
 
-    public function getDateAttribute() {
+    public function getDateAttribute()
+    {
 
-          return Carbon::parse($this->date_ini)->format('d-m-Y') . ' | ' . Carbon::parse($this->date_end)->format('d-m-Y');
+        return Carbon::parse($this->date_ini)->format('d-m-Y') . ' | ' . Carbon::parse($this->date_end)->format('d-m-Y');
 
     }
 
 
-    public function getSectionsAttribute() {
+    public function getSectionsAttribute()
+    {
 
-      if($this->products->count() > 0) {
-          foreach($this->products as $product) {
+        if ($this->products->count() > 0) {
+            foreach ($this->products as $product) {
                 $pos = $product->section->name;
                 if (empty($list[$pos])) $list[$pos] = array();
 
                 array_push($list[$pos], $product);
 
-          }
+            }
 
-          return $list;
+            return $list;
         }
 
     }
 
-    public function getNameAttribute() {
+    public function getNameAttribute()
+    {
 
         return $this->translate->name;
     }
 
-    public function getPickUpTypeAttribute() {
+    public function getPickUpTypeAttribute()
+    {
 
-            return $this->type_pickup;
+        return $this->type_pickup;
 
     }
 
-    public function media() {
+    public function media()
+    {
 
         return $this->belongsToMany('App\Models\Media', 'pickup_media');
 
     }
 
-    public function getCoverImageAttribute() {
+    public function getCoverImageAttribute()
+    {
 
         if ($this->media) {
 
@@ -118,7 +142,8 @@ class Pickup extends Model
     }
 
 
-    public function getPriceAttribute() {
+    public function getPriceAttribute()
+    {
 
         if ($this->type_pickup == 'offer') {
             return $this->offer->price;
@@ -128,7 +153,8 @@ class Pickup extends Model
 
     }
 
-    public function getTypeOfferAttribute() {
+    public function getTypeOfferAttribute()
+    {
 
         if ($this->type_pickup == 'offer') {
             return $this->offer->type_offer;
@@ -138,42 +164,47 @@ class Pickup extends Model
 
     }
 
-    public function getQuantityOfferAttribute() {
+    public function getQuantityOfferAttribute()
+    {
 
         if ($this->type_pickup == 'offer') {
             return $this->offer->quantity_offer;
         } else {
-          return $this->subscription->quantity_offer;
+            return $this->subscription->quantity_offer;
         }
 
     }
 
-    public function getQuantityRemainAttribute() {
+    public function getQuantityRemainAttribute()
+    {
 
         if ($this->type_pickup == 'offer') {
             return $this->offer->quantity_remain;
         } else {
-          return $this->subscription->quantity_remain;
+            return $this->subscription->quantity_remain;
         }
 
     }
 
-    public function getValidateDaysAttribute() {
+    public function getValidateDaysAttribute()
+    {
 
-          return $this->subscription->validate_days;
-
-    }
-
-    public function getQuantityPerSubscriptionAttribute() {
-
-          return $this->subscription->quantity_per_subscription;
+        return $this->subscription->validate_days;
 
     }
 
-    public function getPickupColorAttribute() {
+    public function getQuantityPerSubscriptionAttribute()
+    {
+
+        return $this->subscription->quantity_per_subscription;
+
+    }
+
+    public function getPickupColorAttribute()
+    {
 
         if ($this->type_pickup == 'offer') {
-          return 'success';
+            return 'success';
         }
 
         return 'primary';

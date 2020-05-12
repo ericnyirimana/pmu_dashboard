@@ -89,7 +89,7 @@ class MenuController extends Controller
 
         $menu = Menu::create($fields);
 
-        return redirect()->route('menu.edit', $menu)->with([
+        return redirect()->route('menu.index', $menu)->with([
             'notification' => trans('messages.notification.menu_saved'),
             'type-notification' => 'success'
         ]);
@@ -151,7 +151,7 @@ class MenuController extends Controller
         $menu->update($fields);
 
 
-        return redirect()->route('menu.edit', $menu)->with([
+        return redirect()->route('menu.index', $menu)->with([
             'notification' => trans('messages.notification.menu_saved'),
             'type-notification' => 'success'
         ]);

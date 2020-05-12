@@ -5,6 +5,7 @@ return [
         'dashboard' => 'Dashboard',
         'pickups' => 'Offerte e abbonamenti',
         'companies' => 'società',
+        'company' => 'società',
         'restaurants' => 'ristoranti',
         'categories' => 'categorie',
         'products' => 'Piatti',
@@ -15,6 +16,10 @@ return [
         'users' => 'Utenti',
         'media' => 'Media',
         'orders' => 'Ordini',
-        'orders-pickup' => 'Ordini'
+        'orders-pickup' => 'Ordini',
+        'subscriptions' => 'Abbonamenti',
+        'subscription' => 'Abbonamento',
+        'payments' => 'Storico pagamenti'
+
     ]
 ];

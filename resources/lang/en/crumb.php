@@ -5,6 +5,7 @@ return [
         'dashboard' => 'Dashboard',
         'pickups' => 'offers and subscriptions',
         'companies' => 'companies',
+        'company' => 'company',
         'restaurants' => 'restaurants',
         'categories' => 'categories',
         'products' => 'products',
@@ -15,6 +16,9 @@ return [
         'users' => 'users',
         'media' => 'media',
         'orders' => 'Orders',
-        'orders-pickup' => 'Orders'
+        'orders-pickup' => 'Orders',
+        'subscriptions' => 'Subscriptions',
+        'subscription' => 'Subscription',
+        'payments' => 'History payments'
     ],
 ];

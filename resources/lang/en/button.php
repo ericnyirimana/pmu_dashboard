@@ -33,5 +33,7 @@ return [
     'disable' => 'Disable',
     'reject' => 'Reject',
     'confirm' => 'Confirm',
-    'order_closed' => 'Close order'
+    'order_closed' => 'Close order',
+    'subscription_detail' => 'Subscription detail',
+    'view_all' => 'View all'
 ];

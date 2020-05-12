@@ -22,7 +22,8 @@
                 'datatable.headers.number_restaurants' => 'restaurants_quantity',
                 'datatable.headers.owner' => 'owner_name',
                 'datatable.headers.status' => 'boolean:status_name:status_color'
-                ]" />
+                ]"
+                           actions='view, edit, delete'/>
         </div>
     </div>
 </div>

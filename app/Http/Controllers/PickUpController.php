@@ -59,16 +59,7 @@ class PickupController extends Controller
     public function index()
     {
 
-        if (Auth::user()->is_super) {
-            $pickups = Pickup::all();
-
-        } else {
-
-            $pickups = Pickup::whereIn(
-                'restaurant_id',
-                Auth::user()->brand->first()->restaurants->toArray())
-                ->get();
-        }
+        $pickups = $this->retrieveOfferByUserRole();
 
         return view('admin.pickups.index')
             ->with(compact('pickups'));
@@ -201,6 +192,13 @@ class PickupController extends Controller
 
     }
 
+    public function calendar() {
+
+        $pickups = $this->retrieveOfferByUserRole();
+
+        return view('admin.pickups.calendar')
+            ->with(compact('pickups'));
+    }
 
     /**
      * @param Request $request
@@ -211,6 +209,24 @@ class PickupController extends Controller
         if (Auth::user()->is_owner || Auth::user()->is_restaurant) {
             $request['brand_id'] = Auth::user()->brand->first();
         }
+    }
+
+    /**
+     * @return Pickup[]|\Illuminate\Database\Eloquent\Collection
+     */
+    protected function retrieveOfferByUserRole()
+    {
+        if (Auth::user()->is_super) {
+            $pickups = Pickup::all();
+
+        } else {
+
+            $pickups = Pickup::whereIn(
+                'restaurant_id',
+                Auth::user()->brand->first()->restaurants->toArray())
+                ->get();
+        }
+        return $pickups;
     }
 
 

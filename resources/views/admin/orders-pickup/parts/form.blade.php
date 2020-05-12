@@ -1,6 +1,6 @@
 <div class="row m-b-10">
     <div class="col-12">
-        <h2>{{ ucfirst(trans('labels.id_order')) }}: {{ $ordersPickup->order->id }}</h2>
+        <h2>{{ ucfirst(trans('labels.id_order')) }}: #{{ $ordersPickup->order->id }}</h2>
     </div>
     <div class="col-md-3 col-lg-5">
         <p><label>{{ ucfirst(trans('labels.date_hour')) }}:</label> {{ $ordersPickup->order->created_at->format('d/m/Y - H:m') }}</p>
@@ -11,7 +11,7 @@
     <div class="col-md-3 col-lg-5">
         <p><label>{{ ucfirst(trans('labels.customer_id')) }}:</label> {{ $ordersPickup->order->user_id }}</p>
         <p><label>{{ ucfirst(trans('labels.status')) }}:</label> {{ $ordersPickup->order->status }}</p>
-        <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $ordersPickup->pickup->price }}</p>
+        <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $ordersPickup->pickup->price }} €</p>
     </div>
 
     <div class="form-group d-flex align-items-center justify-content-between col-12 mt-5">

@@ -7,6 +7,7 @@ return [
     'vat' => 'VAT',
     'corporate_name' => 'Corporate name',
     'address' => 'Address',
+    'billing_address' => 'Billing address',
     'merchant_id' => 'Merchant ID (Stripe)',
     'piva_fiscal_code' => 'VAT or Fiscal Code',
     'iban' => 'IBAN',
@@ -41,8 +42,23 @@ return [
     'opening_hours' => 'Opening hours',
     'extraordinary_close' => 'Extraordinary close',
     'gallery_restaurant' => 'Gallery restaurant',
+    'validate_subscription' => 'Validate subscription',
+    'sale_subscriptions' => 'Subscriptions for sale',
+    'purchase_subscriptions' => 'Subscriptions purchased',
+    'orders_collected' => 'Orders collected',
+    'orders_to_be_collected' => 'Orders to be collected',
+    'validate_days' => 'Validate days',
+    '' => 'Validate subscription',
     'modal' => [
         'confirm_remove_title' => 'Remove register',
         'confirm_remove_text' => 'Do you want to remove register'
     ],
+    'entries_to_be_welded' => 'Entries to be welded',
+    'orders_suspend' => 'Orders suspend',
+    'orders_deleted' => 'Orders deleted',
+    'id_subscription' => 'ID Subscription',
+    'working_days' => 'working days',
+    'validity_range' => 'Validity range',
+    'menu' => 'Menu',
+    'mealtype' => 'Mealtype'
 ];
