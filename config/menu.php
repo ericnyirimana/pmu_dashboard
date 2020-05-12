@@ -48,7 +48,7 @@ return [
             'routes' => [
                 'list' => 'pickups.index',
                 'new' => 'pickups.create',
-                'calendar' => 'pickups.calendar'
+                'calendar_offer' => 'pickups.calendar'
             ],
         ],
         'mealtypes' => [
