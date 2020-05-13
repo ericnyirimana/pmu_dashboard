@@ -35,7 +35,8 @@ class MediaController extends Controller
             [
               'file'  => (empty($media)?'required|':'').'file|mimes:jpeg,bmp,png',
               'name'  => 'required',
-              'brand_id'
+              'brand_id',
+              'status_media'
             ]
           );
 
@@ -49,7 +50,7 @@ class MediaController extends Controller
               $media = Media::all();
           } else {
               // $mediaAll = Media::whereNull('brand_id')->get();
-              $mediaCompany = Media::where('brand_id', Auth::user()->company->id)->get();
+              $mediaCompany = Media::where('brand_id', Auth::user()->brand->first()->id)->get();
 
               $media = $mediaCompany;
               //$media = $mediaAll->merge($mediaCompany);
@@ -100,6 +101,11 @@ class MediaController extends Controller
 
             Media::create($fields);
 
+            // if media is only updated set to DRAFT status
+            if (!isset($fields['status_media'])) {
+                $fields['status_media'] = 'PENDING';
+            }
+
             return redirect()->route('media.index')->with([
                   'notification' => 'Media saved with success!',
                   'type-notification' => 'success'
@@ -136,6 +142,11 @@ class MediaController extends Controller
 
               $fields['file'] = FileManager::saveImage( $this->folder, $image );
 
+            }
+
+            // if media is only updated set to DRAFT status
+            if (!isset($fields['status_media'])) {
+              $fields['status_media'] = 'PENDING';
             }
 
             $media->update($fields);

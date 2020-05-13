@@ -47,16 +47,19 @@
             <div class="add-image-container">
                   <input type="hidden" class="src-image" value="" />
                   <input type="hidden" class="id-image" value="" />
+                  {{--@if($media->status_media == 'PENDING' || 'DRAFT')--}}
+                  {{--<button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal" disabled>{{ ucfirst(trans('button.add_image')) }}</button>--}}
+                  {{--@else--}}
                   <button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal">{{ ucfirst(trans('button.add_image')) }}</button>
+                  {{--@endif--}}
             </div>
 
             <div class="edit-image-container">
               <a  href="{{ route('media.edit', 1)}}" class="btn btn-primary btn-block edit-image">{{ ucfirst(trans('button.edit_image')) }}</a>
             </div>
 
-            <div class="mt-3">
-                <button type="submit" class="btn btn-md w-lg btn-success w-100">{{ ucfirst(trans('button.approves')) }}</button>
-            </div>
+          {{--<button type="button" class="btn btn-primary btn-success mt-3 w-100" value="PENDING" disabled>{{ ucfirst(trans('button.wait_approves')) }}</button>--}}
+
 
       </div>
     </div>

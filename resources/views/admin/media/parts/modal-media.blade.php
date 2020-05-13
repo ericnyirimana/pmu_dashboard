@@ -10,7 +10,7 @@
       </div>
       <div class="modal-body">
 
-              <media :media="$media" />
+        <media :media="$media" />
 
       </div>
       <div class="modal-footer">

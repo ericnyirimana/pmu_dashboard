@@ -14,7 +14,7 @@ class Media extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['brand_id', 'name', 'file'];
+    protected $fillable = ['brand_id', 'name', 'file', 'status_media'];
 
     protected $appends = [ 'extension', 'company_name'];
 
@@ -69,6 +69,12 @@ class Media extends Model
 
           $id = $field . '_id';
           return $this->$id;
+
+    }
+
+    public function getIsWaitingAttribute() {
+
+        return ($this->status_media == 'PENDING');
 
     }
 }

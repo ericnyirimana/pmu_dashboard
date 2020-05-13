@@ -41,10 +41,11 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::user()->is_super) {
                 $media = \App\Models\Media::all();
             } else {
-                $mediaAll = \App\Models\Media::whereNull('brand_id')->get();
-                $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->brand->first()->id)->get();
+                // $mediaAll = \App\Models\Media::whereNull('brand_id')->get();
+                $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->brand->first()->id)->where('status_media', 'APPROVED')->get();
 
-                $media = $mediaAll->merge($mediaCompany);
+                //$media = $mediaAll->merge($mediaCompany);
+                $media = $mediaCompany;
             }
 
             $view->with(compact('media'));

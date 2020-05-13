@@ -31,6 +31,7 @@ return [
     'select_image' => 'Select',
     'approves' => 'Approves',
     'send_approves' => 'Publishes and sends approval',
+    'wait_approves' => 'Pending',
     'disable' => 'Disable',
     'reject' => 'Reject',
     'confirm' => 'Confirm',
