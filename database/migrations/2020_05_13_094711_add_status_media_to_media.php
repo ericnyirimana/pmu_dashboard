@@ -14,7 +14,7 @@ class AddStatusMediaToMedia extends Migration
     public function up()
     {
         Schema::table('media', function (Blueprint $table) {
-            $table->string('status_media');
+            $table->string('status_media')->default('PENDING');
         });
     }
 

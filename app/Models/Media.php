@@ -72,7 +72,7 @@ class Media extends Model
 
     }
 
-    public function getIsWaitingAttribute() {
+    public function getIsPendingAttribute() {
 
         return ($this->status_media == 'PENDING');
 
