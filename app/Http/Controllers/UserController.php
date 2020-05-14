@@ -25,12 +25,13 @@ class UserController extends Controller
     }
 
 
-    public function validation(Request $request, $media = null)
+    public function validation(Request $request)
     {
 
         $request->validate(
             [
                 'name' => 'required',
+                'email' => 'required|email|unique:users'
             ]
         );
 
@@ -90,6 +91,8 @@ class UserController extends Controller
     {
 
         $this->validation($request);
+
+
 
         $fields = $request->all();
 
