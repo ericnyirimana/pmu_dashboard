@@ -25,12 +25,15 @@ class UserController extends Controller
     }
 
 
-    public function validation(Request $request, $media = null)
+    public function validation(Request $request)
     {
 
         $request->validate(
             [
                 'name' => 'required',
+                'email' => 'required|email|unique:users',
+                'brand_id' => 'required_if:role,RESTAURATEUR,OWNER',
+                'restaurant_id' => 'required_if:role,RESTAURATEUR,OWNER'
             ]
         );
 
@@ -90,6 +93,8 @@ class UserController extends Controller
     {
 
         $this->validation($request);
+
+
 
         $fields = $request->all();
 

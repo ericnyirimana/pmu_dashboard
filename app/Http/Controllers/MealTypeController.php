@@ -59,6 +59,8 @@ class MealTypeController extends Controller
 
         $fields = $request->all();
 
+        $fields['all_day'] = $fields['all_day'] ? true : null;
+
         $mealtype = Mealtype::create($fields);
 
         $this->saveTranslation($mealtype, $fields);
@@ -93,7 +95,7 @@ class MealTypeController extends Controller
         $this->validation($request, $mealtype);
 
         $fields = $request->all();
-
+        $fields['all_day'] = $fields['all_day'] ? true : null;
         $mealtype->update($fields);
 
         $this->saveTranslation($mealtype, $fields);
