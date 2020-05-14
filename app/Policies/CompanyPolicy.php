@@ -18,7 +18,7 @@ class CompanyPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->is_admin || $user->is_pmu || $user->is_owner);
+        return ($user->is_admin || $user->is_pmu || $user->is_owner || $user->is_restaurant);
     }
 
     /**
@@ -30,7 +30,7 @@ class CompanyPolicy
      */
     public function view(User $user, Company $company)
     {
-        return ($user->is_super || ( $user->is_owner && $company->UserIsOwner($user) ) );
+        return ($user->is_super || ( $user->is_owner && $company->UserIsOwner($user) ) || $user->is_restaurant );
     }
 
     /**

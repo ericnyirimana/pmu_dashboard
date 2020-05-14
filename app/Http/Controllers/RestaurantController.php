@@ -48,8 +48,13 @@ class RestaurantController extends Controller
 
         $restaurants = Restaurant::all();
 
-        $this->alignUsersFromCognito();
+//        if (Auth::user()->is_restaurant) {
+//            $restaurants = Auth::user()->restaurant;
+//        } else {
+//            $restaurants = Restaurant::get();
+//        }
 
+        $this->alignUsersFromCognito();
 
         if (Auth::user()->is_super) {
             $users = User::withTrashed()->get();

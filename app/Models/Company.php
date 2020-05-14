@@ -54,7 +54,11 @@ class Company extends Model
 
     }
 
-
+//    public function UserIsRestaurateur(User $user) {
+//
+//        return ($user->id == $this->restaurant_id);
+//
+//    }
 
     public function getRestaurantsQuantityAttribute() {
 
