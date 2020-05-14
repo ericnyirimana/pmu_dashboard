@@ -31,7 +31,9 @@ class UserController extends Controller
         $request->validate(
             [
                 'name' => 'required',
-                'email' => 'required|email|unique:users'
+                'email' => 'required|email|unique:users',
+                'brand_id' => 'required_if:role,RESTAURATEUR,OWNER',
+                'restaurant_id' => 'required_if:role,RESTAURATEUR,OWNER'
             ]
         );
 
