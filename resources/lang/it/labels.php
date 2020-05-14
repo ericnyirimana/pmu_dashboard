@@ -59,5 +59,7 @@ return [
     'working_days' => 'Giorni lavorativi',
     'validity_range' => 'Periodo di validità',
     'menu' => 'Menu',
-    'mealtype' => 'Fascia oraria'
+    'mealtype' => 'Fascia oraria',
+
+    'all_day' => 'Tutto il giorno'
 ];

@@ -60,5 +60,6 @@ return [
     'working_days' => 'working days',
     'validity_range' => 'Validity range',
     'menu' => 'Menu',
-    'mealtype' => 'Mealtype'
+    'mealtype' => 'Mealtype',
+    'all_day' => 'All day'
 ];
