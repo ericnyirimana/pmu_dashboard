@@ -160,6 +160,7 @@ function add_thumbnail(data) {
   html += '    <figure class="view-file">';
   html += '        <img src="' + data.url + '" data-id="' + data.id + '">';
   html += '        <label>' + data.name + '</label>';
+  html += '        <button type="button" class="btn btn-primary mt-3 w-100" disabled>' + 'In attesa di approvazione' + '</button>';
   html += '    </figure>';
   html += '</div>';
 
