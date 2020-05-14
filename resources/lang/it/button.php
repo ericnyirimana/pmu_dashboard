@@ -32,6 +32,7 @@ return [
     'approves' => 'Approva',
     'send_approves' => 'Pubblica e manda in approvazione',
     'wait_approves' => 'In attesa di approvazione',
+    'approved' => 'Approvata',
     'disable' => 'Disabilita',
     'reject' => 'Rifiuta',
     'confirm' => 'Conferma',

@@ -32,6 +32,7 @@ return [
     'approves' => 'Approves',
     'send_approves' => 'Publishes and sends approval',
     'wait_approves' => 'Pending',
+    'approved' => 'Approved',
     'disable' => 'Disable',
     'reject' => 'Reject',
     'confirm' => 'Confirm',

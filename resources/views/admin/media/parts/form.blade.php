@@ -20,7 +20,7 @@
               @endif
 
               @if(Auth::user()->is_super)
-                  @if($media->status_media == 'PENDING' || $media->status_media == '' )
+                  @if($media->status_media == 'PENDING' || $media->status_media == 'DRAFT' )
                   <button type="submit" field="status_media" name="status_media" value="APPROVED" class="btn btn-md w-lg btn-success float-right mr-3">{{ ucfirst(trans('button.approves')) }}</button>
                   @elseif($media->status_media == 'APPROVED')
                   <button type="submit" field="status_media" name="status_media" value="DRAFT" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
