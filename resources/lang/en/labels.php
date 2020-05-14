@@ -61,5 +61,8 @@ return [
     'validity_range' => 'Validity range',
     'menu' => 'Menu',
     'mealtype' => 'Mealtype',
+    'mealtypes' => 'Mealtypes',
+    'categories' => 'Categories',
+    'restaurants' => 'Restaurants',
     'all_day' => 'All day'
 ];

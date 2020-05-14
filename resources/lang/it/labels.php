@@ -60,6 +60,8 @@ return [
     'validity_range' => 'Periodo di validità',
     'menu' => 'Menu',
     'mealtype' => 'Fascia oraria',
-
+    'mealtypes' => 'Fasce orarie',
+    'categories' => 'Categorie',
+    'restaurants' => 'Ristoranti',
     'all_day' => 'Tutto il giorno'
 ];
