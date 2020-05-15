@@ -38,5 +38,6 @@ return [
     'confirm' => 'Conferma',
     'order_closed' => 'Chiudi ordine',
     'subscription_detail' => 'Dettaglio abbonamento',
-    'view_all' => 'Vedi tutto'
+    'view_all' => 'Vedi tutto',
+    'back_home' => 'Torna alla home'
 ];
