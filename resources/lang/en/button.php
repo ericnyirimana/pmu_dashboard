@@ -38,5 +38,6 @@ return [
     'confirm' => 'Confirm',
     'order_closed' => 'Close order',
     'subscription_detail' => 'Subscription detail',
-    'view_all' => 'View all'
+    'view_all' => 'View all',
+    'back_home' => 'Back home'
 ];

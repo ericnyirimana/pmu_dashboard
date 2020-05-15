@@ -4,10 +4,10 @@
           <field-text label="name" field="name" :model="$user" required  />
     </div>
     <div class="col-12 col-md-6">
-          <field-text label="email" field="email" :model="$user" disabled required />
+          <field-text label="email" field="email" :model="$user" required />
     </div>
     <div class="col-12 col-md-6">
-          <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user" :values="config('cognito.roles')" disabled required />
+          <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user" :values="config('cognito.roles')" required />
     </div>
     <div class="col-12 col-md-6">
         <field-select label="Company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"

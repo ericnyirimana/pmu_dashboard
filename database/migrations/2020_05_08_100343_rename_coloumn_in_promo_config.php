@@ -15,7 +15,7 @@ class RenameColoumnInPromoConfig extends Migration
     {
         DB::connection()->getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
         Schema::table('promo_config', function (Blueprint $table) {
-            $table->renameColumn('discount_amount_off ', 'discount_amount_off');
+            $table->renameColumn('discount_amount_off', 'discount_amount_off');
         });
     }
 

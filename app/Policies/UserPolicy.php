@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->is_super);
+        return ($user->is_super || $user->is_owner);
     }
 
     /**
@@ -30,7 +30,10 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return ($user->is_super || $user->id == $model->id);
+        return (
+            $user->is_super ||
+            $user->id == $model->id ||
+            ($user->is_owner && $model->brand->first()->UserIsOwner($user)));
     }
 
     /**
@@ -53,7 +56,10 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return ($user->is_super || $user->id == $model->id);
+        return (
+            $user->is_super ||
+            $user->id == $model->id ||
+            ($user->is_owner && $model->brand->first()->UserIsOwner($user)));
     }
 
     /**
