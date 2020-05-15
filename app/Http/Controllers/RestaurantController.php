@@ -19,8 +19,6 @@ use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-use Auth;
-
 class RestaurantController extends Controller
 {
 
@@ -48,15 +46,10 @@ class RestaurantController extends Controller
     public function index()
     {
 
-        //$restaurants = Restaurant::all();
-
-        if (Auth::user()->is_restaurant) {
-            $restaurants = Auth::user()->restaurant->first();
-        } else {
-            $restaurants = Restaurant::get();
-        }
+        $restaurants = Restaurant::all();
 
         $this->alignUsersFromCognito();
+
 
         if (Auth::user()->is_super) {
             $users = User::withTrashed()->get();
