@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 
@@ -11,6 +12,7 @@ use App\Traits\TranslationTrait;
 use Carbon\Carbon;
 
 use Auth;
+use Illuminate\Support\Facades\URL;
 
 class PickupController extends Controller
 {
@@ -193,8 +195,12 @@ class PickupController extends Controller
     }
 
     public function calendar() {
+        try {
+            $pickups = $this->retrieveOfferByUserRole();
+        } catch (\Exception $exception) {
+            abort(500, $exception->getMessage());
+        }
 
-        $pickups = $this->retrieveOfferByUserRole();
 
         return view('admin.pickups.calendar')
             ->with(compact('pickups'));
@@ -220,7 +226,9 @@ class PickupController extends Controller
             $pickups = Pickup::all();
 
         } else {
-
+            if (!Auth::user()->brand->first()) {
+                return new Collection();
+            }
             $pickups = Pickup::whereIn(
                 'restaurant_id',
                 Auth::user()->brand->first()->restaurants->toArray())
