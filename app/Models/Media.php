@@ -14,7 +14,7 @@ class Media extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['brand_id', 'name', 'file', 'status_media'];
+    protected $fillable = ['brand_id', 'name', 'file', 'status_media', 'restaurant_id'];
 
     protected $appends = [ 'extension', 'company_name'];
 
@@ -26,6 +26,11 @@ class Media extends Model
 
     }
 
+    public function restaurant() {
+
+        return $this->belongsTo('App\Models\Restaurant', 'restaurant_id');
+
+    }
 
     public function media() {
 
@@ -77,4 +82,5 @@ class Media extends Model
         return ($this->status_media == 'PENDING');
 
     }
+
 }

@@ -49,11 +49,9 @@ class MediaController extends Controller
           if (Auth::user()->is_super) {
               $media = Media::all();
           } else {
-              // $mediaAll = Media::whereNull('brand_id')->get();
               $mediaCompany = Media::where('brand_id', Auth::user()->brand->first()->id)->get();
 
               $media = $mediaCompany;
-              //$media = $mediaAll->merge($mediaCompany);
           }
 
           return view('admin.media.index')
