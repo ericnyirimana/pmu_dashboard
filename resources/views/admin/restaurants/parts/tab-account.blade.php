@@ -8,7 +8,7 @@
                   'datatable.headers.email'     => 'email',
                   'datatable.headers.role'      => 'role'
               ]"
-                       actions="view" />
+                       actions="edit" />
             @endif
         </div>
     </div>
