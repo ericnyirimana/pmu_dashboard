@@ -175,9 +175,7 @@ class MenuController extends Controller
     protected function getFirstMenuFromRestaurant()
     {
 
-        $user = Auth::user();
-
-        $menu = Menu::first();
+        $menu = Auth::user()->restaurant->first()->menu;
 
         return $menu;
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Restaurant;
 use App\Models\User;
 use Auth;
 use function foo\func;
@@ -93,9 +94,16 @@ class CompanyController extends Controller
 
         $users = User::all();
 
+        if (Auth::user()->is_restaurant) {
+            $restaurants = Auth::user()->restaurant;
+        } else {
+            $restaurants = $company->restaurants;
+        }
+
         return view('admin.companies.view')->with([
                 'company' => $company,
                 'users' => $users,
+                'restaurants' => $restaurants
             ]
         );
 

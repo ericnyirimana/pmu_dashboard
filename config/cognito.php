@@ -31,7 +31,8 @@ return [
       'PMU'             => 'PMU',
       'OWNER'           => 'OWNER',
       'RESTAURATEUR'    => 'RESTAURATEUR',
-      'CUSTOMER'        => 'CUSTOMER'
+      'CUSTOMER'        => 'CUSTOMER',
+      //'SALES ASSISTANT' => 'SALES ASSISTANT'
     ]
 
 ];

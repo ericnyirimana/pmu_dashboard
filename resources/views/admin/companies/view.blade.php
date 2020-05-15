@@ -35,7 +35,7 @@
     <div class="col-12">
         <div class="table-responsive">
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_restaurants')) }}</b></h4>
-                <datatable route='restaurants' :collection="$company->restaurants" :fields="[
+                <datatable route='restaurants' :collection="$restaurants" :fields="[
                 'ID' => 'id',
                 'datatable.headers.name' => 'name',
                 'datatable.headers.city' => 'city'

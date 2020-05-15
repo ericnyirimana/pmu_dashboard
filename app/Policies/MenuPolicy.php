@@ -30,7 +30,7 @@ class MenuPolicy
      */
     public function view(User $user, Menu $menu)
     {
-        return ($user->is_super || $menu->userCanView($user) );
+        return ($user->is_super || $menu->userCanView($user) || $user->is_restaurant);
     }
 
     /**
@@ -53,7 +53,7 @@ class MenuPolicy
      */
     public function update(User $user, Menu $menu)
     {
-        return ($user->is_super || $menu->userCanEdit($user) );
+        return ($user->is_super || $menu->userCanEdit($user) || $user->is_restaurant );
     }
 
     /**
