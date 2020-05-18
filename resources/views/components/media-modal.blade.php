@@ -57,9 +57,6 @@
                    class="btn btn-primary btn-block edit-image">{{ ucfirst(trans('button.edit_image')) }}</a>
             </div>
 
-            {{--<button type="button" class="btn btn-primary btn-success mt-3 w-100" value="PENDING" disabled>{{ ucfirst(trans('button.wait_approves')) }}</button>--}}
-
-
         </div>
     </div>
 </div>
