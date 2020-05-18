@@ -51,6 +51,16 @@
                     </select>
                 </div>
             </div>
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="">{{ __('labels.status_media') }}</label>
+                    <select id="status_media" class="form-control" name="status-filter">
+                        <option value="_all">{{ __('labels.all') }}</option>
+                        <option value="APPROVED">{{ __('labels.approved') }}</option>
+                        <option value="PENDING">{{ __('labels.pending') }}</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
     <div class="media-container-body p-4 border">
@@ -58,7 +68,8 @@
             @foreach($media as $file)
 
                 <div class="thumb-image" data-company-id="@if($file->company){{$file->company->id}}@endif"
-                     data-restaurant-id="@if($file->restaurant){{$file->restaurant->id}}@endif">
+                     data-restaurant-id="@if($file->restaurant){{$file->restaurant->id}}@endif"
+                     data-status="{{$file->status_media}}">
                     <figure class="view-file">
                         <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
                         <label>{{ $file->name }}</label>
@@ -130,6 +141,23 @@
 
             $(document).on('change', '#restaurant_id', function () {
                 filtersMediaByRestaurant();
+            });
+
+            $(document).on('change', '#status_media', function () {
+
+                $.each($('.thumb-image'), function (i, el) {
+                    if ($('#status_media').val() == '_all') {
+                        $(el).show();
+                    } else {
+                        if ($('#status_media').val() == $(el).data('status')) {
+                            $(el).show();
+                        } else {
+                            $(el).hide();
+                        }
+                    }
+
+                });
+
             });
 
 
@@ -277,7 +305,7 @@
                 loadRestaurants($('#brand_id').val());
             }
             @elseif(Auth::user()->is_restaurant)
-            $('#restaurant_id').append('<option value="' + {{ Auth::user()->restaurant->first()->id }} + '">' + {{
+            $('#restaurant_id').append('<option value="' + {{ Auth::user()->restaurant->first()->id }} +'">' + {{
                 Auth::user()->restaurant->first()->name }} +'</option>');
             @endif
         }
