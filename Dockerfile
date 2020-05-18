@@ -54,6 +54,7 @@ RUN sed -i "s/.*DB_HOST=.*/DB_HOST=${DB_HOST}/" /opt/pmu_dashboard/.env && \
 
 # Inject Cognito parameters
 
+
 RUN sed -i "s/.*AWS_COGNITO_KEY=.*/AWS_COGNITO_KEY=${AWS_COGNITO_KEY}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_COGNITO_SECRET=.*/AWS_COGNITO_SECRET=${AWS_COGNITO_SECRET}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*AWS_COGNITO_REGION=.*/AWS_COGNITO_REGION=${AWS_COGNITO_REGION}/" /opt/pmu_dashboard/.env && \
