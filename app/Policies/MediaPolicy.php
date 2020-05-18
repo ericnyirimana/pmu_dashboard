@@ -18,7 +18,7 @@ class MediaPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->is_admin || $user->is_pmu || $user->is_owner);
+        return ($user->is_admin || $user->is_pmu || $user->is_owner || $user->is_restaurant);
     }
 
     /**

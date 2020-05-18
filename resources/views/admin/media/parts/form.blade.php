@@ -11,7 +11,17 @@
 
           <field-text label="name" field="name" :model="$media" required />
 
+          @if(Auth::user()->is_restaurant)
+
+          <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$companies" foreignid="brand_id" disabled />
+
+          <field-select label="Restaurant" field="restaurant" foreignid="restaurant_id" type="relation" :model="$media" :values="" disabled />
+          @else
           <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$companies" foreignid="brand_id" />
+
+          <field-select label="Restaurant" field="restaurant" foreignid="restaurant_id" type="relation" :model="$media" :values="$media->restaurants" />
+
+          @endif
 
           <div class="form-group mt-auto">
 
