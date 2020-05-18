@@ -11,17 +11,25 @@
 
           <field-text label="name" field="name" :model="$media" required />
 
-          @if(Auth::user()->is_restaurant)
+            <div class="form-group">
+                <label for="">{{ __('labels.company') }}</label>
+                <select id="brand_id" class="form-control" name="brand_id">
+                    @if(Auth::user()->is_super)
+                        <option value="_all">{{ __('labels.all_company') }}</option>
+                    @endif
+                    @if($brands)
+                        @foreach($brands as $brand)
+                            <option value="{{ $brand->id }}" @if($media->company->id == $brand->id) selected @endif>{{ $brand->name }}</option>
+                        @endforeach
+                    @endif
+                </select>
+            </div>
 
-          <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$companies" foreignid="brand_id" disabled />
-
-          <field-select label="Restaurant" field="restaurant" foreignid="restaurant_id" type="relation" :model="$media" :values="" disabled />
-          @else
-          <field-select label="Brand" field="brand" type="relation" :model="$media" :values="$companies" foreignid="brand_id" />
-
-          <field-select label="Restaurant" field="restaurant" foreignid="restaurant_id" type="relation" :model="$media" :values="$media->restaurants" />
-
-          @endif
+            <div class="form-group">
+                <label for="">{{ __('labels.restaurant') }}</label>
+                <select id="restaurant_id" class="form-control" name="restaurant_id">
+                </select>
+            </div>
 
           <div class="form-group mt-auto">
 
@@ -50,3 +58,79 @@
 
     </div>
 </div>
+
+
+@push('styles')
+    <!-- Jquery filer css -->
+    <link href="{{ asset("/plugins/js-uploader-master/dist/css/jquery.dm-uploader.min.css")}}" rel="stylesheet"/>
+@endpush
+@push('scripts')
+    <!-- Bootstrap fileupload js -->
+    <script type="text/javascript"
+            src="{{ asset("/plugins/js-uploader-master/dist/js/jquery.dm-uploader.min.js")}}"></script>
+    <script>
+
+			$(document).ready(function () {
+
+              initSelectValue();
+
+				$(document).on('change', '#brand_id', function () {
+                  selectMediaByCompany();
+				});
+
+				$(document).on('change', '#restaurant_id', function () {
+                  selectMediaByRestaurant();
+				});
+
+			});
+
+			function initSelectValue() {
+              if ($('#brand_id').val() != '_all') {
+                loadRestaurants($('#brand_id').val());
+              }
+
+              @if(Auth::user()->is_restaurant)
+                        $('#restaurant_id').append('<option value="' + {{ Auth::user()->restaurant->first()->id }} + '">' + {{
+                    Auth::user()->restaurant->first()->name }} +'</option>');
+              @endif
+			}
+
+			function selectMediaByCompany() {
+				if ($('#brand_id').val() != '_all') {
+					loadRestaurants($('#brand_id').val());
+				}
+			}
+
+			function selectMediaByRestaurant() {
+				if ($('#restaurant_id').val() != '_all') {
+				} else {
+					selectMediaByCompany();
+				}
+			}
+
+			function loadRestaurants(id) {
+				var restaurantElem = $("#restaurant_id");
+				if (id) {
+					$.ajax({
+						url: "{{ route('company.restaurants.data') }}/" + id,
+						type: 'GET',
+						success: function (data) {
+
+							restaurantElem.html('<option value="_all">{{ __("labels.all_restaurants") }}</option>');
+
+							$.each(data, function (i, restaurant) {
+
+								var selected = '';
+                                if(restaurant.id == '{{ $media->restaurant_id }}') {
+                                	selected = 'selected';
+                                }
+								restaurantElem.append('<option value="' + restaurant.id + '" '+ selected +'>' + restaurant.name + '</option>')
+							});
+						}
+					});
+				}
+			}
+
+
+    </script>
+@endpush

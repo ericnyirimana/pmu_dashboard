@@ -47,13 +47,13 @@ class MediaController extends Controller
     {
 
         if (Auth::user()->is_super) {
-            $media = Media::all();
+            $media = Media::orderBy('status_media', 'DESC')->get();
             $brands = Company::all();
         } else {
             if (Auth::user()->is_owner) {
-                $mediaCompany = Media::where('brand_id', Auth::user()->brand->first()->id)->get();
+                $mediaCompany = Media::where('brand_id', Auth::user()->brand->first()->id)->orderBy('status_media', 'DESC')->get();
             } else if (Auth::user()->is_restaurant) {
-                $mediaCompany = Media::where('restaurant_id', Auth::user()->restaurant->first()->id)->get();
+                $mediaCompany = Media::where('restaurant_id', Auth::user()->restaurant->first()->id)->orderBy('status_media', 'DESC')->get();
             }
 
             $media = $mediaCompany;
@@ -127,11 +127,17 @@ class MediaController extends Controller
     public function edit(Media $media)
     {
 
+        if (Auth::user()->is_super) {
+            $brands = Company::all();
+        } else {
 
-        $companies = Company::all();
+            $brands = Auth::user()->brand;
+
+        }
+
         return view('admin.media.edit')->with([
                 'media' => $media,
-                'companies' => $companies
+                'brands' => $brands
             ]
         );
 
