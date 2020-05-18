@@ -44,15 +44,6 @@
   background-color: #11375A;
 }
 
-.fixed-center-right {
-  position: fixed;
-  right: 30px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
-  width: 20%;
-}
-
 form .form-group .fileupload .box-image {
   background-color: #EEEEEE;
   display: -webkit-box;
@@ -270,6 +261,8 @@ figure img {
       -ms-flex: 75%;
           flex: 75%;
   height: calc(100% - 250px);
+  max-height: 700px;
+  overflow: auto;
 }
 
 .media-container-body figure {
