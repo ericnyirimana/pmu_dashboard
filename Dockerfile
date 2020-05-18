@@ -72,7 +72,7 @@ RUN sed -i "s/.*AWS_ACCESS_KEY_ID=.*/AWS_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}/" /op
 RUN sed -i "s/.*STRIPE_KEY=.*/STRIPE_KEY=${STRIPE_KEY}/" /opt/pmu_dashboard/.env && \
     sed -i "s/.*STRIPE_SECRET=.*/STRIPE_SECRET=${STRIPE_SECRET}/" /opt/pmu_dashboard/.env
 
-RUN sed -i "s@.*APP_URL=.*@APP_URL=https://${DEV-PMU-DASHBOARD-URL}@" /opt/pmu_dashboard/.env
+RUN sed -i "s@.*APP_URL=.*@APP_URL=https://${PROD-PMU-DASHBOARD-URL}@" /opt/pmu_dashboard/.env
 
 RUN cat /opt/pmu_dashboard/.env
 
