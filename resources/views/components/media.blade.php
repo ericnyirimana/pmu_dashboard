@@ -31,7 +31,7 @@
     <div class="media-container-body p-4 border overflow-auto">
       <div class="row list-thumbnail">
         @foreach($media as $file)
-              @if($file->status_media == 'PENDING' || $file->status_media == 'DRAFT')
+              @if($file->status_media == 'PENDING')
                   <div class="thumb-image">
                       <figure class="view-file">
                           <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">

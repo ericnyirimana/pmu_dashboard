@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Libraries\FileManager;
 use App\Models\Media;
 use App\Models\Company;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Image;
 
@@ -36,6 +35,7 @@ class MediaController extends Controller
               'file'  => (empty($media)?'required|':'').'file|mimes:jpeg,bmp,png',
               'name'  => 'required',
               'brand_id',
+              'restaurant_id',
               'status_media'
             ]
           );
@@ -62,8 +62,8 @@ class MediaController extends Controller
 
       public function show(Media $media) {
 
-
             $companies = Company::all();
+
             return view('admin.media.view')->with([
               'media' => $media,
               'companies' => $companies
@@ -99,7 +99,7 @@ class MediaController extends Controller
 
             Media::create($fields);
 
-            // if media is only updated set to DRAFT status
+            // if media is only updated set to PENDING status
             if (!isset($fields['status_media'])) {
                 $fields['status_media'] = 'PENDING';
             }
@@ -142,7 +142,7 @@ class MediaController extends Controller
 
             }
 
-            // if media is only updated set to DRAFT status
+            // if media is only updated set to PENDING status
             if (!isset($fields['status_media'])) {
               $fields['status_media'] = 'PENDING';
             }

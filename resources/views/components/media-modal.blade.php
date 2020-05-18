@@ -49,12 +49,7 @@
             <div class="add-image-container">
                 <input type="hidden" class="src-image" value=""/>
                 <input type="hidden" class="id-image" value=""/>
-                {{--@if($media->status_media == 'PENDING' || 'DRAFT')--}}
-                {{--<button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal" disabled>{{ ucfirst(trans('button.add_image')) }}</button>--}}
-                {{--@else--}}
-                <button type="button" class="btn btn-primary btn-block add-image"
-                        data-dismiss="modal">{{ ucfirst(trans('button.add_image')) }}</button>
-                {{--@endif--}}
+                <button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal">{{ ucfirst(trans('button.add_image')) }}</button>
             </div>
 
             <div class="edit-image-container">
