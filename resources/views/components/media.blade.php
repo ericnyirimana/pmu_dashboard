@@ -305,8 +305,8 @@
                 loadRestaurants($('#brand_id').val());
             }
             @elseif(Auth::user()->is_restaurant)
-            $('#restaurant_id').append('<option value="{{ Auth::user()->restaurant->first()->id }}">' + {{
-                Auth::user()->restaurant->first()->name }} +'</option>');
+            $('#restaurant_id').append('<option value="{{ Auth::user()->restaurant->first()->id }}">{{
+                Auth::user()->restaurant->first()->name }}</option>');
             @endif
         }
 
