@@ -48,14 +48,23 @@ class MediaController extends Controller
 
         if (Auth::user()->is_super) {
             $media = Media::all();
+            $brands = Company::all();
         } else {
-            $mediaCompany = Media::where('brand_id', Auth::user()->brand->first()->id)->get();
+            if (Auth::user()->is_owner) {
+                $mediaCompany = Media::where('brand_id', Auth::user()->brand->first()->id)->get();
+            } else if (Auth::user()->is_restaurant) {
+                $mediaCompany = Media::where('restaurant_id', Auth::user()->brand->first()->id)->get();
+            }
 
             $media = $mediaCompany;
+
+            $brands = Auth::user()->brand;
+
         }
 
         return view('admin.media.index')
-            ->with(compact('media'));
+            ->with(compact('media'))
+            ->with(compact('brands'));
 
     }
 

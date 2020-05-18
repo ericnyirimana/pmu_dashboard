@@ -27,27 +27,60 @@
                 </div>
             </div>
         </div>
+        <!-- Filtri -->
+        <div class="row">
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="">{{ __('labels.company') }}</label>
+                    <select id="brand_id" class="form-control" name="company-filter">
+                        @if(Auth::user()->is_super)
+                            <option value="_all">{{ __('labels.all_company') }}</option>
+                        @endif
+                        @if($brands)
+                            @foreach($brands as $brand)
+                                <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                <div class="form-group">
+                    <label for="">{{ __('labels.restaurant') }}</label>
+                    <select id="restaurant_id" class="form-control" name="restaurant-filter">
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="media-container-body p-4 border">
         <div class="row list-thumbnail">
             @foreach($media as $file)
 
-                    <div class="thumb-image">
-                        <figure class="view-file">
-                            <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
-                            <label>{{ $file->name }}</label>
-                            @if($file->status_media == 'PENDING')
-                            <button type="button" class="btn btn-primary mt-3 w-100 js-approve-media" data-id="{{ $file->id }}">
+                <div class="thumb-image" data-company-id="@if($file->company){{$file->company->id}}@endif"
+                     data-restaurant-id="@if($file->restaurant){{$file->restaurant->id}}@endif">
+                    <figure class="view-file">
+                        <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
+                        <label>{{ $file->name }}</label>
+                        @if($file->company)
+                            <label>{{ $file->company_name }}</label>
+                        @endif
+                        @if($file->restaurnt)
+                            <label>{{ $file->restaurant->name }}</label>
+                        @endif
+                        @if($file->status_media == 'PENDING')
+                            <button type="button" class="btn btn-primary mt-3 w-100 js-approve-media"
+                                    data-id="{{ $file->id }}">
                                 {{ ucfirst(trans('button.wait_approves')) }}
                             </button>
-                            @else
-                                <button type="button" class="btn btn-success mt-3 w-100 js-wait-media" data-id="{{
+                        @else
+                            <button type="button" class="btn btn-success mt-3 w-100 js-wait-media" data-id="{{
                                 $file->id }}">
-                                    {{ ucfirst(trans('button.approved')) }}
-                                </button>
-                            @endif
-                        </figure>
-                    </div>
+                                {{ ucfirst(trans('button.approved')) }}
+                            </button>
+                        @endif
+                    </figure>
+                </div>
             @endforeach
         </div>
     </div>
@@ -88,10 +121,22 @@
 
         $(document).ready(function () {
 
+            initFilters();
+
+            //Filters
+            $(document).on('change', '#brand_id', function () {
+                filtersMediaByCompany();
+            });
+
+            $(document).on('change', '#restaurant_id', function () {
+                filtersMediaByRestaurant();
+            });
+
+
             //Approve media
             $(document).on('click', '.js-approve-media', function () {
                 $.ajax({
-                    url: '{{ route('media.approve') }}/'+$(this).data('id'),
+                    url: '{{ route('media.approve') }}/' + $(this).data('id'),
                     type: 'GET',
                     success: function (data) {
                         var elem = $('button[data-id="' + data.id + '"]');
@@ -112,7 +157,7 @@
             //Pending media
             $(document).on('click', '.js-wait-media', function () {
                 $.ajax({
-                    url: '{{ route('media.pending') }}/'+$(this).data('id'),
+                    url: '{{ route('media.pending') }}/' + $(this).data('id'),
                     type: 'GET',
                     success: function (data) {
                         var elem = $('button[data-id="' + data.id + '"]');
@@ -204,7 +249,8 @@
             html += '    <figure class="view-file">';
             html += '        <img src="' + data.url + '" data-id="' + data.id + '">';
             html += '        <label>' + data.name + '</label>';
-            html += '        <button type="button" class="btn btn-primary mt-3 w-100" disabled>' + 'In attesa di approvazione' + '</button>';
+            html += '        <button type="button" class="btn btn-primary mt-3 w-100 js-wait-media">' + '{{ ucfirst
+            (trans("button.wait_approves")) }}' + '</button>';
             html += '    </figure>';
             html += '</div>';
 
@@ -224,6 +270,66 @@
             html = '<div class="alert alert-danger" role="alert">' + message + '</div>';
             $('.container-load').html(html);
         }
+
+        function initFilters() {
+            @if(Auth::user()->is_owner)
+            if ($('#brand_id').val() != '_all') {
+                loadRestaurants($('#brand_id').val());
+            }
+            @elseif(Auth::user()->is_restaurant)
+            $('#restaurant_id').append('<option value="' + {{ Auth::user()->restaurant->first()->id }} +'">' + {{
+                Auth::user()->restaurant->first()->name }}  +'</option
+            @endif
+        }
+
+        function filtersMediaByCompany() {
+            if ($('#brand_id').val() != '_all') {
+                loadRestaurants($('#brand_id').val());
+                $.each($('.thumb-image'), function (i, el) {
+                    if ($(el).data('company-id') == $('#brand_id').val()) {
+                        $(el).show();
+                    } else {
+                        $(el).hide();
+                    }
+                })
+            } else {
+                $('.thumb-image').show();
+            }
+        }
+
+        function filtersMediaByRestaurant() {
+            if ($('#restaurant_id').val() != '_all') {
+                $.each($('.thumb-image'), function (i, el) {
+                    if ($(el).data('restaurant-id') == $('#restaurant_id').val()) {
+                        $(el).show();
+                    } else {
+                        $(el).hide();
+                    }
+                })
+            } else {
+                filtersMediaByCompany();
+            }
+        }
+
+        function loadRestaurants(id) {
+            var restaurantElem = $("#restaurant_id");
+            if (id) {
+                $.ajax({
+                    url: "{{ route('company.restaurants.data') }}/" + id,
+                    type: 'GET',
+                    success: function (data) {
+
+                        restaurantElem.html('<option value="_all">{{ __("labels.all_restaurants") }}</option>');
+
+                        $.each(data, function (i, restaurant) {
+
+                            restaurantElem.append('<option value="' + restaurant.id + '">' + restaurant.name + '</option>')
+                        });
+                    }
+                });
+            }
+        }
+
 
     </script>
 @endpush
