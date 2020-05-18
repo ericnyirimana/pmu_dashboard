@@ -10,7 +10,7 @@
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_media')) }}</b></h4>
 
-            <media :media="$media" />
+            <media :media="$media" :brands="$brands" />
 
             {{--
               <datatable route='media' :collection='$media' :fields="[
