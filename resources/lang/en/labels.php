@@ -64,5 +64,13 @@ return [
     'mealtypes' => 'Mealtypes',
     'categories' => 'Categories',
     'restaurants' => 'Restaurants',
-    'all_day' => 'All day'
+    'all_day' => 'All day',
+    'company' => 'Company',
+    'restaurant' => 'Restaurant',
+    'status_media' => 'Status',
+    'all_company' => 'All company',
+    'all_restaurants' => 'All restaurants',
+    'all' => 'All',
+    'approved' => 'Approved',
+    'pending' => 'Pending'
 ];

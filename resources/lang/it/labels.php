@@ -63,5 +63,14 @@ return [
     'mealtypes' => 'Fasce orarie',
     'categories' => 'Categorie',
     'restaurants' => 'Ristoranti',
-    'all_day' => 'Tutto il giorno'
+    'all_day' => 'Tutto il giorno',
+    'company' => 'Compagnia',
+    'restaurant' => 'Ristorante',
+    'status_media' => 'Stato',
+    'all_company' => 'Tutte',
+    'all_restaurants' => 'Tutti',
+    'all' => 'Tutti',
+    'approved' => 'Approvati',
+    'pending' => 'In attesa'
+
 ];
