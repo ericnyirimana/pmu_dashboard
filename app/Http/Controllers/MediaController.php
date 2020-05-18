@@ -53,7 +53,7 @@ class MediaController extends Controller
             if (Auth::user()->is_owner) {
                 $mediaCompany = Media::where('brand_id', Auth::user()->brand->first()->id)->get();
             } else if (Auth::user()->is_restaurant) {
-                $mediaCompany = Media::where('restaurant_id', Auth::user()->brand->first()->id)->get();
+                $mediaCompany = Media::where('restaurant_id', Auth::user()->restaurant->first()->id)->get();
             }
 
             $media = $mediaCompany;
