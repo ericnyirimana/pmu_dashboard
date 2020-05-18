@@ -28,7 +28,7 @@
           </div>
         </div>
     </div>
-    <div class="media-container-body p-4 border">
+    <div class="media-container-body p-4 border overflow-auto">
       <div class="row list-thumbnail">
         @foreach($media as $file)
               @if($file->status_media == 'PENDING' || $file->status_media == 'DRAFT')

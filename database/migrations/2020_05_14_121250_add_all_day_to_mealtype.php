@@ -26,7 +26,7 @@ class AddAllDayToMealtype extends Migration
     public function down()
     {
         Schema::table('mealtypes', function (Blueprint $table) {
-            //
+            $table->dropColumn('all_day');
         });
     }
 }

@@ -26,7 +26,8 @@
           background: white;
           flex: 75%;
           height: calc(100% - 250px);
-
+          max-height: 700px;
+          overflow: auto;
           figure  {
 
               text-align: center;
