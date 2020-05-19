@@ -27,19 +27,6 @@ RUN cd /opt/pmu_dashboard && \
 
 RUN echo "alias ll='ls -l'" > ~/.bashrc
 
-# Inject DB parameters
-
-#RUN sed -i "s/.*DB_HOST=.*/DB_HOST=${DB_HOST}/" /opt/pmu_dashboard/.env && \
-#    sed -i "s/.*DB_PORT=.*/DB_PORT=${DB_PORT}/" /opt/pmu_dashboard/.env && \
-#    sed -i "s/.*DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" /opt/pmu_dashboard/.env && \
-#    sed -i "s/.*DB_USERNAME=.*/DB_USERNAME=${DB_USERNAME}/" /opt/pmu_dashboard/.env && \
-#    sed -i "s/.*DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" /opt/pmu_dashboard/.env
-
-#RUN sed -i "s@.*AWS_COGNITO_KEY=.*@AWS_COGNITO_KEY=${AWS_COGNITO_KEY}@" /opt/pmu_dashboard/.env && \
-#    sed -i "s@.*AWS_COGNITO_SECRET=.*@AWS_COGNITO_SECRET=${AWS_COGNITO_SECRET}@" /opt/pmu_dashboard/.env && \
-#    sed -i "s/.*AWS_COGNITO_CLIENT_ID=.*/AWS_COGNITO_CLIENT_ID=${AWS_COGNITO_CLIENT_ID}/" /opt/pmu_dashboard/.env && \
-#    sed -i "s/.*AWS_COGNITO_USER_POOL_ID=.*/AWS_COGNITO_USER_POOL_ID=${AWS_COGNITO_USER_POOL_ID}/" /opt/pmu_dashboard/.env
-
 RUN cat /opt/pmu_dashboard/.env
 
 #RUN aws cognito-idp sign-up --region eu-west-1 --client-id 35vlfdldmpreh89t3gbtlqf8r2 --username admin5@example.com --password Passw0rd!

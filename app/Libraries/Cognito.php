@@ -66,7 +66,7 @@ class Cognito
                       'secret'  => env('AWS_COGNITO_SECRET', ''),
                   ],
                   'version' => env('AWS_COGNITO_VERSION'),
-                  'region' => env('AWS_COGNITO_REGION'),
+                  'region' => env('AWS_DEFAULT_REGION'),
                ]);
 
             } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
