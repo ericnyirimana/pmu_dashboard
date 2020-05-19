@@ -62,11 +62,11 @@ class Cognito
 
               $client = new CognitoIdentityProviderClient([
                   'credentials' => [
-                      'key'     => env('AWS_COGNITO_KEY', ''),
-                      'secret'  => env('AWS_COGNITO_SECRET', ''),
+                      'key'     => env('AWS_ACCESS_KEY_ID', ''),
+                      'secret'  => env('AWS_SECRET_ACCESS_KEY', ''),
                   ],
                   'version' => env('AWS_COGNITO_VERSION'),
-                  'region' => env('AWS_COGNITO_REGION'),
+                  'region' => env('AWS_DEFAULT_REGION'),
                ]);
 
             } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
@@ -99,8 +99,6 @@ class Cognito
       */
       public function authenticate(array $credentials)
       {
-            error_log('AAAAA');
-
             $client = $this->client;
 
               try {

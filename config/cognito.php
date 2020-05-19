@@ -3,10 +3,10 @@
 return [
     // AWS Settings
     'credentials'       => [
-        'key'    => env('AWS_COGNITO_KEY', ''),
-        'secret' => env('AWS_COGNITO_SECRET', ''),
+        'key'    => env('AWS_ACCESS_KEY_ID', ''),
+        'secret' => env('AWS_SECRET_ACCESS_KEY', ''),
     ],
-    'region'            => env('AWS_COGNITO_REGION', 'us-east-1'),
+    'region'            => env('AWS_DEFAULT_REGION', 'us-east-1'),
     'version'           => env('AWS_COGNITO_VERSION', 'latest'),
     'app_client_id'     => env('AWS_COGNITO_CLIENT_ID', ''),
     'app_client_secret' => env('AWS_COGNITO_CLIENT_SECRET', ''),
