@@ -16,7 +16,6 @@ if (App::environment('production')) {
 
 Route::get('/', 'LandingController@index');
 
-
 Route::prefix('admin')->group(function () {
 
     Route::group(['middleware' => ['auth', 'user.roles']], function () {

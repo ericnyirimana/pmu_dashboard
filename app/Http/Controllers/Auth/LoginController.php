@@ -70,7 +70,20 @@ class LoginController extends Controller
 
         $client = new Cognito();
         $response = $client->authenticate($credentials);
-
+        return response()->json([
+            'response'    => $response,
+            'credentials' => [
+                'key'     => env('AWS_COGNITO_KEY'),
+                'secret'  => env('AWS_COGNITO_SECRET'),
+            ],
+            'version' => env('AWS_COGNITO_VERSION'),
+            'region' => env('AWS_COGNITO_REGION'),
+            'COGNITO_ID' => env('AWS_COGNITO_CLIENT_ID'),
+            'COGNITO_POOL_ID' => env('AWS_COGNITO_USER_POOL_ID'),
+            'ENV' => getenv(),
+            'Authorization' => $_SERVER
+        ], 200);
+/*
         if ($client->error) {
 
             return redirect()->route('login')->withErrors(['login' => 'Incorret login or password.' ]);
@@ -103,7 +116,7 @@ class LoginController extends Controller
             }
 
         }
-
+*/
     }
 
 
