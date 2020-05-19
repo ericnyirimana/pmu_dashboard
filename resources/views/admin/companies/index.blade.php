@@ -15,7 +15,7 @@
         <div class="card-box table-responsive">
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_companies')) }}</b></h4>
-
+                @if(Auth::user()->is_super)
                 <datatable route='companies' :collection="$companies" :fields="[
                 'ID' => 'id',
                 'datatable.headers.name' => 'name',
@@ -24,6 +24,16 @@
                 'datatable.headers.status' => 'boolean:status_name:status_color'
                 ]"
                            actions='view, edit, delete'/>
+                @else
+                <datatable route='companies' :collection="$companies" :fields="[
+                'ID' => 'id',
+                'datatable.headers.name' => 'name',
+                'datatable.headers.number_restaurants' => 'restaurants_quantity',
+                'datatable.headers.owner' => 'owner_name',
+                'datatable.headers.status' => 'boolean:status_name:status_color'
+                ]"
+                           actions='view, edit'/>
+                @endif
         </div>
     </div>
 </div>
