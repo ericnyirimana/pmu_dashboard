@@ -71,8 +71,7 @@ return [
             'class' => 'Showcase',
             'icon' => 'fi-align-center',
             'routes' => [
-                'list' => 'showcases.index',
-                'new' => 'showcases.create'
+                'list' => 'showcases.index'
             ],
         ],
         'account' => [

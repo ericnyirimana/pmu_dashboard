@@ -66,6 +66,9 @@
                                class="btn btn-icon waves-effect waves-light btn-success"><i class="fa fa-edit"
                                                                                             aria-hidden="true"></i></a>
                         @endif
+
+
+
                         @if( !empty($actions) && strstr($actions, 'delete'))
                             @if(empty($model->deleted_at))
                                 <a href="#remove-register"
