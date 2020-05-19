@@ -36,16 +36,16 @@
 
               @if(Auth::user()->is_super)
                   @if($media->status_media == 'PENDING')
-                  <button type="submit" field="status_media" name="status_media" value="APPROVED" class="btn btn-md w-lg btn-primary float-right">{{ ucfirst(trans('button.approves')) }}</button>
+                  <button type="submit" field="status_media" name="status_media" value="APPROVE" class="btn btn-md w-lg btn-primary float-right">{{ ucfirst(trans('button.approves')) }}</button>
                   <button type="submit" field="status_media" name="status_media" value="PENDING" class="btn btn-md w-lg btn-success float-right mr-3">{{ ucfirst(trans('button.save')) }}</button>
-                  @elseif($media->status_media == 'APPROVED')
-                  <button type="submit" field="status_media" name="status_media" value="APPROVED" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
+                  @elseif($media->status_media == 'APPROVE')
+                  <button type="submit" field="status_media" name="status_media" value="APPROVE" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
                   @endif
               @endif
 
               @if(Auth::user()->is_owner || Auth::user()->is_restaurateur)
-                 @if($media->status_media == 'APPROVED')
-                 <button type="submit" field="status_media" name="status_media" value="APPROVED" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
+                 @if($media->status_media == 'APPROVE')
+                 <button type="submit" field="status_media" name="status_media" value="APPROVE" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
                  @else
                  <button type="submit" field="status_media" name="status_media" value="PENDING" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
                  @endif
