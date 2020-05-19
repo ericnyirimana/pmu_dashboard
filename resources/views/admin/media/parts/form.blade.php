@@ -14,9 +14,6 @@
             <div class="form-group">
                 <label for="">{{ __('labels.company') }}</label>
                 <select id="brand_id" class="form-control" name="brand_id">
-                    @if(Auth::user()->is_super)
-                        <option value="_all">{{ __('labels.all_company') }}</option>
-                    @endif
                     @if($brands)
                         @foreach($brands as $brand)
                             <option value="{{ $brand->id }}" @if($media->company == $brand) selected @endif>{{ $brand->name }}</option>
@@ -116,7 +113,7 @@
 						type: 'GET',
 						success: function (data) {
 
-							restaurantElem.html('<option value="_all">{{ __("labels.all_restaurants") }}</option>');
+							restaurantElem.html('');
 
 							$.each(data, function (i, restaurant) {
 
