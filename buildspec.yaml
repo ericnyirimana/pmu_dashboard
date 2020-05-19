@@ -1,17 +1,5 @@
 version: 0.2
 
-env:
-  parameter-store:
-    DB_HOST: PROD-RDS-DB-HOST
-    DB_PORT: PROD-RDS-DB-PORT
-    DB_DATABASE: PROD-RDS-DB-DATABASE
-    DB_USERNAME: DEV-RDS-DB-USERNAME
-    DB_PWD: PROD-RDS-ADMIN-PASSWORD
-    AWS_COGNITO_KEY: PROD-COGNITO-KEY
-    AWS_COGNITO_SECRET: PROD-COGNITO-SECRET
-    AWS_COGNITO_CLIENT_ID: PROD-COGNITO-CLIENT-ID
-    AWS_COGNITO_USER_POOL_ID: PROD-COGNITO-USER-POOL-ID
-
 phases:
 
   install:
@@ -24,7 +12,7 @@ phases:
 
   build:
     commands:
-      - docker build -t pmu_dashboard --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_DATABASE=$DB_DATABASE --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PWD --build-arg AWS_COGNITO_KEY=$AWS_COGNITO_KEY --build-arg AWS_COGNITO_SECRET=$AWS_COGNITO_SECRET --build-arg AWS_COGNITO_CLIENT_ID=$AWS_COGNITO_CLIENT_ID --build-arg AWS_COGNITO_USER_POOL_ID=$AWS_COGNITO_USER_POOL_ID .
+      - docker build -t pmu_dashboard .
       - docker tag pmu_dashboard 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
       - docker push 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
   post_build:

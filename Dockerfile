@@ -1,15 +1,5 @@
 FROM centos:8
 
-ARG DB_HOST
-ARG DB_PORT
-ARG DB_DATABASE
-ARG DB_USERNAME
-ARG DB_PASSWORD
-ARG AWS_COGNITO_KEY
-ARG AWS_COGNITO_SECRET
-ARG AWS_COGNITO_CLIENT_ID
-ARG AWS_COGNITO_USER_POOL_ID
-
 RUN yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
     dnf module install -y php:remi-7.4 && \
