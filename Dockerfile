@@ -7,6 +7,8 @@ ARG DB_USERNAME
 ARG DB_PASSWORD
 ARG AWS_COGNITO_KEY
 ARG AWS_COGNITO_SECRET
+ARG AWS_COGNITO_CLIENT_ID
+ARG AWS_COGNITO_USER_POOL_ID
 
 RUN yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
@@ -36,7 +38,9 @@ RUN cd /opt/pmu_dashboard && \
 RUN echo "alias ll='ls -l'" > ~/.bashrc
 
 RUN sed -i "s@.*AWS_COGNITO_KEY=.*@AWS_COGNITO_KEY=${AWS_COGNITO_KEY}@" /opt/pmu_dashboard/.env && \
-    sed -i "s@.*AWS_COGNITO_SECRET=.*@AWS_COGNITO_SECRET=${AWS_COGNITO_SECRET}@" /opt/pmu_dashboard/.env
+    sed -i "s@.*AWS_COGNITO_SECRET=.*@AWS_COGNITO_SECRET=${AWS_COGNITO_SECRET}@" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_COGNITO_CLIENT_ID=.*/AWS_COGNITO_CLIENT_ID=${AWS_COGNITO_CLIENT_ID}/" /opt/pmu_dashboard/.env && \
+    sed -i "s/.*AWS_COGNITO_USER_POOL_ID=.*/AWS_COGNITO_USER_POOL_ID=${AWS_COGNITO_USER_POOL_ID}/" /opt/pmu_dashboard/.env
 
 RUN cat /opt/pmu_dashboard/.env
 
