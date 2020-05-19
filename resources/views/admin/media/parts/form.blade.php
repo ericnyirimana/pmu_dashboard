@@ -19,7 +19,7 @@
                     @endif
                     @if($brands)
                         @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}" @if($media->company->id == $brand->id) selected @endif>{{ $brand->name }}</option>
+                            <option value="{{ $brand->id }}" @if($media->company == $brand) selected @endif>{{ $brand->name }}</option>
                         @endforeach
                     @endif
                 </select>
@@ -90,8 +90,8 @@
               }
 
               @if(Auth::user()->is_restaurant)
-                        $('#restaurant_id').append('<option value="' + {{ Auth::user()->restaurant->first()->id }} + '">' + {{
-                    Auth::user()->restaurant->first()->name }} +'</option>');
+                        $('#restaurant_id').append('<option value="{{ Auth::user()->restaurant->first()->id }}">{{
+                    Auth::user()->restaurant->first()->name }}</option>');
               @endif
 			}
 

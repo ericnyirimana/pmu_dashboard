@@ -12,8 +12,10 @@ class MediaObserver
 
         if( empty($media->brand_id) && !Auth::user()->is_super) {
 
-            $media->brand_id = Auth::user()->company->id;
-
+            $media->brand_id = Auth::user()->brand->first()->id;
+            if (Auth::user()->is_restaurant) {
+                $media->restaurant_id = Auth::user()->restaurant->first()->id;
+            }
         }
 
   }
