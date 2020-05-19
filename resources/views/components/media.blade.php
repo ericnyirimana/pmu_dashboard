@@ -56,7 +56,7 @@
                     <label for="">{{ __('labels.status_media') }}</label>
                     <select id="status_media" class="form-control" name="status-filter">
                         <option value="_all">{{ __('labels.all') }}</option>
-                        <option value="APPROVED">{{ __('labels.approved') }}</option>
+                        <option value="APPROVE">{{ __('labels.approved') }}</option>
                         <option value="PENDING">{{ __('labels.pending') }}</option>
                     </select>
                 </div>
@@ -76,7 +76,7 @@
                         @if($file->company)
                             <label>{{ $file->company_name }}</label>
                         @endif
-                        @if($file->restaurnt)
+                        @if($file->restaurant)
                             <label>{{ $file->restaurant->name }}</label>
                         @endif
                         @if($file->status_media == 'PENDING')

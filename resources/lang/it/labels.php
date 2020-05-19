@@ -64,7 +64,7 @@ return [
     'categories' => 'Categorie',
     'restaurants' => 'Ristoranti',
     'all_day' => 'Tutto il giorno',
-    'company' => 'Compagnia',
+    'company' => 'Società',
     'restaurant' => 'Ristorante',
     'status_media' => 'Stato',
     'all_company' => 'Tutte',

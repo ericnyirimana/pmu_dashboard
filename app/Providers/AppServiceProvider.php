@@ -40,15 +40,22 @@ class AppServiceProvider extends ServiceProvider
 
             if (Auth::user()->is_super) {
                 $media = \App\Models\Media::all();
+                $brands = \App\Models\Company::all();
             } else {
-                // $mediaAll = \App\Models\Media::whereNull('brand_id')->get();
-                $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->brand->first()->id)->where('status_media', 'APPROVED')->get();
+                if (Auth::user()->is_owner) {
+                    $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->brand->first()->id)->where('status_media', 'APPROVE')->get();
+                } else if (Auth::user()->is_restaurant) {
+                    $mediaCompany = \App\Models\Media::where('restaurant_id', Auth::user()->restaurant->first()->id)->where('status_media', 'APPROVE')->get();
+                }
 
-                //$media = $mediaAll->merge($mediaCompany);
                 $media = $mediaCompany;
+
+                $brands = Auth::user()->brand;
+
             }
 
-            $view->with(compact('media'));
+            $view->with(compact('media'))
+                ->with(compact('brands'));
           });
 
 
