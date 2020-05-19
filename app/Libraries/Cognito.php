@@ -61,12 +61,12 @@ class Cognito
             try {
 
               $client = new CognitoIdentityProviderClient([
-                  /*'credentials' => [
+                  'credentials' => [
                       'key'     => env('AWS_COGNITO_KEY', ''),
                       'secret'  => env('AWS_COGNITO_SECRET', ''),
-                  ],*/
+                  ],
                   'version' => env('AWS_COGNITO_VERSION'),
-                  'region' => env('AWS_DEFAULT_REGION'),
+                  'region' => env('AWS_COGNITO_REGION'),
                ]);
 
             } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {

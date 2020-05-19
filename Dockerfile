@@ -1,5 +1,13 @@
 FROM centos:8
 
+ARG DB_HOST
+ARG DB_PORT
+ARG DB_DATABASE
+ARG DB_USERNAME
+ARG DB_PASSWORD
+ARG AWS_COGNITO_KEY
+ARG AWS_COGNITO_SECRET
+
 RUN yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
     dnf module install -y php:remi-7.4 && \
@@ -26,6 +34,9 @@ RUN cd /opt/pmu_dashboard && \
     #composer dump-autoload
 
 RUN echo "alias ll='ls -l'" > ~/.bashrc
+
+RUN sed -i "s@.*AWS_COGNITO_KEY=.*@AWS_COGNITO_KEY=${AWS_COGNITO_KEY}@" /opt/pmu_dashboard/.env && \
+    sed -i "s@.*AWS_COGNITO_SECRET=.*@AWS_COGNITO_SECRET=${AWS_COGNITO_SECRET}@" /opt/pmu_dashboard/.env
 
 RUN cat /opt/pmu_dashboard/.env
 
