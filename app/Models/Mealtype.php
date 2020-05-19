@@ -10,7 +10,7 @@ class Mealtype extends Model
 
     use SoftDeletes;
 
-    public $fillable = ['id', 'hour_ini', 'hour_end'];
+    public $fillable = ['id', 'hour_ini', 'hour_end', 'all_day'];
 
     protected $dates = ['deleted_at'];
 

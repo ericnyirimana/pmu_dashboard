@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Restaurant;
 use App\Models\User;
 use Auth;
 use function foo\func;
@@ -37,10 +38,7 @@ class CompanyController extends Controller
     public function index()
     {
 
-
-
-        if (Auth::user()->is_owner) {
-            //return redirect(route('companies.edit', Auth::user()->company));
+        if (Auth::user()->is_owner || Auth::user()->is_restaurant) {
             $companies = Auth::user()->brand;
         } else {
             $companies = Company::get();
@@ -96,9 +94,16 @@ class CompanyController extends Controller
 
         $users = User::all();
 
+        if (Auth::user()->is_restaurant) {
+            $restaurants = Auth::user()->restaurant;
+        } else {
+            $restaurants = $company->restaurants;
+        }
+
         return view('admin.companies.view')->with([
                 'company' => $company,
                 'users' => $users,
+                'restaurants' => $restaurants
             ]
         );
 
@@ -175,6 +180,5 @@ class CompanyController extends Controller
         return response()->json(Company::all(), 200);
 
     }
-
 
 }

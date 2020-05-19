@@ -11,6 +11,7 @@ use Auth;
 use Cookie;
 use App\Libraries\Cognito;
 use Carbon\Carbon;
+use Illuminate\Validation\Rule;
 
 
 class UserController extends Controller
@@ -25,13 +26,28 @@ class UserController extends Controller
     }
 
 
-    public function validation(Request $request, $media = null)
+    public function validation(Request $request, User $user = null)
     {
+        $rules = [
+            'name' => 'required',
+            'brand_id' => 'required_if:role,RESTAURATEUR,OWNER',
+            'restaurant_id' => 'required_if:role,RESTAURATEUR,OWNER'
+        ];
+
+        if ($user) {
+            $rules['email'] = [
+                'required',
+                Rule::unique('users')->ignore($user->id),
+            ];
+        } else {
+            $rules['email'] = [
+                'required',
+                Rule::unique('users'),
+            ];
+        }
 
         $request->validate(
-            [
-                'name' => 'required',
-            ]
+            $rules
         );
 
     }
@@ -56,8 +72,8 @@ class UserController extends Controller
 
         if (Auth::user()->is_super) {
             $users = User::withTrashed()->get();
-        } else {
-            $users = User::get();
+        } else if (Auth::user()->is_owner) {
+            $users = Auth::user()->brand->first()->users;
         }
 
         return view('admin.users.index')
@@ -66,9 +82,10 @@ class UserController extends Controller
     }
 
 
-    public function show(User $user) {
+    public function show(User $user)
+    {
 
-        return redirect()->route('users.index');
+        return redirect()->route('users.edit', $user);
 
     }
 
@@ -90,6 +107,7 @@ class UserController extends Controller
     {
 
         $this->validation($request);
+
 
         $fields = $request->all();
 
@@ -144,7 +162,7 @@ class UserController extends Controller
     public function update(User $user, Request $request)
     {
 
-        $this->validation($request);
+        $this->validation($request, $user);
 
         $fields = $request->all();
 

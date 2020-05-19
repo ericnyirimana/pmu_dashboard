@@ -26,14 +26,18 @@ return [
     'generate_pwd' => 'Generate password',
     'add_new_file' => 'Browser new file',
     'add_image' => 'Add image',
+    'edit_image' => 'Edit image',
     'change_image' => 'Change',
     'select_image' => 'Select',
     'approves' => 'Approves',
     'send_approves' => 'Publishes and sends approval',
+    'wait_approves' => 'Pending',
+    'approved' => 'Approved',
     'disable' => 'Disable',
     'reject' => 'Reject',
     'confirm' => 'Confirm',
     'order_closed' => 'Close order',
     'subscription_detail' => 'Subscription detail',
-    'view_all' => 'View all'
+    'view_all' => 'View all',
+    'back_home' => 'Back home'
 ];

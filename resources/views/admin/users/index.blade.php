@@ -10,11 +10,14 @@
       {{ session('notification') }}
   @endcomponent
 @endif
+
+@if(Auth::user()->is_super)
 <div class="row m-b-10">
       <div class="col-12">
           <a href="{{ route('users.create' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.new_user')) }}</a>
     </div>
 </div>
+@endif
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">

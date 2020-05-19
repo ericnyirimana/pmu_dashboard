@@ -59,5 +59,18 @@ return [
     'working_days' => 'Giorni lavorativi',
     'validity_range' => 'Periodo di validità',
     'menu' => 'Menu',
-    'mealtype' => 'Fascia oraria'
+    'mealtype' => 'Fascia oraria',
+    'mealtypes' => 'Fasce orarie',
+    'categories' => 'Categorie',
+    'restaurants' => 'Ristoranti',
+    'all_day' => 'Tutto il giorno',
+    'company' => 'Società',
+    'restaurant' => 'Ristorante',
+    'status_media' => 'Stato',
+    'all_company' => 'Tutte',
+    'all_restaurants' => 'Tutti',
+    'all' => 'Tutti',
+    'approved' => 'Approvati',
+    'pending' => 'In attesa'
+
 ];

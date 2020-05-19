@@ -22,7 +22,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
-        Route::get('blank', 'DashboardController@blank')->name('dashboard.blank');
+        // Route::get('blank', 'DashboardController@blank')->name('dashboard.blank');
 
         Route::get('profile', 'UserController@me')->name('users.profile');
 
@@ -77,6 +77,8 @@ Route::prefix('admin')->group(function () {
 
 
         Route::resource('/media', 'MediaController', ['parameters' => ['media' => 'media']]); //force 'media' name because laravel will set automatic to 'medium'
+        Route::get('/media/approve/{media?}', 'MediaController@approve')->name('media.approve');
+        Route::get('/media/pending/{media?}', 'MediaController@pending')->name('media.pending');
 
         Route::get('/medias/image/{media}', 'MediaController@viewImageData');
 

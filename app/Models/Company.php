@@ -46,15 +46,11 @@ class Company extends Model
 
     }
 
-
-
     public function UserIsOwner(User $user) {
 
         return ($user->id == $this->owner_id);
 
     }
-
-
 
     public function getRestaurantsQuantityAttribute() {
 

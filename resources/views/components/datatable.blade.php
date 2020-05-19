@@ -38,7 +38,13 @@
                             @break
                         @endswitch
                     @else
-                        <td>{{ $model->{$field} }}</td>
+                        <td>
+                            @if($model instanceof \App\Models\Showcase && $field == 'type')
+                            {{ __('labels.' . $model->{$field}) }}
+                            @else
+                                {{ $model->{$field} }}
+                            @endif
+                        </td>
                     @endif
                 @endforeach
                 @if(!empty($actions))
