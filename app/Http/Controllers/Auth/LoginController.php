@@ -67,65 +67,66 @@ class LoginController extends Controller
 
         #connect with Cognito
         $credentials = $request->only('email', 'password');
+        $client = new Cognito();
+        $response = $client->authenticate($credentials);
+        /*
+                try{
+                    $client = new Cognito();
+                    $response = $client->authenticate($credentials);
+                    return response()->json([
+                        'response'    => $response,
+                        'credentials' => [
+                            'key'     => env('AWS_COGNITO_KEY'),
+                            'secret'  => env('AWS_COGNITO_SECRET'),
+                        ],
+                        'version' => env('AWS_COGNITO_VERSION'),
+                        'region' => env('AWS_COGNITO_REGION'),
+                        'COGNITO_ID' => env('AWS_COGNITO_CLIENT_ID'),
+                        'COGNITO_POOL_ID' => env('AWS_COGNITO_USER_POOL_ID'),
+                        'ENV' => getenv(),
+                        'Authorization' => $_SERVER
+                    ], 200);
+                } catch (\Throwable $e){
+                    return response()->json([
+                        'response'    => $e->getMessage(),
+                    ], 200);
+                }
+
+        */
+
+                if ($client->error) {
+
+                    return redirect()->route('login')->withErrors(['login' => 'Incorret login or password.' ]);
+                }
+
+                if ($client->forceResetPassword) {
+
+                    $this->refreshFlashSetPasswordSession($response->get('ChallengeName'), $response->get('Session'), $response->get('ChallengeParameters')['USER_ID_FOR_SRP'], $request->email);
+
+                    return redirect()->route('password.set');
 
 
-        try{
-            $client = new Cognito();
-            $response = $client->authenticate($credentials);
-            return response()->json([
-                'response'    => $response,
-                'credentials' => [
-                    'key'     => env('AWS_COGNITO_KEY'),
-                    'secret'  => env('AWS_COGNITO_SECRET'),
-                ],
-                'version' => env('AWS_COGNITO_VERSION'),
-                'region' => env('AWS_COGNITO_REGION'),
-                'COGNITO_ID' => env('AWS_COGNITO_CLIENT_ID'),
-                'COGNITO_POOL_ID' => env('AWS_COGNITO_USER_POOL_ID'),
-                'ENV' => getenv(),
-                'Authorization' => $_SERVER
-            ], 200);
-        } catch (\Throwable $e){
-            return response()->json([
-                'response'    => $e->getMessage(),
-            ], 200);
-        }
+                }
 
+                if ($response) {
 
-/*
-        if ($client->error) {
+                    $token = $response['token']['AccessToken'];
 
-            return redirect()->route('login')->withErrors(['login' => 'Incorret login or password.' ]);
-        }
+                    #align user from Cognito
+                    $sync = $this->alignUserFromCognito($request);
 
-        if ($client->forceResetPassword) {
+                    #if Authenticate with cognito, connect with normal DB
+                    #The user from DB is a clone from Cognito, it copies every time it log
+                    if ($sync && Auth::attempt($credentials, $request->remember)) {
 
-            $this->refreshFlashSetPasswordSession($response->get('ChallengeName'), $response->get('Session'), $response->get('ChallengeParameters')['USER_ID_FOR_SRP'], $request->email);
+                        return redirect()->route('dashboard.blank');
+                    } else {
 
-            return redirect()->route('password.set');
+                        return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
+                    }
 
+                }
 
-        }
-
-        if ($response) {
-
-            $token = $response['token']['AccessToken'];
-
-            #align user from Cognito
-            $sync = $this->alignUserFromCognito($request);
-
-            #if Authenticate with cognito, connect with normal DB
-            #The user from DB is a clone from Cognito, it copies every time it log
-            if ($sync && Auth::attempt($credentials, $request->remember)) {
-
-                return redirect()->route('dashboard.blank');
-            } else {
-
-                return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
-            }
-
-        }
-*/
     }
 
 
