@@ -1,5 +1,13 @@
 version: 0.2
 
+env:
+  parameter-store:
+    DB_HOST: PROD-RDS-DB-HOST
+    DB_PORT: DEV-RDS-DB-PORT
+    DB_DATABASE: DEV-RDS-DB-DATABASE
+    DB_USERNAME: DEV-RDS-DB-USERNAME
+    DB_PWD: PROD-RDS-ADMIN-PASSWORD
+
 phases:
 
   install:
@@ -12,7 +20,7 @@ phases:
 
   build:
     commands:
-      - docker build -t pmu_dashboard .
+      - docker build -t pmu_dashboard --build-arg DB_HOST=$DB_HOST --build-arg DB_PORT=$DB_PORT --build-arg DB_DATABASE=$DB_DATABASE --build-arg DB_USERNAME=$DB_USERNAME --build-arg DB_PASSWORD=$DB_PWD .
       - docker tag pmu_dashboard 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
       - docker push 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
   post_build:

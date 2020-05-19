@@ -62,8 +62,8 @@ class Cognito
 
               $client = new CognitoIdentityProviderClient([
                   'credentials' => [
-                      'key'     => env('AWS_ACCESS_KEY_ID', ''),
-                      'secret'  => env('AWS_SECRET_ACCESS_KEY', ''),
+                      'key'     => env('AWS_COGNITO_KEY', ''),
+                      'secret'  => env('AWS_COGNITO_SECRET', ''),
                   ],
                   'version' => env('AWS_COGNITO_VERSION'),
                   'region' => env('AWS_DEFAULT_REGION'),
