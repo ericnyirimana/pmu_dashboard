@@ -11,7 +11,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
         <!-- App favicon -->
-        <link rel="shortcut icon" href="{{ asset("/images/favicon2.ico")}}">
+        <link rel="shortcut icon" href="{{ asset("/images/favicon.ico")}}">
 
         <!-- Adminnox css -->
         <link href="{{ asset("/adminox/assets/css/bootstrap.min.css")}}" rel="stylesheet" type="text/css" />
