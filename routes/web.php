@@ -14,9 +14,12 @@ if (App::environment('production')) {
     URL::forceScheme('https');
 }
 
-//Route::get('/', 'LandingController@index');
-Route::get('/', function () {
-    return redirect('admin');
+Route::prefix('/')->group(function () {
+
+    Route::group(['middleware' => ['auth', 'user.roles']], function () {
+
+        Route::get('/', 'DashboardController@index')->name('dashboard.index');
+    });
 });
 
 Route::prefix('admin')->group(function () {
