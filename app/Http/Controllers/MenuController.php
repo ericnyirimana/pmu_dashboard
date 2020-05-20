@@ -99,11 +99,8 @@ class MenuController extends Controller
     public function show(Menu $menu)
     {
 
-
         return view('admin.menu.view')->with([
                 'menu' => $menu,
-                'users' => $users,
-                'media' => $media
             ]
         );
 
@@ -148,7 +145,6 @@ class MenuController extends Controller
         $fields['status'] = $request->status ? true : false;
 
         $menu->update($fields);
-
 
         return redirect()->route('menu.index', $menu)->with([
             'notification' => trans('messages.notification.menu_saved'),

@@ -50,7 +50,10 @@ return [
     'validate_days' => 'Validità abbonamento',
     'modal' => [
         'confirm_remove_title' => 'Confermi eliminazione',
-        'confirm_remove_text' => 'Confermi di voler rimuovere'
+        'confirm_remove_text' => 'Confermi di voler rimuovere',
+        'no_products' => 'Il ristorante non ha prodotti',
+        'new_dish' => 'Nuovo piatto',
+        'new_drink' => 'Nuovo drink'
     ],
     'entries_to_be_welded' => 'Entrate da saldare',
     'orders_suspend' => 'Ordini sospesi',

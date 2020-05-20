@@ -32,6 +32,12 @@
   background-color: white;
   margin-bottom: 30px;
 
+  img {
+    width: 100px;
+    margin: 10px;
+    border-radius: 5px;
+  }
+
   figure {
     width: 100px;
     text-align: center;
@@ -67,7 +73,7 @@
   .plate-preview-price {
       margin: 15px;
       font-size: 1.4rem;
-      width: 100px;
+      width: 150px;
 
   }
 

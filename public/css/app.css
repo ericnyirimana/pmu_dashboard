@@ -366,6 +366,12 @@ figure img {
   margin-bottom: 30px;
 }
 
+.container-plate-preview img {
+  width: 100px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
 .container-plate-preview figure {
   width: 100px;
   text-align: center;
@@ -401,7 +407,7 @@ figure img {
 .container-plate-preview .plate-preview-price {
   margin: 15px;
   font-size: 1.4rem;
-  width: 100px;
+  width: 150px;
 }
 
 .container-plate-preview .plate-preview-actions {
