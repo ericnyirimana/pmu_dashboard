@@ -23,6 +23,7 @@ return [
         'company_saved' => 'Company saved with success!',
         'company_removed' => 'Company removed with success!',
         'order_confirmed' => 'Order confirmed with success!',
-        'order_rejected' => 'Order rejected with success!'
+        'order_rejected' => 'Order rejected with success!',
+        'select_restaurant' => 'Select a restaurant'
     ]
 ];

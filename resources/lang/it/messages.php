@@ -23,7 +23,8 @@ return [
         'company_saved' => 'Società salvata con successo!',
         'company_removed' => 'Società rimossa con successo!',
         'order_confirmed' => 'Ordine confermato con successo!',
-        'order_rejected' => 'Ordine rifiutato con successo!'
+        'order_rejected' => 'Ordine rifiutato con successo!',
+        'select_restaurant' => 'Seleziona un ristorante'
     ]
 
 ];

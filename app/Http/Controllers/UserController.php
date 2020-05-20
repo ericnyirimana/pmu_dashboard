@@ -10,7 +10,6 @@ use App\Models\User;
 use Auth;
 use Cookie;
 use App\Libraries\Cognito;
-use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 
 
@@ -31,7 +30,7 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'brand_id' => 'required_if:role,RESTAURATEUR,OWNER',
-            'restaurant_id' => 'required_if:role,RESTAURATEUR,OWNER'
+            'restaurant_id' => 'required_if:role,RESTAURATEUR'
         ];
 
         if ($user) {

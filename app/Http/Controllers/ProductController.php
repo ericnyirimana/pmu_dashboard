@@ -99,6 +99,19 @@ class ProductController extends Controller
         if (!isset($fields['status_product'])) {
             $fields['status_product'] = 'DRAFT';
         }
+
+        if ($fields['restaurant_id'] == '_all' && $fields['type'] == 'Dish') {
+            return redirect()->route('products.create.dish')->with([
+                'notification' => trans('messages.notification.select_restaurant'),
+                'type-notification' => 'danger'
+            ]);
+        } elseif ($fields['restaurant_id'] == '_all' && $fields['type'] == 'Drink') {
+            return redirect()->route('products.create.drink')->with([
+                'notification' => trans('messages.notification.select_restaurant'),
+                'type-notification' => 'danger'
+            ]);
+        }
+
         $product = Product::create($fields);
 
         $this->saveTranslation($product, $fields);

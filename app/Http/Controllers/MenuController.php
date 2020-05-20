@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Menu;
-use App\Models\Product;
-use App\Models\ProductMedia;
 use App\Models\Restaurant;
 use Auth;
 use Illuminate\Http\Request;
