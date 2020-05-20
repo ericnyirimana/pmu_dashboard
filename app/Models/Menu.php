@@ -53,6 +53,11 @@ class Menu extends Model
 
     }
 
+//    public function media() {
+//
+//        return $this->belongsToMany('App\Models\Media', 'products_media');
+//
+//    }
 
     public function getIsApprovedAttribute() {
 

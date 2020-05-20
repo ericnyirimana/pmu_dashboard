@@ -1,6 +1,6 @@
 <div class="container-plate-preview" data-id="{{ $product->id }}" id="item-{{ $product->id }}">
     <figure><i class="fa fa-file-image-o fa-2x"></i></figure>
-    {{--<figure>{{ $product->media }}</figure>--}}
+    {{--<figure>{{ $product->media_id }}</figure>--}}
     <div class="plate-preview-text">
         <h4>{{ $product->translate->name }}</h4>
         <p>{{ $product->translate->description }}</p>

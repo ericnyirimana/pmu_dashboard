@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Company;
 use App\Models\Menu;
+use App\Models\Product;
+use App\Models\ProductMedia;
 use App\Models\Restaurant;
 use Auth;
 use Illuminate\Http\Request;
@@ -124,15 +126,12 @@ class MenuController extends Controller
         $dishesProducts = $menu->products()->where('type', 'Dish')->where('status_product', 'APPROVED')->get();
         $drinksProducts = $menu->products()->where('type', 'Drink')->where('status_product', 'APPROVED')->get();
 
-        // $media = $menu->media()->get();
-
         return view('admin.menu.edit')->with([
                 'menu' => $menu,
                 'companies' => $companies,
                 'restaurants' => $restaurants,
                 'dishesProducts' => $dishesProducts,
                 'drinksProducts' => $drinksProducts,
-                // 'media' => $media
             ]
         );
 
