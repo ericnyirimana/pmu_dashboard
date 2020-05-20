@@ -14,7 +14,10 @@ if (App::environment('production')) {
     URL::forceScheme('https');
 }
 
-Route::get('/', 'LandingController@index');
+//Route::get('/', 'LandingController@index');
+Route::get('/', function () {
+    return redirect('admin');
+});
 
 Route::prefix('admin')->group(function () {
 
