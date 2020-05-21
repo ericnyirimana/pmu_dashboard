@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Restaurant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -130,6 +131,13 @@ class UserController extends Controller
             if ($fields['restaurant_id']) {
                 $user->restaurant()->sync($fields['restaurant_id']);
             }
+//            if (!isset($fields['restaurant_id'])) {
+//                foreach($fields as $field ) {
+//                    $restaurant = Restaurant::where('id', $field)->get();
+//                }
+//
+//                $user->restaurant()->sync($restaurant);
+//            }
         }
 
         $client = new Cognito();
@@ -169,9 +177,7 @@ class UserController extends Controller
 
         $fields['profile'] = json_encode($arrayAttributes);
 
-
         $user->update($fields);
-
 
         $client = new Cognito();
         $us = $client->getUser($user->sub);
@@ -190,6 +196,18 @@ class UserController extends Controller
             } else {
                 $user->restaurant()->sync([]);
             }
+
+            if ($fields['restaurant_id'] == null) {
+
+                //foreach($user->restaurant() as $restaurant) {
+
+                // $restaurant['restaurant_id'] = Auth::user()->brand->first();
+
+                // $fields['restaurant_id'] = $user->restaurant()->sync($fields['restaurant_id']);
+
+                // }
+            }
+
         } else {
             $user->restaurant()->sync([]);
             $user->brand()->sync([]);

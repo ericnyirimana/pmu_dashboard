@@ -39,8 +39,33 @@
 
 <div class="row mt-5">
   <div class="col-12">
-        <div class="form-group">
-            <button type="submit" class="btn btn-block w-lg btn-success float-right">@if($pickup->id) {{ ucfirst(trans('button.save')) }} @else {{ ucfirst(trans('button.next')) }} @endif</button>
+        <div class="form-group d-flex justify-content-between">
+            @if(Auth::user()->is_super)
+                @if($pickup->id)
+                 <button type="submit" class="btn w-100 btn-success mr-3" field="status_pickup" name="status_pickup" value="PENDING">{{ ucfirst(trans('button.save')) }}</button>
+                 <button type="submit" class="btn w-100 btn-primary" field="status_pickup" name="status_pickup" value="APPROVED">{{ ucfirst(trans('button.approves')) }}</button>
+                {{--@elseif($pickup->status_pickup == 'PENDING')--}}
+                 {{--<button type="submit" class="btn w-100 btn-success mr-3" field="status_pickup" name="status_pickup" value="PENDING">{{ ucfirst(trans('button.save')) }}</button>--}}
+                 {{--<button type="submit" class="btn w-100 btn-primary" field="status_pickup" name="status_pickup" value="APPROVED">{{ ucfirst(trans('button.approves')) }}</button>--}}
+                {{--@elseif($pickup->status_pickup == 'APPROVED')--}}
+                 {{--<button type="submit" class="btn btn-block w-lg btn-success float-right" field="status_pickup" name="status_pickup" value="APPROVED">{{ ucfirst(trans('button.save')) }}</button>--}}
+                @else
+                <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.next')) }} </button>
+                @endif
+            @endif
+
+            @if(Auth::user()->is_owner || Auth::user()->is_restaurant)
+                @if($pickup->id)
+                <button type="submit" class="btn btn-block w-lg btn-success float-right" value="PENDING">{{ ucfirst(trans('button.save')) }}</button>
+                {{--@elseif($pickup->status_pickup == 'PENDING')--}}
+                {{--<button type="submit" class="btn w-100 btn-success mr-3" field="status_pickup" name="status_pickup" value="PENDING">{{ ucfirst(trans('button.save')) }}</button>--}}
+                {{--@elseif($pickup->status_pickup == 'APPROVED')--}}
+                {{--<button type="submit" class="btn btn-block w-lg btn-success float-right" field="status_pickup" name="status_pickup" value="APPROVED">{{ ucfirst(trans('button.save')) }}</button>--}}
+                @else
+                <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.next')) }}</button>
+                @endif
+            @endif
+
         </div>
   </div>
 </div>

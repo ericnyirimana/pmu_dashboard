@@ -12,7 +12,6 @@ use App\Traits\TranslationTrait;
 use Carbon\Carbon;
 
 use Auth;
-use Illuminate\Support\Facades\URL;
 
 class PickupController extends Controller
 {
@@ -38,6 +37,7 @@ class PickupController extends Controller
             'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
             'date' => ['required'],
             'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant],
+            'status_pickup'
 
         ];
 
@@ -105,6 +105,11 @@ class PickupController extends Controller
         }
         $this->saveTranslation($pickup, $fields);
 
+        // if pickup is only updated set to PENDING status
+        if (!isset($fields['status_pickup'])) {
+            $fields['status_pickup'] = 'PENDING';
+        }
+
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
         }
@@ -170,6 +175,11 @@ class PickupController extends Controller
 
         $this->saveTranslation($pickup, $fields);
         $pickup->products()->sync($products);
+
+        // if pickup is only updated set to PENDING status
+        if (!isset($fields['status_pickup'])) {
+            $fields['status_pickup'] = 'PENDING';
+        }
 
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
@@ -237,5 +247,28 @@ class PickupController extends Controller
         return $pickups;
     }
 
+
+    public function approved(Pickup $pickup)
+    {
+        $pickup->status_pickup = 'APPROVED';
+        return $this->changeStatus($pickup);
+    }
+
+    public function pending(Pickup $pickup)
+    {
+
+        $pickup->status_pickup = 'PENDING';
+        return $this->changeStatus($pickup);
+    }
+
+    protected function changeStatus(Pickup $pickup)
+    {
+        try {
+            $pickup->save();
+            return response()->json($pickup, 200);
+        } catch (\Exception $exception) {
+            return response()->json(['error' => 'Something was wrong'], 500);
+        }
+    }
 
 }

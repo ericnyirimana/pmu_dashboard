@@ -19,7 +19,8 @@
                 <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID'    => 'id',
                 'datatable.headers.name'  => 'name',
-                'datatable.headers.type'  => 'color:type_pickup:pickup_color'
+                'datatable.headers.type'  => 'color:type_pickup:pickup_color',
+                'datatable.headers.status' => 'status_pickup'
                 ]"
                 actions="edit,delete" />
         </div>
