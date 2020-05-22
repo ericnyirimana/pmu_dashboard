@@ -147,6 +147,7 @@ class CompanyController extends Controller
                 $ownerOld->role = 'CUSTOMER';
                 $ownerOld->brand()->sync([]);
                 $ownerOld->restaurant()->sync([]);
+                $ownerOld->save();
             }
 
             //set new one
