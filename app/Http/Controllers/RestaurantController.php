@@ -117,6 +117,15 @@ class RestaurantController extends Controller
             $restaurant->media()->sync(array_unique($request->media));
         }
 
+        //Assign new restaurant to owner
+        $owner = $company->owner;
+        if ($owner) {
+            // Relation with all restaurant in company
+            $restaurantIDs = $company->restaurants()->pluck('id');
+            $restaurantIDs->push($restaurant->id);
+            $owner->restaurant()->sync($restaurantIDs);
+        }
+
         //Create Stripe Account
         //$this->createAccountStripe($restaurant);
 
