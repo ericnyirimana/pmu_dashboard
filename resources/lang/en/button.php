@@ -28,7 +28,7 @@ return [
     'add_image' => 'Add image',
     'edit_image' => 'Edit image',
     'change_image' => 'Change',
-    'select_image' => 'Select',
+    'select_image' => 'Select image',
     'approves' => 'Approves',
     'send_approves' => 'Publishes and sends approval',
     'wait_approves' => 'Pending',
@@ -39,5 +39,5 @@ return [
     'order_closed' => 'Close order',
     'subscription_detail' => 'Subscription detail',
     'view_all' => 'View all',
-    'back_home' => 'Back home'
+    'back_home' => 'Back home',
 ];
