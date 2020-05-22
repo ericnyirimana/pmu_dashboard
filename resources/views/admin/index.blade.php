@@ -5,7 +5,7 @@
     @include('components.notification')
 
     @if(Auth::user()->is_super)
-        <div class="row">
+        <div class="row mb-3">
             <div class="col-12 col-md-8">
                 <div class="card-box table-responsive h-100">
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_pickups')) }}</b></h4>
@@ -51,22 +51,44 @@
                 {{--</div>--}}
             {{--</div>--}}
         </div>
-    @elseif(Auth::user()->is_restaurateur)
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <div class="table-responsive">
+    @elseif(Auth::user()->is_restaurant)
+        <div class="row mb-3">
+            <div class="col-12 col-md-8">
+                <div class=" card-box table-responsive h-100">
 
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
 
                     <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
-                'datatable.headers.offer'      => 'pickup:name',
-                'datatable.headers.price' => 'pickup:price',
-                ]"
+                    'datatable.headers.date'      => 'order:date_format',
+                    'datatable.headers.hour'      => 'order:hour_format',
+                    'datatable.headers.offer'      => 'pickup:name',
+                    'datatable.headers.price' => 'pickup:price',
+                    ]"
+                  actions='view'
                     />
+
                 </div>
             </div>
 
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-4">
+                <div class=" card-box table-responsive h-100">
+
+                    <h4 class="m-t-0 header-title"><b>Sto arrivando!</b></h4>
+
+                    <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
+                    'datatable.headers.hour'      => 'order:hour_format',
+                    'datatable.headers.offer'      => 'pickup:name',
+                    'datatable.headers.price' => 'pickup:price',
+                    ]"
+                    />
+
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div class="col-12 col-md-8">
                 <div class="card-box table-responsive">
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_pickups')) }}</b></h4>
 
@@ -82,14 +104,8 @@
                     </div>
                 </div>
             </div>
-            
+
             {{--<div class="col-12 col-md-4">--}}
-
-            {{--</div>--}}
-        </div>
-        <div class="row">
-
-            {{--<div class="col-12 col-md-6">--}}
                 {{--<div class="card-box table-responsive">--}}
                     {{--<h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.sales_analytics')) }}</b></h4>--}}
 

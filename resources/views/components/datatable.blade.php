@@ -5,7 +5,7 @@
             <th>{{ __($key) }}</th>
         @endforeach
         @if(!empty($actions))
-            <th style="width: 320px; cursor: inherit;"
+            <th style="cursor: inherit;"
                 class="sorting_desc_disabled sorting_asc_disabled">{{ __('datatable.headers.actions') }}</th>
         @endif
     </tr>
