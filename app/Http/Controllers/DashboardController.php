@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Dashboard;
 use App\Models\OrderPickup;
 use App\Models\Pickup;
 
@@ -10,6 +11,13 @@ use Auth;
 
 class DashboardController extends Controller
 {
+
+    public function __construct()
+    {
+
+        $this->authorizeResource(Dashboard::class);
+
+    }
 
     public function login() {
 

@@ -11,10 +11,10 @@
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_pickups')) }}</b></h4>
 
                     <datatable route='pickups' :collection="$pickups" :fields="[
-                'datatable.headers.name'  => 'name',
-                'datatable.headers.price'  => 'price',
-                'datatable.headers.quantity'  => 'quantity_offer'
-                ]"
+                        'datatable.headers.name'  => 'name',
+                        'datatable.headers.price'  => 'price',
+                        'datatable.headers.quantity'  => 'quantity_offer'
+                        ]"
                     />
 
                     <a href="{{ route('pickups.index' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.view_all')) }}</a>
@@ -28,10 +28,11 @@
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_companies')) }}</b></h4>
 
                     <datatable route='companies' :collection="$companies" :fields="[
-                'ID' => 'id',
-                'datatable.headers.name' => 'name',
-                'datatable.headers.number_restaurants' => 'restaurants_quantity',
-                ]" />
+                        'ID' => 'id',
+                        'datatable.headers.name' => 'name',
+                        'datatable.headers.number_restaurants' => 'restaurants_quantity',
+                        ]"
+                    />
 
                     <a href="{{ route('companies.index' )}}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.view_all')) }}</a>
                 </div>
