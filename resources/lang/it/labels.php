@@ -66,6 +66,7 @@ return [
     'mealtypes' => 'Fasce orarie',
     'categories' => 'Categorie',
     'restaurants' => 'Ristoranti',
+    'timeslots' => 'Fasce orarie',
     'all_day' => 'Tutto il giorno',
     'company' => 'Società',
     'restaurant' => 'Ristorante',

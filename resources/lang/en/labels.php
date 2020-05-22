@@ -67,6 +67,7 @@ return [
     'mealtypes' => 'Mealtypes',
     'categories' => 'Categories',
     'restaurants' => 'Restaurants',
+    'timeslots' => 'Timeslots',
     'all_day' => 'All day',
     'company' => 'Company',
     'restaurant' => 'Restaurant',
