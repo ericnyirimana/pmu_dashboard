@@ -121,23 +121,20 @@ class UserController extends Controller
 
         $user = User::create($fields);
 
-        if ($fields['brand_id']) {
+        if (isset($fields['brand_id'])) {
             $user->brand()->sync($fields['brand_id']);
             if ($user->is_owner) {
                 $company = Company::find($fields['brand_id']);
                 $company->owner_id = $user->id;
                 $company->save();
+
+                // Relation with all restaurant in company
+                $restaurantIDs = $company->restaurants()->pluck('id');
+                $user->restaurant()->sync($restaurantIDs);
             }
-            if ($fields['restaurant_id']) {
+            if (isset($fields['restaurant_id']) && !$user->is_owner) {
                 $user->restaurant()->sync($fields['restaurant_id']);
             }
-//            if (!isset($fields['restaurant_id'])) {
-//                foreach($fields as $field ) {
-//                    $restaurant = Restaurant::where('id', $field)->get();
-//                }
-//
-//                $user->restaurant()->sync($restaurant);
-//            }
         }
 
         $client = new Cognito();
@@ -184,30 +181,18 @@ class UserController extends Controller
 
         $client->updateUser($user->sub, $arrayAttributes);
 
-        if ($fields['brand_id']) {
+        if (isset($fields['brand_id'])) {
             $user->brand()->sync($fields['brand_id']);
             if ($user->is_owner) {
                 $company = Company::find($fields['brand_id']);
                 $company->owner_id = $user->id;
                 $company->save();
             }
-            if ($fields['restaurant_id']) {
+            if (isset($fields['restaurant_id'])) {
                 $user->restaurant()->sync($fields['restaurant_id']);
             } else {
                 $user->restaurant()->sync([]);
             }
-
-            if ($fields['restaurant_id'] == null) {
-
-                //foreach($user->restaurant() as $restaurant) {
-
-                // $restaurant['restaurant_id'] = Auth::user()->brand->first();
-
-                // $fields['restaurant_id'] = $user->restaurant()->sync($fields['restaurant_id']);
-
-                // }
-            }
-
         } else {
             $user->restaurant()->sync([]);
             $user->brand()->sync([]);
