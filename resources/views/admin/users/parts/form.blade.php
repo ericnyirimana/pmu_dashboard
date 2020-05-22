@@ -95,7 +95,6 @@
                 }
                 loadRestaurants($(this).val());
 
-
             });
 
         });
