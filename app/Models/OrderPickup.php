@@ -12,7 +12,7 @@ class OrderPickup extends Model
     }
 
     public function pickup() {
-        return $this->belongsTo('App\Models\Pickup');
+        return $this->belongsTo('App\Models\Pickup')->withTrashed();
     }
 
 }
