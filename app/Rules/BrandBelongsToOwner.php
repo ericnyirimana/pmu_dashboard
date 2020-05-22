@@ -28,6 +28,7 @@ class BrandBelongsToOwner implements Rule
     {
 
         return ( Auth::user()->is_super || Auth::user()->brand->first()->find($value) );
+
     }
 
     /**

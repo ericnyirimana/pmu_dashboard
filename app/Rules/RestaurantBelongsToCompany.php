@@ -27,7 +27,8 @@ class RestaurantBelongsToCompany implements Rule
     public function passes($attribute, $value)
     {
 
-        return ( Auth::user()->is_super || Auth::user()->company->restaurants()->find($value) );
+        return ( Auth::user()->is_super || Auth::user()->restaurant->first()->find($value) );
+
     }
 
     /**

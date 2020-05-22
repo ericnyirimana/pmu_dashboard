@@ -34,7 +34,7 @@ class PickupController extends Controller
             'name' => 'required',
             'type_pickup' => 'required',
             'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
-            'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
+            'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
             'date' => ['required'],
             'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant],
             'status_pickup'
@@ -159,6 +159,13 @@ class PickupController extends Controller
 
         $fields['date_ini'] = Carbon::parse($dates[0]);
         $fields['date_end'] = Carbon::parse($dates[1]);
+
+        if ($fields['restaurant_id'] == '_all' || $fields['restaurant_id'] == 'Select Company first') {
+            return redirect()->route('pickups.edit', $pickup)->with([
+                'notification' => trans('messages.notification.select_restaurant'),
+                'type-notification' => 'danger'
+            ]);
+        }
 
         $pickup->update($fields);
 

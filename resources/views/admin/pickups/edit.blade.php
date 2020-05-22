@@ -2,6 +2,8 @@
 
 @section('content')
 
+@include('components.notification')
+
 @include('components.fields-require-alert')
 
 <div class="row">

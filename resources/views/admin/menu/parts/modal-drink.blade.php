@@ -3,7 +3,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="modalDrinkLabel">{{ ucfirst(trans('labels.new_drink')) }}</h5>
+        <h5 class="modal-title" id="modalDrinkLabel">{{ ucfirst(trans('labels.modal.new_drink')) }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -12,7 +12,7 @@
         <form id="formAddDrinks" onsubmit="return false;">
           <input type="hidden" value="" name="section_id" id="add_drink_section_id" />
           @if($drinksProducts->isEmpty())
-                {{ ucfirst(trans('labels.no_products')) }}
+                {{ ucfirst(trans('labels.modal.no_products')) }}
           @endif
           @foreach ($drinksProducts as $product)
           <div class="container-plate-preview select-product" data-id="{{ $product->id }}" id="item-{{ $product->id }}">
