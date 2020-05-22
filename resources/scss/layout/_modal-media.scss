@@ -32,6 +32,9 @@
 
               text-align: center;
               margin: 10px 5px;
+              .view-file-container {
+                height: 80px;
+              }
               img {
                 border: 2px solid $base-blue-light-color;
                 padding: 5px;

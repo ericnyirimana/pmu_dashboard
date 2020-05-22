@@ -270,6 +270,10 @@ figure img {
   margin: 10px 5px;
 }
 
+.media-container-body figure .view-file-container {
+  height: 80px;
+}
+
 .media-container-body figure img {
   border: 2px solid #B2CCE3;
   padding: 5px;
