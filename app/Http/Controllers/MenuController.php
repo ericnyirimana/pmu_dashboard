@@ -99,11 +99,8 @@ class MenuController extends Controller
     public function show(Menu $menu)
     {
 
-
         return view('admin.menu.view')->with([
                 'menu' => $menu,
-                'users' => $users,
-                'media' => $media
             ]
         );
 
@@ -124,15 +121,12 @@ class MenuController extends Controller
         $dishesProducts = $menu->products()->where('type', 'Dish')->where('status_product', 'APPROVED')->get();
         $drinksProducts = $menu->products()->where('type', 'Drink')->where('status_product', 'APPROVED')->get();
 
-        // $media = $menu->media()->get();
-
         return view('admin.menu.edit')->with([
                 'menu' => $menu,
                 'companies' => $companies,
                 'restaurants' => $restaurants,
                 'dishesProducts' => $dishesProducts,
                 'drinksProducts' => $drinksProducts,
-                // 'media' => $media
             ]
         );
 
@@ -151,7 +145,6 @@ class MenuController extends Controller
         $fields['status'] = $request->status ? true : false;
 
         $menu->update($fields);
-
 
         return redirect()->route('menu.index', $menu)->with([
             'notification' => trans('messages.notification.menu_saved'),

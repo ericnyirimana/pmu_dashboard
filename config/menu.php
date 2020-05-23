@@ -3,10 +3,10 @@ return [
 
     'admin' => [
         'dashboard' => [
-            'class' => '',
+            'class' => 'Dashboard',
             'icon' => 'fi-air-play',
             'routes' => [
-                'dashboard' => 'dashboard.index',
+                'home' => 'dashboard.index',
             ],
         ],
         'company' => [

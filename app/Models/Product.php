@@ -67,6 +67,14 @@ class Product extends Model
 
     }
 
+    public function getImageAttribute() {
+
+        if ($this->media->count()>0) {
+            return $this->media->first()->getImageSize('medium');
+        }
+
+    }
+
     public function section() {
 
         return $this->belongsTo('App\Models\MenuSection', 'menu_section_id');

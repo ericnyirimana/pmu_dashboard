@@ -270,6 +270,10 @@ figure img {
   margin: 10px 5px;
 }
 
+.media-container-body figure .view-file-container {
+  height: 80px;
+}
+
 .media-container-body figure img {
   border: 2px solid #B2CCE3;
   padding: 5px;
@@ -366,6 +370,12 @@ figure img {
   margin-bottom: 30px;
 }
 
+.container-plate-preview img {
+  width: 100px;
+  margin: 10px;
+  border-radius: 5px;
+}
+
 .container-plate-preview figure {
   width: 100px;
   text-align: center;
@@ -401,7 +411,7 @@ figure img {
 .container-plate-preview .plate-preview-price {
   margin: 15px;
   font-size: 1.4rem;
-  width: 100px;
+  width: 150px;
 }
 
 .container-plate-preview .plate-preview-actions {

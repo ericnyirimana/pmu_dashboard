@@ -11,7 +11,7 @@ class Pickup extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
+    protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end', 'status_pickup'];
 
     protected $dates = ['date_ini', 'date_end', 'deleted_at'];
 
@@ -215,6 +215,12 @@ class Pickup extends Model
     {
         $today = Carbon::now();
         return ($today->gte($this->date_ini) &&  $today->lte($this->date_end));
+    }
+
+    public function getIsPendingAttribute() {
+
+        return ($this->status_pickup == 'PENDING');
+
     }
 
 }

@@ -2,17 +2,17 @@
       <label for="{{ $field }}">{{ $label }}</label>
 
       <div class="fileupload">
-          <div class="box-image thumbnail ">
+          <div class="box-image thumbnail">
               @if ( empty($model->$field) )
                 <i class="fa fa-file-image-o fa-2x"></i>
-              @else
+              @elseif($model->media)
                   <img src="{{ $model->media->getImageSize('medium') }}" class="rounded" />
                   <input type='hidden' name='media_id' value='{{ $model->media_id }}'>
               @endif
           </div>
           <div>
               <button type="button" class="btn btn-secondary btn-file btn-add-image" data-toggle="modal" data-target="#mediaModal">
-                  <span class=""><i class="fa fa-paper-clip"></i> Select image</span>
+                  <span class=""><i class="fa fa-paper-clip"></i> {{ ucfirst(trans('button.select_image')) }}</span>
               </button>
           </div>
       </div>

@@ -144,12 +144,19 @@ class CompanyController extends Controller
         if ($fields['owner_id']) {
             if ($ownerOld && $fields['owner_id'] != $ownerOld->id) {
                 //clean old relations
+                $ownerOld->role = 'CUSTOMER';
                 $ownerOld->brand()->sync([]);
                 $ownerOld->restaurant()->sync([]);
+                $ownerOld->save();
             }
 
             //set new one
-            User::find($fields['owner_id'])->brand()->sync($company->id);
+            $ownerNew = User::find($fields['owner_id']);
+            $ownerNew->brand()->sync($company->id);
+            // Relation with all restaurant in company
+            $restaurantIDs = $company->restaurants()->pluck('id');
+            $ownerNew->restaurant()->sync($restaurantIDs);
+
         }
 
         return redirect()->route('companies.index')->with([

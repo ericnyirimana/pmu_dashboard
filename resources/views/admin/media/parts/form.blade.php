@@ -43,7 +43,7 @@
                   @endif
               @endif
 
-              @if(Auth::user()->is_owner || Auth::user()->is_restaurateur)
+              @if(Auth::user()->is_owner || Auth::user()->is_restaurant)
                  @if($media->status_media == 'APPROVE')
                  <button type="submit" field="status_media" name="status_media" value="APPROVE" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
                  @else

@@ -27,7 +27,7 @@ class TimeslotPolicy
      * @param  \App\Mealtype  $mealtype
      * @return mixed
      */
-    public function view(User $user, Timeslot $timeslot)
+    public function view(User $user)
     {
         return ($user->is_restaurant || $user->is_owner);
     }
@@ -40,7 +40,7 @@ class TimeslotPolicy
      */
     public function create(User $user)
     {
-        return ($user->is_restaurant || $user->is_owner);
+        return ($user->is_super);
     }
 
     /**

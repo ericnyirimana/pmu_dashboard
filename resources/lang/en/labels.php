@@ -51,7 +51,10 @@ return [
     '' => 'Validate subscription',
     'modal' => [
         'confirm_remove_title' => 'Remove register',
-        'confirm_remove_text' => 'Do you want to remove register'
+        'confirm_remove_text' => 'Do you want to remove register',
+        'no_products' => 'The restaurant has no products',
+        'new_dish' => 'New dish',
+        'new_drink' => 'New drink'
     ],
     'entries_to_be_welded' => 'Entries to be welded',
     'orders_suspend' => 'Orders suspend',
@@ -64,6 +67,7 @@ return [
     'mealtypes' => 'Mealtypes',
     'categories' => 'Categories',
     'restaurants' => 'Restaurants',
+    'timeslots' => 'Timeslots',
     'all_day' => 'All day',
     'company' => 'Company',
     'restaurant' => 'Restaurant',

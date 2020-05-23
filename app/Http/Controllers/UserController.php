@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Restaurant;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -10,7 +11,6 @@ use App\Models\User;
 use Auth;
 use Cookie;
 use App\Libraries\Cognito;
-use Carbon\Carbon;
 use Illuminate\Validation\Rule;
 
 
@@ -31,7 +31,7 @@ class UserController extends Controller
         $rules = [
             'name' => 'required',
             'brand_id' => 'required_if:role,RESTAURATEUR,OWNER',
-            'restaurant_id' => 'required_if:role,RESTAURATEUR,OWNER'
+            'restaurant_id' => 'required_if:role,RESTAURATEUR'
         ];
 
         if ($user) {
@@ -121,14 +121,18 @@ class UserController extends Controller
 
         $user = User::create($fields);
 
-        if ($fields['brand_id']) {
+        if (isset($fields['brand_id'])) {
             $user->brand()->sync($fields['brand_id']);
             if ($user->is_owner) {
                 $company = Company::find($fields['brand_id']);
                 $company->owner_id = $user->id;
                 $company->save();
+
+                // Relation with all restaurant in company
+                $restaurantIDs = $company->restaurants()->pluck('id');
+                $user->restaurant()->sync($restaurantIDs);
             }
-            if ($fields['restaurant_id']) {
+            if (isset($fields['restaurant_id']) && !$user->is_owner) {
                 $user->restaurant()->sync($fields['restaurant_id']);
             }
         }
@@ -170,23 +174,21 @@ class UserController extends Controller
 
         $fields['profile'] = json_encode($arrayAttributes);
 
-
         $user->update($fields);
-
 
         $client = new Cognito();
         $us = $client->getUser($user->sub);
 
         $client->updateUser($user->sub, $arrayAttributes);
 
-        if ($fields['brand_id']) {
+        if (isset($fields['brand_id'])) {
             $user->brand()->sync($fields['brand_id']);
             if ($user->is_owner) {
                 $company = Company::find($fields['brand_id']);
                 $company->owner_id = $user->id;
                 $company->save();
             }
-            if ($fields['restaurant_id']) {
+            if (isset($fields['restaurant_id'])) {
                 $user->restaurant()->sync($fields['restaurant_id']);
             } else {
                 $user->restaurant()->sync([]);

@@ -3,12 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Dashboard;
+use App\Models\OrderPickup;
 use App\Models\Pickup;
 
 use Auth;
 
 class DashboardController extends Controller
 {
+
+    public function __construct()
+    {
+
+        $this->authorizeResource(Dashboard::class);
+
+    }
 
     public function login() {
 
@@ -25,10 +34,12 @@ class DashboardController extends Controller
         }
 
         $pickups = Pickup::limit(4)->get();
+        $ordersPickup = OrderPickup::limit(4)->get();
 
         return view('admin.index')
             ->with(compact('companies'))
-            ->with(compact('pickups'));
+            ->with(compact('pickups'))
+            ->with(compact('ordersPickup'));
 
     }
 

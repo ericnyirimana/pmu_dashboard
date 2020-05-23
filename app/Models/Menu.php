@@ -53,7 +53,6 @@ class Menu extends Model
 
     }
 
-
     public function getIsApprovedAttribute() {
 
         return ($this->status_menu == 'APPROVED');

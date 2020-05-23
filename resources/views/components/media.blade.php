@@ -72,23 +72,31 @@
                      data-status="{{$file->status_media}}">
                     <figure class="view-file">
                         <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
+                        <div class="view-file-container">
                         <label>{{ $file->name }}</label>
+                        <label>
                         @if($file->company)
-                            <label>{{ $file->company_name }}</label>
+                            {{ $file->company_name }}
                         @endif
+                        </label>
+                        <label>
                         @if($file->restaurant)
-                            <label>{{ $file->restaurant->name }}</label>
+                            {{ $file->restaurant->name }}
                         @endif
-                        @if($file->status_media == 'PENDING')
-                            <button type="button" class="btn btn-primary mt-3 w-100 js-approve-media"
-                                    data-id="{{ $file->id }}">
-                                {{ ucfirst(trans('button.wait_approves')) }}
-                            </button>
-                        @else
-                            <button type="button" class="btn btn-success mt-3 w-100 js-wait-media" data-id="{{
-                                $file->id }}">
-                                {{ ucfirst(trans('button.approved')) }}
-                            </button>
+                        </label>
+                        </div>
+                        @if(Auth::user()->is_super)
+                            @if($file->status_media == 'PENDING')
+                                <button type="button" class="btn btn-primary mt-3 w-100 js-approve-media"
+                                        data-id="{{ $file->id }}">
+                                    {{ ucfirst(trans('button.wait_approves')) }}
+                                </button>
+                            @else
+                                <button type="button" class="btn btn-success mt-3 w-100 js-wait-media"
+                                        data-id="{{$file->id }}">
+                                    {{ ucfirst(trans('button.approved')) }}
+                                </button>
+                            @endif
                         @endif
                     </figure>
                 </div>

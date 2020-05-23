@@ -242,7 +242,7 @@ class MediaController extends Controller
             $media->save();
             return response()->json($media, 200);
         } catch (\Exception $exception) {
-            return response()->json(['error' => 'Something was worng'], 500);
+            return response()->json(['error' => 'Something was wrong'], 500);
         }
     }
 
