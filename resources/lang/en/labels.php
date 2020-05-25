@@ -76,5 +76,13 @@ return [
     'all_restaurants' => 'All restaurants',
     'all' => 'All',
     'approved' => 'Approved',
-    'pending' => 'Pending'
+    'pending' => 'Pending',
+    'pickup_status' => [
+        'draft' => 'Bozza',
+        'actived' => 'Activ',
+        'expired' => 'Expired',
+        'progress' => 'In progress',
+        'disable' => 'Disabled',
+        'scheduled' => 'Scheduled'
+    ]
 ];

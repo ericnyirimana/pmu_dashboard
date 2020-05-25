@@ -36,8 +36,7 @@ class PickupController extends Controller
             'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
             'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
             'date' => ['required'],
-            'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant],
-            'status_pickup'
+            'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant]
 
         ];
 
@@ -104,11 +103,6 @@ class PickupController extends Controller
             $pickup->subscription()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7, 'validate_days' => 5]);
         }
         $this->saveTranslation($pickup, $fields);
-
-        // if pickup is only updated set to PENDING status
-        if (!isset($fields['status_pickup'])) {
-            $fields['status_pickup'] = 'PENDING';
-        }
 
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
