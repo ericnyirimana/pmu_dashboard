@@ -26,7 +26,12 @@
           @if($pickup->id)
             <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="$pickup->restaurant->timeslots" required  />
           @else
-            <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="[]" required  />
+              @if(Auth::user()->is_restaurant && Auth::user()->restaurant->first())
+                <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
+                              type="relation" :values="Auth::user()->restaurant->first()->timeslots" required  />
+              @else
+                <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="[]" required  />
+              @endif
           @endif
     </div>
 </div>

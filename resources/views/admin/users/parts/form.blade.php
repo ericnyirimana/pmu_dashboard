@@ -8,17 +8,19 @@
     </div>
     <div class="col-12 col-md-6">
         <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user"
-                      :values="config('cognito.roles')" required/>
+                      :values="config('cognito.roles')" required {{--@if(Auth::user()->is_restaurant) disabled @endif--}}/>
     </div>
     <div class="col-12 col-md-6 js-brand">
         <field-select label="Company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
                       :model="$user->brand->first()"
-                      :values="$user->brand"/>
+                      :values="$user->brand"
+                      {{--@if(Auth::user()->is_restaurant) disabled @endif--}}/>
     </div>
     <div class="col-12 col-md-6 js-restaurant">
         <field-select label="Restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id" type="relation"
                       :model="$user->restaurant->first()"
-                      :values="$user->restaurant"/>
+                      :values="$user->restaurant"
+                      {{--@if(Auth::user()->is_restaurant) disabled @endif--}}/>
     </div>
     <div class="col-12 col-md-8">
         {{--<field-image label="Immagine profilo" field="profile_image" :model="$user" />--}}
@@ -71,7 +73,6 @@
                 $('.js-restaurant').show();
                 $('#restaurant_id').prop('disabled', false);
             }
-
 
 
             $(document).on('change', '#role', function () {
