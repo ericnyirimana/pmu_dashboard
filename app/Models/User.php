@@ -133,6 +133,11 @@ class User extends Authenticatable
 
     }
 
+    public function getIsManagerAttribute() {
+        return ($this->is_owner ||
+            $this->is_restaurant);
+    }
+
 //    public function getIsSalesAssistantAttribute()
 //    {
 //
