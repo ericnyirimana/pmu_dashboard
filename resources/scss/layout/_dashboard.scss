@@ -1,7 +1,7 @@
 
-$base-blue-color: #133D64;
+$base-blue-color: #003D67;
 $base-blue-dark-color: #11375A;
-$base-blue-light-color: #B2CCE3;
+$base-blue-light-color: #ABCCE5;
 $base-blue-dark-light-color: #92B1CC;
 * {
   font-family: 'Nunito Sans';
@@ -17,6 +17,10 @@ $base-blue-dark-light-color: #92B1CC;
     width: 55px;
     height: 30px;
     vertical-align: middle;
+  }
+
+  .topbar-left{
+    background: #003D67;
   }
 }
 
@@ -55,4 +59,34 @@ $base-blue-dark-light-color: #92B1CC;
       }
     }
   }
+}
+
+
+// CUSTOM
+
+
+.recap-box{
+  
+}
+
+.recap-box > .row > div:nth-child(2){
+  text-align: right;
+}
+.recap-box > .row > div:nth-child(2) i{
+  font-size: 1.5rem;
+  line-height: 1.5;
+  margin-right: 1rem;
+}
+
+.recap-icon{
+  font-size: 3rem;
+  width: 5rem;
+  height: 5rem;
+  text-align: center;
+  background: #f7f7f7;
+  border-radius: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
 }

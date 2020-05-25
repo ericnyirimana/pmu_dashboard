@@ -54,21 +54,96 @@
         </div>
     @elseif(Auth::user()->is_restaurant)
         <div class="row mb-3">
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class=" card-box table-responsive recap-box">
+                    <div class="row">
+                        <div class="col-4 d-flex">
+                            <div class="recap-icon">
+                                <span>💶</span>
+                            </div>
+                        </div>
+                        <div class="col-8 d-flex flex-column">
+                            <div class="col-12">
+                                <b>TOTALE GUADAGNI</b>    
+                                <h2><i class="fa fa-arrow-up"></i>€ 1000</h2>
+                                <p style="margin-bottom: 0">Apr-Mar 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class=" card-box table-responsive recap-box">
+                    <div class="row">
+                        <div class="col-4 d-flex">
+                            <div class="recap-icon">
+                                <span>😋</span>
+                            </div>
+                        </div>
+                        <div class="col-8 d-flex flex-column">
+                            <div class="col-12">
+                                <b>ORDINI RICEVUTI</b>    
+                                <h2><i class="fa fa-arrow-up"></i>300</h2>
+                                <p style="margin-bottom: 0">Apr-Mar 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class=" card-box table-responsive recap-box">
+                    <div class="row">
+                        <div class="col-4 d-flex">
+                            <div class="recap-icon">
+                                <span>🍝</span>
+                            </div>
+                        </div>
+                        <div class="col-8 d-flex flex-column">
+                            <div class="col-12">
+                                <b>OFFERTE CREATE</b>    
+                                <h2>40</h2>
+                                <p style="margin-bottom: 0">Apr-Mar 2020</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-3">
+                <div class=" card-box table-responsive recap-box">
+                    <div class="row">
+                        <div class="col-4 d-flex">
+                            <div class="recap-icon">
+                                <span>🗓️</span>
+                            </div>
+                        </div>
+                        <div class="col-8 d-flex flex-column">
+                            <div class="col-12">
+                                <b>GIORNI SU PMU</b>    
+                                <h2>245</h2>
+                                <p style="margin-bottom: 0">2020 - -OGGI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
             <div class="col-12 col-md-8">
                 <div class=" card-box table-responsive h-100">
 
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
                     @if($ordersPickup->count() > 0)
                     <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
-                    'datatable.headers.date'      => 'order:date_format',
+                    
+                    'Id'      => 'pickup:id',
                     'datatable.headers.hour'      => 'order:hour_format',
                     'datatable.headers.offer'      => 'pickup:name',
                     'datatable.headers.price' => 'pickup:price',
                     ]"
-                  actions='view'
+                  actions='view delete'
                     />
                     @endif
-
                 </div>
             </div>
 
