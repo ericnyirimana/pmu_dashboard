@@ -82,6 +82,7 @@ return [
         'expired' => 'Scaduta',
         'progress' => 'In corso',
         'disable' => 'Disattivata',
-        'scheduled' => 'Programmata'
+        'scheduled' => 'Programmata',
+        'exhausted' => 'Esaurita'
     ]
 ];

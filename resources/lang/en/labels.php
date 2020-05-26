@@ -83,6 +83,7 @@ return [
         'expired' => 'Expired',
         'progress' => 'In progress',
         'disable' => 'Disabled',
-        'scheduled' => 'Scheduled'
+        'scheduled' => 'Scheduled',
+        'exhausted' => 'Exhausted'
     ]
 ];
