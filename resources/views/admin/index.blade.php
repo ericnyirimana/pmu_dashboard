@@ -120,7 +120,7 @@
                             <div class="col-12">
                                 <b>GIORNI SU PMU</b>    
                                 <h2>245</h2>
-                                <p style="margin-bottom: 0">2020 - -OGGI</p>
+                                <p style="margin-bottom: 0">2020 - OGGI</p>
                             </div>
                         </div>
                     </div>
@@ -130,16 +130,16 @@
 
         <div class="row mb-3">
             <div class="col-12 col-md-8">
-                <div class=" card-box table-responsive h-100">
+                <div class=" card-box table-responsive h-100" id="table-last-orders">
 
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
                     @if($ordersPickup->count() > 0)
                     <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
                     
-                    'Id'      => 'pickup:id',
-                    'datatable.headers.hour'      => 'order:hour_format',
-                    'datatable.headers.offer'      => 'pickup:name',
-                    'datatable.headers.price' => 'pickup:price',
+                    'ID'                        => 'pickup:id',
+                    'datatable.headers.hour'    => 'order:hour_format',
+                    'datatable.headers.offer'   => 'pickup:name',
+                    'datatable.headers.price'   => 'pickup:price',
                     ]"
                   actions='view delete'
                     />
@@ -196,6 +196,20 @@
 @endsection
 
 @push('scripts')
-    <script type="text/javascript">
-    </script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('#datatable').DataTable({
+
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+            },
+            "paging" : false,
+            "searching": false,
+            "info": false
+        });
+
+    });
+
+</script>
 @endpush
