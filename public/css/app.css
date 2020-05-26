@@ -81,15 +81,15 @@
   margin: auto;
 }
 
-#table-last-orders #datatable tr td,
-#table-iscoming #datatable tr td {
+#table-last-orders #datatable tr td:not(.actions),
+#table-iscoming #datatable tr td:not(.actions) {
   position: relative;
   padding-left: 2.5rem;
   line-height: 1.3;
 }
 
-#table-last-orders #datatable tr td::before,
-#table-iscoming #datatable tr td::before {
+#table-last-orders #datatable tr td:not(.actions)::before,
+#table-iscoming #datatable tr td:not(.actions)::before {
   content: "";
   position: absolute;
   left: .8rem;
@@ -98,33 +98,36 @@
   background-size: contain;
 }
 
-#table-last-orders #datatable tr td:nth-child(1),
-#table-iscoming #datatable tr td:nth-child(1) {
+#table-last-orders #datatable tr td:not(.actions):nth-child(1),
+#table-iscoming #datatable tr td:not(.actions):nth-child(1) {
   padding-left: 10px;
 }
 
-#table-last-orders #datatable tr td:nth-child(1)::before,
-#table-iscoming #datatable tr td:nth-child(1)::before {
+#table-last-orders #datatable tr td:not(.actions):nth-child(1)::before,
+#table-iscoming #datatable tr td:not(.actions):nth-child(1)::before {
   background-image: '';
 }
 
-#table-last-orders #datatable tr td:nth-child(2)::before,
-#table-iscoming #datatable tr td:nth-child(2)::before {
+#table-last-orders #datatable tr td:not(.actions):nth-child(2)::before,
+#table-iscoming #datatable tr td:not(.actions):nth-child(2)::before {
   background-image: url(/img/pmu_icon_clock.png);
 }
 
-#table-last-orders #datatable tr td:nth-child(3)::before,
-#table-iscoming #datatable tr td:nth-child(3)::before {
+#table-last-orders #datatable tr td:not(.actions):nth-child(3)::before,
+#table-iscoming #datatable tr td:not(.actions):nth-child(3)::before {
   background-image: url(/img/pmu_icon_ticket.png);
 }
 
-#table-last-orders #datatable tr td:nth-child(4)::before,
-#table-iscoming #datatable tr td:nth-child(4)::before {
+#table-last-orders #datatable tr td:not(.actions):nth-child(4)::before,
+#table-iscoming #datatable tr td:not(.actions):nth-child(4)::before {
   background-image: url(/img/pmu_icon_basket.png);
 }
 
 #datatable tr td.actions {
   padding-left: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 #datatable tr td.actions img {

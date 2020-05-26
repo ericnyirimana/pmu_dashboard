@@ -48,7 +48,7 @@
                     @endif
                 @endforeach
                 @if(!empty($actions))
-                    <td class="actions" style="width: 5rem">
+                    <td class="actions">
                         @if(!empty($actions) && strstr($actions, 'view') )
                             @if(!empty($parent))
                                 <a href="{{ route($route.'.show', ['payout_id' => $model->id, 'restaurant_id'

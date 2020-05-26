@@ -101,7 +101,7 @@ $base-blue-dark-light-color: #92B1CC;
 #table-last-orders, #table-iscoming{
   #datatable{
     tr{
-      td{
+      td:not(.actions){
         position: relative;
         padding-left: 2.5rem;
         line-height: 1.3;
@@ -142,6 +142,7 @@ $base-blue-dark-light-color: #92B1CC;
   tr{
     td.actions{
       padding-left: 10px;
+      display: flex;
 
       img{
         width: auto;
