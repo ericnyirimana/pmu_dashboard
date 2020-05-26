@@ -1,6 +1,7 @@
 <div class="form-group">
 	<label for="{{ $field }}">{{ __('labels.'.$label) }}</label>
-	<input  type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" aria-describedby="{{ $field }}Help" placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif>
+	<input  type="text" class="form-control" name="{{ $field }}" id="{{ $field }}" aria-describedby="{{ $field
+	}}Help" placeholder="Inserisci {{ $label }} qui" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled)) disabled @endif>
 	@if(isset($help))<small id="{{ $field }}Help" class="form-text text-muted">{{ $help }}</small>@endif
 	<input type="hidden" id="billing_latitude" name="billing_latitude" value="{{ old('billing_latitude', isset($model) ? $model->billing_latitude : '') }}">
 	<input type="hidden" id="billing_longitude" name="billing_longitude" value="{{ old('billing_longitude', isset($model) ? $model->billing_longitude : '') }}">

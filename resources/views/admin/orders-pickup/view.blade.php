@@ -6,7 +6,8 @@
 @include('components.notification')
 
 <div class="card-box">
-    <a href="{{ route('restaurants.edit', $ordersPickup) }}" class="btn btn-primary btn-bordered waves-effect w-lg">{{ ucfirst(trans('button.back')) }}</a>
+    <a href="{{ route('restaurants.edit', $ordersPickup->pickup->restaurant) }}" class="btn btn-primary btn-bordered
+    waves-effect w-lg">{{ ucfirst(trans('button.back')) }}</a>
 </div>
 
 <tag-form :action="route('orders-pickup.update', $ordersPickup)" method="put">

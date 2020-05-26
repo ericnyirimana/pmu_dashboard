@@ -52,31 +52,34 @@
                         @if(!empty($actions) && strstr($actions, 'view') )
                             @if(!empty($parent))
                                 <a href="{{ route($route.'.show', ['payout_id' => $model->id, 'restaurant_id'
-                            => '5'] )}}"
-                                   class="btn btn-icon waves-effect waves-light btn-info"><i class="fa fa-search"
-                                                                                                 aria-hidden="true"></i></a>
+                            => '5'] )}}">
+                                    <img src="{{ URL::to('/') }}/img/pmu_icon_search.png" alt="">
+                                </a>
                             @else
-                                <a href="{{ route($route.'.show', $model->id )}}"
-                                   class="btn btn-icon waves-effect waves-light btn-info"><i class="fa fa-search"
-                                                                                                 aria-hidden="true"></i></a>
+                                <a href="{{ route($route.'.show', $model->id )}}">
+                                   <img src="{{ URL::to('/') }}/img/pmu_icon_search.png" alt="">
+                                </a>
                             @endif
                         @endif
                         @if(!empty($actions) && strstr($actions, 'edit'))
-                            <a href="{{ route($route.'.edit', $model->id )}}"
-                               class="btn btn-icon waves-effect waves-light btn-success"><i class="fa fa-edit"
-                                                                                            aria-hidden="true"></i></a>
+                            <a href="{{ route($route.'.edit', $model->id )}}">
+                                <img src="{{ URL::to('/') }}/img/pmu_icon_edit.png" alt="">
+                            </a>
                         @endif
                         @if( !empty($actions) && strstr($actions, 'delete'))
                             @if(empty($model->deleted_at))
                                 <a href="#remove-register"
-                                   class="btn btn-icon waves-effect waves-light btn-danger rm-register"
                                    data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
-                                   data-target=".remove-register"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                   data-target=".remove-register">
+                                   <img src="{{ URL::to('/') }}/img/pmu_icon_bin.png" alt="">
+                                </a>
                             @else
                                 <a href="#remove-register"
-                                   class="btn btn-icon waves-effect waves-light btn-warning rm-register"
                                    data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
-                                   data-target=".remove-register"><i class="fa fa-ban" aria-hidden="true"></i></a>
+                                   data-target=".remove-register">
+
+                                   <img src="{{ URL::to('/') }}/img/pmu_icon_deny.png" alt="">
+                                </a>
                             @endif
                         @endif
                     </td>

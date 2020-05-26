@@ -1,14 +1,26 @@
 <h6 class="">{{ ucfirst(trans('labels.general_info')) }}</h6>
 <div class="d-flex flex-row row card-body">
+    @if(Auth::user()->is_manager)
     <div class="col-md-12 col-lg-6">
-          <field-text label="name" field="name" :model="$restaurant" required  />
+          <field-text label="name" field="name" :model="$restaurant"  disabled />
     </div>
     <div class="col-md-12 col-lg-6">
-          <field-map label="address" field="address" :model="$restaurant" required  />
+          <field-map label="address" field="address" :model="$restaurant"  disabled />
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="merchant_id" field="merchant_stripe" :model="$restaurant" />
+        <field-text label="merchant_id" field="merchant_stripe" :model="$restaurant" disabled />
     </div>
+    @else
+        <div class="col-md-12 col-lg-6">
+            <field-text label="name" field="name" :model="$restaurant" required />
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <field-map label="address" field="address" :model="$restaurant" required  />
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <field-text label="merchant_id" field="merchant_stripe" :model="$restaurant" />
+        </div>
+    @endif
 </div>
 
 <hr />
@@ -16,7 +28,12 @@
 <h6 class="">{{ ucfirst(trans('labels.banking_data')) }}</h6>
 <div class="d-flex flex-row row card-body">
     <div class="col-md-12 col-lg-6">
+        @if(Auth::user()->is_manager)
+            <field-map-billing-address label="billing_address" field="billing_address" :model="$restaurant" disabled />
+
+        @else
         <field-map-billing-address label="billing_address" field="billing_address" :model="$restaurant" required  />
+        @endif
     </div>
     <div class="col-md-12 col-lg-6">
         @if(Auth::user()->is_super)
@@ -34,14 +51,29 @@
         @endif
     </div>
     <div class="col-md-12 col-lg-2">
-        <field-text label="fee_pmu" field="fee" :model="$restaurant" required />
+        @if(Auth::user()->is_super)
+            <field-text label="fee_pmu" field="fee" :model="$restaurant" required />
+        @else
+            <field-text label="fee_pmu" field="fee" :model="$restaurant" disabled />
+        @endif
+
     </div>
 
     <div class="col-md-12 col-lg-6">
-        <field-text label="pec" field="pec" :model="$restaurant" required />
+        @if(Auth::user()->is_super)
+            <field-text label="pec" field="pec" :model="$restaurant" required />
+        @else
+            <field-text label="pec" field="pec" :model="$restaurant" disabled />
+        @endif
+
     </div>
     <div class="col-md-12 col-lg-6">
-        <field-text label="identifier_code" field="id_code" :model="$restaurant" required />
+        @if(Auth::user()->is_super)
+            <field-text label="identifier_code" field="id_code" :model="$restaurant" required />
+        @else
+            <field-text label="identifier_code" field="id_code" :model="$restaurant" disabled />
+        @endif
+
     </div>
 </div>
 

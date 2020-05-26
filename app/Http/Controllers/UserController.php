@@ -97,7 +97,8 @@ class UserController extends Controller
         $company = Company::all();
         return view('admin.users.create')->with([
             'user' => $user,
-            'company' => $company
+            'company' => $company,
+            'edit' => false
         ]);
 
     }
@@ -158,7 +159,11 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $company = Company::all();
-        return view('admin.users.edit')->with(['user' => $user, 'company' => $company]);
+        return view('admin.users.edit')->with([
+            'user' => $user,
+            'company' => $company,
+            'edit' => true
+        ]);
 
     }
 
@@ -187,19 +192,27 @@ class UserController extends Controller
                 $company = Company::find($fields['brand_id']);
                 $company->owner_id = $user->id;
                 $company->save();
-            }
-            if (isset($fields['restaurant_id'])) {
-                $user->restaurant()->sync($fields['restaurant_id']);
+
+                // Relation with all restaurant in company
+                $restaurantIDs = $company->restaurants()->pluck('id');
+                $user->restaurant()->sync($restaurantIDs);
             } else {
-                $user->restaurant()->sync([]);
+                if (isset($fields['restaurant_id'])) {
+                    $user->restaurant()->sync($fields['restaurant_id']);
+                } else {
+                    $user->restaurant()->sync([]);
+                }
             }
+
         } else {
-            $user->restaurant()->sync([]);
-            $user->brand()->sync([]);
-            if ($user->company) {
-                $company = Company::find($user->company->id);
-                $company->owner_id = null;
-                $company->save();
+            if (Auth::user()->is_super) {
+                $user->restaurant()->sync([]);
+                $user->brand()->sync([]);
+                if ($user->company) {
+                    $company = Company::find($user->company->id);
+                    $company->owner_id = null;
+                    $company->save();
+                }
             }
         }
 

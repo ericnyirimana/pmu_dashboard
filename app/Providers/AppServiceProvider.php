@@ -66,7 +66,7 @@ class AppServiceProvider extends ServiceProvider
               $restaurants = \App\Models\Restaurant::all();
             } else {
               $companies = Auth::user()->brand->first();
-              $restaurants = Auth::user()->brand->first()->restaurants;
+              $restaurants = Auth::user()->restaurant;
             }
 
               $view->with([

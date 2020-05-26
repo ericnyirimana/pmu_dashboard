@@ -13,6 +13,7 @@
                @if(isset($required))parsley-trigger="change" required @endif>
     </div>
 </div>
+
 @push('modal')
 @include('admin.media.parts.modal-media')
 @endpush

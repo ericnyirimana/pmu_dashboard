@@ -281,6 +281,17 @@ class Cognito
 
           $userAttributes = $this->setAttributes($attributes);
 
+          $fieldAttrEmailVerified = [
+              'Name'  => 'email_verified',
+              'Value' => 'true',
+          ];
+          array_push($userAttributes, $fieldAttrEmailVerified);
+
+          $fieldAttrEmail = [
+              'Name'  => 'email',
+              'Value' => $username,
+          ];
+          array_push($userAttributes, $fieldAttrEmail);
           try {
 
             $result = $this->client->AdminCreateUser([

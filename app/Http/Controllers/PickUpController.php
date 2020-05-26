@@ -36,8 +36,7 @@ class PickupController extends Controller
             'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
             'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
             'date' => ['required'],
-            'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant],
-            'status_pickup'
+            'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant]
 
         ];
 
@@ -105,11 +104,6 @@ class PickupController extends Controller
         }
         $this->saveTranslation($pickup, $fields);
 
-        // if pickup is only updated set to PENDING status
-        if (!isset($fields['status_pickup'])) {
-            $fields['status_pickup'] = 'PENDING';
-        }
-
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
         }
@@ -160,12 +154,12 @@ class PickupController extends Controller
         $fields['date_ini'] = Carbon::parse($dates[0]);
         $fields['date_end'] = Carbon::parse($dates[1]);
 
-        if ($fields['restaurant_id'] == '_all' || $fields['restaurant_id'] == 'Select Company first') {
+        /*if ($fields['restaurant_id'] == '_all' || $fields['restaurant_id'] == 'Select Company first') {
             return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => trans('messages.notification.select_restaurant'),
                 'type-notification' => 'danger'
             ]);
-        }
+        }*/
 
         $pickup->update($fields);
 

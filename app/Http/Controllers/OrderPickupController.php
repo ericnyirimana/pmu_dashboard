@@ -27,7 +27,7 @@ class OrderPickupController extends Controller
         $ordersPickup->order->status = $fields['status'];
         $ordersPickup->order->save();
 
-        return redirect()->route('restaurants.edit', $ordersPickup)->with([
+        return redirect()->route('restaurants.edit', $ordersPickup->pickup->restaurant)->with([
             'notification' => trans('messages.notification.order_confirmed'),
             'type-notification' => 'success'
         ]);
