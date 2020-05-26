@@ -179,10 +179,15 @@ class Pickup extends Model
     {
 
         if ($this->type_pickup == 'offer') {
-            return $this->offer->quantity_remain;
-        } else {
-            return $this->subscription->quantity_remain;
+            $quantity = $this->offer->quantity_offer;
+        } elseif ($this->type_pickup == 'subscription') {
+            $quantity = $this->subscription->quantity_offer;
         }
+        $sumTmp = 0;
+        foreach ($this->ordersToday as $dailyOrder) {
+            $sumTmp += $dailyOrder->quantity;
+        }
+        return $quantity - $sumTmp;
 
     }
 
@@ -226,6 +231,11 @@ class Pickup extends Model
             !isset($this->restaurant) ||
             $this->products->count() < 1) {
             return trans('labels.pickup_status.draft'); //BOZZA
+        }
+
+        //Controllo quantità
+        if ($this->quantity_remain <= 0) {
+            return trans('labels.pickup_status.exhausted'); //esaurita
         }
 
         $today = Carbon::now();
