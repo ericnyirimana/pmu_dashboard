@@ -15,7 +15,15 @@
     @elseif(Auth::user()->is_super && !$model->id)
     <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model" :values="[]" foreignid="restaurant_id" required />
     @elseif(!$model->id)
-    <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model" :values="Auth::user()->brand->first()->restaurants" foreignid="restaurant_id" required />
+        @if(Auth::user()->is_restaurant)
+            <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model"
+                          :values="Auth::user()->restaurant->first()"
+                          foreignid="restaurant_id" required />
+        @else
+            <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model" :values="[]"
+                          foreignid="restaurant_id" required />
+        @endif
+
     @elseif(Auth::user()->is_owner)
     <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model" :values="Auth::user()->brand->first()->restaurants" foreignid="restaurant_id" required />
     @else

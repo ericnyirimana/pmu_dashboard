@@ -11,7 +11,7 @@ class Pickup extends Model
 
     use SoftDeletes;
 
-    protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end', 'status_pickup'];
+    protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
 
     protected $dates = ['date_ini', 'date_end', 'deleted_at'];
 
@@ -214,13 +214,46 @@ class Pickup extends Model
     public function getIsActiveTodayAttribute()
     {
         $today = Carbon::now();
-        return ($today->gte($this->date_ini) &&  $today->lte($this->date_end));
+        return ($today->lte(Carbon::parse($this->date_end)->subMinutes(30)));
     }
 
-    public function getIsPendingAttribute() {
 
-        return ($this->status_pickup == 'PENDING');
+    public function getStatusPickupAttribute()
+    {
 
+        if (!isset($this->name) ||
+            !isset($this->restaurant) ||
+            $this->products->count() < 1) {
+            return trans('labels.pickup_status.draft'); //BOZZA
+        }
+
+        $today = Carbon::now();
+        if ($today->lt(Carbon::parse($this->date_ini))) {
+            return trans('labels.pickup_status.scheduled'); //PROGRAMMATA
+        } else {
+            if (Carbon::parse($this->date_ini)->isToday() || Carbon::parse($this->date_end)->isToday()) {
+                //TODO controllo timeslots
+                return trans('labels.pickup_status.progress'); //IN CORSO
+            }
+            if ($today->lt(Carbon::parse($this->date_end))) {
+                return trans('labels.pickup_status.progress'); //IN CORSO
+            }
+            /*if (Carbon::parse($this->date_end)->isToday() &&
+                ($today->equalTo(Carbon::parse($this->date_end)) && $this->restaurant->timeslots->map(function ($timeslot)
+                    use ($today) {
+                        $endTimeslot = Carbon::parse($timeslot->hour_end)->subMinute(30);
+                        if ($today->lte(Carbon::parse($timeslot->hour_end)->subMinute(30))) {
+                            return false;
+                        }
+                        return true;
+                    }))
+            ) {
+                return trans('labels.pickup_status.expired'); //SCADUTA
+            } else {
+                return trans('labels.pickup_status.progress'); //IN CORSO
+            }*/
+            return trans('labels.pickup_status.expired'); //SCADUTA
+        }
     }
 
 }

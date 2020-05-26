@@ -26,7 +26,12 @@
           @if($pickup->id)
             <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="$pickup->restaurant->timeslots" required  />
           @else
-            <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="[]" required  />
+              @if(Auth::user()->is_restaurant && Auth::user()->restaurant->first())
+                <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
+                              type="relation" :values="Auth::user()->restaurant->first()->timeslots" required  />
+              @else
+                <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="[]" required  />
+              @endif
           @endif
     </div>
 </div>
@@ -40,23 +45,7 @@
 <div class="row mt-5">
   <div class="col-12">
         <div class="form-group d-flex justify-content-between">
-            @if(Auth::user()->is_super)
-                @if($pickup->id)
-                 <button type="submit" class="btn w-100 btn-success mr-3" field="status_pickup" name="status_pickup" value="PENDING">{{ ucfirst(trans('button.save')) }}</button>
-                 <button type="submit" class="btn w-100 btn-primary" field="status_pickup" name="status_pickup" value="APPROVED">{{ ucfirst(trans('button.approves')) }}</button>
-                @else
-                <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.next')) }} </button>
-                @endif
-            @endif
-
-            @if(Auth::user()->is_owner || Auth::user()->is_restaurant)
-                @if($pickup->id)
-                <button type="submit" class="btn btn-block w-lg btn-success float-right" value="PENDING">{{ ucfirst(trans('button.save')) }}</button>
-                @else
-                <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.next')) }}</button>
-                @endif
-            @endif
-
+            <button type="submit" class="btn btn-block w-lg btn-success float-right">{{ ucfirst(trans('button.next')) }}</button>
         </div>
   </div>
 </div>

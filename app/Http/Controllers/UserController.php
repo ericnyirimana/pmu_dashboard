@@ -97,7 +97,8 @@ class UserController extends Controller
         $company = Company::all();
         return view('admin.users.create')->with([
             'user' => $user,
-            'company' => $company
+            'company' => $company,
+            'edit' => false
         ]);
 
     }
@@ -158,7 +159,11 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $company = Company::all();
-        return view('admin.users.edit')->with(['user' => $user, 'company' => $company]);
+        return view('admin.users.edit')->with([
+            'user' => $user,
+            'company' => $company,
+            'edit' => true
+        ]);
 
     }
 
