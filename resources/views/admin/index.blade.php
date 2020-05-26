@@ -129,7 +129,7 @@
         </div>
 
         <div class="row mb-3">
-            <div class="col-12 col-md-8">
+            <div class="col-12 col-md-6">
                 <div class=" card-box table-responsive h-100" id="table-last-orders">
 
                     <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_orders')) }}</b></h4>
@@ -147,16 +147,19 @@
                 </div>
             </div>
 
-            <div class="col-12 col-md-4">
-                <div class=" card-box table-responsive h-100">
+            <div class="col-12 col-md-6">
+                <div class=" card-box table-responsive h-100" id="table-iscoming">
 
-                    <h4 class="m-t-0 header-title"><b>Sto arrivando!</b></h4>
+                    <h4 class="m-t-0 header-title"><b>Sta arrivando !</b></h4>
                     @if($ordersPickup->count() > 0)
                     <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
-                    'datatable.headers.hour'      => 'order:hour_format',
-                    'datatable.headers.offer'      => 'pickup:name',
-                    'datatable.headers.price' => 'pickup:price',
+                    
+                    'ID'                        => 'pickup:id',
+                    'datatable.headers.hour'    => 'order:hour_format',
+                    'datatable.headers.offer'   => 'pickup:name',
+                    'datatable.headers.price'   => 'pickup:price',
                     ]"
+                  actions='view'
                     />
                     @endif
                 </div>
@@ -197,9 +200,11 @@
 
 @push('scripts')
 <script type="text/javascript">
+
+
     $(document).ready(function() {
 
-        $('#datatable').DataTable({
+        $('.table').DataTable({
 
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
@@ -210,6 +215,8 @@
         });
 
     });
+
+
 
 </script>
 @endpush
