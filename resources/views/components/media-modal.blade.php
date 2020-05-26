@@ -34,7 +34,7 @@
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
                 <div class="form-group">
                     <label for="">{{ __('labels.company') }}</label>
-                    <select id="brand_id" class="form-control" name="company-filter">
+                    <select id="modal_brand_id" class="form-control" name="company-filter">
                         @if(Auth::user()->is_super)
                             <option value="_all">{{ __('labels.all_company') }}</option>
                         @endif
@@ -49,7 +49,7 @@
             <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
                 <div class="form-group">
                     <label for="">{{ __('labels.restaurant') }}</label>
-                    <select id="restaurant_id" class="form-control" name="restaurant-filter">
+                    <select id="modal_restaurant_id" class="form-control" name="restaurant-filter">
                     </select>
                 </div>
             </div>
@@ -75,7 +75,8 @@
             <div class="add-image-container">
                 <input type="hidden" class="src-image" value=""/>
                 <input type="hidden" class="id-image" value=""/>
-                <button type="button" class="btn btn-primary btn-block add-image" data-dismiss="modal">{{ ucfirst(trans('button.add_image')) }}</button>
+                <button type="button" class="btn btn-primary btn-block add-image"
+                        data-dismiss="modal">{{ ucfirst(trans('button.add_image')) }}</button>
             </div>
 
             <div class="edit-image-container">
@@ -104,16 +105,16 @@
 
         $(document).ready(function () {
 
-          initFilters();
+            initFilters();
 
-          //Filters
-          $(document).on('change', '#brand_id', function () {
-            filtersMediaByCompany();
-          });
+            //Filters
+            $(document).on('change', '#modal_brand_id', function () {
+                filtersMediaByCompany();
+            });
 
-          $(document).on('change', '#restaurant_id', function () {
-            filtersMediaByRestaurant();
-          });
+            $(document).on('change', '#modal_restaurant_id', function () {
+                filtersMediaByRestaurant();
+            });
 
             // Search //
             // hide all thumb images except searched name
@@ -211,62 +212,62 @@
 
         function initFilters() {
             @if(Auth::user()->is_owner)
-						if ($('#brand_id').val() != '_all') {
-							loadRestaurants($('#brand_id').val());
-						}
+            if ($('#modal_brand_id').val() != '_all') {
+                loadRestaurants($('#modal_brand_id').val());
+            }
             @elseif(Auth::user()->is_restaurant)
-						$('#restaurant_id').append('<option value="{{ Auth::user()->restaurant->first()->id }}">{{
+            $('#modal_restaurant_id').append('<option value="{{ Auth::user()->restaurant->first()->id }}">{{
                 Auth::user()->restaurant->first()->name }}</option>');
             @endif
-				}
+        }
 
         function filtersMediaByCompany() {
-					if ($('#brand_id').val() != '_all') {
-						loadRestaurants($('#brand_id').val());
-						$.each($('.thumb-image'), function (i, el) {
-							if ($(el).data('company-id') == $('#brand_id').val()) {
-								$(el).show();
-							} else {
-								$(el).hide();
-							}
-						})
-					} else {
-						$('.thumb-image').show();
-					}
-				}
+            if ($('#modal_brand_id').val() != '_all') {
+                loadRestaurants($('#modal_brand_id').val());
+                $.each($('.thumb-image'), function (i, el) {
+                    if ($(el).data('company-id') == $('#modal_brand_id').val()) {
+                        $(el).show();
+                    } else {
+                        $(el).hide();
+                    }
+                })
+            } else {
+                $('.thumb-image').show();
+            }
+        }
 
         function filtersMediaByRestaurant() {
-					if ($('#restaurant_id').val() != '_all') {
-						$.each($('.thumb-image'), function (i, el) {
-							if ($(el).data('restaurant-id') == $('#restaurant_id').val()) {
-								$(el).show();
-							} else {
-								$(el).hide();
-							}
-						})
-					} else {
-						filtersMediaByCompany();
-					}
-				}
+            if ($('#modal_restaurant_id').val() != '_all') {
+                $.each($('.thumb-image'), function (i, el) {
+                    if ($(el).data('restaurant-id') == $('#modal_restaurant_id').val()) {
+                        $(el).show();
+                    } else {
+                        $(el).hide();
+                    }
+                })
+            } else {
+                filtersMediaByCompany();
+            }
+        }
 
         function loadRestaurants(id) {
-					var restaurantElem = $("#restaurant_id");
-					if (id) {
-						$.ajax({
-							url: "{{ route('company.restaurants.data') }}/" + id,
-							type: 'GET',
-							success: function (data) {
+            var restaurantElem = $("#modal_restaurant_id");
+            if (id) {
+                $.ajax({
+                    url: "{{ route('company.restaurants.data') }}/" + id,
+                    type: 'GET',
+                    success: function (data) {
 
-								restaurantElem.html('<option value="_all">{{ __("labels.all_restaurants") }}</option>');
+                        restaurantElem.html('<option value="_all">{{ __("labels.all_restaurants") }}</option>');
 
-								$.each(data, function (i, restaurant) {
+                        $.each(data, function (i, restaurant) {
 
-									restaurantElem.append('<option value="' + restaurant.id + '">' + restaurant.name + '</option>')
-								});
-							}
-						});
-					}
-				}
+                            restaurantElem.append('<option value="' + restaurant.id + '">' + restaurant.name + '</option>')
+                        });
+                    }
+                });
+            }
+        }
 
     </script>
 @endpush

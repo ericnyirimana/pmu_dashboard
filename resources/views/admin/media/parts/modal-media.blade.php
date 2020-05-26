@@ -9,7 +9,6 @@
         </button>
       </div>
       <div class="modal-body">
-
         <media-modal :media="$media" :brands="$brands" />
 
       </div>

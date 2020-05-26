@@ -154,12 +154,12 @@ class PickupController extends Controller
         $fields['date_ini'] = Carbon::parse($dates[0]);
         $fields['date_end'] = Carbon::parse($dates[1]);
 
-        if ($fields['restaurant_id'] == '_all' || $fields['restaurant_id'] == 'Select Company first') {
+        /*if ($fields['restaurant_id'] == '_all' || $fields['restaurant_id'] == 'Select Company first') {
             return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => trans('messages.notification.select_restaurant'),
                 'type-notification' => 'danger'
             ]);
-        }
+        }*/
 
         $pickup->update($fields);
 

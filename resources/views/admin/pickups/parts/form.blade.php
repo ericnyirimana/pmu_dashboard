@@ -54,6 +54,7 @@
 <script>
 $(document).ready(function(){
 
+
     $(document).on('change', '#restaurant_id', function(){
 
         loadTimeslots( $(this).val() );
