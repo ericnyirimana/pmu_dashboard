@@ -226,7 +226,28 @@ class Pickup extends Model
     public function getIsActiveTodayAttribute()
     {
         $today = Carbon::now();
-        return ($today->lte(Carbon::parse($this->date_end)->subMinutes(30)));
+        if ($today->lt(Carbon::parse($this->date_ini))) {
+            return false; //PROGRAMMATA
+        } else {
+            if (Carbon::parse($this->date_ini)->isToday() && $today->lt(Carbon::parse($this->date_end))) {
+                return true; //IN CORSO
+            }
+            if (Carbon::parse($this->date_end)->isToday()) {
+                //controllo orario timeslot
+                $endTimeslot = Carbon::now();
+                $endTimeslot->hour(Carbon::parse($this->timeslot->hour_end)->hour);
+                $endTimeslot->minute(Carbon::parse($this->timeslot->hour_end)->minute);
+                if ($today->lte($endTimeslot->subMinute(30))) {
+                    return true; //IN CORSO
+                } else {
+                    return false; //SCADUTA SE PASSATI I 30MIN ALLA FINE
+                }
+            }
+            if ($today->lt(Carbon::parse($this->date_end))) {
+                return true; //IN CORSO
+            }
+            return false; //SCADUTA
+        }
     }
 
 
