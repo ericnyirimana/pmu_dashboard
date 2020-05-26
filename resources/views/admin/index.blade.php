@@ -151,11 +151,11 @@
                 <div class=" card-box table-responsive h-100" id="table-iscoming">
 
                     <h4 class="m-t-0 header-title"><b>Sta arrivando !</b></h4>
-                    @if($ordersPickup->count() > 0)
-                    <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
+                    @if($isComing->count() > 0)
+                    <datatable route='orders-pickup' :collection="$isComing" :fields="[
                     
-                    'ID'                        => 'pickup:id',
-                    'datatable.headers.hour'    => 'order:hour_format',
+                    'ID'                        => 'id_formatted',
+                    'datatable.headers.hour'    => 'updated_at',
                     'datatable.headers.offer'   => 'pickup:name',
                     'datatable.headers.price'   => 'pickup:price',
                     ]"
