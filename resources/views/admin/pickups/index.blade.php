@@ -20,7 +20,9 @@
                 'ID'    => 'id',
                 'datatable.headers.name'  => 'name',
                 'datatable.headers.type'  => 'color:type_pickup:pickup_color',
-                'datatable.headers.status' => 'status_pickup'
+                'datatable.headers.status' => 'status_pickup',
+                'datatable.headers.date_ini' => 'date_ini_formatted',
+                'datatable.headers.date_end' => 'date_end_formatted',
                 ]"
                 actions="edit,delete" />
         </div>
@@ -36,7 +38,8 @@
         $('#datatable').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
-            }
+            },
+            "order": [[0, "desc"]]
 
         });
 

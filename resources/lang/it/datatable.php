@@ -40,7 +40,9 @@ return [
         'date_hour' => 'Data e ora',
         'total' => 'Somma',
         'processing_date' => 'Data eleborazione',
-        'quantity' => 'Quantità'
+        'quantity' => 'Quantità',
+        'date_ini' => 'Data inizio',
+        'date_end' => 'Data fine'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Ristorante',
