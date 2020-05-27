@@ -141,7 +141,7 @@
                     'datatable.headers.offer'   => 'pickup:name',
                     'datatable.headers.price'   => 'pickup:price',
                     ]"
-                  actions='view delete'
+                  actions='view'
                     />
                     @endif
                 </div>
