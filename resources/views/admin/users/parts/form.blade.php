@@ -8,11 +8,11 @@
     </div>
     <div class="col-12 col-md-6">
         @if(Auth::user()->is_manager)
-            <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user"
+            <field-select label="role" field="role" foreignid="role" type="simple" :model="$user"
                           :values="config('cognito.roles')"
                           required disabled="true" />
         @else
-            <field-select label="Role" field="role" foreignid="role" type="simple" :model="$user"
+            <field-select label="role" field="role" foreignid="role" type="simple" :model="$user"
                           :values="config('cognito.roles')"
                           required />
         @endif
@@ -20,13 +20,13 @@
     </div>
     <div class="col-12 col-md-6 js-brand">
         @if(Auth::user()->is_manager)
-            <field-select label="Company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
+            <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
                           :model="$user->brand->first()"
                           :values="$user->brand"
                           disabled="true"
             />
         @else
-            <field-select label="Company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
+            <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
                           :model="$user->brand->first()"
                           :values="$user->brand"
             />
@@ -34,14 +34,14 @@
     </div>
     <div class="col-12 col-md-6 js-restaurant">
         @if(Auth::user()->is_manager)
-            <field-select label="Restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id"
+            <field-select label="restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id"
                           type="relation"
                           :model="$user->restaurant->first()"
                           :values="$user->restaurant"
                           disabled="true"
             />
         @else
-            <field-select label="Restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id"
+            <field-select label="restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id"
                           type="relation"
                           :model="$user->restaurant->first()"
                           :values="$user->restaurant"

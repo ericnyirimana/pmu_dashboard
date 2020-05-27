@@ -20,17 +20,18 @@
 
 <div class="row">
     <div class="col-12 col-md-6">
-          <field-date label="Offer duration" :model="$pickup" field="date" range="true" />
+          <field-date label="offer_duration" :model="$pickup" field="date" range="true" />
     </div>
     <div class="col-12 col-md-6">
           @if($pickup->id)
-            <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="$pickup->restaurant->timeslots" required  />
+            <field-select label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
+                          type="relation" :values="$pickup->restaurant->timeslots" required  />
           @else
               @if(Auth::user()->is_restaurant && Auth::user()->restaurant->first())
-                <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
+                <field-select label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
                               type="relation" :values="Auth::user()->restaurant->first()->timeslots" required  />
               @else
-                <field-select label="Offer disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="[]" required  />
+                <field-select label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup" type="relation" :values="[]" required  />
               @endif
           @endif
     </div>

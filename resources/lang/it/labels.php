@@ -95,5 +95,10 @@ return [
     'type' => 'Tipo',
     'hide' => 'Nascondi',
     'price_range' => 'Fascia di prezzo',
-    'validate_days' => 'Giorni di validità'
+    'validate_days' => 'Giorni di validità',
+    'active' => 'Attiva',
+    'offer_disposable' => 'Disponibilità offerta',
+    'offer_duration' => 'Durata offerta',
+    'owner' => 'Owner',
+    'role' => 'Ruolo'
 ];

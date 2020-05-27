@@ -96,5 +96,10 @@ return [
     'type' => 'Type',
     'hide' => 'Hide',
     'price_range' => 'Price range',
-    'validate_days' => 'Validate days'
+    'validate_days' => 'Validate days',
+    'active' => 'Active',
+    'offer_disposable' => 'Offer disposable',
+    'offer_duration' => 'Offer duration',
+    'owner' => 'Owner',
+    'role' => 'Role'
 ];
