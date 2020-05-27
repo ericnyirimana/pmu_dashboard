@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="{{ $field }}">{{ $label }}</label>
+    <label for="{{ $field }}">{{ __('labels.'.$label) }}</label>
     @if ($type=='relation')
 
       <select id="{{ isset($id) ? $id : $field }}" class="form-control" name="{{ isset($fieldname) ? $fieldname :

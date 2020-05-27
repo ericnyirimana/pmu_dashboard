@@ -21,7 +21,7 @@
 
 <div class="row">
     <div class="col-4">
-        <field-media-list label="Image" field="media_id" :model="$product" />
+        <field-media-list label="image" field="media_id" :model="$product" />
     </div>
 </div>
 

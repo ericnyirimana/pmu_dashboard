@@ -1,15 +1,15 @@
 <div class="col-6 col-md-6">
     @if(Auth::user()->is_super && $model->id)
-        <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model->company"
+        <field-select label="company" field="brand_id" foreignid="id" type="simple" :model="$model->company"
                       :values="$companies->pluck('name', 'id')" required/>
     @elseif(Auth::user()->is_super && !$model->id)
-        <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model"
+        <field-select label="company" field="brand_id" foreignid="id" type="simple" :model="$model"
                       :values="$companies->pluck('name', 'id')" required/>
     @elseif($model->id)
-        <field-select label="Company" field="brand_id" foreignid="id" type="simple" :model="$model->company"
+        <field-select label="company" field="brand_id" foreignid="id" type="simple" :model="$model->company"
                       :values="[$model->company->id => $model->company->name]" required disabled/>
     @else
-        <field-select label="Company" field="brand_id" foreignid="id" type="simple"
+        <field-select label="company" field="brand_id" foreignid="id" type="simple"
                       :model="Auth::user()->brand->first()"
                       :values="[Auth::user()->brand->first()->id => Auth::user()->brand->first()->name]" required
                       disabled/>
@@ -17,30 +17,30 @@
 </div>
 <div class="col-6 col-md-6">
     @if(Auth::user()->is_super && $model->id)
-        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model"
+        <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                       :values="$model->company->restaurants" foreignid="restaurant_id" required/>
     @elseif(Auth::user()->is_super && !$model->id)
-        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model" :values="[]"
+        <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model" :values="[]"
                       foreignid="restaurant_id" required/>
     @elseif(!$model->id)
         @if(Auth::user()->is_restaurant)
-            <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model"
+            <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                           :values="Auth::user()->restaurant->first()"
                           foreignid="restaurant_id" required/>
         @elseif(Auth::user()->is_owner)
-            <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model"
+            <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                           :values="Auth::user()->restaurant"
                           foreignid="restaurant_id" required/>
         @else
-            <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model" :values="[]"
+            <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model" :values="[]"
                           foreignid="restaurant_id" required/>
         @endif
 
     @elseif(Auth::user()->is_owner)
-        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model"
+        <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                       :values="Auth::user()->brand->first()->restaurants" foreignid="restaurant_id" required/>
     @else
-        <field-select label="Restaurant" field="restaurant_id" type="relation" :model="$model"
+        <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                       :values="$model->restaurant" foreignid="restaurant_id" required disabled/>
     @endif
 </div>

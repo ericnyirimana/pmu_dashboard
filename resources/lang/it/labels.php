@@ -84,5 +84,14 @@ return [
         'disable' => 'Disattivata',
         'scheduled' => 'Programmata',
         'exhausted' => 'Esaurita'
-    ]
+    ],
+    'add_food' => 'Aggiungi cibo',
+    'description' => 'Descrizione',
+    'ingredients' => 'Ingredienti',
+    'add_allergens' => 'Aggiungi allergeni',
+    'add_dietaries' => 'Aggiungi diete',
+    'image' => 'Immagine',
+    'images' => 'Immagini',
+    'type' => 'Tipo',
+    'hide' => 'Nascondi'
 ];

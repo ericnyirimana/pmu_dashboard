@@ -1,5 +1,5 @@
 <div class="form-group">
-  <label for="{{ $field }}">{{ $label }}</label>
+  <label for="{{ $field }}">{{ __('labels.'.$label) }}</label>
   <div class="input-group mb-3">
       @if( isset($prepend) )
       <div class="input-group-prepend">

@@ -3,6 +3,5 @@
            @endif data-plugin="switchery" data-color="{{ ($color) ?? '#2b3d51'}}" @if(isset($disabled)) disabled @endif
     /><label
         for="{{ $field
-           }}">{{
-           $label }}</label>
+           }}">{{ __('labels.'.$label) }}</label>
 </div>

@@ -85,5 +85,14 @@ return [
         'disable' => 'Disabled',
         'scheduled' => 'Scheduled',
         'exhausted' => 'Exhausted'
-    ]
+    ],
+    'add_food' => 'Add food',
+    'description' => 'Description',
+    'ingredients' => 'Ingredients',
+    'add_allergens' => 'Add allergens',
+    'add_dietaries' => 'Add dietaries',
+    'image' => 'Image',
+    'images' => 'Images',
+    'type' => 'Type',
+    'hide' => 'Hide'
 ];

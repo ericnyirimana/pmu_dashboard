@@ -132,7 +132,7 @@
 <h6 class="">{{ ucfirst(trans('labels.gallery_restaurant')) }}</h6>
 <div class="card-body">
     <div class="col-12">
-        <field-media-list label="Images" :model="$restaurant" />
+        <field-media-list label="images" :model="$restaurant" />
     </div>
 </div>
 
