@@ -94,5 +94,7 @@ return [
     'image' => 'Image',
     'images' => 'Images',
     'type' => 'Type',
-    'hide' => 'Hide'
+    'hide' => 'Hide',
+    'price_range' => 'Price range',
+    'validate_days' => 'Validate days'
 ];

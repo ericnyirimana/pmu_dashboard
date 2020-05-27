@@ -93,5 +93,7 @@ return [
     'image' => 'Immagine',
     'images' => 'Immagini',
     'type' => 'Tipo',
-    'hide' => 'Nascondi'
+    'hide' => 'Nascondi',
+    'price_range' => 'Fascia di prezzo',
+    'validate_days' => 'Giorni di validità'
 ];

@@ -161,17 +161,23 @@ class PickupController extends Controller
             ]);
         }*/
 
+        foreach ($fields['products'] as $k => $v) {
+
+            if($fields['quantity_offer'] > $fields['quantity'][$k]) {
+                return redirect()->route('pickups.edit', $pickup)->with([
+                    'notification' => trans('messages.notification.pickup_quantity_wrong'),
+                    'type-notification' => 'danger'
+                ]);
+            }
+            $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
+        }
+
         $pickup->update($fields);
 
         if ($pickup->type_pickup == 'offer') {
             $pickup->offer->update($fields);
         } else {
             $pickup->subscription->update($fields);
-        }
-
-        foreach ($fields['products'] as $k => $v) {
-
-            $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
         }
 
         $this->saveTranslation($pickup, $fields);
