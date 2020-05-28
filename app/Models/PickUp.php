@@ -93,6 +93,19 @@ class Pickup extends Model
 
     }
 
+    public function getDateIniFormattedAttribute()
+    {
+
+        return Carbon::parse($this->date_ini)->format('d-m-Y');
+
+    }
+
+    public function getDateEndFormattedAttribute()
+    {
+
+        return Carbon::parse($this->date_end)->format('d-m-Y');
+
+    }
 
     public function getSectionsAttribute()
     {

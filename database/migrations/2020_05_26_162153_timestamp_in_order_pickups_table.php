@@ -14,6 +14,11 @@ class TimestampInOrderPickupsTable extends Migration
     public function up()
     {
         Schema::table('order_pickups', function (Blueprint $table) {
+            $table->dropColumn('created_at');
+            $table->dropColumn('updated_at');
+        });
+
+        Schema::table('order_pickups', function (Blueprint $table) {
             $table->timestamps();
         });
     }

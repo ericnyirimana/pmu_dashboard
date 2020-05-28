@@ -1,6 +1,6 @@
 <div class="form-group">
     <div class="form-check-label">
-        @if(isset($label))<label>{{ $label }}</label>@endif
+        @if(isset($label))<label>{{ __('labels.'.$label) }}</label>@endif
     </div>
 
     @foreach($items as $key=>$item)

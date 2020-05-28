@@ -3,18 +3,19 @@
 
           <field-text label="name" field="name" :model="$category->translate" required  />
 
-          <field-media label="Image" field="media_id" :model="$category" required="new" />
+          <field-media label="image" field="media_id" :model="$category" required="new" />
 
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">
 
           <field-text label="emoji" field="emoji" :model="$category"  />
 
-          <field-select label="Type" field="type" foreignid="type" type="simple" :model="$category" :values="['Food'=>'Food', 'Allergen'=>'Allergen', 'Dietary'=>'Dietary']" required />
+          <field-select label="type" field="type" foreignid="type" type="simple" :model="$category"
+                        :values="['Food'=>'Food', 'Allergen'=>'Allergen', 'Dietary'=>'Dietary']" required />
 
-          <field-area label="Description" field="description" :model="$category->translate"  />
+          <field-area label="description" field="description" :model="$category->translate"  />
 
-        <field-switch label="Hide" field="hide" :model="$category" color="#039cfd" required  />
+        <field-switch label="hide" field="hide" :model="$category" color="#039cfd" required  />
 
     </div>
 </div>

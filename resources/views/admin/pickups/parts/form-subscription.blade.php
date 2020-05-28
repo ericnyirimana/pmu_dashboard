@@ -1,9 +1,11 @@
 <div class="row">
     <div class="col-12 col-md-6">
-        <field-select label="Price range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' => '14 €' ]"  required  />
+        <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14'
+        => '14 €' ]"  required  />
     </div>
     <div class="col-12 col-md-6">
-        <field-select label="Validate Days" field="validate_days" :model="$pickup" type="simple" :values="['20' => '20 Days', '40' => '40 Days']" required />
+        <field-select label="validate_days" field="validate_days" :model="$pickup" type="simple" :values="['20' =>
+        '20 Days', '40' => '40 Days']" required />
     </div>
 </div>
 
@@ -25,6 +27,6 @@
 
 <div class="row">
     <div class="col-4">
-        <field-media-list label="Image" field="media_id" :model="$pickup" required />
+        <field-media-list label="image" field="media_id" :model="$pickup" required />
     </div>
 </div>

@@ -84,5 +84,21 @@ return [
         'disable' => 'Disattivata',
         'scheduled' => 'Programmata',
         'exhausted' => 'Esaurita'
-    ]
+    ],
+    'add_food' => 'Aggiungi cibo',
+    'description' => 'Descrizione',
+    'ingredients' => 'Ingredienti',
+    'add_allergens' => 'Aggiungi allergeni',
+    'add_dietaries' => 'Aggiungi diete',
+    'image' => 'Immagine',
+    'images' => 'Immagini',
+    'type' => 'Tipo',
+    'hide' => 'Nascondi',
+    'price_range' => 'Fascia di prezzo',
+    'validate_days' => 'Giorni di validità',
+    'active' => 'Attiva',
+    'offer_disposable' => 'Disponibilità offerta',
+    'offer_duration' => 'Durata offerta',
+    'owner' => 'Owner',
+    'role' => 'Ruolo'
 ];
