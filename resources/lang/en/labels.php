@@ -85,5 +85,21 @@ return [
         'disable' => 'Disabled',
         'scheduled' => 'Scheduled',
         'exhausted' => 'Exhausted'
-    ]
+    ],
+    'add_food' => 'Add food',
+    'description' => 'Description',
+    'ingredients' => 'Ingredients',
+    'add_allergens' => 'Add allergens',
+    'add_dietaries' => 'Add dietaries',
+    'image' => 'Image',
+    'images' => 'Images',
+    'type' => 'Type',
+    'hide' => 'Hide',
+    'price_range' => 'Price range',
+    'validate_days' => 'Validate days',
+    'active' => 'Active',
+    'offer_disposable' => 'Offer disposable',
+    'offer_duration' => 'Offer duration',
+    'owner' => 'Owner',
+    'role' => 'Role'
 ];

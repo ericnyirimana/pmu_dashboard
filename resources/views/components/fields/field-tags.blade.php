@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="{{ $field }}">Add {{ $label }}</label>
+    <label for="{{ $field }}">{{ __('labels.add_'.$label) }}</label>
     <select class="form-control {{ $field }}-select2" @if(isset($id))id="{{ $id }}"@endif name="{{ $field }}[]"
     multiple="multiple"
             @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && $disabled ==

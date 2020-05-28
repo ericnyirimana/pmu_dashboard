@@ -6,8 +6,9 @@
                   mask="#.### ml." maskreverse="true" />
 </div>
 <div class="col-lg-3 col-md-6">
-      <field-text-group label="Price" field="price" :model="$product" mask="##,##" maskreverse="true" prepend="€" required />
+      <field-text-group label="price" field="price" :model="$product" mask="##,##" maskreverse="true" prepend="€"
+                        required />
 </div>
 <div class="col-12">
-      <field-area label="Ingredients" field="ingredients" :model="$product->translate" />
+      <field-area label="ingredients" field="ingredients" :model="$product->translate" />
 </div>

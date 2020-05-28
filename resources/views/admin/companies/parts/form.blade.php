@@ -3,30 +3,30 @@
         @if(Auth::user()->is_manager)
           <field-text label="name" field="name" :model="$company" required disabled/>
           <field-text label="vat" field="vat" :model="$company" required disabled/>
-          <field-media label="Image" field="media_id" :model="$company" required="new" disabled/>
+          <field-media label="image" field="media_id" :model="$company" required="new" disabled/>
         @else
             <field-text label="name" field="name" :model="$company" required />
             <field-text label="vat" field="vat" :model="$company" required />
-            <field-media label="Image" field="media_id" :model="$company" required="new" />
+            <field-media label="image" field="media_id" :model="$company" required="new" />
         @endif
     </div>
     <div class="col-md-12 col-lg-6 d-flex flex-column">
         @if(Auth::user()->is_manager)
           <field-text label="corporate_name" field="corporate_name" :model="$company" required disabled/>
           @can('create', $company)
-          <field-select label="Owner" field="owner" type="relation" :model="$company" :values="$users"
+          <field-select label="owner" field="owner" type="relation" :model="$company" :values="$users"
                         foreignid="owner_id" disabled />
           @endcan
-          <field-area label="Description" field="description" :model="$company" disabled />
-          <field-switch label="Active" field="status" :model="$company" color="#039cfd" required disabled />
+          <field-area label="description" field="description" :model="$company" disabled />
+          <field-switch label="active" field="status" :model="$company" color="#039cfd" required disabled />
         @else
             <field-text label="corporate_name" field="corporate_name" :model="$company" required />
             @can('create', $company)
-                <field-select label="Owner" field="owner" type="relation" :model="$company" :values="$users"
+                <field-select label="owner" field="owner" type="relation" :model="$company" :values="$users"
                               foreignid="owner_id" />
             @endcan
-            <field-area label="Description" field="description" :model="$company" />
-            <field-switch label="Active" field="status" :model="$company" color="#039cfd" required />
+            <field-area label="description" field="description" :model="$company" />
+            <field-switch label="active" field="status" :model="$company" color="#039cfd" required />
         @endif
     </div>
 </div>

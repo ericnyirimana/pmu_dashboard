@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="{{ @$field }}">{{ $label }}</label>
+    <label for="{{ @$field }}">{{ __('labels.'.$label) }}</label>
     <div class="list-images">
           @if (isset($model->media))
           @foreach ($model->media as $media)

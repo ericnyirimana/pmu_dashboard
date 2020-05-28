@@ -1,5 +1,6 @@
 <div class="col-12 col-md-4">
-      <field-select label="Price range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' => '14 €' ]"  required  />
+      <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
+      '14 €' ]"  required  />
 </div>
 
 @include('admin.pickups.parts.products')
@@ -16,6 +17,6 @@
 
 <div class="row">
     <div class="col-4">
-        <field-media-list label="Image" field="media_id" :model="$pickup" required />
+        <field-media-list label="image" field="media_id" :model="$pickup" required />
     </div>
 </div>
