@@ -40,4 +40,5 @@ return [
     'subscription_detail' => 'Subscription detail',
     'view_all' => 'View all',
     'back_home' => 'Back home',
+    'cancel' => 'Cancel'
 ];

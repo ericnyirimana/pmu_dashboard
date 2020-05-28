@@ -101,5 +101,7 @@ return [
     'offer_disposable' => 'Offer disposable',
     'offer_duration' => 'Offer duration',
     'owner' => 'Owner',
-    'role' => 'Role'
+    'role' => 'Role',
+    'notes' => 'Notes',
+    'id_ticket' => 'ID Ticket',
 ];

@@ -19,7 +19,7 @@ return [
         'orders-pickup' => 'Ordini',
         'subscriptions' => 'Abbonamenti',
         'subscription' => 'Abbonamento',
-        'payments' => 'Storico pagamenti'
-
+        'payments' => 'Storico pagamenti',
+        'ticket' => 'Ticket'
     ]
 ];

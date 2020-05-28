@@ -100,5 +100,7 @@ return [
     'offer_disposable' => 'Disponibilità offerta',
     'offer_duration' => 'Durata offerta',
     'owner' => 'Owner',
-    'role' => 'Ruolo'
+    'role' => 'Ruolo',
+    'notes' => 'Note',
+    'id_ticket' => 'ID Ticket',
 ];

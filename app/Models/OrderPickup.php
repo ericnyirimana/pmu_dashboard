@@ -19,17 +19,21 @@ class OrderPickup extends Model
 
     public function getDateFormatAttribute() {
 
-        return $this->updated_at ? Carbon::parse($this->updated_at)->format('d/m/Y') : '';
+        return $this->updated_at ? Carbon::parse($this->created_at)->format('d/m/Y') : '';
 
     }
 
     public function getHourFormatAttribute() {
 
-        return $this->updated_at ? Carbon::parse($this->updated_at)->format('H:i') : '';
+        return $this->updated_at ? Carbon::parse($this->created_at)->format('H:i') : '';
 
     }
 
     public function getIdFormattedAttribute() {
         return $this->id;
+    }
+
+    public function getPickupNameAttribute() {
+        return $this->pickup() ? $this->pickup()->first()->name : 'No Pickup found';
     }
 }

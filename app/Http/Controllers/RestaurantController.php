@@ -6,6 +6,7 @@ use App\Libraries\StripeIntegration;
 use App\Models\OrderPickup;
 use App\Models\Pickup;
 use App\Models\PickupSubscription;
+use App\Models\SubscriptionTicket;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\ClosedDay;
@@ -95,7 +96,7 @@ class RestaurantController extends Controller
         // save on aux
         $openings = $fields['openings'];
         $closings = $fields['closings'];
-        if(isset($fields['timeslots'])) {
+        if (isset($fields['timeslots'])) {
             $timeslots = $fields['timeslots'];
         }
 
@@ -109,7 +110,7 @@ class RestaurantController extends Controller
         $this->saveOpeningsHours($restaurant->id, $openings);
         $this->saveClosedDays($restaurant->id, $closings);
 
-        if(isset($restaurant->id, $timeslots)) {
+        if (isset($restaurant->id, $timeslots)) {
             $this->saveTimeslots($restaurant->id, $timeslots);
         }
 
@@ -199,6 +200,22 @@ class RestaurantController extends Controller
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
         $pickupSubscriptions = PickupSubscription::whereIn('pickup_id', $pickupsId)->get();
 
+        //Prepare tickets data
+        $tickets = OrderPickup::whereHas('pickup', function ($q) use ($restaurant) {
+
+            $q->where([
+                    ['restaurant_id', $restaurant->id],
+                    ['type_pickup', 'offer']
+            ]);
+        })->get();
+
+        $ticketsSubscription = SubscriptionTicket::whereHas('pickup', function ($q) use ($restaurant) {
+            $q->where('restaurant_id', $restaurant->id);
+        })->get();
+
+        $allTickets = $tickets->merge($ticketsSubscription);
+        $allTickets = $tickets->sortBy('updated_at');
+
         $payments = null;
         $balance = null;
         if (isset($restaurant->merchant_stripe)) {
@@ -209,7 +226,7 @@ class RestaurantController extends Controller
                 $payments->push((object)[
                     'id' => $payout->id,
                     'created' => date('d-m-Y', $payout->created),
-                    'amount' => number_format(($payout->amount/100), 2, ',', '.').'€'
+                    'amount' => number_format(($payout->amount / 100), 2, ',', '.') . '€'
                 ]);
             }
 
@@ -218,21 +235,24 @@ class RestaurantController extends Controller
         }
 
 
-        return view('admin.restaurants.edit')->with([
-            'restaurant' => $restaurant,
-            'company' => $company,
-            'media' => $media,
-            'mealtype' => $mealtypeList,
-            'users' => $users,
-            'ordersPickup' => $ordersPickup,
-            'pickupSubscriptions' => $pickupSubscriptions,
-            'payments' => $payments,
-            'balance' => $balance
-        ]);
+        return view('admin.restaurants.edit')
+            ->with([
+                'restaurant' => $restaurant,
+                'company' => $company,
+                'media' => $media,
+                'mealtype' => $mealtypeList,
+                'users' => $users,
+                'ordersPickup' => $ordersPickup,
+                'pickupSubscriptions' => $pickupSubscriptions,
+                'payments' => $payments,
+                'balance' => $balance,
+            ])
+            ->with(compact('allTickets'));
 
     }
 
-    public function payment(Request $request) {
+    public function payment(Request $request)
+    {
         $queryString = $request->all();
         if ($queryString['restaurant_id'] && $queryString['payout_id']) {
 
@@ -271,7 +291,7 @@ class RestaurantController extends Controller
         // save on aux
         $openings = $fields['openings'];
         $closings = $fields['closings'];
-        if(isset($fields['timeslots'])) {
+        if (isset($fields['timeslots'])) {
             $timeslots = $fields['timeslots'];
         }
 
@@ -284,7 +304,7 @@ class RestaurantController extends Controller
         $this->saveOpeningsHours($restaurant->id, $openings);
         $this->saveClosedDays($restaurant->id, $closings);
 
-        if(isset($restaurant->id, $timeslots)) {
+        if (isset($restaurant->id, $timeslots)) {
             $this->saveTimeslots($restaurant->id, $timeslots);
         }
 
@@ -303,7 +323,8 @@ class RestaurantController extends Controller
     }
 
 
-    public function destroy(Restaurant $restaurant) {
+    public function destroy(Restaurant $restaurant)
+    {
 
         $company = $restaurant->company;
         $restaurant->delete();

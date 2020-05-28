@@ -48,6 +48,7 @@ return [
         'restaurant' => 'Restaurant',
         'payment' => 'Payment history',
         'order' => 'Orders',
-        'account' => 'Account'
+        'account' => 'Account',
+        'ticket' => 'Ticket'
     ],
 ];
