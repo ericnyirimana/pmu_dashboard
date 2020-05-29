@@ -15,7 +15,7 @@
         <div class="card-box table-responsive">
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_pickups')) }}</b></h4>
-
+                @if(Auth::user()->is_restaurant)
                 <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID'    => 'id',
                 'datatable.headers.name'  => 'name',
@@ -25,6 +25,18 @@
                 'datatable.headers.date_end' => 'date_end_formatted',
                 ]"
                 actions="edit,delete" />
+                @elseif(Auth::user()->is_super || Auth::user()->is_owner)
+                <datatable route='pickups' :collection="$pickups" :fields="[
+                'ID'    => 'id',
+                'datatable.headers.name'  => 'name',
+                'datatable.headers.restaurant' => 'restaurant:name',
+                'datatable.headers.type'  => 'color:type_pickup:pickup_color',
+                'datatable.headers.status' => 'status_pickup',
+                'datatable.headers.date_ini' => 'date_ini_formatted',
+                'datatable.headers.date_end' => 'date_end_formatted',
+                ]"
+                           actions="edit,delete" />
+                @endif
         </div>
     </div>
 </div>
