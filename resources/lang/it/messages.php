@@ -24,7 +24,8 @@ return [
         'company_removed' => 'Società rimossa con successo!',
         'order_confirmed' => 'Ordine confermato con successo!',
         'order_rejected' => 'Ordine rifiutato con successo!',
-        'select_restaurant' => 'Seleziona un ristorante'
+        'select_restaurant' => 'Seleziona un ristorante',
+        'pickup_not_editable' => 'Pickup non modificabile'
     ]
 
 ];

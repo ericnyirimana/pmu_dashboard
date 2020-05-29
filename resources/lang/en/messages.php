@@ -24,6 +24,7 @@ return [
         'company_removed' => 'Company removed with success!',
         'order_confirmed' => 'Order confirmed with success!',
         'order_rejected' => 'Order rejected with success!',
-        'select_restaurant' => 'Select a restaurant'
+        'select_restaurant' => 'Select a restaurant',
+        'pickup_not_editable' => 'Pickup not editable'
     ]
 ];

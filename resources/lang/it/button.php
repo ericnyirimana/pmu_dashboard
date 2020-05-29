@@ -40,5 +40,7 @@ return [
     'subscription_detail' => 'Dettaglio abbonamento',
     'view_all' => 'Vedi tutto',
     'back_home' => 'Torna alla home',
-    'cancel' => 'Cancella'
+    'cancel' => 'Cancella',
+    'suspend' => 'Sospendi',
+    'enable' => 'Abilita'
 ];
