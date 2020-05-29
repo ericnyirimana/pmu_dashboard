@@ -14,7 +14,7 @@ class RemoveColumnToPromoSubsetTable extends Migration
     public function up()
     {
         Schema::table('promo_subset', function (Blueprint $table) {
-            $table->dropColumn('short_identifier ');
+            $table->dropColumn('short_identifier');
         });
 
         Schema::table('promo_subset', function (Blueprint $table) {
