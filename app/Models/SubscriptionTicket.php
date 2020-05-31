@@ -10,9 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 class SubscriptionTicket extends Model
 {
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    public function order() {
+        return $this->belongsTo('App\Models\Order');
+    }
+
     public function pickup()
     {
-        return $this->belongsTo('App\Models\Pickup');
+        return $this->belongsTo('App\Models\Pickup')->withTrashed();;
 
     }
 
@@ -40,4 +44,7 @@ class SubscriptionTicket extends Model
         return 'SUB' . $this->id;
     }
 
+    public function getPickupNameAttribute() {
+        return $this->pickup() ? $this->pickup()->first()->name : 'No Pickup found';
+    }
 }

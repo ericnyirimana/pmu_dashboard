@@ -138,7 +138,6 @@ class PickupController extends Controller
                 'media' => $media,
             ]
         );
-
     }
 
 
@@ -154,16 +153,9 @@ class PickupController extends Controller
         $fields['date_ini'] = Carbon::parse($dates[0]);
         $fields['date_end'] = Carbon::parse($dates[1]);
 
-        /*if ($fields['restaurant_id'] == '_all' || $fields['restaurant_id'] == 'Select Company first') {
-            return redirect()->route('pickups.edit', $pickup)->with([
-                'notification' => trans('messages.notification.select_restaurant'),
-                'type-notification' => 'danger'
-            ]);
-        }*/
-
         foreach ($fields['products'] as $k => $v) {
 
-            if($fields['quantity_offer'] > $fields['quantity'][$k]) {
+            if ($fields['quantity_offer'] > $fields['quantity'][$k]) {
                 return redirect()->route('pickups.edit', $pickup)->with([
                     'notification' => trans('messages.notification.pickup_quantity_wrong'),
                     'type-notification' => 'danger'
@@ -200,7 +192,8 @@ class PickupController extends Controller
     }
 
 
-    public function destroy(Pickup $pickup) {
+    public function destroy(Pickup $pickup)
+    {
 
         $pickup->delete();
 
@@ -211,7 +204,8 @@ class PickupController extends Controller
 
     }
 
-    public function calendar() {
+    public function calendar()
+    {
         try {
             $pickups = $this->retrieveOfferByUserRole();
         } catch (\Exception $exception) {

@@ -26,4 +26,29 @@ class Pusher
         }
 
     }
+
+    public function sendPushNotification(array $users, string $title, string $message) {
+        try {
+            return $publishResponse = $this->beamsClient->publishToUsers(
+                $users,
+                array(
+                    "fcm" => array(
+                        "notification" => array(
+                            "title" => $title,
+                            "body" => $message
+                        )
+                    ),
+                    "apns" => array("aps" => array(
+                        "alert" => array(
+                            "title" => $title,
+                            "body" => $message
+                        )
+                    ))
+                ));
+        } catch (\Exception $exception) {
+            Log::error('Error Push Notification for users ' . implode(',', $users) . ' - ' . $exception->getMessage());
+            throw new \Exception($exception);
+        }
+
+    }
 }

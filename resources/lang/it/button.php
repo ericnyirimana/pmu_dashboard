@@ -39,5 +39,8 @@ return [
     'order_closed' => 'Chiudi ordine',
     'subscription_detail' => 'Dettaglio abbonamento',
     'view_all' => 'Vedi tutto',
-    'back_home' => 'Torna alla home'
+    'back_home' => 'Torna alla home',
+    'cancel' => 'Cancella',
+    'suspend' => 'Sospendi',
+    'enable' => 'Abilita'
 ];

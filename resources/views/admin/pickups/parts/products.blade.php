@@ -28,7 +28,7 @@
                             @if(isset($menu->{$class}))
                             <ul>
                                 @foreach($menu->{$class} as $section)
-                                    <li data-name="{{ str_replace(' ', '_', $section->name) }}"><h6 @if(empty
+                                    <li data-name="{{ $section->name }}" data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $section->name) }}"><h6 @if(empty
                               ($pickup->sections) ||
                               !in_array($section->name, array_keys($pickup->sections))) class="add-all" @endif>{{ $section->name }}</h6>
                                         <ul>
@@ -37,7 +37,8 @@
                                                 <li @if(!in_array($product->id, $pickup->products->pluck('id')->toArray() ) )
                                                     class="add" @endif data-id="{{ $product->id }}"
                                                     data-name="{{ $product->name }}"
-                                                    data-section="{{ str_replace(' ', '_', $section->name) }}">
+                                                    data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $product->name) }}"
+                                                    data-section="{{ $section->name }}">
                                                     {{ $product->name }}
                                                 </li>
                                                 @endif
@@ -63,7 +64,7 @@
                     @foreach($pickup->sections as $name=>$section)
                         <div class="card " id="{{ $name }}">
                             <div class="card-header">
-                                <h6 class="float-left">{{ str_replace('_', ' ', $name) }}</h6>
+                                <h6 class="float-left">{{ $name }}</h6>
                                 <i class="fi-trash float-right font-18 remove-section"></i>
                             </div>
                             <div class="card-body">
@@ -220,13 +221,12 @@
             var name = $(el).data('name');
             var section = $(el).data('section');
 
-            if (!$('#' + section).length) {
+            if (!$('#' + section.replace(/\W/g, '')).length) {
                 addSection(section);
             }
 
             $(el).removeClass('add');
             $(el).addClass('removed');
-
             var html = '<li class="list-group-item" data-id="' + id + '">';
             html += '<i class="fa fa-minus-square remove"></i>';
             html += '<div class="name">' + name + '</div>';
@@ -234,7 +234,7 @@
             html += '<input type="hidden" name="products[]" value="' + id + '" />';
             html += '</li>';
 
-            $('#' + section + ' .group-products').append(html);
+            $('#' + section.replace(/\W/g, '') + ' .group-products').append(html);
 
         }
 
@@ -252,9 +252,9 @@
 
         function addSection(name) {
 
-            var html = '<div class="card " id="' + name + '">';
+            var html = '<div class="card " id="' + name.replace(/\W/g, '') + '">';
             html += '<div class="card-header">';
-            html += '<h6 class="float-left">' + name.replace(/_/g, ' ',) + '</h6>';
+            html += '<h6 class="float-left">' + name + '</h6>';
             html += '<i class="fi-trash float-right font-18 remove-section"></i>';
             html += '</div>';
             html += '<div class="card-body">';
@@ -279,7 +279,7 @@
             console.log("Remove " + name);
             $(el).remove();
 
-            $(".list-menu").find("[data-name='" + name + "'] h6").addClass('add-all');
+            $(".list-menu").find("[data-clean-name='" + name + "'] h6").addClass('add-all');
 
             checkRightTypeOffer();
 
