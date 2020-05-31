@@ -19,6 +19,7 @@ return [
         'orders-pickup' => 'Orders',
         'subscriptions' => 'Subscriptions',
         'subscription' => 'Subscription',
-        'payments' => 'History payments'
+        'payments' => 'History payments',
+        'ticket' => 'Ticket'
     ],
 ];

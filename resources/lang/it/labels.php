@@ -53,7 +53,9 @@ return [
         'confirm_remove_text' => 'Confermi di voler rimuovere',
         'no_products' => 'Il ristorante non ha prodotti',
         'new_dish' => 'Nuovo piatto',
-        'new_drink' => 'Nuovo drink'
+        'new_drink' => 'Nuovo drink',
+        'confirm_suspend_title' => 'Sospendi',
+        'confirm_suspend_text' => 'Esistono degli ordini attivi per questo Pickup. Confermi di voler sospendere'
     ],
     'entries_to_be_welded' => 'Entrate da saldare',
     'orders_suspend' => 'Ordini sospesi',
@@ -83,7 +85,8 @@ return [
         'progress' => 'In corso',
         'disable' => 'Disattivata',
         'scheduled' => 'Programmata',
-        'exhausted' => 'Esaurita'
+        'exhausted' => 'Esaurita',
+        'suspended' => 'Sospesa'
     ],
     'add_food' => 'Aggiungi cibo',
     'description' => 'Descrizione',
@@ -100,5 +103,8 @@ return [
     'offer_disposable' => 'Disponibilità offerta',
     'offer_duration' => 'Durata offerta',
     'owner' => 'Owner',
-    'role' => 'Ruolo'
+    'role' => 'Ruolo',
+    'notes' => 'Note',
+    'id_ticket' => 'ID Ticket',
+    'quantity_per_subscription' => 'Numero offerte (x abbonamento)'
 ];

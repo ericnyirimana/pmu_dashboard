@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Monolog\Handler\IFTTTHandler;
 
 class Pickup extends Model
 {
 
     use SoftDeletes;
 
-    protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end'];
+    protected $fillable = ['identifier', 'type_pickup', 'timeslot_id', 'restaurant_id', 'media_id', 'status', 'date_ini', 'date_end', 'suspended'];
 
     protected $dates = ['date_ini', 'date_end', 'deleted_at'];
 
@@ -238,6 +239,11 @@ class Pickup extends Model
 
     public function getIsActiveTodayAttribute()
     {
+
+        if ($this->suspended) {
+            return false; //SOSPESA
+        }
+
         $today = Carbon::now();
         if ($today->lt(Carbon::parse($this->date_ini))) {
             return false; //PROGRAMMATA
@@ -267,6 +273,9 @@ class Pickup extends Model
     public function getStatusPickupAttribute()
     {
 
+        if ($this->suspended) {
+            return trans('labels.pickup_status.suspended'); // SOSPESA
+        }
         // Controllo informazioni offerta
         if (!isset($this->name) ||
             !isset($this->restaurant) ||

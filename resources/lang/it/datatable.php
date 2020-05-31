@@ -49,6 +49,7 @@ return [
         'payment' => 'Storico pagamenti',
         'order' => 'Ordini',
         'subscription' => 'Abbonamenti',
-        'account' => 'Account'
+        'account' => 'Account',
+        'ticket' => 'Ticket'
     ],
 ];

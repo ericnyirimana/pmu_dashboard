@@ -19,6 +19,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a href="#tickets" data-toggle="tab" aria-expanded="false" class="nav-link">
+                    {{ ucfirst(trans('datatable.tab_restaurant.ticket')) }}
+                </a>
+            </li>
+            <li class="nav-item">
                 <a href="#subscriptions" data-toggle="tab" aria-expanded="false" class="nav-link">
                     {{ ucfirst(trans('datatable.tab_restaurant.subscription')) }}
                 </a>
@@ -40,6 +45,9 @@
             @endif
             <div class="tab-pane" id="orders">
                 @include('admin.restaurants.parts.tab-orders')
+            </div>
+            <div class="tab-pane" id="tickets">
+                @include('admin.restaurants.parts.tab-tickets')
             </div>
             <div class="tab-pane" id="subscriptions">
                 @include('admin.restaurants.parts.tab-subscriptions')

@@ -54,7 +54,9 @@ return [
         'confirm_remove_text' => 'Do you want to remove register',
         'no_products' => 'The restaurant has no products',
         'new_dish' => 'New dish',
-        'new_drink' => 'New drink'
+        'new_drink' => 'New drink',
+        'confirm_suspend_title' => 'Suspend',
+        'confirm_suspend_text' => 'There are some active orders for this Pickup. Do you want to suspend'
     ],
     'entries_to_be_welded' => 'Entries to be welded',
     'orders_suspend' => 'Orders suspend',
@@ -84,7 +86,8 @@ return [
         'progress' => 'In progress',
         'disable' => 'Disabled',
         'scheduled' => 'Scheduled',
-        'exhausted' => 'Exhausted'
+        'exhausted' => 'Exhausted',
+        'suspended' => 'Suspended'
     ],
     'add_food' => 'Add food',
     'description' => 'Description',
@@ -101,5 +104,8 @@ return [
     'offer_disposable' => 'Offer disposable',
     'offer_duration' => 'Offer duration',
     'owner' => 'Owner',
-    'role' => 'Role'
+    'role' => 'Role',
+    'notes' => 'Notes',
+    'id_ticket' => 'ID Ticket',
+    'quantity_per_subscription' => 'Quantity (x subscription)'
 ];
