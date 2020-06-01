@@ -106,5 +106,10 @@ return [
     'role' => 'Ruolo',
     'notes' => 'Note',
     'id_ticket' => 'ID Ticket',
-    'quantity_per_subscription' => 'Numero offerte (x abbonamento)'
+    'quantity_per_subscription' => 'Numero offerte (x abbonamento)',
+    'notifications_center' => 'Notifiche',
+    'media_to_approve' => 'media da approvare',
+    'products_to_approve' => 'prodotti da approvare',
+    'menus_to_approve' => 'menu da approvare'
+
 ];

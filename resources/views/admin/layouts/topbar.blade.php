@@ -11,50 +11,50 @@
             </i>
         </a>
     </div>
-
     <nav class="navbar-custom">
 
         <ul class="list-inline float-right mb-0">
 
-            <?php /*
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
                    aria-haspopup="false" aria-expanded="false">
                     <i class="dripicons-bell noti-icon"></i>
-                    <span class="badge badge-pink noti-icon-badge">4</span>
+                    <span class="badge badge-pink noti-icon-badge">{{$totalNotifications}}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
-                    <!-- item-->
-                    <div class="dropdown-item noti-title">
-                        <h5><span class="badge badge-danger float-right">5</span>Notification</h5>
+
+                @if($totalNotifications != 0)
+                    <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
+                        <!-- item-->
+                        <div class="dropdown-item noti-title">
+                            <h5><span class="badge badge-danger float-right">{{$totalNotifications}}</span>{{ __('labels.notifications_center') }}</h5>
+                        </div>
+                    @if($notifications['totMediaToApprove'] > 0)
+                        <!-- item-->
+                            <a href="{{ route('media.index') }}" class="dropdown-item notify-item">
+                                <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
+                                <p class="notify-details">{{ $notifications['totMediaToApprove'] }}  {{ __('labels.media_to_approve') }}</p>
+                            </a>
+                    @endif
+                    @if($notifications['totProductsToApprove'] > 0)
+                        <!-- item-->
+                            <a href="{{ route('products.index') }}" class="dropdown-item notify-item">
+                                <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
+                                <p class="notify-details">{{ $notifications['totProductsToApprove'] }}  {{  __('labels.products_to_approve') }}</p>
+                            </a>
+                    @endif
+                    @if($notifications['totMenusToApprove'] > 0)
+                        <!-- item-->
+                            <a href="{{ route('menu.index') }}" class="dropdown-item notify-item">
+                                <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
+                                <p class="notify-details">{{ $notifications['totMenusToApprove'] }}  {{  __('labels.menus_to_approve') }}</p>
+                            </a>
+                    @endif
                     </div>
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-success"><i class="icon-bubble"></i></div>
-                        <p class="notify-details">Robert S. Taylor commented on Admin<small class="text-muted">1 min ago</small></p>
-                    </a>
+                @endif
 
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-info"><i class="icon-user"></i></div>
-                        <p class="notify-details">New user registered.<small class="text-muted">1 min ago</small></p>
-                    </a>
-
-                    <!-- item-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item">
-                        <div class="notify-icon bg-danger"><i class="icon-like"></i></div>
-                        <p class="notify-details">Carlos Crouch liked <b>Admin</b><small class="text-muted">1 min ago</small></p>
-                    </a>
-
-                    <!-- All-->
-                    <a href="javascript:void(0);" class="dropdown-item notify-item notify-all">
-                        View All
-                    </a>
-
-                </div>
             </li>
-            */ ?>
+
 
             <li class="list-inline-item dropdown notification-list">
                 <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
