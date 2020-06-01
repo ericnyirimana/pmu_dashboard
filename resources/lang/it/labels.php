@@ -110,6 +110,8 @@ return [
     'notifications_center' => 'Notifiche',
     'media_to_approve' => 'media da approvare',
     'products_to_approve' => 'prodotti da approvare',
-    'menus_to_approve' => 'menu da approvare'
+    'menus_to_approve' => 'menu da approvare',
+    'new_order' => 'nuovo ordine',
+    'new_orders' => 'nuovi ordini',
 
 ];

@@ -5,9 +5,12 @@ namespace App\Providers;
 use App\Libraries\Sidebar;
 use App\Models\Media;
 use App\Models\Menu;
+use App\Models\OrderPickup;
+use App\Models\Pickup;
 use App\Models\Product;
 use App\Observers\IdentifierObserver;
 use Auth;
+use Carbon\Carbon;
 use Cookie;
 use function foo\func;
 use Illuminate\Support\Facades\Schema;
@@ -42,7 +45,17 @@ class AppServiceProvider extends ServiceProvider
                     'totProductsToApprove' => $totProductsToApprove,
                     'totMenusToApprove' => $totMenusToApprove
                 ];
-
+            } else if (Auth::user()->is_manager) {
+                Auth::user()->restaurant->map(function ($restaurant) use (&$totalNotifications){
+                    $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
+                    $orderPickups = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
+                    $orderToNotify = $orderPickups->filter(function ($item) {
+                        if (Carbon::parse(Auth::user()->previous_login)->lte(Carbon::parse($item->order->created_at))) {
+                            return $item;
+                        }
+                    });
+                    $totalNotifications += $orderToNotify->count();
+                });
             }
 
 

@@ -111,5 +111,7 @@ return [
     'notifications_center' => 'Notifications',
     'media_to_approve' => 'media to approve',
     'products_to_approve' => 'products to approve',
-    'menus_to_approve' => 'menus to approve'
+    'menus_to_approve' => 'menus to approve',
+    'new_order' => 'new order'
+    'new_orders' => 'new orders'
 ];

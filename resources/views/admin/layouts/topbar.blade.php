@@ -16,7 +16,8 @@
         <ul class="list-inline float-right mb-0">
 
             <li class="list-inline-item dropdown notification-list">
-                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
+                <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#"
+                   role="button"
                    aria-haspopup="false" aria-expanded="false">
                     <i class="dripicons-bell noti-icon"></i>
                     <span class="badge badge-pink noti-icon-badge">{{$totalNotifications}}</span>
@@ -26,29 +27,40 @@
                     <div class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg" aria-labelledby="Preview">
                         <!-- item-->
                         <div class="dropdown-item noti-title">
-                            <h5><span class="badge badge-danger float-right">{{$totalNotifications}}</span>{{ __('labels.notifications_center') }}</h5>
+                            <h5><span
+                                    class="badge badge-danger float-right">{{$totalNotifications}}</span>{{ __('labels.notifications_center') }}
+                            </h5>
                         </div>
-                    @if($notifications['totMediaToApprove'] > 0)
-                        <!-- item-->
-                            <a href="{{ route('media.index') }}" class="dropdown-item notify-item">
+                    @if(Auth::user()->is_super)
+                        @if($notifications['totMediaToApprove'] > 0)
+                            <!-- item-->
+                                <a href="{{ route('media.index') }}" class="dropdown-item notify-item">
+                                    <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
+                                    <p class="notify-details">{{ $notifications['totMediaToApprove'] }}  {{ __('labels.media_to_approve') }}</p>
+                                </a>
+                        @endif
+                        @if($notifications['totProductsToApprove'] > 0)
+                            <!-- item-->
+                                <a href="{{ route('products.index') }}" class="dropdown-item notify-item">
+                                    <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
+                                    <p class="notify-details">{{ $notifications['totProductsToApprove'] }}  {{  __('labels.products_to_approve') }}</p>
+                                </a>
+                        @endif
+                        @if($notifications['totMenusToApprove'] > 0)
+                            <!-- item-->
+                                <a href="{{ route('menu.index') }}" class="dropdown-item notify-item">
+                                    <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
+                                    <p class="notify-details">{{ $notifications['totMenusToApprove'] }}  {{  __('labels.menus_to_approve') }}</p>
+                                </a>
+                            @endif
+                        @else
+                            <a href="" class="dropdown-item notify-item">
                                 <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
-                                <p class="notify-details">{{ $notifications['totMediaToApprove'] }}  {{ __('labels.media_to_approve') }}</p>
+
+                                <p class="notify-details">{{ $totalNotifications }} @if($totalNotifications == 1){{
+                                __('labels.new_order') }} @else {{__('labels.new_orders')}} @endif</p>
                             </a>
-                    @endif
-                    @if($notifications['totProductsToApprove'] > 0)
-                        <!-- item-->
-                            <a href="{{ route('products.index') }}" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
-                                <p class="notify-details">{{ $notifications['totProductsToApprove'] }}  {{  __('labels.products_to_approve') }}</p>
-                            </a>
-                    @endif
-                    @if($notifications['totMenusToApprove'] > 0)
-                        <!-- item-->
-                            <a href="{{ route('menu.index') }}" class="dropdown-item notify-item">
-                                <div class="notify-icon bg-danger"><i class="icon-info"></i></div>
-                                <p class="notify-details">{{ $notifications['totMenusToApprove'] }}  {{  __('labels.menus_to_approve') }}</p>
-                            </a>
-                    @endif
+                        @endif
                     </div>
 
                 @endif
@@ -57,14 +69,17 @@
 
 
             <li class="list-inline-item dropdown notification-list">
-                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#"
+                   role="button"
                    aria-haspopup="false" aria-expanded="false">
                     <i class="fa fa-user fa-2x"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right profile-dropdown " aria-labelledby="Preview">
                     <!-- item-->
                     <div class="dropdown-item noti-title">
-                        <h5 class="text-overflow"><small>{{ __('labels.welcome') }}, {{ Auth::user()->name }}!</small> </h5>
+                        <h5 class="text-overflow">
+                            <small>{{ __('labels.welcome') }}, {{ Auth::user()->name }}!</small>
+                        </h5>
                     </div>
 
                     <!-- item-->
@@ -84,7 +99,8 @@
                     -->
                     <form id="frm-logout" action="{{ route('logout') }}" method="POST">
                         {{ csrf_field() }}
-                        <button type="submit" class="dropdown-item notify-item" style="cursor: pointer;"><i class="mdi mdi-power"></i> <span>{{ __('labels.logout') }}</span></button>
+                        <button type="submit" class="dropdown-item notify-item" style="cursor: pointer;"><i
+                                class="mdi mdi-power"></i> <span>{{ __('labels.logout') }}</span></button>
                     </form>
 
                 </div>
