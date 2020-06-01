@@ -26,7 +26,8 @@ return [
         'order_rejected' => 'Ordine rifiutato con successo!',
         'select_restaurant' => 'Seleziona un ristorante',
         'pickup_not_editable' => 'Offerta non modificabile',
-        'pickup_copied' => 'Offerta copiata!'
+        'pickup_copied' => 'Offerta copiata!',
+        'pickup_quantity_wrong' => 'Errore quantità'
     ]
 
 ];
