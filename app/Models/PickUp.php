@@ -47,6 +47,13 @@ class Pickup extends Model
 
     }
 
+    public function ordersToday()
+    {
+
+        return $this->hasMany('App\Models\OrderPickup')->where('date', '=', date('Y-m-d'));
+
+    }
+
     public function company()
     {
 
@@ -141,13 +148,6 @@ class Pickup extends Model
     {
 
         return $this->type_pickup;
-
-    }
-
-    public function ordersToday()
-    {
-
-        return $this->hasMany('App\Models\OrderPickup')->where('date', '=', date('Y-m-d'));
 
     }
 
@@ -310,6 +310,15 @@ class Pickup extends Model
             }
             return trans('labels.pickup_status.expired'); //SCADUTA
         }
+    }
+
+    public function getIsNotEditableAttribute() {
+        if ($this->type_pickup == 'offer' && $this->ordersToday->count() > 0) {
+            return true;
+        } else if ($this->type_pickup == 'subscription' && $this->orders->count() > 0) {
+            return true;
+        }
+        return false;
     }
 
 }

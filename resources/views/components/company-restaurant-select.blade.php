@@ -1,5 +1,8 @@
 <div class="col-6 col-md-6">
-    @if(Auth::user()->is_super && $model->id)
+    @if($model->id && $model instanceof \App\Models\Pickup && $model->is_not_editable)
+        <field-select label="company" field="brand_id" foreignid="id" type="simple" :model="$model->company"
+                      :values="$companies->pluck('name', 'id')" required disabled />
+    @elseif(Auth::user()->is_super && $model->id)
         <field-select label="company" field="brand_id" foreignid="id" type="simple" :model="$model->company"
                       :values="$companies->pluck('name', 'id')" required/>
     @elseif(Auth::user()->is_super && !$model->id)
@@ -16,7 +19,10 @@
     @endif
 </div>
 <div class="col-6 col-md-6">
-    @if(Auth::user()->is_super && $model->id)
+    @if($model->id && $model instanceof \App\Models\Pickup && $model->is_not_editable)
+        <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
+                      :values="$model->company->restaurants" foreignid="restaurant_id" required disabled />
+    @elseif(Auth::user()->is_super && $model->id)
         <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                       :values="$model->company->restaurants" foreignid="restaurant_id" required/>
     @elseif(Auth::user()->is_super && !$model->id)
