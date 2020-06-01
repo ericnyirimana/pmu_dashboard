@@ -86,6 +86,12 @@ class Pickup extends Model
 
     }
 
+    public function media()
+    {
+
+        return $this->belongsToMany('App\Models\Media', 'pickup_media');
+
+    }
 
     public function getDateAttribute()
     {
@@ -135,13 +141,6 @@ class Pickup extends Model
     {
 
         return $this->type_pickup;
-
-    }
-
-    public function media()
-    {
-
-        return $this->belongsToMany('App\Models\Media', 'pickup_media');
 
     }
 

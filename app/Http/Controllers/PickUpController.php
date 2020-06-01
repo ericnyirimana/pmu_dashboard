@@ -204,6 +204,40 @@ class PickupController extends Controller
 
     }
 
+    public function replicate(Pickup $pickup) {
+
+        $newPickup = $pickup->replicate();
+
+        $newPickup->push();
+
+        //HasOne Relations
+        $newPickup->translate()->create(['name' => 'COPY OF ' . $pickup->name, 'description' => $pickup->description,
+            'code' =>
+            \App::getLocale()]);
+
+        if ($pickup->type_pickup == 'offer') {
+            $newPickup->offer()->create(['type_offer' => $pickup->offer->type_offer, 'quantity_offer' =>
+                $pickup->offer->quantity_offer, 'price' => $pickup->offer->price]);
+        } else {
+            $newPickup->subscription()->create(['type_offer' => $pickup->offer->type_offer, 'quantity_offer' =>
+                $pickup->offer->quantity_offer, 'price' => $pickup->offer->price, 'validate_days' =>
+                $pickup->offer->validate_days]);
+        }
+
+        $newPickup->save();
+
+        $mediaID = $pickup->media->pluck('id');
+        $newPickup->media()->sync($mediaID);
+
+        $productsID = $pickup->products->pluck('id');
+        $newPickup->products()->sync($productsID);
+
+        return redirect()->route('pickups.edit', $newPickup)->with([
+            'notification' => trans('messages.notification.pickup_copied'),
+            'type-notification' => 'success'
+        ]);
+    }
+
     public function calendar()
     {
         try {

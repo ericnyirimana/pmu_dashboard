@@ -40,7 +40,7 @@
                     @else
                         <td>
                             @if($model instanceof \App\Models\Showcase && $field == 'type')
-                            {{ __('labels.' . $model->{$field}) }}
+                                {{ __('labels.' . $model->{$field}) }}
                             @else
                                 {{ $model->{$field} }}
                             @endif
@@ -57,13 +57,13 @@
                                 </a>
                             @else
                                 <a href="{{ route($route.'.show', $model->id )}}">
-                                   <img src="{{ URL::to('/') }}/img/pmu_icon_search.png" alt="">
+                                    <img src="{{ URL::to('/') }}/img/pmu_icon_search.png" alt="View" title="View">
                                 </a>
                             @endif
                         @endif
                         @if(!empty($actions) && strstr($actions, 'edit'))
                             <a href="{{ route($route.'.edit', $model->id )}}">
-                                <img src="{{ URL::to('/') }}/img/pmu_icon_edit.png" alt="">
+                                <img src="{{ URL::to('/') }}/img/pmu_icon_edit.png" alt="Edit" title="Edit">
                             </a>
                         @endif
                         @if( !empty($actions) && strstr($actions, 'delete'))
@@ -71,17 +71,23 @@
                                 <a href="#remove-register"
                                    data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
                                    data-target=".remove-register">
-                                   <img src="{{ URL::to('/') }}/img/pmu_icon_bin.png" alt="">
+                                    <img src="{{ URL::to('/') }}/img/pmu_icon_bin.png" alt="Delete" title="Delete">
                                 </a>
                             @else
                                 <a href="#remove-register"
                                    data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
                                    data-target=".remove-register">
 
-                                   <img src="{{ URL::to('/') }}/img/pmu_icon_deny.png" alt="">
+                                    <img src="{{ URL::to('/') }}/img/pmu_icon_deny.png" alt="Delete" title="Delete">
                                 </a>
                             @endif
                         @endif
+                        @if(!empty($actions) && strstr($actions, 'replicate'))
+                            <a href="{{ route($route.'.replicate', $model->id )}}">
+                                <img src="{{ URL::to('/') }}/img/pmu_icon_copy.png" alt="Copy" title="Copy">
+                            </a>
+                        @endif
+
                     </td>
                 @endif
             </tr>

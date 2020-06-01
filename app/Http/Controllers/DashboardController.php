@@ -9,6 +9,7 @@ use App\Models\Pickup;
 
 use App\Models\SubscriptionTicket;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class DashboardController extends Controller
@@ -55,6 +56,7 @@ class DashboardController extends Controller
                     $q->whereIn('restaurant_id', $restaurantsID);
                 })
                 ->where([
+                    ['date', '>=', Carbon::today()],
                     ['is_coming', 1],
                     ['closed', 0]
                 ])
@@ -65,6 +67,7 @@ class DashboardController extends Controller
                     $q->whereIn('restaurant_id', $restaurantsID);
                 })
                 ->where([
+                    ['created_at', '>=', Carbon::today()],
                     ['is_coming', 1],
                     ['closed', 0]
                 ])

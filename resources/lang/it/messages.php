@@ -25,7 +25,8 @@ return [
         'order_confirmed' => 'Ordine confermato con successo!',
         'order_rejected' => 'Ordine rifiutato con successo!',
         'select_restaurant' => 'Seleziona un ristorante',
-        'pickup_not_editable' => 'Offerta non modificabile'
+        'pickup_not_editable' => 'Offerta non modificabile',
+        'pickup_copied' => 'Offerta copiata!'
     ]
 
 ];
