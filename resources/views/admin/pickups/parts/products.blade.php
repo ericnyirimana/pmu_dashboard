@@ -174,7 +174,7 @@
 
             /* END TYPE */
 
-
+            @if(isset($pickup->id) && !$pickup->is_not_editable)
             /* MENU LEFT ACTIONS */
             $(document).on('click', '.list-menu ul li .add', function () {
                 addItem(this);
@@ -212,6 +212,7 @@
                 removeItem($(this).parent());
             });
             /* PRODUCTS END */
+            @endif
 
         });
 
