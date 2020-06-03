@@ -18,7 +18,7 @@
                   'datatable.headers.opening_hours'  => 'hour_ini',
                   'datatable.headers.closing_time'  => 'hour_end'
               ]"
-                           actions="edit, delete" />
+                           actions="edit" />
             </div>
         </div>
     </div>
