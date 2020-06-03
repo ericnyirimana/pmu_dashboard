@@ -10,7 +10,7 @@
                     @endforeach
                 </select>
             @endif
-            <ol class="breadcrumb float-right">
+            {{--<ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Admin</a></li>
 
                 @php $lastKey = array_key_last($crumber); @endphp
@@ -24,7 +24,7 @@
                       </li>
                 @endforeach
 
-            </ol>
+            </ol>--}}
             <div class="clearfix"></div>
         </div>
     </div>
