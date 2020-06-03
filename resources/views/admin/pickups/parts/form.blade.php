@@ -4,7 +4,7 @@
             <h4 class="text-center">{{ ucfirst($pickup->type_pickup) }}</h4>
         @else
             <field-radio label="Type" field="type_pickup" :items="['offer'=>'Offer','subscription'=>'Subscription']"
-                         :model="$pickup" required disabled/>
+                         :model="$pickup" required />
         @endif
     </div>
 </div>
