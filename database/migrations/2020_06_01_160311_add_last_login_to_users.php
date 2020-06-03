@@ -27,8 +27,8 @@ class AddLastLoginToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('last_login');
-            $table->dropColumn('previous_login');
+            //$table->dropColumn('last_login');
+            //$table->dropColumn('previous_login');
         });
     }
 }
