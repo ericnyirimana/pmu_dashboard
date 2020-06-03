@@ -70,9 +70,14 @@ class AppServiceProvider extends ServiceProvider
         });
 
         view()->composer('admin.layouts.crumber', function ($view) {
+            $restaurants = [];
+            if (Auth::user()->is_owner) {
+                $restaurants = Auth::user()->restaurant->pluck('name', 'id')->toArray();
+            }
             $routeName = \Route::current()->getName();
             $crumber = explode('.', $routeName);
-            $view->with(compact('crumber'));
+            $view->with(compact('crumber'))
+                ->with(compact('restaurants'));
         });
 
         view()->composer('admin.media.parts.modal-media', function ($view) {
