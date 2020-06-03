@@ -13,6 +13,7 @@ use Auth;
 use Carbon\Carbon;
 use Cookie;
 use function foo\func;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Spatie\BladeX\Facades\BladeX;
@@ -71,7 +72,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('admin.layouts.crumber', function ($view) {
             $restaurants = [];
-            if (Auth::user()->is_owner) {
+            if (Auth::user()->is_owner && Route::currentRouteName() == 'dashboard.index') {
                 $restaurants = Auth::user()->restaurant->pluck('name', 'id')->toArray();
             }
             $routeName = \Route::current()->getName();
