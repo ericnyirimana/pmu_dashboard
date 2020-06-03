@@ -69,12 +69,14 @@
                         @if( !empty($actions) && strstr($actions, 'delete'))
                             @if(empty($model->deleted_at))
                                 <a href="#remove-register"
+                                   class="rm-register"
                                    data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
                                    data-target=".remove-register">
                                     <img src="{{ URL::to('/') }}/img/pmu_icon_bin.png" alt="Delete" title="Delete">
                                 </a>
                             @else
                                 <a href="#remove-register"
+                                   class="rm-register"
                                    data-name="{{ $model->name }}" data-register="{{ $model->id }}" data-toggle="modal"
                                    data-target=".remove-register">
 

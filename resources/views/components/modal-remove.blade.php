@@ -15,7 +15,7 @@
                     @csrf
                     @method('DELETE')
                     <button class="btn btn-danger" data-dismiss="modal">{{ ucfirst(trans('button.no')) }}</button>
-                    <button class="btn btn-success">{{ ucfirst(trans('button.yes')) }}</button>
+                    <button type="submit" class="btn btn-success">{{ ucfirst(trans('button.yes')) }}</button>
                 </form>
             </div>
         </div><!-- /.modal-content -->
