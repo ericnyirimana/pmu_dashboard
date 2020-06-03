@@ -32,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
 
 
         view()->composer('admin.layouts.topbar', function ($view) {
+            $notifications = [];
             $totalNotifications = 0;
             if (Auth::user()->is_super) {
                 $totMediaToApprove = Media::where('status_media', '!=', 'APPROVE')->get()->count();
