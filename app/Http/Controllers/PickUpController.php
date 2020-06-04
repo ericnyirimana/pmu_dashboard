@@ -29,25 +29,28 @@ class PickupController extends Controller
 
     public function validation(Request $request, $pickup = null)
     {
-
         $validation = [
-            'name' => 'required',
-            'type_pickup' => 'required',
-            'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
-            'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
-            'date' => ['required'],
-            'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant]
-
+            'name' => 'required'
         ];
-
         if ($pickup) {
-            $validation += [
-                'price' => ['required', 'integer'],
-                'products' => ['required', 'array'],
-                'quantity_offer' => ['required', 'integer']
-            ];
+            if ($pickup->orders->count() > 0 && $pickup->is_active_today) {
 
-            unset($validation['type_pickup']);
+            } else {
+                $validation += [
+                    'price' => ['required', 'integer'],
+                    'products' => ['required', 'array'],
+                    'quantity_offer' => ['required', 'integer']
+                ];
+            }
+        } else {
+            $validation = [
+                'type_pickup' => 'required',
+                'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
+                'date' => ['required'],
+                'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant]
+
+            ];
         }
 
         $request->validate(
@@ -148,11 +151,19 @@ class PickupController extends Controller
 
         $fields = $request->all();
 
-        $dates = explode('|', $fields['date']);
+        if (isset($fields['date'])) {
+            $dates = explode('|', $fields['date']);
 
-        $fields['date_ini'] = Carbon::parse($dates[0]);
-        $fields['date_end'] = Carbon::parse($dates[1]);
+            $fields['date_ini'] = Carbon::parse($dates[0]);
+            $fields['date_end'] = Carbon::parse($dates[1]);
+        }
 
+        if ($fields['quantity_offer'] < $pickup->quantity_offer) {
+            return redirect()->route('pickups.edit', $pickup)->with([
+                'notification' => trans('messages.notification.pickup_quantity_wrong'),
+                'type-notification' => 'danger'
+            ]);
+        }
         foreach ($fields['products'] as $k => $v) {
 
             if ($fields['quantity_offer'] > $fields['quantity'][$k]) {
@@ -174,11 +185,6 @@ class PickupController extends Controller
 
         $this->saveTranslation($pickup, $fields);
         $pickup->products()->sync($products);
-
-        // if pickup is only updated set to PENDING status
-        if (!isset($fields['status_pickup'])) {
-            $fields['status_pickup'] = 'PENDING';
-        }
 
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
@@ -202,6 +208,40 @@ class PickupController extends Controller
             'type-notification' => 'warning'
         ]);
 
+    }
+
+    public function replicate(Pickup $pickup) {
+
+        $newPickup = $pickup->replicate();
+
+        $newPickup->push();
+
+        //HasOne Relations
+        $newPickup->translate()->create(['name' => 'COPY OF ' . $pickup->name, 'description' => $pickup->description,
+            'code' =>
+            \App::getLocale()]);
+
+        if ($pickup->type_pickup == 'offer') {
+            $newPickup->offer()->create(['type_offer' => $pickup->offer->type_offer, 'quantity_offer' =>
+                $pickup->offer->quantity_offer, 'price' => $pickup->offer->price]);
+        } else {
+            $newPickup->subscription()->create(['type_offer' => $pickup->offer->type_offer, 'quantity_offer' =>
+                $pickup->offer->quantity_offer, 'price' => $pickup->offer->price, 'validate_days' =>
+                $pickup->offer->validate_days]);
+        }
+
+        $newPickup->save();
+
+        $mediaID = $pickup->media->pluck('id');
+        $newPickup->media()->sync($mediaID);
+
+        $productsID = $pickup->products->pluck('id');
+        $newPickup->products()->sync($productsID);
+
+        return redirect()->route('pickups.edit', $newPickup)->with([
+            'notification' => trans('messages.notification.pickup_copied'),
+            'type-notification' => 'success'
+        ]);
     }
 
     public function calendar()

@@ -29,9 +29,11 @@
 </div>
 
 <div class="row card-box">
+    @if(Auth::user()->is_super)
     <div class="col-12">
         <a href="{{ route('company.restaurants.create', $company) }}" class="btn btn-success waves-effect w-md waves-light pull-right">{{ ucfirst(trans('button.new_restaurant')) }}</a>
     </div>
+    @endif
     <div class="col-12">
         <div class="table-responsive">
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_restaurants')) }}</b></h4>

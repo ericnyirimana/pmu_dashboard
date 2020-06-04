@@ -9,6 +9,8 @@ use App\Models\Pickup;
 
 use App\Models\SubscriptionTicket;
 use Auth;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class DashboardController extends Controller
@@ -28,7 +30,7 @@ class DashboardController extends Controller
 
     }
 
-    public function index()
+    public function index(Request $request)
     {
 
         $companies = new Collection();
@@ -37,7 +39,17 @@ class DashboardController extends Controller
 
         if (Auth::user()->is_manager) {
 
-            $restaurantsID = Auth::user()->restaurant->pluck('id');
+            if (Auth::user()->is_owner && isset($request->restaurant_id) && !empty($request->restaurant_id)) {
+                if (Auth::user()->restaurant->pluck('id')->contains($request->restaurant_id)) {
+                    $restaurantsID[] = $request->restaurant_id;
+                } else {
+                    $restaurantsID = [];
+                }
+
+            } else {
+                $restaurantsID = Auth::user()->restaurant->pluck('id');
+            }
+
 
             $pickups = Pickup::whereIn('restaurant_id', $restaurantsID)
                 ->limit(4)
@@ -55,6 +67,7 @@ class DashboardController extends Controller
                     $q->whereIn('restaurant_id', $restaurantsID);
                 })
                 ->where([
+                    ['date', '>=', Carbon::today()],
                     ['is_coming', 1],
                     ['closed', 0]
                 ])
@@ -65,6 +78,7 @@ class DashboardController extends Controller
                     $q->whereIn('restaurant_id', $restaurantsID);
                 })
                 ->where([
+                    ['created_at', '>=', Carbon::today()],
                     ['is_coming', 1],
                     ['closed', 0]
                 ])

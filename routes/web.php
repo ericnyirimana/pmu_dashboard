@@ -53,7 +53,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/pickups/calendar', 'PickupController@calendar')->name('pickups.calendar');
         Route::resource('/pickups', 'PickupController');
-
+        Route::get('/pickups/{pickup}/replicate', 'PickupController@replicate')->name('pickups.replicate');
 
         Route::resource('/mealtypes', 'MealTypeController');
 

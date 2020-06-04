@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label for="{{ $field }}">{{ $label }}</label>
+    <label for="{{ $field }}">{{ __('labels.'.$label) }}</label>
     <div class="input-group">
         <input type="text" class="form-control" name="{{ $field }}" id="{{ isset($id) ? $id : $field }}" aria-describedby="{{ $field }}Help" placeholder="insert {{ $label }} here" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model->id)) disabled @endif>
         <div class="input-group-append">

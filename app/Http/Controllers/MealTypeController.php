@@ -44,9 +44,10 @@ class MealTypeController extends Controller
     public function create() {
 
         $mealtype = new Mealtype();
-
+        $allDayMealtypeExists = Mealtype::where('all_day', true)->first();
         return view('admin.mealtypes.create')->with([
-                'mealtype'   => $mealtype
+                'mealtype'   => $mealtype,
+                'showAllDay' => $allDayMealtypeExists ? false : true
             ]
         );
 
@@ -59,7 +60,7 @@ class MealTypeController extends Controller
 
         $fields = $request->all();
 
-        $fields['all_day'] = $fields['all_day'] ? true : null;
+        $fields['all_day'] = isset($fields['all_day']) ? true : null;
 
         $mealtype = Mealtype::create($fields);
 
@@ -82,9 +83,10 @@ class MealTypeController extends Controller
     }
 
     public function edit(Mealtype $mealtype) {
-
+        $allDayMealtypeExists = Mealtype::where('all_day', 1)->first();
         return view('admin.mealtypes.edit')->with([
-                'mealtype'  => $mealtype
+                'mealtype'  => $mealtype,
+                'showAllDay' => ($allDayMealtypeExists && $allDayMealtypeExists == $mealtype) || !$allDayMealtypeExists ? true : false
             ]
         );
 
@@ -95,7 +97,7 @@ class MealTypeController extends Controller
         $this->validation($request, $mealtype);
 
         $fields = $request->all();
-        $fields['all_day'] = $fields['all_day'] ? true : null;
+        $fields['all_day'] = isset($fields['all_day']) ? true : null;
         $mealtype->update($fields);
 
         $this->saveTranslation($mealtype, $fields);

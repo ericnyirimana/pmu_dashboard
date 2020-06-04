@@ -87,7 +87,7 @@
 
             $('form').parsley();
             //init Drop down
-            @if(!Auth::user()->is_manager && !$edit)
+            @if(!Auth::user()->is_manager && !isset($edit))
             disableDropDown();
 
             if ($('#role').val() === 'OWNER' || $('#role').val() === 'RESTAURATEUR') {
