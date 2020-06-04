@@ -238,19 +238,28 @@ class Pickup extends Model
 
     public function getIsActiveTodayAttribute()
     {
-
         if ($this->suspended) {
             return false; //SOSPESA
+        }
+
+        // Controllo informazioni offerta
+        if (!isset($this->name) ||
+            !isset($this->restaurant) ||
+            $this->products->count() < 1) {
+            return false; //BOZZA
+        }
+
+        //Controllo quantità
+        if ($this->quantity_remain <= 0) {
+            return false; //esaurita
         }
 
         $today = Carbon::now();
         if ($today->lt(Carbon::parse($this->date_ini))) {
             return false; //PROGRAMMATA
         } else {
-            if (Carbon::parse($this->date_ini)->isToday() && $today->lt(Carbon::parse($this->date_end))) {
-                return true; //IN CORSO
-            }
-            if (Carbon::parse($this->date_end)->isToday()) {
+            if (Carbon::parse($this->date_ini)->isToday() || $today->lt(Carbon::parse($this->date_end)) ||
+                Carbon::parse($this->date_end)->isToday()) {
                 //controllo orario timeslot
                 $endTimeslot = Carbon::now();
                 $endTimeslot->hour(Carbon::parse($this->timeslot->hour_end)->hour);
@@ -260,9 +269,6 @@ class Pickup extends Model
                 } else {
                     return false; //SCADUTA SE PASSATI I 30MIN ALLA FINE
                 }
-            }
-            if ($today->lt(Carbon::parse($this->date_end))) {
-                return true; //IN CORSO
             }
             return false; //SCADUTA
         }
@@ -291,22 +297,9 @@ class Pickup extends Model
         if ($today->lt(Carbon::parse($this->date_ini))) {
             return trans('labels.pickup_status.scheduled'); //PROGRAMMATA
         } else {
-            if (Carbon::parse($this->date_ini)->isToday() && $today->lt(Carbon::parse($this->date_end))) {
-                return trans('labels.pickup_status.progress'); //IN CORSO
-            }
-            if (Carbon::parse($this->date_end)->isToday()) {
-                //controllo orario timeslot
-                $endTimeslot = Carbon::now();
-                $endTimeslot->hour(Carbon::parse($this->timeslot->hour_end)->hour);
-                $endTimeslot->minute(Carbon::parse($this->timeslot->hour_end)->minute);
-                if ($today->lte($endTimeslot->subMinute(30))) {
-                    return trans('labels.pickup_status.progress'); //IN CORSO
-                } else {
-                    return trans('labels.pickup_status.expired'); //SCADUTA SE PASSATI I 30MIN ALLA FINE
-                }
-            }
-            if ($today->lt(Carbon::parse($this->date_end))) {
-                return trans('labels.pickup_status.progress'); //IN CORSO
+            if (Carbon::parse($this->date_ini)->isToday() || $today->lt(Carbon::parse($this->date_end)) ||
+                Carbon::parse($this->date_end)->isToday()) {
+                return trans('labels.pickup_status.progress');
             }
             return trans('labels.pickup_status.expired'); //SCADUTA
         }
