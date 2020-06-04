@@ -1,11 +1,21 @@
 <div class="row">
     <div class="col-12 col-md-6">
-        <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14'
-        => '14 €' ]"  required  />
+        @if($pickup->orders->count() > 0)
+            <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
+      '14 €' ]"  required disabled />
+        @else
+            <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
+      '14 €' ]"  required />
+        @endif
     </div>
     <div class="col-12 col-md-6">
-        <field-select label="validate_days" field="validate_days" :model="$pickup" type="simple" :values="['20' =>
+        @if(isset($pickup->validate_days) && $pickup->validate_days == 40 && $pickup->orders->count() > 0)
+            <field-select label="validate_days" field="validate_days" :model="$pickup" type="simple" :values="['40' => '40 Days']" required />
+        @else
+            <field-select label="validate_days" field="validate_days" :model="$pickup" type="simple" :values="['20' =>
         '20 Days', '40' => '40 Days']" required />
+        @endif
+
     </div>
 </div>
 

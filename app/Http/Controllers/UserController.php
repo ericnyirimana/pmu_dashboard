@@ -216,6 +216,14 @@ class UserController extends Controller
             }
         }
 
+        if (!$user->is_owner) {
+            $resetOwnerCompany = Company::where('owner_id', $user->id)->first();
+            if ($resetOwnerCompany) {
+                $resetOwnerCompany->owner_id = null;
+                $resetOwnerCompany->save();
+            }
+        }
+
         return redirect()->route('users.index')->with([
             'notification' => trans('messages.notification.user_saved'),
             'type-notification' => 'success'

@@ -2,10 +2,15 @@
     <div class="col-12">
         <div class="page-title-box">
             <h4 class="page-title float-left">{{ ucfirst(trans('crumb.page_title.' . $crumber[0])) }}</h4>
-            @php
-
-             /* endphp
-            <ol class="breadcrumb float-right">
+            @if(Auth::user()->is_owner && !empty($restaurants))
+                <select>
+                    <option value=""></option>
+                    @foreach($restaurants as $k => $v)
+                        <option value="{{$k}}">{{$v}}</option>
+                    @endforeach
+                </select>
+            @endif
+            {{--<ol class="breadcrumb float-right">
                 <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Admin</a></li>
 
                 @php $lastKey = array_key_last($crumber); @endphp
@@ -19,8 +24,7 @@
                       </li>
                 @endforeach
 
-            </ol>
-            @php */ @endphp
+            </ol>--}}
             <div class="clearfix"></div>
         </div>
     </div>

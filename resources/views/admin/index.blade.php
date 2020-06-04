@@ -52,7 +52,7 @@
                 {{--</div>--}}
             {{--</div>--}}
         </div>
-    @elseif(Auth::user()->is_restaurant)
+    @elseif(Auth::user()->is_manager)
         <div class="row mb-3">
             <div class="col-12 col-md-6 col-xl-3">
                 <div class=" card-box table-responsive recap-box">

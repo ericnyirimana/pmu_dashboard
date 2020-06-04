@@ -3,10 +3,13 @@
     <div class="list-images">
           @if (isset($model->media))
           @foreach ($model->media as $media)
-              <figure><img src='{{ $media->getImageSize('small') }}'><input type='hidden' name='media[]' value='{{ $media->id }}'><i class='fa fa-trash delete-image'></i></figure>
+              <figure><img src='{{ $media->getImageSize('small') }}'><input type='hidden' name='media[]' value='{{
+              $media->id }}'>@if(!$model->is_not_editable)<i class='fa fa-trash delete-image'></i>@endif</figure>
           @endforeach
           @endif
+        @if(!$model->is_not_editable)
           <div class="btn btn-dark btn-add-image"  data-toggle="modal" data-target="#mediaModal"><span class="fa fa-plus" aria-hidden="true"></span></div>
+        @endif
     </div>
     <div class="form-group">
         <input type="text" class="form-control" hidden name="check_media" id="check_media" value=""

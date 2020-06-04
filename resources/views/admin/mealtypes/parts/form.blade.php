@@ -2,16 +2,21 @@
     <div class="col-md-8 col-lg-6 mb-3">
         <field-text label="meal_type" field="name" :model="$mealtype" required/>
     </div>
+    @if($showAllDay)
     <div class="col-md-4 col-lg-6 mb-3">
         <div class="form-group">
             <div class="form-check-label">
                 <label>{{ __('labels.all_day') }}</label>
             </div>
-            <div class="form-check form-check-inline col-md-12 col-lg-2">
-                <input class="form-check-input" id="checkbox" type="checkbox" value="true" name="all_day" @if($mealtype->all_day) checked="checked" @endif>
-            </div>
+
+                <div class="form-check form-check-inline col-md-12 col-lg-2">
+                    <input class="form-check-input" id="checkbox" type="checkbox" value="true" name="all_day"
+                           @if($mealtype->all_day) checked="checked" @endif>
+                </div>
+
         </div>
     </div>
+    @endif
     <div class="col-md-12 col-lg-8">
         <field-range-clock label="select_pickup_hour" field="range_clock" :model="$mealtype"/>
     </div>

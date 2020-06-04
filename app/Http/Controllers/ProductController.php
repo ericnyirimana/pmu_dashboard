@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Traits\TranslationTrait;
 
 use Auth;
+use Illuminate\Support\Collection;
 
 class ProductController extends Controller
 {
@@ -44,7 +45,12 @@ class ProductController extends Controller
             $products = Product::all();
 
         } else {
-            $products = Auth::user()->brand->first()->products;
+            if (Auth::user()->brand->first()) {
+                $products = Auth::user()->brand->first()->products;
+            } else {
+                $products = new Collection();
+            }
+
         }
 
         return view('admin.products.index')
@@ -147,7 +153,7 @@ class ProductController extends Controller
             $companies = Company::all();
 
         } else {
-            $companies = Auth::user()->company;
+            $companies = Auth::user()->brand->first();
         }
 
         $foods = Category::where('type', 'Food')->with('translate')->get()->pluck('translate.name');

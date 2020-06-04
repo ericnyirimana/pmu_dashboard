@@ -3,6 +3,7 @@
     @if(Auth::user()->is_manager)
     <div class="col-md-12 col-lg-6">
           <field-text label="name" field="name" :model="$restaurant"  disabled />
+            <input type="hidden" name="name" value="{{$restaurant->name}}">
     </div>
     <div class="col-md-12 col-lg-6">
           <field-map label="address" field="address" :model="$restaurant"  disabled />

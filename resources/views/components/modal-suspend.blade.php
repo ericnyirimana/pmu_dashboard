@@ -15,7 +15,7 @@
                 <form action="#" class="susp-accept" method="POST">
                     @csrf
                     @method('put')
-                    <input type="hidden" name="suspended" value="1" />
+                    <input type="hidden" name="suspended" value="1" disabled="disabled" class="js-hidden-suspend"/>
                     <button class="btn btn-danger" data-dismiss="modal">{{ ucfirst(trans('button.no')) }}</button>
                     <button class="btn btn-success">{{ ucfirst(trans('button.yes')) }}</button>
                 </form>
@@ -28,7 +28,7 @@
         $(document).ready(function () {
 
             $(document).on('click', '.susp-register', function () {
-
+                $('.js-hidden-suspend').prop('disabled', false);
                 var id = $(this).data('register');
                 var name = $(this).data('name');
 

@@ -1,6 +1,11 @@
 <div class="col-12 col-md-4">
+    @if($pickup->is_not_editable)
       <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
-      '14 €' ]"  required  />
+      '14 €' ]"  required disabled />
+    @else
+        <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
+      '14 €' ]"  required />
+    @endif
 </div>
 
 @include('admin.pickups.parts.products')
@@ -17,6 +22,10 @@
 
 <div class="row">
     <div class="col-4">
-        <field-media-list label="image" field="media_id" :model="$pickup" required />
+        @if($pickup->is_not_editable)
+            <field-media-list label="image" field="media_id" :model="$pickup" required disabled/>
+        @else
+            <field-media-list label="image" field="media_id" :model="$pickup" required/>
+        @endif
     </div>
 </div>
