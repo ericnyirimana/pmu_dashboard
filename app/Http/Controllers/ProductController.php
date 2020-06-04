@@ -42,7 +42,7 @@ class ProductController extends Controller
     {
 
         if (Auth::user()->is_super) {
-            $products = Product::all();
+            $products = Product::whereHas('restaurant')->get();
 
         } else {
             if (Auth::user()->brand->first()) {

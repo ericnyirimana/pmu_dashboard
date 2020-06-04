@@ -105,7 +105,8 @@ class Product extends Model
 
     public function company() {
 
-          return $this->restaurant->company();
+        return $this->restaurant->company();
+
 
     }
 

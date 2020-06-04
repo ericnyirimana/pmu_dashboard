@@ -238,6 +238,9 @@ class Pickup extends Model
 
     public function getIsActiveTodayAttribute()
     {
+        if (!$this->restaurant->is_open_today) {
+            return false; // RISTORANTE CHIUSO
+        }
         if ($this->suspended) {
             return false; //SOSPESA
         }
