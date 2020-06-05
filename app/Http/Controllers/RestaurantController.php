@@ -234,7 +234,6 @@ class RestaurantController extends Controller
             $balance = $this->stripe->getBalanceForConnectedAccount($restaurant->merchant_stripe);
         }
 
-
         return view('admin.restaurants.edit')
             ->with([
                 'restaurant' => $restaurant,
@@ -242,7 +241,7 @@ class RestaurantController extends Controller
                 'media' => $media,
                 'mealtype' => $mealtypeList,
                 'users' => $users,
-                'ordersPickup' => $ordersPickup,
+                'ordersPickup' => $ordersPickup->sortByDesc('order.created_at'),
                 'pickupSubscriptions' => $pickupSubscriptions,
                 'payments' => $payments,
                 'balance' => $balance,
