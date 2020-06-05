@@ -73,17 +73,17 @@
                     <figure class="view-file">
                         <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
                         <div class="view-file-container">
-                        <label>{{ $file->name }}</label>
-                        <label>
-                        @if($file->company)
-                            {{ $file->company_name }}
-                        @endif
-                        </label>
-                        <label>
-                        @if($file->restaurant)
-                            {{ $file->restaurant->name }}
-                        @endif
-                        </label>
+                            <label>{{ $file->name }}</label>
+                            <label>
+                                @if($file->company)
+                                    {{ $file->company_name }}
+                                @endif
+                            </label>
+                            <label>
+                                @if($file->restaurant)
+                                    {{ $file->restaurant->name }}
+                                @endif
+                            </label>
                         </div>
                         @if(Auth::user()->is_super)
                             @if($file->status_media == 'PENDING')
@@ -285,9 +285,15 @@
             html += '    <figure class="view-file">';
             html += '        <img src="' + data.url + '" data-id="' + data.id + '">';
             html += '        <label>' + data.name + '</label>';
-            html += '        <button type="button" class="btn btn-primary mt-3 w-100 js-wait-media">' + '{{ ucfirst
-            (trans("button.wait_approves")) }}' + '</button>';
-            html += '    </figure>';
+            @if(Auth::user()->is_super)
+                html += '<button type="button" class="btn btn-success mt-3 w-100 js-wait-media"' +
+                '                                        data-id="' + data.id + '">' +
+                '                                    {{ ucfirst(trans("button.approved")) }}' +
+                '                                </button>';
+            @else
+                html += '        <button type="button" class="btn btn-primary mt-3 w-100 js-wait-media" data-id="' + data.id + '">' + '{{ ucfirst(trans("button.wait_approves")) }}' + '</button>';
+            @endif
+                html += '    </figure>';
             html += '</div>';
 
             $('.list-thumbnail').prepend(html);
