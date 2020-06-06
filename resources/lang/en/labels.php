@@ -113,5 +113,6 @@ return [
     'products_to_approve' => 'products to approve',
     'menus_to_approve' => 'menus to approve',
     'new_order' => 'new order',
-    'new_orders' => 'new orders'
+    'new_orders' => 'new orders',
+    'select_company' => 'Select company'
 ];

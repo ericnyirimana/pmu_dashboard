@@ -201,6 +201,7 @@ class PickupController extends Controller
     public function destroy(Pickup $pickup)
     {
 
+
         $pickup->delete();
 
         return redirect()->route('pickups.index')->with([

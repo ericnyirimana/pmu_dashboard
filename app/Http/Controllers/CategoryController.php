@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\CategoryType;
+use App\Models\Company;
 use App\Models\Media;
 use App\Traits\TranslationTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Validation\Rule;
 
 
 class CategoryController extends Controller
@@ -24,10 +27,20 @@ class CategoryController extends Controller
 
       public function validation(Request $request, $category = null) {
 
+          /*$validationRules = [
+              'media_id'  => (empty($category)?'required':'').'',
+              'type'   => 'required'
+          ];
+          if ($request->name) {
+              $companies = Company::where('name', $request->name)->pluck('type');
+              if ($companies) {
+                Arr::add($validationRules, 'name', 'required|string|unique:categories,type,'.);
+              }
+          }*/
           $request->validate(
             [
               'media_id'  => (empty($category)?'required':'').'',
-              'name'   => 'required|string|unique:category_translations,name',
+              'name'   => 'required|string',
               'type'   => 'required'
             ]
           );

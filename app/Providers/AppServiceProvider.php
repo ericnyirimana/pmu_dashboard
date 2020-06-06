@@ -88,9 +88,9 @@ class AppServiceProvider extends ServiceProvider
                 $brands = \App\Models\Company::all();
             } else {
                 if (Auth::user()->is_owner) {
-                    $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->brand->first()->id)->where('status_media', 'APPROVE')->get();
+                    $mediaCompany = \App\Models\Media::where('brand_id', Auth::user()->brand->first()->id)->get();
                 } else if (Auth::user()->is_restaurant) {
-                    $mediaCompany = \App\Models\Media::where('restaurant_id', Auth::user()->restaurant->first()->id)->where('status_media', 'APPROVE')->get();
+                    $mediaCompany = \App\Models\Media::where('restaurant_id', Auth::user()->restaurant->first()->id)->get();
                 }
 
                 $media = $mediaCompany;

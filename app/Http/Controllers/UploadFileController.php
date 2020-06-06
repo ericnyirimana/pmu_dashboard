@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Libraries\FileManager;
 use App\Models\Media;
+use Auth;
 
 class UploadFileController extends Controller
 {
@@ -27,7 +28,9 @@ class UploadFileController extends Controller
 
       $fields['file'] = $file;
       $fields['name'] = $name;
-
+      if (Auth::user()->is_super) {
+          $fields['status_media'] = 'APPROVE';
+      }
       try {
           $media = Media::create($fields);
       } catch(\Illuminate\Database\QueryException $e) {

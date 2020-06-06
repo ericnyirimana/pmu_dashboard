@@ -4,7 +4,7 @@
             <h4 class="text-center">{{ ucfirst($pickup->type_pickup) }}</h4>
         @else
             <field-radio label="Type" field="type_pickup" :items="['offer'=>'Offer','subscription'=>'Subscription']"
-                         :model="$pickup" required />
+                         :model="$pickup" required/>
         @endif
     </div>
 </div>
@@ -59,37 +59,37 @@
     <div class="col-md-3 col-lg-6">
         <div class="form-group d-flex justify-content-between">
             <button type="submit" class="btn btn-block w-lg btn-success float-right">
-                {{ ucfirst(trans('button.next')) }}
+                @if(Route::currentRouteName() == 'pickups.create')
+                    {{ ucfirst(trans('button.next')) }}
+                @else
+                    {{ ucfirst(trans('button.save')) }}
+                @endif
             </button>
         </div>
     </div>
     <div class="col-md-3 col-lg-6">
-        @if(!$pickup->suspended)
-            @if($pickup->is_not_editable)
-                <div class="form-group d-flex justify-content-between">
-                    <button type="button" name="suspended" value="1" class="btn btn-block w-lg btn-primary
+        @if(Route::currentRouteName() == 'pickups.edit')
+            @if(!$pickup->suspended)
+                @if($pickup->is_not_editable)
+                    <div class="form-group d-flex justify-content-between">
+                        <button type="button" name="suspended" value="1" class="btn btn-block w-lg btn-primary
                 float-right susp-register" data-name="{{ $pickup->name }}" data-register="{{ $pickup->id }}"
-                            data-toggle="modal" data-target=".suspend-register">{{
-            ucfirst(trans
-            ('button.suspend')
-            ) }}</button>
-                    @else
-                        <div class="form-group d-flex justify-content-between">
-                            <button type="submit" name="suspended" value="1" class="btn btn-block w-lg btn-primary
-                    float-right">{{ ucfirst(trans('button.suspend')) }}</button>
-                        </div>
-                    @endif
-                    @else
-                        <div class="form-group d-flex justify-content-between">
-                            <button type="submit" name="suspended" value="0" class="btn btn-block w-lg btn-primary
-                float-right">{{
-            ucfirst(trans
-            ('button.enable')
-            ) }}</button>
-                        </div>
-                    @endif
-
+                                data-toggle="modal" data-target=".suspend-register">{{
+            ucfirst(trans('button.suspend')) }}</button>
+                @else
+                    <div class="form-group d-flex justify-content-between">
+                        <button type="submit" name="suspended" value="1" class="btn btn-block w-lg btn-primary
+    float-right">{{ ucfirst(trans('button.suspend')) }}</button>
+                    </div>
+                @endif
+            @else
+                <div class="form-group d-flex justify-content-between">
+                    <button type="submit" name="suspended" value="0" class="btn btn-block w-lg btn-primary
+float-right">{{ucfirst(trans('button.enable')) }}</button>
                 </div>
+            @endif
+        @endif
+        </div>
     </div>
     @if($pickup->is_not_editable && !$pickup->suspended)
         <modal-suspend route="pickup"/>
