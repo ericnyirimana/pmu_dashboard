@@ -1,9 +1,12 @@
 <div class="row">
     <div class="col-12 col-md-6">
         @if($pickup->orders->count() > 0)
+            s
             <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
       '14 €' ]"  required disabled />
+            <input type="hidden" value="{{ $pickup->price }}" name="price">
         @else
+            s
             <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
       '14 €' ]"  required />
         @endif
