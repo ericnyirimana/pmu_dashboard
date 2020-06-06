@@ -205,6 +205,12 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        if ($product->pickupsAreExpired()) {
+            return redirect()->route('products.index')->with([
+                'notification' => trans('messages.notification.product_cant_remove'),
+                'type-notification' => 'danger'
+            ]);
+        }
 
         $product->delete();
 

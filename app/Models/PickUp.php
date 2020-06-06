@@ -304,9 +304,25 @@ class Pickup extends Model
                 Carbon::parse($this->date_end)->isToday()) {
                 return trans('labels.pickup_status.progress');
             }
+
             return trans('labels.pickup_status.expired'); //SCADUTA
         }
     }
+
+    public function getIsExpiredAttribute() {
+        $today = Carbon::now();
+        if ($today->lt(Carbon::parse($this->date_ini))) {
+            return false; //PROGRAMMATA
+        } else {
+            if (Carbon::parse($this->date_ini)->isToday() || $today->lt(Carbon::parse($this->date_end)) ||
+                Carbon::parse($this->date_end)->isToday()) {
+                return false;
+            }
+
+            return true; //SCADUTA
+        }
+    }
+
 
     public function getIsNotEditableAttribute() {
         if ($this->type_pickup == 'offer' && $this->ordersToday->count() > 0) {

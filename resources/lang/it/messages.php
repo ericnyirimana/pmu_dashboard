@@ -27,7 +27,8 @@ return [
         'select_restaurant' => 'Seleziona un ristorante',
         'pickup_not_editable' => 'Offerta non modificabile',
         'pickup_copied' => 'Offerta copiata!',
-        'pickup_quantity_wrong' => 'Errore quantità'
+        'pickup_quantity_wrong' => 'Errore quantità',
+        'product_cant_remove' => 'Il prodotto è presente in un\'offerta non scaduta'
     ]
 
 ];
