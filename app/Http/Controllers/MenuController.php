@@ -36,7 +36,7 @@ class MenuController extends Controller
     {
 
         if (Auth::user()->is_super) {
-            $menu = Menu::all();
+            $menu = Menu::whereHas('restaurant')->get();
         }
 
 

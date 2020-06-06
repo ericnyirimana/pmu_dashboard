@@ -42,7 +42,7 @@ class ProductController extends Controller
     {
 
         if (Auth::user()->is_super) {
-            $products = Product::all();
+            $products = Product::whereHas('restaurant')->get();
 
         } else {
             if (Auth::user()->brand->first()) {
@@ -205,6 +205,12 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        if ($product->pickupsAreExpired()) {
+            return redirect()->route('products.index')->with([
+                'notification' => trans('messages.notification.product_cant_remove'),
+                'type-notification' => 'danger'
+            ]);
+        }
 
         $product->delete();
 

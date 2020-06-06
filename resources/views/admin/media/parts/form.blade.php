@@ -15,6 +15,7 @@
                 <label for="">{{ __('labels.company') }}</label>
                 <select id="brand_id" class="form-control" name="brand_id">
                     @if($brands)
+                        <option value="">{{ __('labels.select_company') }}</option>
                         @foreach($brands as $brand)
                             <option value="{{ $brand->id }}" @if($media->company == $brand) selected @endif>{{ $brand->name }}</option>
                         @endforeach
@@ -31,13 +32,15 @@
           <div class="form-group mt-auto">
 
               @if (isset($media))
-              <button type="button" class="btn btn-md w-lg btn-danger rm-register" data-name="{{ $media->name }}" data-register="{{ $media->id }}"  data-toggle="modal" data-target=".remove-register">Remove permanently</button>
+              <button type="button" class="btn btn-md w-lg btn-danger rm-register" data-name="{{ $media->name }}"
+                      data-register="{{ $media->id }}"  data-toggle="modal" data-target=".remove-register">{{ ucfirst(trans('button.remove_permanently')) }}</button>
               @endif
 
               @if(Auth::user()->is_super)
                   @if($media->status_media == 'PENDING')
                   <button type="submit" field="status_media" name="status_media" value="APPROVE" class="btn btn-md w-lg btn-primary float-right">{{ ucfirst(trans('button.approves')) }}</button>
-                  <button type="submit" field="status_media" name="status_media" value="PENDING" class="btn btn-md w-lg btn-success float-right mr-3">{{ ucfirst(trans('button.save')) }}</button>
+                  <button type="submit" field="status_media" name="status_media" value="APPROVE" class="btn btn-md w-lg
+                  btn-success float-right mr-3">{{ ucfirst(trans('button.save')) }}</button>
                   @elseif($media->status_media == 'APPROVE')
                   <button type="submit" field="status_media" name="status_media" value="APPROVE" class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.save')) }}</button>
                   @endif

@@ -42,5 +42,6 @@ return [
     'back_home' => 'Back home',
     'cancel' => 'Cancel',
     'suspend' => 'Suspend',
-    'enable' => 'Enable'
+    'enable' => 'Enable',
+    'remove_permanently' => 'Remove permanently'
 ];
