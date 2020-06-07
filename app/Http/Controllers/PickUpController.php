@@ -164,15 +164,17 @@ class PickupController extends Controller
                 'type-notification' => 'danger'
             ]);
         }
-        foreach ($fields['products'] as $k => $v) {
 
-            if ($fields['quantity_offer'] > $fields['quantity'][$k]) {
-                return redirect()->route('pickups.edit', $pickup)->with([
-                    'notification' => trans('messages.notification.pickup_quantity_wrong'),
-                    'type-notification' => 'danger'
-                ]);
-            }
+        $totalProductsQuantity = 0;
+        foreach ($fields['products'] as $k => $v) {
+            $totalProductsQuantity += $fields['quantity'][$k];
             $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
+        }
+        if ($fields['quantity_offer'] > $totalProductsQuantity) {
+            return redirect()->route('pickups.edit', $pickup)->with([
+                'notification' => trans('messages.notification.pickup_quantity_wrong'),
+                'type-notification' => 'danger'
+            ]);
         }
 
         $pickup->update($fields);
