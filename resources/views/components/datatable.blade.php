@@ -34,7 +34,11 @@
                             <td><span class="label label-{{ $model->{$params[2]} }}">{{ $model->$item }}</span></td>
                             @break
                             @default
-                            <td>{{ $model->$type->$item }}</td>
+                            <td>
+                                @if(isset($model->$type->$item))
+                                    {{ $model->$type->$item }}
+                                @endif
+                            </td>
                             @break
                         @endswitch
                     @else
