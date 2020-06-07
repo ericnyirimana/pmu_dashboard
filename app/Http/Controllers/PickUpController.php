@@ -283,7 +283,7 @@ class PickupController extends Controller
             }
             $pickups = Pickup::whereIn(
                 'restaurant_id',
-                Auth::user()->brand->first()->restaurants->toArray())
+                Auth::user()->restaurant->pluck('id')->toArray())
                 ->get();
         }
         return $pickups;
