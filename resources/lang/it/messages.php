@@ -16,6 +16,7 @@ return [
         'category_removed' => 'Categoria rimossa con successo!',
         'pickup_saved' => 'Offerta salvata con successo!',
         'pickup_removed' => 'Offerta rimossa con successo!',
+        'pickup_cant_remove' => 'Offerta non eliminabile! Ci sono degli ordini in giornata associati all\'offerta.',
         'showcase_saved' => 'Vetrina salvata con successo!',
         'showcase_removed' => 'Vetrina rimossa con successo!',
         'restaurant_saved' => 'Ristorante salvato con successo!',

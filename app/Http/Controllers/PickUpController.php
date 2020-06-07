@@ -201,15 +201,23 @@ class PickupController extends Controller
     public function destroy(Pickup $pickup)
     {
 
-
-        $pickup->delete();
+        $msg = 'messages.notification.pickup_removed';
+        if( $pickup->ordersToday()->count() > 0 ){
+            //Non posso cancellare l'offerta
+            $msg = 'messages.notification.pickup_cant_remove';
+        } else {
+            //Posso cancellare l'offerta
+            $a = "OK";
+            //$pickup->delete();
+        }
 
         return redirect()->route('pickups.index')->with([
-            'notification' => trans('messages.notification.pickup_removed'),
+            'notification' => trans($msg),
             'type-notification' => 'warning'
         ]);
 
     }
+
 
     public function replicate(Pickup $pickup) {
 
