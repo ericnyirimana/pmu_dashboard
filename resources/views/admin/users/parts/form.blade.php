@@ -90,13 +90,15 @@
             @if(!Auth::user()->is_manager && !isset($edit))
             disableDropDown();
 
-            if ($('#role').val() === 'OWNER' || $('#role').val() === 'RESTAURATEUR') {
+            if ($('#role').val() === 'OWNER' ||
+                $('#role').val() === 'RESTAURATEUR' ||
+                $('#role').val() === 'SALES ASSISTANT') {
                 $('.js-brand').show();
                 $('#brand_id').prop('disabled', false);
                 loadCompany($('#role').val());
             }
 
-            if ($('#role').val() === 'RESTAURATEUR') {
+            if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES ASSISTANT') {
                 $('.js-restaurant').show();
                 $('#restaurant_id').prop('disabled', false);
             }
@@ -104,7 +106,9 @@
             @endif
 
             $(document).on('change', '#role', function () {
-                if ($(this).val() === 'OWNER' || $(this).val() === 'RESTAURATEUR') {
+                if ($(this).val() === 'OWNER' ||
+                    $(this).val() === 'RESTAURATEUR' ||
+                    $(this).val() === 'SALES ASSISTANT') {
                     $('.js-brand').show();
                     $('#brand_id').prop('disabled', false);
                     $('.js-restaurant').hide();
@@ -118,7 +122,7 @@
 
             $(document).on('change', '#brand_id', function () {
                 $('#brand_id').parsley().removeError('company_owner');
-                if ($('#role').val() === 'RESTAURATEUR') {
+                if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES ASSISTANT') {
                     $('.js-restaurant').show();
                     $('#restaurant_id').prop('disabled', false);
                 }
@@ -137,7 +141,7 @@
 
         function loadCompany(id) {
             var companyElem = $("#brand_id");
-            if (id === 'OWNER' || id === 'RESTAURATEUR') {
+            if (id === 'OWNER' || id === 'RESTAURATEUR' || id === 'SALES ASSISTANT') {
 
                 $.ajax({
                     url: "{{ route('company.data') }}",

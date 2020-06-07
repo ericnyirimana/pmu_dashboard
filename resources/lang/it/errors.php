@@ -10,5 +10,7 @@ return [
     '401_title' => '401',
     '401_message' => 'Unauthorized',
     '500_title' => '500',
-    '500_message' => 'Internal server error'
+    '500_message' => 'Internal server error',
+    'wrong_login' => 'Username o password errate.',
+    'role_not_permissions' => 'Non hai i permessi necessari per accedere'
 ];
