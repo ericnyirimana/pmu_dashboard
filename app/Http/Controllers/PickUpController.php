@@ -164,15 +164,17 @@ class PickupController extends Controller
                 'type-notification' => 'danger'
             ]);
         }
-        foreach ($fields['products'] as $k => $v) {
 
-            if ($fields['quantity_offer'] > $fields['quantity'][$k]) {
-                return redirect()->route('pickups.edit', $pickup)->with([
-                    'notification' => trans('messages.notification.pickup_quantity_wrong'),
-                    'type-notification' => 'danger'
-                ]);
-            }
+        $totalProductsQuantity = 0;
+        foreach ($fields['products'] as $k => $v) {
+            $totalProductsQuantity += $fields['quantity'][$k];
             $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
+        }
+        if ($fields['quantity_offer'] > $totalProductsQuantity) {
+            return redirect()->route('pickups.edit', $pickup)->with([
+                'notification' => trans('messages.notification.pickup_quantity_wrong'),
+                'type-notification' => 'danger'
+            ]);
         }
 
         $pickup->update($fields);
@@ -201,15 +203,23 @@ class PickupController extends Controller
     public function destroy(Pickup $pickup)
     {
 
-
-        $pickup->delete();
+        $msg = 'messages.notification.pickup_removed';
+        if( $pickup->ordersToday()->count() > 0 ){
+            //Non posso cancellare l'offerta
+            $msg = 'messages.notification.pickup_cant_remove';
+        } else {
+            //Posso cancellare l'offerta
+            $a = "OK";
+            //$pickup->delete();
+        }
 
         return redirect()->route('pickups.index')->with([
-            'notification' => trans('messages.notification.pickup_removed'),
+            'notification' => trans($msg),
             'type-notification' => 'warning'
         ]);
 
     }
+
 
     public function replicate(Pickup $pickup) {
 
@@ -283,7 +293,7 @@ class PickupController extends Controller
             }
             $pickups = Pickup::whereIn(
                 'restaurant_id',
-                Auth::user()->brand->first()->restaurants->toArray())
+                Auth::user()->restaurant->pluck('id')->toArray())
                 ->get();
         }
         return $pickups;

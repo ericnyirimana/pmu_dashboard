@@ -32,7 +32,7 @@ return [
       'OWNER'           => 'OWNER',
       'RESTAURATEUR'    => 'RESTAURATEUR',
       'CUSTOMER'        => 'CUSTOMER',
-      //'SALES ASSISTANT' => 'SALES ASSISTANT'
+      'SALES ASSISTANT' => 'SALES ASSISTANT'
     ]
 
 ];

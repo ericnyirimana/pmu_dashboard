@@ -15,135 +15,156 @@ use Illuminate\Validation\Rule;
 class CategoryController extends Controller
 {
 
-      use TranslationTrait;
+    use TranslationTrait;
 
 
-      public function __construct() {
+    public function __construct()
+    {
 
         $this->authorizeResource(Category::class);
 
-      }
+    }
 
 
-      public function validation(Request $request, $category = null) {
+    public function validation(Request $request, $category = null)
+    {
 
-          /*$validationRules = [
-              'media_id'  => (empty($category)?'required':'').'',
-              'type'   => 'required'
-          ];
-          if ($request->name) {
-              $companies = Company::where('name', $request->name)->pluck('type');
-              if ($companies) {
-                Arr::add($validationRules, 'name', 'required|string|unique:categories,type,'.);
-              }
-          }*/
-          $request->validate(
-            [
-              'media_id'  => (empty($category)?'required':'').'',
-              'name'   => 'required|string',
-              'type'   => 'required'
+        $validationRules = [
+            'media_id' => (empty($category) ? 'required' : '') . '',
+            'name' => 'required|string',
+            'type' => 'required'
+        ];
+
+        if (!$this->isValidCategoryName($request->all(), $category)) {
+            $validationRules['name'] = 'required|string|unique:category_translations,name';
+        }
+        $request->validate(
+            $validationRules
+        );
+
+    }
+
+
+    public function index()
+    {
+
+
+        $categories = Category::all();
+
+        return view('admin.categories.index')
+            ->with(compact('categories'));
+
+    }
+
+
+    public function create()
+    {
+
+        $category = new Category();
+
+        return view('admin.categories.create')->with([
+                'category' => $category
             ]
-          );
+        );
 
-      }
-
-
-
-      public function index() {
-
-          $categories = Category::all();
-
-          return view('admin.categories.index')
-          ->with( compact('categories') );
-
-      }
+    }
 
 
-      public function create() {
+    public function store(Request $request)
+    {
 
-            $category = new Category();
+        $this->validation($request);
 
-            return view('admin.categories.create')->with([
-              'category'  => $category
+        $fields = $request->all();
+
+        $fields['hide'] = isset($fields['hide']) ? true : false;
+
+        $category = Category::create($fields);
+
+        $this->saveTranslation($category, $fields);
+
+        return redirect()->route('categories.index')->with([
+            'notification' => trans('messages.notification.category_saved'),
+            'type-notification' => 'success'
+        ]);
+
+    }
+
+
+    public function show(Category $category)
+    {
+
+        // get only media who doesn`t bellongs to restaurant
+        $media = Media::whereNull('brand_id')->get();
+
+        return view('admin.categories.view')->with([
+                'category' => $category,
+                'media' => $media
             ]
-            );
+        );
 
-      }
-
-
-      public function store(Request $request) {
-
-            $this->validation($request);
-
-            $fields = $request->all();
-
-            $fields['hide'] = isset($fields['hide']) ? true : false;
-
-            $category = Category::create($fields);
-
-            $this->saveTranslation($category, $fields);
-
-            return redirect()->route('categories.index')->with([
-                  'notification' => trans('messages.notification.category_saved'),
-                  'type-notification' => 'success'
-                ]);
-
-      }
+    }
 
 
+    public function edit(Category $category)
+    {
 
-      public function show(Category $category) {
-
-            // get only media who doesn`t bellongs to restaurant
-            $media = Media::whereNull('brand_id')->get();
-
-            return view('admin.categories.view')->with([
-              'category'  => $category,
-              'media'     => $media
+        return view('admin.categories.edit')->with([
+                'category' => $category
             ]
-            );
+        );
 
-      }
+    }
 
+    public function update(Request $request, Category $category)
+    {
 
-      public function edit(Category $category) {
+        $this->validation($request, $category);
 
-            return view('admin.categories.edit')->with([
-              'category'  => $category
-            ]
-            );
+        $fields = $request->all();
 
-      }
+        $fields['hide'] = isset($fields['hide']) ? true : false;
 
-      public function update(Request $request, Category $category) {
+        $this->saveTranslation($category, $fields);
 
-            $this->validation($request, $category);
+        $category->update($fields);
 
-            $fields = $request->all();
+        return redirect()->route('categories.index')->with([
+            'notification' => trans('messages.notification.category_saved'),
+            'type-notification' => 'success'
+        ]);
 
-            $fields['hide'] = isset($fields['hide']) ? true : false;
-
-            $this->saveTranslation($category, $fields);
-
-            $category->update($fields);
-
-            return redirect()->route('categories.index')->with([
-                  'notification' => trans('messages.notification.category_saved'),
-                  'type-notification' => 'success'
-                ]);
-
-      }
+    }
 
 
-      public function destroy(Category $category) {
+    public function destroy(Category $category)
+    {
 
-            $category->delete();
+        $category->delete();
 
-            return redirect()->route('categories.index')->with([
-                  'notification' => trans('messages.notification.category_removed'),
-                  'type-notification' => 'warning'
-                ]);
+        return redirect()->route('categories.index')->with([
+            'notification' => trans('messages.notification.category_removed'),
+            'type-notification' => 'warning'
+        ]);
 
-      }
+    }
 
+    protected function isValidCategoryName(array $fields, Category $category = null)
+    {
+        $whereConditions = [
+            ['type', $fields['type']]
+        ];
+
+        if ($category) {
+            array_push($whereConditions, ['id', '!=', $category->id]);
+        }
+
+        $categoryMatch = Category::where($whereConditions)
+            ->whereHas('translate', function ($q) use ($fields) {
+                $q->where('name', $fields['name']);
+            })
+            ->first();
+
+        return $categoryMatch ? false : true;
+    }
 }

@@ -35,7 +35,7 @@
                 'datatable.headers.date_ini' => 'date_ini_formatted',
                 'datatable.headers.date_end' => 'date_end_formatted',
                 ]"
-                           actions="edit,replicate" />
+                           actions="edit,replicate,delete" />
                 @endif
         </div>
     </div>

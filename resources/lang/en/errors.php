@@ -10,5 +10,7 @@ return [
     '401_title' => '401',
     '401_message' => 'Unauthorized',
     '500_title' => '500',
-    '500_message' => 'Internal server error'
+    '500_message' => 'Internal server error',
+    'wrong_login' => 'Incorret login or password.',
+    'role_not_permissions' => 'Not permissions with this user role'
 ];

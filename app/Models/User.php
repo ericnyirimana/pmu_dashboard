@@ -138,12 +138,12 @@ class User extends Authenticatable
             $this->is_restaurant);
     }
 
-//    public function getIsSalesAssistantAttribute()
-//    {
-//
-//        return ($this->role == 'SALES ASSISTANT');
-//
-//    }
+    public function getIsSalesAssistantAttribute()
+    {
+
+        return ($this->role == 'SALES ASSISTANT');
+
+    }
 
 
 }
