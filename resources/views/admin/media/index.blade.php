@@ -47,7 +47,7 @@ function loadImage(media) {
       var link = $('.edit-image-container .edit-image').attr('href');
 
       if (media.canEdit) {
-        newLink = "{{ env('APP_URL') }}/media/"+media.id+"/edit";
+        newLink = "{{ env('APP_URL') }}/admin/media/"+media.id+"/edit";
 
         $('.edit-image-container').show();
         $('.edit-image-container .edit-image').attr('href', newLink);
