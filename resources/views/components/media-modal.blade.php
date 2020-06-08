@@ -80,7 +80,8 @@
             </div>
 
             <div class="edit-image-container">
-                <a href="{{ route('media.edit', 1)}}"
+                <!-- <a href="{{ route('media.edit', 1)}}"-->
+                <a href="{{ env('APP_URL') }}/admin/media/{{$file->id }}/edit"
                    class="btn btn-primary btn-block edit-image">{{ ucfirst(trans('button.edit_image')) }}</a>
             </div>
 
