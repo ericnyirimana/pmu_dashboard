@@ -53,7 +53,7 @@
             {{--</div>--}}
         </div>
     @elseif(Auth::user()->is_manager)
-        <div class="row mb-3">
+        <!-- <div class="row mb-3">
             <div class="col-12 col-md-6 col-xl-3">
                 <div class=" card-box table-responsive recap-box">
                     <div class="row">
@@ -127,6 +127,7 @@
                 </div>
             </div>
         </div>
+        -->
 
         <div class="row mb-3">
             <div class="col-12 col-md-6">
