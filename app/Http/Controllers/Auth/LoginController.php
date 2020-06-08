@@ -74,7 +74,7 @@ class LoginController extends Controller
 
           if ($client->error) {
 
-              return redirect()->route('login')->withErrors(['login' => 'Incorret login or password.' ]);
+              return redirect()->route('login')->withErrors(['login' => trans('errors.wrong_login') ]);
           }
 
           if ($client->forceResetPassword) {
@@ -96,8 +96,14 @@ class LoginController extends Controller
                 #if Authenticate with cognito, connect with normal DB
                 #The user from DB is a clone from Cognito, it copies every time it log
                 if ($sync && Auth::attempt($credentials, $request->remember)) {
+                   if (Auth::user()->is_super || Auth::user()->is_manager) {
+                       return redirect()->route('dashboard.index');
+                   } else {
+                       Auth::logout();
+                       return redirect()->route('login')->withErrors(['login' => trans('errors.role_not_permissions')
+                       ]);
+                   }
 
-                    return redirect()->route('dashboard.index');
                 } else {
 
                     return redirect()->route('login')->withErrors(['login' => 'Something wrong happened.']);
