@@ -1,10 +1,18 @@
 <div class="row">
 
     <div class="col-12 col-md-6">
-        <field-text label="name" field="name" :model="$user" required/>
+        @if(Auth::user()->is_manager)
+            <field-text label="name" field="name" :model="$user" required disabled="true"/>
+        @else
+            <field-text label="name" field="name" :model="$user" required/>
+        @endif
     </div>
     <div class="col-12 col-md-6">
-        <field-text label="email" field="email" :model="$user" required />
+        @if(Auth::user()->is_manager)
+            <field-text label="email" field="email" :model="$user" required disabled="true"/>
+        @else
+            <field-text label="email" field="email" :model="$user" required />
+        @endif
     </div>
     <div class="col-12 col-md-6">
         @if(Auth::user()->is_manager)
