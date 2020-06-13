@@ -59,6 +59,7 @@
     <div class="col-12 col-md-8">
         {{--<field-image label="Immagine profilo" field="profile_image" :model="$user" />--}}
     </div>
+    <!--
     <div class="col-12 col-md-6 row d-flex align-items-center">
         <div class="col-8">
             <field-text label="password" field="password" {{--:model="$user"--}} />
@@ -68,6 +69,7 @@
                     class="btn btn-md w-lg btn-success float-right">{{ ucfirst(trans('button.generate_pwd')) }}</button>
         </div>
     </div>
+    -->
     {{--<div class="col-12">--}}
     {{--<field-checkbox-permissions label="Permessi" field="" :model="$user" :items="" />--}}
     {{--</div>--}}

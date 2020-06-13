@@ -113,5 +113,14 @@ return [
     'menus_to_approve' => 'menu da approvare',
     'new_order' => 'nuovo ordine',
     'new_orders' => 'nuovi ordini',
-    'select_company' => 'Seleziona compagnia'
+    'select_company' => 'Seleziona compagnia',
+    'days_lang' => [
+        'monday' => 'Lunedi',
+        'tuesday' => 'Martedi',
+        'wednesday' => 'Mercoledi',
+        'thursday' => 'Giovedi',
+        'friday' => 'Venerdi',
+        'saturday' => 'Sabato',
+        'sunday' => 'Domenica'
+    ],
 ];

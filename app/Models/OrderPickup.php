@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderPickup extends Model
 {
-
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     protected $appends = ['created_at', 'updated_at'];
     public function order() {
         return $this->belongsTo('App\Models\Order');
