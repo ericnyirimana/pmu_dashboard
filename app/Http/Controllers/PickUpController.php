@@ -158,7 +158,7 @@ class PickupController extends Controller
             $fields['date_end'] = Carbon::parse($dates[1]);
         }
 
-        if ($fields['quantity_offer'] < $pickup->quantity_offer) {
+        if ($pickup->products->count() > 0 &&$fields['quantity_offer'] < $pickup->quantity_offer) {
             return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => trans('messages.notification.pickup_quantity_wrong'),
                 'type-notification' => 'danger'
@@ -205,12 +205,11 @@ class PickupController extends Controller
 
         $msg = 'messages.notification.pickup_removed';
         if( $pickup->ordersToday()->count() > 0 ){
-            //Non posso cancellare l'offerta
+            //Can't Delete Pickup Offers
             $msg = 'messages.notification.pickup_cant_remove';
         } else {
-            //Posso cancellare l'offerta
-            $a = "OK";
-            //$pickup->delete();
+            //Delete Pickup Offers
+            $pickup->delete();
         }
 
         return redirect()->route('pickups.index')->with([

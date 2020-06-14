@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Libraries\Pusher;
 use App\Models\OrderPickup;
 use App\Models\SubscriptionTicket;
+use App\Services\EmailService;
 use Illuminate\Http\Request;
 
 class TicketController extends Controller
 {
 
     protected $pusher;
+    protected $emailService;
 
-    public function __construct(Pusher $pusher)
+    public function __construct(Pusher $pusher, EmailService $emailService)
     {
         $this->pusher = $pusher;
+        $this->emailService = $emailService;
     }
 
     public function validation(Request $request, $company = null)
@@ -73,6 +76,9 @@ class TicketController extends Controller
                 trans('push-notifications.ticket_reject.title'),
                 trans('push-notifications.ticket_reject.message', ['ticketId' => $ticketId, 'notes' => $ticket->restaurant_notes])
                 );
+
+            // Send cancel order email
+            $this->emailService->sendEmailCancelOrder($ticket);
 
             return redirect()->route('ticket.show', $ticket)->with([
                 'notification' => trans('messages.notification.tickets_saved'),

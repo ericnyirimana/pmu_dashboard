@@ -207,11 +207,11 @@ class RestaurantController extends Controller
                     ['restaurant_id', $restaurant->id],
                     ['type_pickup', 'offer']
             ]);
-        })->get();
+        })->orderBy('created_at', 'DESC')->get();
 
         $ticketsSubscription = SubscriptionTicket::whereHas('pickup', function ($q) use ($restaurant) {
             $q->where('restaurant_id', $restaurant->id);
-        })->get();
+        })->orderBy('created_at', 'DESC')->get();
 
         $allTickets = $tickets->merge($ticketsSubscription);
         $allTickets = $tickets->sortBy('updated_at');
@@ -241,7 +241,7 @@ class RestaurantController extends Controller
                 'media' => $media,
                 'mealtype' => $mealtypeList,
                 'users' => $users,
-                'ordersPickup' => $ordersPickup->sortByDesc('order.created_at'),
+                'ordersPickup' => $ordersPickup->sortByDesc('created_at'),
                 'pickupSubscriptions' => $pickupSubscriptions,
                 'payments' => $payments,
                 'balance' => $balance,
