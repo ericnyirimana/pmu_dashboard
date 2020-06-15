@@ -158,7 +158,7 @@ class PickupController extends Controller
             $fields['date_end'] = Carbon::parse($dates[1]);
         }
 
-        if ($fields['quantity_offer'] < $pickup->quantity_offer) {
+        if ($pickup->products->count() > 0 && $fields['quantity_offer'] < $pickup->quantity_offer) {
             return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => trans('messages.notification.pickup_quantity_wrong'),
                 'type-notification' => 'danger'
@@ -170,7 +170,29 @@ class PickupController extends Controller
             $totalProductsQuantity += $fields['quantity'][$k];
             $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
         }
+
+        //$pickup->sections['Piadine'][0]->id
+        $sumProductsQuantityPerSection = 0;
+        $stack = array();
+        foreach ($pickup->sections as $k => $v) {
+            $sumProductsQuantityPerSection = 0;
+            foreach ($pickup->sections[$k] as $sectionK => $sectionV) {
+                if( isset($products[$sectionV->id]) ){
+                    $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
+                }
+            }
+            array_push($stack, $sumProductsQuantityPerSection);
+        }
+
+
         if ($fields['quantity_offer'] > $totalProductsQuantity) {
+            return redirect()->route('pickups.edit', $pickup)->with([
+                'notification' => trans('messages.notification.pickup_quantity_wrong'),
+                'type-notification' => 'danger'
+            ]);
+        }
+
+        if( $fields['quantity_offer'] > min($stack['quantity'])){
             return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => trans('messages.notification.pickup_quantity_wrong'),
                 'type-notification' => 'danger'
@@ -205,12 +227,11 @@ class PickupController extends Controller
 
         $msg = 'messages.notification.pickup_removed';
         if( $pickup->ordersToday()->count() > 0 ){
-            //Non posso cancellare l'offerta
+            //Can't Delete Pickup Offers
             $msg = 'messages.notification.pickup_cant_remove';
         } else {
-            //Posso cancellare l'offerta
-            $a = "OK";
-            //$pickup->delete();
+            //Delete Pickup Offers
+            $pickup->delete();
         }
 
         return redirect()->route('pickups.index')->with([

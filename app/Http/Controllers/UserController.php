@@ -243,7 +243,7 @@ class UserController extends Controller
         $client = new Cognito();
         $client->deleteUser($user->sub);
 
-        $user->forceDelete();
+        $user->delete();
 
         return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'danger');
 
