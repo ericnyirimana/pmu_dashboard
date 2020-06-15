@@ -28,7 +28,8 @@ return [
         'select_restaurant' => 'Select a restaurant',
         'pickup_not_editable' => 'Offer not editable',
         'pickup_copied' => 'Offer copied!',
-        'pickup_quantity_wrong' => 'Quantity wrong',
+        //'pickup_quantity_wrong' => 'Quantity wrong',
+        'pickup_quantity_wrong' => 'Errore quantità: Il Numero offerte (x giorno) è superiore al totale delle quantità disponibile della sezione :section (:total_section)'
         'product_cant_remove' => 'Product can\'t remove, there is an offer not expired'
     ]
 ];

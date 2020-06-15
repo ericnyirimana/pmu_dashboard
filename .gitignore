@@ -1,7 +1,6 @@
 /node_modules
 /public/hot
 /public/storage
-/public/images
 /storage/*.key
 /vendor
 /.idea
@@ -17,3 +16,5 @@ yarn-error.log
 /Adminox_v1.3/*
 
 *.DS_Store
+
+composer.lock

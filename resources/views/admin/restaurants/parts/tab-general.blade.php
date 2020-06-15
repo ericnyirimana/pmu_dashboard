@@ -86,13 +86,13 @@
       <div class="col-12">
           <div class="button-list">
               <div class="form-group">
-                  <field-button group="true" type="simple" label="Monday" name="monday" class="btn btn-primary waves-effect w-lg" />
-                  <field-button group="true" type="simple" label="Tuesday" name="tuesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                  <field-button group="true" type="simple" label="Wednesday" name="wednesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                  <field-button group="true" type="simple" label="Thursday" name="thursday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                  <field-button group="true" type="simple" label="Friday" name="friday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                  <field-button group="true" type="simple" label="Saturday" name="saturday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
-                  <field-button group="true" type="simple" label="Sunday" name="sunday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Lunedi" name="monday" class="btn btn-primary waves-effect w-lg"/>
+                  <field-button group="true" type="simple" label="Martedi" name="tuesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Mercoledi" name="wednesday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Giovedi" name="thursday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Venerdi" name="friday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Sabato" name="saturday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
+                  <field-button group="true" type="simple" label="Domenica" name="sunday" class="btn btn-secondary btn-bordered waves-effect w-lg" />
               </div>
           </div>
       </div>

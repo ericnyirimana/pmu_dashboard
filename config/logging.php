@@ -36,7 +36,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily'],
+            'channels' => ['daily', 'stdout'],
         ],
 
         'single' => [
@@ -76,6 +76,16 @@ return [
             'with' => [
                 'stream' => 'php://stderr',
             ],
+        ],
+
+        'stdout' => [
+            'driver' => 'monolog',
+            'handler' => StreamHandler::class,
+            'tap' => [App\Logging\CustomizeFormatter::class],
+            'with' => [
+                'stream' => 'php://stdout',
+            ],
+            'level' => 'info',
         ],
 
         'syslog' => [

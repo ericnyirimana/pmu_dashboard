@@ -28,7 +28,7 @@ $(document).ready(function(){
          $(this).children('.container-sections').each(function(item, element) {
 
              $.ajax({
-                 url: "/admin/section/position/"+$(element).data('id'),
+                 url: "/section/position/"+$(element).data('id'),
                  type: 'POST',
                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                  dataType: 'json',
@@ -153,7 +153,7 @@ $( function() {
         $(this).children('.container-plate-preview').each(function(item, element) {
 
             $.ajax({
-                url: "/admin/products/position/"+$(element).data('id'),
+                url: "/products/position/"+$(element).data('id'),
                 type: 'POST',
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 dataType: 'json',

@@ -236,6 +236,11 @@ class Pickup extends Model
 
     }
 
+    public function getRestaurantNameAttribute()
+    {
+        return $this->restaurant()->first()->name;
+    }
+
     public function getIsActiveTodayAttribute()
     {
         if (!$this->restaurant->is_open_today) {

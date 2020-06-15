@@ -41,6 +41,7 @@ return [
     'view_all' => 'Vedi tutto',
     'back_home' => 'Torna alla home',
     'cancel' => 'Cancella',
+    'order_cancel' => 'Annulla Ordine',
     'suspend' => 'Sospendi',
     'enable' => 'Abilita',
     'remove_permanently' => 'Rimuovi definitivamente'

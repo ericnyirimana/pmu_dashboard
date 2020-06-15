@@ -41,6 +41,7 @@ return [
     'view_all' => 'View all',
     'back_home' => 'Back home',
     'cancel' => 'Cancel',
+    'order_cancel' => 'Cancel Order',
     'suspend' => 'Suspend',
     'enable' => 'Enable',
     'remove_permanently' => 'Remove permanently'

@@ -4,12 +4,14 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends Model
 {
 
     //protected $fillable = ['total_commission', 'total_amount', 'subtotal_amount', 'discounted_price'];
-
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     public $fillable = [
         'id', 'status', 'created_at',
     ];

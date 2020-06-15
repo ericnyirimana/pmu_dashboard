@@ -165,40 +165,37 @@ class PickupController extends Controller
             ]);
         }
 
-        $totalProductsQuantity = 0;
+        //$totalProductsQuantity = 0;
         foreach ($fields['products'] as $k => $v) {
-            $totalProductsQuantity += $fields['quantity'][$k];
+            //$totalProductsQuantity += $fields['quantity'][$k];
             $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
         }
 
-        //$pickup->sections['Piadine'][0]->id
-        $sumProductsQuantityPerSection = 0;
-        $stack = array();
+        //Check the total quantity
         foreach ($pickup->sections as $k => $v) {
+            $sectionKey = $k;
             $sumProductsQuantityPerSection = 0;
             foreach ($pickup->sections[$k] as $sectionK => $sectionV) {
                 if( isset($products[$sectionV->id]) ){
                     $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
                 }
             }
-            array_push($stack, $sumProductsQuantityPerSection);
+            if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
+                return redirect()->route('pickups.edit', $pickup)->with([
+                    'notification' => trans('messages.notification.pickup_quantity_wrong',
+                        ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]),
+                    'type-notification' => 'danger'
+                ]);
+            }
         }
-
-
+/*
         if ($fields['quantity_offer'] > $totalProductsQuantity) {
             return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => trans('messages.notification.pickup_quantity_wrong'),
                 'type-notification' => 'danger'
             ]);
         }
-
-        if( $fields['quantity_offer'] > min($stack['quantity'])){
-            return redirect()->route('pickups.edit', $pickup)->with([
-                'notification' => trans('messages.notification.pickup_quantity_wrong'),
-                'type-notification' => 'danger'
-            ]);
-        }
-
+*/
         $pickup->update($fields);
 
         if ($pickup->type_pickup == 'offer') {

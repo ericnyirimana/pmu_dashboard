@@ -7,10 +7,10 @@
             @if(isset($allTickets))
                 <datatable class='tickets-datatable' route="ticket" :collection="$allTickets" :fields="[
                 'ID'                        => 'id_formatted',
-                'datatable.headers.date'    => 'date_formatted',
-                'datatable.headers.hour'    => 'hour_formatted',
+                'datatable.headers.date'    => 'date_format',
+                'datatable.headers.hour'    => 'hour_format',
                 'datatable.headers.offer'   => 'pickup_name',
-                'datatable.headers.status'      => 'restaurant_status',
+                'datatable.headers.status'  => 'restaurant_status',
                 ]"
                 actions="view"           />
             @endif

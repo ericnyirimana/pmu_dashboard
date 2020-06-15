@@ -52,4 +52,10 @@ $app->singleton(
 |
 */
 
+/*
+$json = new \Monolog\Formatter\JsonFormatter();
+$stdouthandler = new \Monolog\Handler\StreamHandler('php://stdout', 'info');
+$stdouthandler->setFormatter($json);
+\Illuminate\Support\Facades\Log::pushHandler($stdouthandler);
+*/
 return $app;

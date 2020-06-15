@@ -47,4 +47,8 @@ class SubscriptionTicket extends Model
     public function getPickupNameAttribute() {
         return $this->pickup() ? $this->pickup()->first()->name : 'No Pickup found';
     }
+
+    public function getRestaurantNameAttribute(){
+        return $this->pickup()->first()->restaurant_name;
+    }
 }
