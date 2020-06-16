@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -111,10 +112,13 @@ class PickupController extends Controller
             $pickup->media()->sync(array_unique($request->media));
         }
 
-        return redirect()->route('pickups.edit', $pickup)->with([
+        return redirect()->route('pickups.edit', $pickup);
+        /*
+         return redirect()->route('pickups.edit', $pickup)->with([
             'notification' => trans('messages.notification.pickup_saved'),
             'type-notification' => 'success'
         ]);
+         */
 
     }
 
@@ -172,23 +176,9 @@ class PickupController extends Controller
         }
 
         //Check the total quantity
-        if( $pickup->sections != null ){
-            foreach ($pickup->sections as $k => $v) {
-                $sectionKey = $k;
-                $sumProductsQuantityPerSection = 0;
-                foreach ($pickup->sections[$k] as $sectionK => $sectionV) {
-                    if( isset($products[$sectionV->id]) ){
-                        $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
-                    }
-                }
-                if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
-                    return redirect()->route('pickups.edit', $pickup)->with([
-                        'notification' => trans('messages.notification.pickup_quantity_wrong',
-                            ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]),
-                        'type-notification' => 'danger'
-                    ]);
-                }
-            }
+        $sections = $pickup->sections;
+        if( $pickup->sections == null ){
+            $sections = $this->getSections($fields['products']);
         }
 
 /*
@@ -210,6 +200,24 @@ class PickupController extends Controller
         $this->saveTranslation($pickup, $fields);
         $pickup->products()->sync($products);
 
+        foreach ($sections as $k => $v) {
+            $sectionKey = $k;
+            $sumProductsQuantityPerSection = 0;
+            foreach ($sections[$k] as $sectionK => $sectionV) {
+                if( isset($products[$sectionV->id]) ){
+                    $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
+                }
+            }
+            if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
+                return redirect()->route('pickups.edit', $pickup)->with([
+                    'pickup' => $pickup,
+                    'notification' => trans('messages.notification.pickup_quantity_wrong',
+                        ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]),
+                    'type-notification' => 'danger'
+                ]);
+            }
+        }
+
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
         }
@@ -221,6 +229,22 @@ class PickupController extends Controller
 
     }
 
+    private function getSections($products){
+
+        if (count($products) > 0) {
+            foreach ($products as $productItem) {
+
+                $product = Product::where('id', '=', $productItem)->first();
+                $pos = $product->section->name;
+                if (empty($list[$pos])) $list[$pos] = array();
+
+                array_push($list[$pos], $product);
+
+            }
+
+            return $list;
+        }
+    }
 
     public function destroy(Pickup $pickup)
     {
