@@ -172,22 +172,25 @@ class PickupController extends Controller
         }
 
         //Check the total quantity
-        foreach ($pickup->sections as $k => $v) {
-            $sectionKey = $k;
-            $sumProductsQuantityPerSection = 0;
-            foreach ($pickup->sections[$k] as $sectionK => $sectionV) {
-                if( isset($products[$sectionV->id]) ){
-                    $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
+        if( $pickup->sections != null ){
+            foreach ($pickup->sections as $k => $v) {
+                $sectionKey = $k;
+                $sumProductsQuantityPerSection = 0;
+                foreach ($pickup->sections[$k] as $sectionK => $sectionV) {
+                    if( isset($products[$sectionV->id]) ){
+                        $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
+                    }
+                }
+                if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
+                    return redirect()->route('pickups.edit', $pickup)->with([
+                        'notification' => trans('messages.notification.pickup_quantity_wrong',
+                            ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]),
+                        'type-notification' => 'danger'
+                    ]);
                 }
             }
-            if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
-                return redirect()->route('pickups.edit', $pickup)->with([
-                    'notification' => trans('messages.notification.pickup_quantity_wrong',
-                        ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]),
-                    'type-notification' => 'danger'
-                ]);
-            }
         }
+
 /*
         if ($fields['quantity_offer'] > $totalProductsQuantity) {
             return redirect()->route('pickups.edit', $pickup)->with([
