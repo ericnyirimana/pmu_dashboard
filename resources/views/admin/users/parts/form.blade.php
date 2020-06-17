@@ -1,5 +1,4 @@
 <div class="row">
-
     <div class="col-12 col-md-6">
         @if(Auth::user()->is_manager)
             <field-text label="name" field="name" :model="$user" required disabled="true"/>
@@ -15,10 +14,16 @@
         @endif
     </div>
     <div class="col-12 col-md-6">
-        @if(Auth::user()->is_manager)
+        @if(Auth::user()->is_manager && Auth::user()->is_owner)
             <field-select label="role" field="role" foreignid="role" type="simple" :model="$user"
-                          :values="config('cognito.roles')"
-                          required disabled="true" />
+                          :values="config('cognito.ownerRolesToAdd')"
+                          required readonly/>
+        @elseif(Auth::user()->is_manager && Auth::user()->is_restaurant && empty($edit))
+            <?php list('SALES ASSISTANT' => $salesAssistant) = config('cognito.ownerRolesToAdd');
+            ?>
+            <field-custom-text label="role" field="role" :value="$salesAssistant" required readonly/>
+        @elseif(Auth::user()->is_manager && Auth::user()->is_restaurant && isset($edit))
+            <field-custom-text label="role" field="role" :value="Auth::user()->role" required readonly/>
         @else
             <field-select label="role" field="role" foreignid="role" type="simple" :model="$user"
                           :values="config('cognito.roles')"
@@ -26,12 +31,15 @@
         @endif
 
     </div>
+    @if(Auth::user()->is_restaurant && isset($edit))
+    <?php $user=Auth::user(); ?>
+    @endif
     <div class="col-12 col-md-6 js-brand">
         @if(Auth::user()->is_manager)
             <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
                           :model="$user->brand->first()"
                           :values="$user->brand"
-                          disabled="true"
+                          readonly
             />
         @else
             <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
@@ -46,7 +54,7 @@
                           type="relation"
                           :model="$user->restaurant->first()"
                           :values="$user->restaurant"
-                          disabled="true"
+                          readonly
             />
         @else
             <field-select label="restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id"
@@ -78,10 +86,15 @@
 
             <a href="{{ route('users.index') }}"
                class="btn btn-md w-lg btn-secondary float-left">{{ ucfirst(trans('button.back')) }}</a>
+            @if(!empty($edit) && (Auth::user()->is_manager || Auth::user()->is_owner || Auth::user()->is_restaurant))
+            <button type="submit"
+                    class="btn btn-md w-lg btn-success float-right js-button-save" disabled=true>{{ ucfirst(trans('button.save'))
+                    }}</button>
+            @else
             <button type="submit"
                     class="btn btn-md w-lg btn-success float-right js-button-save">{{ ucfirst(trans('button.save'))
                     }}</button>
-
+            @endif
         </div>
 
     </div>
@@ -104,13 +117,13 @@
                 $('#role').val() === 'RESTAURATEUR' ||
                 $('#role').val() === 'SALES ASSISTANT') {
                 $('.js-brand').show();
-                $('#brand_id').prop('disabled', false);
+                $('#brand_id').prop('readonly', false);
                 loadCompany($('#role').val());
             }
 
             if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES ASSISTANT') {
                 $('.js-restaurant').show();
-                $('#restaurant_id').prop('disabled', false);
+                $('#restaurant_id').prop('readonly', false);
             }
 
             @endif
@@ -120,9 +133,9 @@
                     $(this).val() === 'RESTAURATEUR' ||
                     $(this).val() === 'SALES ASSISTANT') {
                     $('.js-brand').show();
-                    $('#brand_id').prop('disabled', false);
+                    $('#brand_id').prop('readonly', false);
                     $('.js-restaurant').hide();
-                    $('#restaurant_id').prop('disabled', true);
+                    $('#restaurant_id').prop('readonly', true);
                     loadCompany($('#role').val());
                 } else {
                     disableDropDown();
@@ -134,7 +147,7 @@
                 $('#brand_id').parsley().removeError('company_owner');
                 if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES ASSISTANT') {
                     $('.js-restaurant').show();
-                    $('#restaurant_id').prop('disabled', false);
+                    $('#restaurant_id').prop('readonly', false);
                 }
                 loadRestaurants($(this).val());
 
@@ -144,15 +157,22 @@
 
         function disableDropDown() {
             $('.js-brand').hide();
-            $('#brand_id').prop('disabled', true);
+            $('#brand_id').prop('readonly', true);
             $('.js-restaurant').hide();
-            $('#restaurant_id').prop('disabled', true);
+            $('#restaurant_id').prop('readonly', true);
         }
 
         function loadCompany(id) {
             var companyElem = $("#brand_id");
             if (id === 'OWNER' || id === 'RESTAURATEUR' || id === 'SALES ASSISTANT') {
-
+                @if(Auth::user()->is_manager || Auth::user()->is_owner || Auth::user()->is_restaurant)
+                $.ajax({
+                    success: function () {
+                        companyElem.html('<option value="">Select Company</option>');
+                        companyElem.append('<option value="{{Auth::user()->brand[0]->id}}">{{Auth::user()->brand[0]->name}}</option>');
+                    }
+                });
+                @else
                 $.ajax({
                     url: "{{ route('company.data') }}",
                     type: 'GET',
@@ -166,7 +186,7 @@
                         });
                     }
                 });
-
+                @endif
             } else {
                 companyElem.html('<option value="">Select Company</option>');
             }
@@ -175,6 +195,14 @@
         function loadRestaurants(id) {
             var restaurantElem = $("#restaurant_id");
             if (id) {
+                @if(Auth::user()->is_restaurant)
+                $.ajax({
+                    success: function () {
+                        restaurantElem.html('<option value="">Select Restaurant</option>');
+                        restaurantElem.append('<option value="{{Auth::user()->restaurant[0]->id}}">{{Auth::user()->restaurant[0]->name}}</option>');
+                    }
+                });
+                @else
                 $.ajax({
                     url: "{{ route('company.restaurants.data') }}/" + id,
                     type: 'GET',
@@ -207,6 +235,7 @@
                         }
                     }
                 });
+                @endif
             } else {
                 restaurantElem.html('<option value="">Select Restaurant</option>');
             }

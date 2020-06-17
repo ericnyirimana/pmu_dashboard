@@ -57,23 +57,28 @@ class UserController extends Controller
     {
 
         $user = Auth::user();
-
+        if(Auth::user()->is_owner || Auth::user()->is_restaurant) {
+            $edit = false;
+        }
         return view('admin.users.profile')
-            ->with(compact('user'));
+            ->with([
+                'user' => $user,
+                'edit' => true
+            ]);
 
     }
 
 
     public function index()
     {
-
         $this->alignUsersFromCognito();
-
 
         if (Auth::user()->is_super) {
             $users = User::withTrashed()->get();
         } else if (Auth::user()->is_owner) {
             $users = Auth::user()->brand->first()->users;
+        } else if (Auth::user()->is_restaurant) {
+            $users = Auth::user()->brand->first()->users->where('role', '!=' ,'OWNER');
         }
 
         return view('admin.users.index')
