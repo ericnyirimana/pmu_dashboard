@@ -25,7 +25,7 @@
                 'datatable.headers.date_end' => 'date_end_formatted',
                 ]"
                 actions="edit" />
-                @elseif(Auth::user()->is_super || Auth::user()->is_owner)
+                @elseif(Auth::user()->is_owner)
                 <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID'    => 'id',
                 'datatable.headers.name'  => 'name',
@@ -35,7 +35,18 @@
                 'datatable.headers.date_ini' => 'date_ini_formatted',
                 'datatable.headers.date_end' => 'date_end_formatted',
                 ]"
-                           actions="edit,replicate,delete" />
+                           actions="edit" />
+                @elseif(Auth::user()->is_super)
+                <datatable route='pickups' :collection="$pickups" :fields="[
+                'ID'    => 'id',
+                'datatable.headers.name'  => 'name',
+                'datatable.headers.restaurant' => 'restaurant:name',
+                'datatable.headers.type'  => 'color:type_pickup:pickup_color',
+                'datatable.headers.status' => 'status_pickup',
+                'datatable.headers.date_ini' => 'date_ini_formatted',
+                'datatable.headers.date_end' => 'date_end_formatted',
+                ]"
+                       actions="edit,replicate,delete" />
                 @endif
         </div>
     </div>
