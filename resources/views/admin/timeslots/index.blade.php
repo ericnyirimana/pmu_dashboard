@@ -14,6 +14,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card-box table-responsive">
+                @if(Auth::user()->is_super)
                 <datatable route='timeslots' :collection='$timeslots' :fields="[
                   'datatable.headers.meal' => 'name',
                   'datatable.headers.opening_hours'  => 'hour_ini',
@@ -21,6 +22,15 @@
                   'datatable.headers.restaurant' => 'restaurant_name'
               ]"
                            actions="edit, delete" />
+                @else
+                <datatable route='timeslots' :collection='$timeslots' :fields="[
+                  'datatable.headers.meal' => 'name',
+                  'datatable.headers.opening_hours'  => 'hour_ini',
+                  'datatable.headers.closing_time'  => 'hour_end',
+                  'datatable.headers.restaurant' => 'restaurant_name'
+              ]"
+                           actions="edit" />
+                @endif
             </div>
         </div>
     </div>

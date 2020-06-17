@@ -26,7 +26,7 @@
                 'datatable.headers.status' => 'boolean:status_name:status_color'
                 ]"
                            actions='view, edit, delete'/>
-                @else
+                @elseif(Auth::user()->is_owner)
                 <datatable route='companies' :collection="$companies" :fields="[
                 'ID' => 'id',
                 'datatable.headers.name' => 'name',
@@ -35,6 +35,15 @@
                 'datatable.headers.status' => 'boolean:status_name:status_color'
                 ]"
                            actions='view, edit'/>
+                @elseif(Auth::user()->is_restaurant)
+                <datatable route='companies' :collection="$companies" :fields="[
+                'ID' => 'id',
+                'datatable.headers.name' => 'name',
+                'datatable.headers.number_restaurants' => 'restaurants_quantity',
+                'datatable.headers.owner' => 'owner_name',
+                'datatable.headers.status' => 'boolean:status_name:status_color'
+                ]"
+                       actions='view'/>
                 @endif
         </div>
     </div>
