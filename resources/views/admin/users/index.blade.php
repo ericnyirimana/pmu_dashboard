@@ -23,15 +23,23 @@
         <div class="card-box table-responsive">
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_users')) }}</b></h4>
-
+            @if (Auth::user()->is_manager || Auth::user()->is_owner || Auth::user()->is_restaurant)
               <datatable route='users' :collection='$users' :fields="[
                   'ID'        => 'id',
                   'datatable.headers.name'      => 'name',
                   'datatable.headers.email'     => 'email',
                   'datatable.headers.role'      => 'role'
               ]"
+              actions="edit" />
+            @else
+             <datatable route='users' :collection='$users' :fields="[
+                  'ID'        => 'id',
+                  'datatable.headers.name'      => 'name',
+                  'datatable.headers.email'     => 'email',
+                  'datatable.headers.role'      => 'role'
+              ]"
               actions="edit, delete" />
-
+            @endif
         </div>
     </div>
 </div>

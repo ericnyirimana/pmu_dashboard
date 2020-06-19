@@ -4,7 +4,7 @@
 
       <select id="{{ isset($id) ? $id : $field }}" class="form-control" name="{{ isset($fieldname) ? $fieldname :
       $foreignid
-      }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled) && ($model->id)) disabled @endif>
+      }}" aria-describedby="{{ $field }}Help" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled)) disabled @endif @if(isset($readonly)) readonly @endif>
           @if (isset($values))
 
             @if( is_array($values) ||  is_a($values, 'Illuminate\Database\Eloquent\Collection') )

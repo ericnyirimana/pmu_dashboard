@@ -18,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->is_super || $user->is_owner);
+        return ($user->is_super || $user->is_owner || $user->is_restaurant);
     }
 
     /**
@@ -44,7 +44,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return ($user->is_super);
+        return ($user->is_super || $user->is_owner || $user->is_restaurant);
     }
 
     /**

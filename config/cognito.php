@@ -33,6 +33,13 @@ return [
       'RESTAURATEUR'    => 'RESTAURATEUR',
       'CUSTOMER'        => 'CUSTOMER',
       'SALES ASSISTANT' => 'SALES ASSISTANT'
-    ]
+    ],
+    'restaurantoRolesToAdd' => [
+        'SALES_ASSISTANT' => 'SALES ASSISTANT'
+    ],
+    'ownerRolesToAdd' => [
+        'RESTAURATEUR'    => 'RESTAURATEUR',
+        'SALES ASSISTANT' => 'SALES ASSISTANT'
+    ],
 
 ];
