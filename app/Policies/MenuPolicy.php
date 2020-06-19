@@ -19,6 +19,7 @@ class MenuPolicy
     public function viewAny(User $user)
     {
         return ($user->is_super || $user->is_restaurant);
+        //return true;
     }
 
     /**
