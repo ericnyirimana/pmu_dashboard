@@ -37,7 +37,16 @@ class EmailService {
             $result = $sesClient->sendTemplatedEmail([
                 'Destination' => [
                     'ToAddresses' => [$user->email],
-                    'BccAddresses'=> [env('SENDER_CANCELLED_EMAIL')],
+                ],
+                'ReplyToAddresses' => [$sender_email],
+                'Source' => $sender_email,
+
+                'Template' => $template_name,
+                'TemplateData' => json_encode($json),
+            ]);
+            $result = $sesClient->sendTemplatedEmail([
+                'Destination' => [
+                    'ToAddresses' => [env('SENDER_CANCELLED_EMAIL')],
                 ],
                 'ReplyToAddresses' => [$sender_email],
                 'Source' => $sender_email,
