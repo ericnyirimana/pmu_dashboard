@@ -65,42 +65,44 @@
     </div>
     <div class="media-container-body p-4 border">
         <div class="row list-thumbnail">
-            @foreach($media as $file)
+            @if(isset($file))
+                @foreach($media as $file)
 
-                <div class="thumb-image" data-company-id="@if($file->company){{$file->company->id}}@endif"
-                     data-restaurant-id="@if($file->restaurant){{$file->restaurant->id}}@endif"
-                     data-status="{{$file->status_media}}">
-                    <figure class="view-file">
-                        <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
-                        <div class="view-file-container">
-                            <label>{{ $file->name }}</label>
-                            <label>
-                                @if($file->company)
-                                    {{ $file->company_name }}
+                    <div class="thumb-image" data-company-id="@if($file->company){{$file->company->id}}@endif"
+                         data-restaurant-id="@if($file->restaurant){{$file->restaurant->id}}@endif"
+                         data-status="{{$file->status_media}}">
+                        <figure class="view-file">
+                            <img src="{{ $file->getImageSize('thumbnail') }}" data-id="{{ $file->id }}">
+                            <div class="view-file-container">
+                                <label>{{ $file->name }}</label>
+                                <label>
+                                    @if($file->company)
+                                        {{ $file->company_name }}
+                                    @endif
+                                </label>
+                                <label>
+                                    @if($file->restaurant)
+                                        {{ $file->restaurant->name }}
+                                    @endif
+                                </label>
+                            </div>
+                            @if(Auth::user()->is_super)
+                                @if($file->status_media == 'PENDING')
+                                    <button type="button" class="btn btn-primary mt-3 w-100 js-approve-media"
+                                            data-id="{{ $file->id }}">
+                                        {{ ucfirst(trans('button.wait_approves')) }}
+                                    </button>
+                                @else
+                                    <button type="button" class="btn btn-success mt-3 w-100 js-wait-media"
+                                            data-id="{{$file->id }}">
+                                        {{ ucfirst(trans('button.approved')) }}
+                                    </button>
                                 @endif
-                            </label>
-                            <label>
-                                @if($file->restaurant)
-                                    {{ $file->restaurant->name }}
-                                @endif
-                            </label>
-                        </div>
-                        @if(Auth::user()->is_super)
-                            @if($file->status_media == 'PENDING')
-                                <button type="button" class="btn btn-primary mt-3 w-100 js-approve-media"
-                                        data-id="{{ $file->id }}">
-                                    {{ ucfirst(trans('button.wait_approves')) }}
-                                </button>
-                            @else
-                                <button type="button" class="btn btn-success mt-3 w-100 js-wait-media"
-                                        data-id="{{$file->id }}">
-                                    {{ ucfirst(trans('button.approved')) }}
-                                </button>
                             @endif
-                        @endif
-                    </figure>
-                </div>
-            @endforeach
+                        </figure>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
     <div class="media-container-side p-3">
@@ -115,8 +117,10 @@
             </div>
 
             <div class="edit-image-container">
+                @if(isset($file))
                 <a href="{{ env('APP_URL') }}/admin/media/{{$file->id }}/edit"
                    class="btn btn-primary btn-block edit-image">{{ ucfirst(trans('button.edit_image')) }}</a>
+                @endif
             </div>
 
         </div>
