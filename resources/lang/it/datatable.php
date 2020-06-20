@@ -42,7 +42,8 @@ return [
         'processing_date' => 'Data eleborazione',
         'quantity' => 'Quantità',
         'date_ini' => 'Data inizio',
-        'date_end' => 'Data fine'
+        'date_end' => 'Data fine',
+        'closed' => 'Ticket Chiuso'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Ristorante',
