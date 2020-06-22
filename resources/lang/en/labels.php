@@ -114,5 +114,7 @@ return [
     'menus_to_approve' => 'menus to approve',
     'new_order' => 'new order',
     'new_orders' => 'new orders',
-    'select_company' => 'Select company'
+    'select_company' => 'Select company',
+    'payment_type' => 'Payment Type',
+    'promo_code' => 'Promo Code'
 ];

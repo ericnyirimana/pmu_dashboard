@@ -123,4 +123,6 @@ return [
         'saturday' => 'Sabato',
         'sunday' => 'Domenica'
     ],
+    'payment_type' => 'Tipo di Pagamento',
+    'promo_code' => 'Promo Code'
 ];

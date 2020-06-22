@@ -35,6 +35,10 @@ class OrderPickup extends Model
         return $this->id;
     }
 
+    public function getIsClosedAttribute() {
+        return $this->closed == 0 ? 'FALSE' : 'TRUE';
+    }
+
     public function getPickupNameAttribute() {
         return $this->pickup() ? $this->pickup()->first()->name : 'No Pickup found';
     }

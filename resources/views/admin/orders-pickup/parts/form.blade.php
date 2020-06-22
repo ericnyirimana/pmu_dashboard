@@ -6,12 +6,16 @@
         <p><label>{{ ucfirst(trans('labels.date_hour')) }}:</label> {{ $ordersPickup->order->created_at->format('d/m/Y - H:m') }}</p>
         <p><label>{{ ucfirst(trans('labels.order_type')) }}:</label> {{ $ordersPickup->pickup->type_pickup }}</p>
         <p><label>{{ ucfirst(trans('labels.offer')) }}:</label> {{ $ordersPickup->pickup->name }}</p>
+        <p><label>{{ ucfirst(trans('labels.payment_type')) }}:</label> {{ $ordersPickup->order->payment->payment_method_types }}</p>
         {{--<p><label>{{ ucfirst(trans('labels.detail')) }}:</label> {{ $order }}</p>--}}
     </div>
     <div class="col-md-3 col-lg-5">
         <p><label>{{ ucfirst(trans('labels.customer_id')) }}:</label> {{ $ordersPickup->order->user_id }}</p>
         <p><label>{{ ucfirst(trans('labels.status')) }}:</label> {{ $ordersPickup->order->status }}</p>
-        <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $ordersPickup->pickup->price }} €</p>
+        <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $ordersPickup->order->total_amount }} €</p>
+        @if( $ordersPickup->order->payment->payment_method_types == 'PROMO_CODE')
+            <p><label>{{ ucfirst(trans('labels.promo_code')) }}:</label> {{ $ordersPickup->order->promo_code }} </p>
+        @endif
     </div>
 
 {{--    <div class="form-group d-flex align-items-center justify-content-between col-12 mt-5">--}}

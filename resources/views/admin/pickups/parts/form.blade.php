@@ -3,8 +3,19 @@
         @if($pickup->id)
             <h4 class="text-center">{{ ucfirst($pickup->type_pickup) }}</h4>
         @else
-            <field-radio label="Type" field="type_pickup" :items="['offer'=>'Offer','subscription'=>'Subscription']"
-                         :model="$pickup" required/>
+            <!-- <field-radio label="Type" field="type_pickup" :items="['offer'=>'Offer','subscription'=>'Subscription']"
+                         :model="$pickup" required/> -->
+        <div class="form-group">
+            <div class="form-check-label">
+                <label>Type</label>  </div>
+            <div class="form-check form-check-inline parsley-error">
+                <input class="form-check-input" type="radio" name="type_pickup" id="type_pickup_Offer" value="offer" required=""
+                       data-parsley-multiple="type_pickup" data-parsley-id="12" checked>
+                <label class="form-check-label" for="type_pickup_Offer">
+                    Offer
+                </label>
+            </div>
+        </div>
         @endif
     </div>
 </div>

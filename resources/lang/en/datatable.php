@@ -42,7 +42,8 @@ return [
         'processing_date' => 'Processing date',
         'quantity' => 'Quantity',
         'date_ini' => 'Date start',
-        'date_end' => 'Date end'
+        'date_end' => 'Date end',
+        'closed' => 'Ticket Closed'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Restaurant',

@@ -10,6 +10,7 @@
                 'datatable.headers.date'    => 'date_format',
                 'datatable.headers.hour'    => 'hour_format',
                 'datatable.headers.offer'   => 'pickup_name',
+                'datatable.headers.closed'   => 'is_closed',
                 'datatable.headers.status'  => 'restaurant_status',
                 ]"
                 actions="view"           />

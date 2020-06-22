@@ -71,12 +71,13 @@ class TicketController extends Controller
             $ticket->save();
 
             // Notify user with PN
+            /*
             $this->pusher->sendPushNotification(
                 [strval($ticket->order->user_id)],
                 trans('push-notifications.ticket_reject.title'),
                 trans('push-notifications.ticket_reject.message', ['ticketId' => $ticketId, 'notes' => $ticket->restaurant_notes])
                 );
-
+            */
             // Send cancel order email
             $this->emailService->sendEmailCancelOrder($ticket);
 

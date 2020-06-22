@@ -24,7 +24,7 @@ class Order extends Model
 
     public function payment() {
 
-        return $this->hasOne('App\Models\Payment');
+        return $this->belongsTo('App\Models\Payment');
 
     }
 

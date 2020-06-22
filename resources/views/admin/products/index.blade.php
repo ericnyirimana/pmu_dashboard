@@ -13,7 +13,6 @@
 <div class="row">
     <div class="col-12">
         <div class="card-box table-responsive">
-
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_dishes')) }}</b></h4>
             @if(Auth::user()->is_super)
                 <datatable route='products' :collection="$products" :fields="[
