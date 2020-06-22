@@ -214,28 +214,141 @@
             });
             /* PRODUCTS END */
             @endif
-
+            $('.fa-spin').hide();
+            function validateForm(action_type){
+                var url = $('.submit-offert').attr('action');
+                var name = $('#name').val();
+                var brand_id = $('#brand_id').val();
+                var restaurant_id = $('#restaurant_id').val();
+                var offer_date = $('#date').val();
+                var price = $('#price').val();
+                var timeslot_id = $('#timeslot_id').val();
+                var type_offer = $('#type_offer').val();
+                var quantities = [];
+                var products = [];
+                var medias = [];
+                $('.quantity input[name="quantity[]"]').each(function(element){
+                    quantities.push($(this).val());
+                });
+                $('input[name="products[]"]').each(function(element){
+                    products.push($(this).val());
+                });
+                $('input[name="media[]"]').each(function(element){
+                    medias.push($(this).val());
+                });
+                var quantity_offer = $('#quantity_offer').val();
+                var check_media = $('#check_media').val();
+                var suspended = $('#suspended').val();
+                if(restaurant_id === null) {
+                    $('#error_response').empty();
+                    $('#error_response .error_msg ul').append(`<li id="alert-error">Restaurant Required</li>`);
+                    return false;
+                }
+                else{
+                $.ajax({
+                    type: 'POST',
+                    url,
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "name": name,
+                        "brand_id": brand_id,
+                        "restaurant_id": restaurant_id,
+                        "date": offer_date,
+                        "timeslot_id": timeslot_id,
+                        "price": price,
+                        "type_offer": type_offer,
+                        "quantity": quantities,
+                        "products": products,
+                        "quantity_offer": quantity_offer,
+                        "media": medias,
+                        "check_media": check_media,
+                        "suspended": suspended,
+                        "_method": 'put'
+                    },
+                    success: function (data) {
+                        $(`.${action_type}`).attr('disabled', true);
+                        $(`.${action_type} .fa-spin`).show();
+                        window.location.href= $('.save-offer').data('href');
+                    },
+                    error: function (reject) {
+                        $(`.${action_type}`).attr('disabled', false);
+                        $(`.${action_type} .fa-spin`).hide();
+                        $('#error_response').empty();
+                        var list_error = `<div class="d-flex">
+                        <div class="col-12"><div class="alert alert-danger error_msg">
+                        <ul></ul>
+                        </div></div></div>`;
+                        var errors = JSON.parse(reject.responseText).errors;
+                        $('#error_response').append(list_error);
+                        if(errors.name){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.name[0]}</li>`)
+                        }
+                        if(errors.price){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.price[0]}</li>`)
+                        }
+                        if(errors.products){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.products[0]}</li>`)
+                        }
+                        if(errors.quantity_offer){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.quantity_offer[0]}</li>`)
+                        }
+                        if(errors.media){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.media[0]}</li>`)
+                        }
+                        if(errors.quantity){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.quantity[0]}</li>`)
+                        }
+                        if(errors.type_pickup){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.type_pickup[0]}</li>`)
+                        }
+                        if(errors.brand_id){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.brand_id[0]}</li>`)
+                        }
+                        if(errors.restaurant_id){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.restaurant_id[0]}</li>`)
+                        }
+                        if(errors.date){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.date[0]}</li>`)
+                        }
+                        if(errors.timeslot_id){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.timeslot_id[0]}</li>`)
+                        }
+                        $('html, body').animate({scrollTop: '0px'}, 0);
+                    }
+                });
+                }
+            }
+            $(document).on('click', '.save-offer', function(e) {
+                e.preventDefault();
+                $('.save-offer .fa-spin').show();
+                $('.save-offer').attr('disabled', true);
+                validateForm('save-offer');
+                
+            });
+            $(document).on('click', '.suspend-offer', function(e) {
+                e.preventDefault();
+                $('.suspend-offer .fa-spin').show();
+                $('.suspend-offer').attr('disabled', true);
+                validateForm('suspend-offer');
+                
+            });
         });
-
         function addItem(el) {
 
             var id = $(el).data('id');
             var name = $(el).data('name');
             var section = $(el).data('section');
-
             if (!$('#' + section.replace(/\W/g, '')).length) {
                 addSection(section);
             }
-
             $(el).removeClass('add');
             $(el).addClass('removed');
             var html = '<li class="list-group-item" data-id="' + id + '">';
             html += '<i class="fa fa-minus-square remove"></i>';
             html += '<div class="name">' + name + '</div>';
-            html += '<div class="quantity"><input type="text" name="quantity[]" value="10" maxlength="3" /></div>';
+            html += '<div class="quantity"><input type="text" name="quantity[]" value="10" maxlength="3"/></div>';
             html += '<input type="hidden" name="products[]" value="' + id + '" />';
             html += '</li>';
-
             $('#' + section.replace(/\W/g, '') + ' .group-products').append(html);
 
         }
