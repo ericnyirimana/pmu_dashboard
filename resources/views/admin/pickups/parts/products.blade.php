@@ -174,7 +174,8 @@
 
             /* END TYPE */
 
-            @if(isset($pickup->id) && !$pickup->is_not_editable)
+
+            @if(isset($pickup->id))
             /* MENU LEFT ACTIONS */
             $(document).on('click', '.list-menu ul li .add', function () {
                 addItem(this);

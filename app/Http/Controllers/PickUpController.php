@@ -38,7 +38,7 @@ class PickupController extends Controller
 
             } else {
                 $validation += [
-                    'price' => ['required', 'integer'],
+                    //'price' => ['required', 'integer'],
                     'products' => ['required', 'array'],
                     'quantity_offer' => ['required', 'integer']
                 ];
@@ -161,14 +161,14 @@ class PickupController extends Controller
             $fields['date_ini'] = Carbon::parse($dates[0]);
             $fields['date_end'] = Carbon::parse($dates[1]);
         }
-
+/*
         if ($pickup->products->count() > 0 && $fields['quantity_offer'] < $pickup->quantity_offer) {
             return redirect()->route('pickups.edit', $pickup)->with([
                 'notification' => trans('messages.notification.pickup_quantity_wrong'),
                 'type-notification' => 'danger'
             ]);
         }
-
+*/
         //$totalProductsQuantity = 0;
         foreach ($fields['products'] as $k => $v) {
             //$totalProductsQuantity += $fields['quantity'][$k];
@@ -200,6 +200,10 @@ class PickupController extends Controller
         $this->saveTranslation($pickup, $fields);
         $pickup->products()->sync($products);
 
+        if ($request->media) {
+            $pickup->media()->sync(array_unique($request->media));
+        }
+
         foreach ($sections as $k => $v) {
             $sectionKey = $k;
             $sumProductsQuantityPerSection = 0;
@@ -216,10 +220,6 @@ class PickupController extends Controller
                     'type-notification' => 'danger'
                 ]);
             }
-        }
-
-        if ($request->media) {
-            $pickup->media()->sync(array_unique($request->media));
         }
 
         return redirect()->route('pickups.index')->with([
