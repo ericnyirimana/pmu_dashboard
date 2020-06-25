@@ -118,7 +118,7 @@
         }
 
         .list-menu ul ul li.add:before, .list-menu ul li h6.add-all::before {
-            content: "\f0fe"; /* FontAwesome Unicode */
+            content: "\f0fe"; /* FontAwesome Unicode A*/
             font-family: FontAwesome;
             display: inline-block;
             margin-left: -1.3em; /* same as padding-left set on li */
