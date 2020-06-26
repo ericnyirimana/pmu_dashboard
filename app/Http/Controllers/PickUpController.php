@@ -38,9 +38,14 @@ class PickupController extends Controller
 
             } else {
                 $validation += [
-                    //'price' => ['required', 'integer'],
+                    'price' => ['required', 'integer'],
+                    'media' => ['required', 'array'],
                     'products' => ['required', 'array'],
-                    'quantity_offer' => ['required', 'integer']
+                    'quantity_offer' => ['required', 'integer'],
+                    'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                    'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
+                    'date' => ['required'],
+                    'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant]
                 ];
             }
         } else {
@@ -213,12 +218,8 @@ class PickupController extends Controller
                 }
             }
             if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
-                return redirect()->route('pickups.edit', $pickup)->with([
-                    'pickup' => $pickup,
-                    'notification' => trans('messages.notification.pickup_quantity_wrong',
-                        ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]),
-                    'type-notification' => 'danger'
-                ]);
+                return response()->json(['errors' => ['quantity' => Array(trans('messages.notification.pickup_quantity_wrong',
+                ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]))]], 422);   
             }
         }
 

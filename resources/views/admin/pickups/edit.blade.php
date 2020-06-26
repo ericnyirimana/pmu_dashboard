@@ -12,7 +12,7 @@
     </div>
     @endif
     @include('components.fields-require-alert')
-
+    <div id="error_response"></div>
     <div class="row">
         <div class="col-12">
             <div class="card-box">

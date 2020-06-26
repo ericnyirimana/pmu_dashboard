@@ -69,13 +69,16 @@
 <div class="row mt-5">
     <div class="col-md-3 col-lg-6">
         <div class="form-group d-flex justify-content-between">
+            @if(Route::currentRouteName() == 'pickups.create')
             <button type="submit" class="btn btn-block w-lg btn-success float-right">
-                @if(Route::currentRouteName() == 'pickups.create')
-                    {{ ucfirst(trans('button.next')) }}
-                @else
-                    {{ ucfirst(trans('button.save')) }}
-                @endif
+            {{ ucfirst(trans('button.next')) }}  
             </button>
+            @else
+            <button type="button" class="btn btn-block w-lg btn-success float-right save-offer" data-href="{{ route('pickups.index') }}">
+            {{ ucfirst(trans('button.save')) }}
+            <i class="fa fa-circle-o-notch fa-spin" style="font-size:19px"></i>
+            </button>
+            @endif
         </div>
     </div>
     <div class="col-md-3 col-lg-6">
@@ -83,20 +86,24 @@
             @if(!$pickup->suspended)
                 @if($pickup->is_not_editable)
                     <div class="form-group d-flex justify-content-between">
-                        <button type="button" name="suspended" value="1" class="btn btn-block w-lg btn-primary
+                        <button type="button" name="suspended" id="suspended" value="1" class="btn btn-block w-lg btn-primary
                 float-right susp-register" data-name="{{ $pickup->name }}" data-register="{{ $pickup->id }}"
                                 data-toggle="modal" data-target=".suspend-register">{{
             ucfirst(trans('button.suspend')) }}</button>
                 @else
                     <div class="form-group d-flex justify-content-between">
-                        <button type="submit" name="suspended" value="1" class="btn btn-block w-lg btn-primary
-    float-right">{{ ucfirst(trans('button.suspend')) }}</button>
+                        <button type="button" name="suspended" id="suspended" value="1" class="btn btn-block w-lg btn-primary
+    float-right suspend-offer">{{ ucfirst(trans('button.suspend')) }}
+    <i class="fa fa-circle-o-notch fa-spin" style="font-size:19px"></i>
+    </button>
                     </div>
                 @endif
             @else
                 <div class="form-group d-flex justify-content-between">
-                    <button type="submit" name="suspended" value="0" class="btn btn-block w-lg btn-primary
-float-right">{{ucfirst(trans('button.enable')) }}</button>
+                    <button type="button" name="suspended" id="suspended" value="0" class="btn btn-block w-lg btn-primary
+float-right suspend-offer">{{ucfirst(trans('button.enable')) }}
+<i class="fa fa-circle-o-notch fa-spin" style="font-size:19px"></i>
+</button>
                 </div>
             @endif
         @endif
@@ -137,7 +144,7 @@ float-right">{{ucfirst(trans('button.enable')) }}</button>
                     });
 
                 } else {
-                    $("#restaurant_id").html('<option>Select Company first</option>');
+                    $("#restaurant_id").html('<option value="">Select Company first</option>');
                 }
 
             }
