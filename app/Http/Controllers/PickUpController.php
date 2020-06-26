@@ -34,7 +34,9 @@ class PickupController extends Controller
             'name' => 'required'
         ];
         if ($pickup) {
-            if ($pickup->orders->count() > 0 && $pickup->is_active_today) {
+            //if ($pickup->orders->count() > 0 && $pickup->is_active_today) {
+            if ($pickup->orders->count() > 0 &&
+               (isset($request->all()['suspended']) && $request->all()['suspended'] == 1) ) {
 
             } else {
                 $validation += [
@@ -157,8 +159,13 @@ class PickupController extends Controller
     {
         $this->setDefaultCompanyForOwnerOrRestaurateur($request);
         $this->validation($request, $pickup);
-
         $fields = $request->all();
+
+        /*
+        if( ($fields['check_media'] == null) ||
+            (isset($fields['suspended']) && $fields['suspended'] == 0) ){
+            $this->validation($request, $pickup);
+        }*/
 
         if (isset($fields['date'])) {
             $dates = explode('|', $fields['date']);
@@ -194,6 +201,21 @@ class PickupController extends Controller
             ]);
         }
 */
+        foreach ($sections as $k => $v) {
+            $sectionKey = $k;
+            $sumProductsQuantityPerSection = 0;
+            foreach ($sections[$k] as $sectionK => $sectionV) {
+                if( isset($products[$sectionV->id]) ){
+                    $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
+                }
+            }
+            if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
+                return response()->json(['errors' => ['quantity' => Array(trans('messages.notification.pickup_quantity_wrong',
+                    ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]))]], 422);
+            }
+        }
+
+
         $pickup->update($fields);
 
         if ($pickup->type_pickup == 'offer') {
@@ -209,22 +231,8 @@ class PickupController extends Controller
             $pickup->media()->sync(array_unique($request->media));
         }
 
-        foreach ($sections as $k => $v) {
-            $sectionKey = $k;
-            $sumProductsQuantityPerSection = 0;
-            foreach ($sections[$k] as $sectionK => $sectionV) {
-                if( isset($products[$sectionV->id]) ){
-                    $sumProductsQuantityPerSection += $products[$sectionV->id]['quantity_offer'];
-                }
-            }
-            if( $sumProductsQuantityPerSection < $fields['quantity_offer'] ){
-                return response()->json(['errors' => ['quantity' => Array(trans('messages.notification.pickup_quantity_wrong',
-                ['section' => $sectionKey, 'total_section' => $sumProductsQuantityPerSection]))]], 422);   
-            }
-        }
-
         return redirect()->route('pickups.index')->with([
-            'notification' => trans('messages.notification.pickup_saved'),
+            'notification' => trans('messages.notification.pickup_saved', ['pickup_name' => $pickup->name]),
             'type-notification' => 'success'
         ]);
 
