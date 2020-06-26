@@ -14,7 +14,7 @@ return [
         'product_removed' => 'Prodotto rimosso con successo!',
         'category_saved' => 'Categoria salvata con successo!',
         'category_removed' => 'Categoria rimossa con successo!',
-        'pickup_saved' => 'Offerta salvata con successo!',
+        'pickup_saved' => 'Offerta ":pickup_name" salvata con successo!',
         'pickup_removed' => 'Offerta rimossa con successo!',
         'pickup_cant_remove' => 'Offerta non eliminabile! Ci sono degli ordini in giornata associati all\'offerta.',
         'showcase_saved' => 'Vetrina salvata con successo!',
