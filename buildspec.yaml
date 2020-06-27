@@ -9,12 +9,17 @@ phases:
   pre_build:
     commands:
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - REPOSITORY_URI=513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
 
   build:
     commands:
-      - docker build -t pmu_dashboard .
-      - docker tag pmu_dashboard 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
-      - docker push 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_dashboard
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+
   post_build:
     commands:
-      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
