@@ -17,6 +17,7 @@ return [
     'sales_analytics' => 'Sales Analytics',
     'last_messages' => 'Ultimi messaggi',
     'active_subscriptions' => 'Abbonamenti attivi',
+    'todays_orders' => 'Gli ordini di oggi',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',
@@ -43,7 +44,11 @@ return [
         'quantity' => 'Quantità',
         'date_ini' => 'Data inizio',
         'date_end' => 'Data fine',
-        'closed' => 'Ticket Chiuso'
+        'closed' => 'Ticket Chiuso',
+        'description' => 'Descrizione',
+        'total_amount' => 'Total Amount (€)',
+        'payment_method' => 'Payment Method',
+        'commission_to_pay' => 'Commission To Pay (€)'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Ristorante',

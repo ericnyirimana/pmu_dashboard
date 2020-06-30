@@ -20,6 +20,7 @@ return [
         'subscriptions' => 'Abbonamenti',
         'subscription' => 'Abbonamento',
         'payments' => 'Storico pagamenti',
-        'ticket' => 'Ticket'
+        'ticket' => 'Ticket',
+        'filtering-orders' => 'Filter Orders'
     ]
 ];

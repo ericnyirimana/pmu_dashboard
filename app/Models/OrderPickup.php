@@ -10,7 +10,8 @@ class OrderPickup extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-    protected $appends = ['created_at', 'updated_at'];
+    // protected $appends = ['created_at', 'updated_at'];
+    public $fillable = ['closed'];
     public function order() {
         return $this->belongsTo('App\Models\Order');
     }
@@ -45,6 +46,11 @@ class OrderPickup extends Model
 
     public function getRestaurantNameAttribute(){
         return $this->pickup()->first()->restaurant_name;
+    }
+    
+    public function restaurant()
+    {
+        return $this->belongsTo('App\Models\Restaurant');
     }
 
 }

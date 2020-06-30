@@ -55,7 +55,8 @@ return [
         'new_dish' => 'Nuovo piatto',
         'new_drink' => 'Nuovo drink',
         'confirm_suspend_title' => 'Sospendi',
-        'confirm_suspend_text' => 'Esistono degli ordini attivi per questo Pickup. Confermi di voler sospendere'
+        'confirm_suspend_text' => 'Esistono degli ordini attivi per questo Pickup. Confermi di voler sospendere',
+        'confirm_cancel_ticket' => 'Annula Ticket'
     ],
     'entries_to_be_welded' => 'Entrate da saldare',
     'orders_suspend' => 'Ordini sospesi',
@@ -124,5 +125,18 @@ return [
         'sunday' => 'Domenica'
     ],
     'payment_type' => 'Tipo di Pagamento',
-    'promo_code' => 'Promo Code'
+    'promo_code' => 'Promo Code',
+    'product_details' => 'Dettagli del prodotto',
+    'product' => 'Prodotto',
+    'quantity' => 'Quantità',
+    'fee' => 'Fee',
+    'discount' => 'discount',
+    'discount' => 'discount',
+    'pmu_commission' => 'PMU Commission',
+    'is_closed' => 'IS CLOSED',
+    'total_amount' => 'Total Amount',
+    'restaurant_commission' => 'Restaurant Commission',
+    'restaurant_status' => 'Restaurant Status',
+    'from_to' => 'Da - A',
+    'restaurant_notes' => 'Restaurant Notes',
 ];
