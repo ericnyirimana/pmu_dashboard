@@ -4,6 +4,7 @@
 
 
 @include('components.notification')
+@if(Auth::user()->is_super)
 <div id="error_response"></div>
 <div class="card-box">
     <a href="{{ route('orders.index') }}" class="btn btn-primary btn-bordered
@@ -13,5 +14,5 @@
 
     @include('admin.orders.parts.form')
 
-
+@endif
 @endsection
