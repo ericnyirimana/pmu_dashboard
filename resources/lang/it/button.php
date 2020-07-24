@@ -44,5 +44,9 @@ return [
     'order_cancel' => 'Annulla Ordine',
     'suspend' => 'Sospendi',
     'enable' => 'Abilita',
-    'remove_permanently' => 'Rimuovi definitivamente'
+    'remove_permanently' => 'Rimuovi definitivamente',
+    'close_ticket' => 'Chiudi Ticket',
+    'cancel_ticket' => 'Annulla Ticket',
+    'ticket_closed' => 'Ticket chiuso',
+    'order_is_closed' => 'Ordine chiuso',
 ];

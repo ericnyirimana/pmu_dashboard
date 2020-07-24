@@ -17,6 +17,7 @@ return [
     'sales_analytics' => 'Sales Analytics',
     'last_messages' => 'Last messages',
     'active_subscriptions' => 'Active subscriptions',
+    'todays_orders' => `Today's Orders`,
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
@@ -43,7 +44,11 @@ return [
         'quantity' => 'Quantity',
         'date_ini' => 'Date start',
         'date_end' => 'Date end',
-        'closed' => 'Ticket Closed'
+        'closed' => 'Ticket Closed',
+        'description' => 'Description',
+        'total_amount' => 'Total Amount (€)',
+        'payment_method' => 'Payment Method',
+        'commission_to_pay' => 'Commission To Pay (€)'
     ],
     'tab_restaurant' => [
         'restaurant' => 'Restaurant',

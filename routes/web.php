@@ -92,7 +92,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/company/data/{company?}', 'CompanyController@data')->name('company.data');
 
         Route::get('/tickets/{ticket}', 'TicketController@show')->name('ticket.show');
-        Route::put('/tickets/{ticket}', 'TicketController@update')->name('ticket.update');
+        Route::put('/tickets/{ticket}', 'TicketController@cancelTicketsById')->name('ticket.update');
+        Route::post('/orders/close', 'OrderController@closeOrder')->name('close.order');
+        Route::put('/order-ticket/close/{id?}', 'OrderPickupController@closeTicket')->name('close.ticket');
+        Route::get('/filter/orders/{restaurant?}/{from?}/{to?}', 'OrderController@filtering')->name('filtering-orders.data');
+        Route::get('/order-ticket/count/uncanceled/{order?}', 'OrderPickupController@countUnCanceledTicket')->name('count.uncanceled.ticket');
     });
 
     Route::post('login', 'Auth\LoginController@login')->name('authenticate');

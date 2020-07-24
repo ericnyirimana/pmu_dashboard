@@ -56,7 +56,8 @@ return [
         'new_dish' => 'New dish',
         'new_drink' => 'New drink',
         'confirm_suspend_title' => 'Suspend',
-        'confirm_suspend_text' => 'There are some active orders for this Pickup. Do you want to suspend'
+        'confirm_suspend_text' => 'There are some active orders for this Pickup. Do you want to suspend',
+        'confirm_cancel_ticket' => 'Cancel Ticket'
     ],
     'entries_to_be_welded' => 'Entries to be welded',
     'orders_suspend' => 'Orders suspend',
@@ -116,5 +117,18 @@ return [
     'new_orders' => 'new orders',
     'select_company' => 'Select company',
     'payment_type' => 'Payment Type',
-    'promo_code' => 'Promo Code'
+    'promo_code' => 'Promo Code',
+    'product_details' => 'Product Details',
+    'product' => 'Product',
+    'quantity' => 'Quantity',
+    'fee' => 'Fee',
+    'discount' => 'discount',
+    'pmu_commision' => 'PMU Commision',
+    'is_closed' => 'IS CLOSED',
+    'total_amount' => 'Total Amount',
+    'restaurant_commission' => 'Restaurant Commission',
+    'restaurant_status' => 'Restaurant Status',
+    'from_to' => 'From - To',
+    'restaurant_notes' => 'Restaurant Notes',
+
 ];

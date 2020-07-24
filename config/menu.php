@@ -17,6 +17,13 @@ return [
                 'new' => 'companies.create',
             ],
         ],
+        'orders' => [
+            'class' => 'Order',
+            'icon' => 'fi-bag',
+            'routes' => [
+                'list' => 'orders.index',
+            ],
+        ],
         'categories' => [
             'class' => 'Category',
             'icon' => 'fi-align-center',
