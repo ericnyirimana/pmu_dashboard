@@ -10,6 +10,7 @@
       {{ session('notification') }}
   @endcomponent
 @endif
+@if(Auth::user()->is_super)
 <tag-form :action="route('filtering-orders.data')" method="get">
 @include('admin.orders.parts.form-filter')
 </tag-form>
@@ -31,7 +32,7 @@
         </div>
     </div>
 </div>
-
+@endif
 @endsection
 
 @push('scripts')
