@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Libraries\Pusher;
 use App\Models\OrderPickup;
 use App\Models\OrderProduct;
 use App\Models\Order;
@@ -20,15 +19,12 @@ use App\Services\ApplicationService;
 
 class TicketController extends Controller
 {
-
-    protected $pusher;
     protected $emailService;
     private $stripe;
     protected $applicationService;
 
-    public function __construct(Pusher $pusher, EmailService $emailService, StripeIntegration $stripe, ApplicationService $applicationService)
+    public function __construct(EmailService $emailService, StripeIntegration $stripe, ApplicationService $applicationService)
     {
-        $this->pusher = $pusher;
         $this->emailService = $emailService;
         $this->stripe = $stripe;
         $this->applicationService = $applicationService;
