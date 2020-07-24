@@ -49,6 +49,14 @@ class Order extends Model
 
     }
 
+    public function orderProducts() {
+        return $this->hasMany('App\Models\OrderProduct');
+    }
+
+    public function orderPickups() {
+        return $this->hasMany('App\Models\OrderPickup');
+    }
+
     public function getDateFormatAttribute() {
 
         return Carbon::parse($this->created_at)->format('d/m/Y');

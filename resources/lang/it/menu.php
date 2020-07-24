@@ -19,5 +19,6 @@ return [
     'new_drink' => 'Nuova bevanda',
     'profile' => 'Profilo',
     'user' => 'Utenti',
-    'calendar_offer' => 'Calendario offerte'
+    'calendar_offer' => 'Calendario offerte',
+    'orders' => 'Ordini'
 ];

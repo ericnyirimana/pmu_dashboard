@@ -105,4 +105,90 @@ class StripeIntegration
             Log::error('Error get stripe balance: ' . $exception->getMessage());
         }
     }
+    
+    public function capturePayment(string $paymentIntentId){
+        try{
+            $intent = \Stripe\PaymentIntent::retrieve( $paymentIntentId );
+            Log::info("-----START CAPTURE PAYMENT".$intent->status);
+            // Confirm the PaymentIntent to collect the money
+            $intent->confirm();
+            if($intent->status == 'requires_capture') {
+                Log::info("Charging the card for: " . $intent->amount_capturable);
+                // Because capture_method was set to manual we need to manually capture in order to move the funds
+                // You have 7 days to capture a confirmed PaymentIntent
+                // To cancel a payment before capturing use .cancel() (https://stripe.com/docs/api/payment_intents/cancel)
+                $intent->capture();
+                return $intent->status;
+            }
+            else{
+                Log::info("The intent status is " . $intent->status);
+                $stripeResponse = new \StdClass();
+                $stripeResponse->status = 'error';
+                $stripeResponse->errors = "The intent status is " . $intent->status;
+                return $stripeResponse;
+            }
+        } catch (\Throwable $exception) {
+            Log::error("Unexpected error during the capture of payment. " . $exception->getMessage() );
+            $stripeResponse = new \StdClass();
+            $stripeResponse->status = 'error';
+            $stripeResponse->errors = $exception->getMessage();
+            return $stripeResponse;
+        }
+    }
+
+    public function cancelPayment(string $paymentIntentId){
+        try{
+            $intent = \Stripe\PaymentIntent::retrieve( $paymentIntentId );
+            Log::info("-----START CANCELING PAYMENT".$intent->status);
+            // Confirm the PaymentIntent to collect the money
+            //$intent->confirm();
+            if($intent->status == 'requires_payment_method' || $intent->status == 'requires_capture' || $intent->status == 'requires_confirmation' || $intent->status == 'requires_action') {
+                Log::info("PAYMENT CANCELED WITH THE AMOUNT OF: " . $intent->amount_capturable);
+                // Because capture_method was set to manual we need to manually capture in order to move the funds
+                // You have 7 days to capture a confirmed PaymentIntent
+                // To cancel a payment before capturing use .cancel() (https://stripe.com/docs/api/payment_intents/cancel)
+                $intent->cancel();
+                return $intent->status;
+            }
+            else{
+                Log::info("The intent status is " . $intent->status);
+                $stripeResponse = new \StdClass();
+                $stripeResponse->status = 'error';
+                $stripeResponse->errors = "The intent status is " . $intent->status;
+                return $stripeResponse;
+            }
+        } catch (\Throwable $exception) {
+            Log::error("Unexpected error during the canceling of payment. " . $exception->getMessage() );
+            $stripeResponse = new \StdClass();
+            $stripeResponse->status = 'error';
+            $stripeResponse->errors = $exception->getMessage();
+            return $stripeResponse;
+        }
+    }
+
+    public function updatePayment(string $paymentIntentId, $orderPickups, $commissionToPay){
+        try{
+            $intent = \Stripe\PaymentIntent::retrieve( $paymentIntentId );
+            Log::info("-----START UPDATING THIS AMOUNT AND COMMISSION ".$orderPickups->totalOrderAmount." ".$orderPickups->totalPmuFeeAmount);
+            // Confirm the PaymentIntent to collect the money
+            // $intent->confirm();
+            if($intent->status !== 'canceled') {
+                Log::info("PAYMENT ABOUT TO BE UPDATED");
+                $applicationFeeAmount = $orderPickups->totalPmuFeeAmount;
+                if( $commissionToPay > 0.0 ){
+                    return \Stripe\PaymentIntent::update( $paymentIntentId, ['amount' => $orderPickups->totalOrderAmount * 100] );
+                } else {
+                    return \Stripe\PaymentIntent::update( $paymentIntentId, ['amount' => $orderPickups->totalOrderAmount * 100,
+                        'application_fee_amount' => $applicationFeeAmount
+                    ] );
+                }
+            }
+        } catch (\Throwable $exception) {
+            Log::error("Unexpected error during the updating of payment. " . $exception->getMessage() );
+            $stripeResponse = new \StdClass();
+            $stripeResponse->status = 'error';
+            $stripeResponse->errors = $exception->getMessage();
+            return $stripeResponse;
+        }
+    }
 }

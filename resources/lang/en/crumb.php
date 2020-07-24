@@ -20,6 +20,7 @@ return [
         'subscriptions' => 'Subscriptions',
         'subscription' => 'Subscription',
         'payments' => 'History payments',
-        'ticket' => 'Ticket'
+        'ticket' => 'Ticket',
+        'filtering-orders' => 'Filter Orders'
     ],
 ];

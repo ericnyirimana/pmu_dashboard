@@ -4,7 +4,7 @@
 
 
 @include('components.notification')
-
+<div id="error_response"></div>
 <div class="card-box">
     <a href="{{ route('restaurants.edit', $ordersPickup->pickup->restaurant) }}" class="btn btn-primary btn-bordered
     waves-effect w-lg">{{ ucfirst(trans('button.back')) }}</a>
