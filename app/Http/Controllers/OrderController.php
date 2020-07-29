@@ -6,6 +6,7 @@ use App\Traits\TranslationTrait;
 use Illuminate\Http\Request;
 use App\Models\OrderPickup;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\Product;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -13,6 +14,8 @@ use Carbon\Carbon;
 use App\Libraries\StripeIntegration;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Models\Restaurant;
+use App\Models\Company;
 
 class OrderController extends Controller
 {
@@ -34,49 +37,57 @@ class OrderController extends Controller
 
     }
 
-    public function filtering(Request $request, Order $order) {
+    public function filtering(Request $request) {
 
         $fields = $request->all();
+        $restaurant = null;
+        $brand = null;
         if (isset($fields['date']) && !isset($fields['restaurant_id'])) {
 
             $dates = explode('|', $fields['date']);
             $fields['date_ini'] = Carbon::parse($dates[0]);
             $fields['date_end'] = Carbon::parse($dates[1]);
-            $getOrders = $order->whereBetween('created_at', [$fields['date_ini'], $fields['date_end']])->get();
+            $getOrders = Order::whereBetween('created_at', [$fields['date_ini'], $fields['date_end']])->orderBy('created_at', 'DESC')->get();
 
         }
         elseif (!isset($fields['date']) && isset($fields['restaurant_id'])) {
 
-            $getOrders = new Collection();
-            $i = -1;
-                foreach ($order as $all_orders) {
-                    $i++;
-                    $get_restaurant = Order::all()[$i]->orderPickups[0]->pickup->restaurant_id;
-                    if ($get_restaurant == $fields['restaurant_id']) {
-                        $getOrders->push(Order::all()[$i]);
-                    }
-                }
+            $restaurant = Restaurant::where('id', $fields['restaurant_id'])->get();
+            $brand = Company::where('id', $fields['brand_id'])->get();
+            $getOrders = Order::join('order_pickups', function ($join) use ($fields) {
+                $join->on('order_pickups.order_id', '=', 'orders.id')
+                        ->where('order_pickups.restaurant_id', '=', $fields['restaurant_id']);
+                    })
+                        ->groupBy('orders.id')
+                        ->orderBy('orders.created_at', 'desc')
+                        ->select('orders.*')
+                        ->get();
         }
         elseif (isset($fields['date']) && isset($fields['restaurant_id'])) {
 
             $dates = explode('|', $fields['date']);
             $fields['date_ini'] = Carbon::parse($dates[0]);
             $fields['date_end'] = Carbon::parse($dates[1]);
-            $getOrders = new Collection();
-            $i = -1;
-                foreach ($order as $all_orders) {
-                    $i++;
-                    $get_restaurant = Order::whereBetween('created_at', [$fields['date_ini'], $fields['date_end']])->get()[$i]->orderPickups[0]->pickup->restaurant_id;
-                    if ($get_restaurant == $fields['restaurant_id']) {
-                        $getOrders->push(Order::whereBetween('created_at', [$fields['date_ini'], $fields['date_end']])->get()[$i]);
-                    }
-                }
+            $restaurant = Restaurant::where('id', $fields['restaurant_id'])->get();
+            $brand = Company::where('id', $fields['brand_id'])->get();
+            $getOrders = Order::join('order_pickups', function ($join) use ($fields) {
+                $join->on('order_pickups.order_id', '=', 'orders.id')
+                        ->where('order_pickups.restaurant_id', '=', $fields['restaurant_id']);
+                    })
+                        ->whereBetween('orders.created_at', [$fields['date_ini'], $fields['date_end']])
+                        ->groupBy('orders.id')
+                        ->orderBy('orders.created_at', 'DESC')
+                        ->select('orders.*')
+                        ->get();
         }
         else{
-        $getOrders = $order->where('created_at', '>=', Carbon::today())->orderBy('created_at', 'DESC')->get();;
+        $getOrders = Order::where('created_at', '>=', Carbon::today())->orderBy('created_at', 'DESC')->get();;
         }
         return view('admin.orders.index')->with([
                 'order'  => $getOrders,
+                'restaurant'  => $restaurant,
+                'brand'  => $brand,
+                'dates'  => $fields['date'],
             ]
         );
 
@@ -85,10 +96,14 @@ class OrderController extends Controller
     public function show(Order $order, Product $products) {
 
         $tickets = $order->orderPickups;
+        $restaurant = $order->orderPickups->first()->restaurant;
+        $user = User::where('id', $order->user_id)->first();
         return view('admin.orders.view')->with([
                 'order'  => $order,
                 'ordersTickets'  => $tickets,
                 'products'  => $products,
+                'user'  => $user,
+                'restaurant' => $restaurant,
             ]
         );
 

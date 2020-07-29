@@ -13,18 +13,7 @@
         <p><label>{{ ucfirst(trans('labels.status')) }}:</label> {{ $ticket->restaurant_status }}</p>
     </div>
     <div class="col-12 col-md-5 col-lg-5">
-        @if($ticket->restaurant_status != 'CANCELED')
-            <field-area label="notes" field="restaurant_notes" :model="$ticket" required/>
-        @else
-            <label>{{ __('labels.notes') }}</label>
+            <label>{{ __('labels.notes') }}:</label>
             <p>{{ $ticket->restaurant_notes }}</p>
-        @endif
-    </div>
-
-    <div class="form-group d-flex align-items-center justify-content-between col-12 mt-5">
-        @if((Auth::user()->is_super || Auth::user()->is_manager) && $ticket->restaurant_status != 'CANCELED' && $ticket->closed == 0 )
-            <button type="submit" field="restaurant_status" name="restaurant_status" value="CANCELED" class="btn btn-block w-lg
-            btn-primary col-5">{{ ucfirst(trans('button.order_cancel')) }}</button>
-        @endif
     </div>
 </div>

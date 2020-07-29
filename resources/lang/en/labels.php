@@ -129,6 +129,6 @@ return [
     'restaurant_commission' => 'Restaurant Commission',
     'restaurant_status' => 'Restaurant Status',
     'from_to' => 'From - To',
-    'restaurant_notes' => 'Restaurant Notes',
+    'restaurant_notes' => 'Note',
 
 ];

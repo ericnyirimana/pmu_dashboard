@@ -266,10 +266,14 @@ class TicketController extends Controller
                 $status = $this->stripe->cancelPayment($payment->stripe_payment_intent_id);
                 $this->cancelPaymentResponse($status, $payment, $orderDetail);
                 Log::info("END CANCELING PAYMENT-----");
-            } else if( $payment->payment_method_types == 'PROMO_CODE'){
+            } else if( $payment->payment_method_types == 'PROMO_CODE' && isset($payment->stripe_payment_intent_id)){
                 Log::info("========> ".$payment->payment_method_types);
                 $status = $this->stripe->cancelPayment($payment->stripe_payment_intent_id);
                 $this->cancelPaymentResponse($status, $payment, $orderDetail);
+            }
+            else {
+                $this->saveStatus($payment, $orderDetail, 'CANCELED', 'CANCELED');
+                return response()->json(['success' => 'Ticket and order canceled successfully'], 200);
             }
         return response()->json(['error' => 'Something went wrong'], 500);
         }
