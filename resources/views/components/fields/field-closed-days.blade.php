@@ -12,7 +12,7 @@
 
                     isset($closedDays);
 
-                    $closedDays = [['name' => '', 'date' => '', 'repeat' => false]];
+                    $closedDays = [['name' => '', 'date_from' => '', 'date_to' => '', 'repeat' => false]];
 
                 }
 
@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group box-days">
                         <div class="input-group">
-                            <input type="text" name="closings[0][date]" class="closing_date form-control datepicker"
+                            <input type="text" name="closings[0][date_from]" class="closing_date_from form-control datepicker"
                                    placeholder="dd-mm-yyyy" value="" />
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -35,6 +35,15 @@
                         </div><!-- input-group -->
                     </div>
                     <div class="form-group box-days">
+                        <div class="input-group">
+                            <input type="text" name="closings[0][date_to]" class="closing_date_to form-control datepicker"
+                                   placeholder="dd-mm-yyyy" value="" />
+                            <div class="input-group-append">
+                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                            </div>
+                        </div><!-- input-group -->
+                    </div>
+                    <!-- <div class="form-group box-days">
                         <div class="checkbox">
                             <input id="checkbox" type="checkbox" name="closings[0][repeat]" checked=""
                                    class="closing_repeat">
@@ -42,7 +51,7 @@
                                 Every year
                             </label>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="form-group box-days remove_date">
                         <i class="fa fa-trash-o fa-2x"></i> <label>Delete</label>
                     </div>
@@ -60,18 +69,27 @@
                             <input type="text" name="closings[{{ $i }}][name]" class="closing_name form-control"
                                    placeholder="Name" value="{{ $day['name'] }}"/>
                         </div>
-
                         <div class="form-group box-days">
                             <div class="input-group">
-                                <input type="text" name="closings[{{ $i }}][date]"
-                                       class="closing_date form-control datepicker" placeholder="dd-mm-yyyy"
-                                       value="{{ $day['date'] }}" id="dp_{{ $i }}" />
+                                <input type="text" name="closings[{{ $i }}][date_from]"
+                                       class="closing_date_from form-control datepicker" placeholder="dd-mm-yyyy"
+                                       value="{{ $day['date_from'] }}" id="dp_{{ $i }}" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div>
                             </div><!-- input-group -->
                         </div>
                         <div class="form-group box-days">
+                            <div class="input-group">
+                                <input type="text" name="closings[{{ $i }}][date_to]"
+                                       class="closing_date_to form-control datepicker" placeholder="dd-mm-yyyy"
+                                       value="{{ $day['date_to'] }}" id="dt_{{ $i }}" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
+                                </div>
+                            </div><!-- input-group -->
+                        </div>
+                        <!-- <div class="form-group box-days">
                             <div class="checkbox">
                                 <input id="checkbox{{ $i }}" type="checkbox" name="closings[{{ $i }}][repeat]"
                                        {{ $day['repeat'] ? 'checked' : '' }} class="closing_repeat">
@@ -79,7 +97,7 @@
                                     Every year
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-group box-days remove_date">
                             <i class="fa fa-trash-o fa-2x"></i> <label>Delete</label>
                         </div>
@@ -140,14 +158,18 @@
                 box.removeClass('standard_closed_day_item');
                 box.find('.closing_name').attr('name', 'closings[' + seq + '][name]');
                 box.find('.closing_name').val('');
-                box.find('.closing_date').attr('name', 'closings[' + seq + '][date]');
-                box.find('.closing_date').attr('id', 'dp_' + seq);
-                box.find('.closing_date').val('');
+                box.find('.closing_date_from').attr('name', 'closings[' + seq + '][date_from]');
+                box.find('.closing_date_from').attr('id', 'dp_' + seq);
+                box.find('.closing_date_from').val('');
+                box.find('.closing_date_to').attr('name', 'closings[' + seq + '][date_to]');
+                box.find('.closing_date_to').attr('id', 'dt_' + seq);
+                box.find('.closing_date_to').val('');
                 initDatePicker($('#dp_' + seq));
-                box.find('.closing_repeat').attr('name', 'closings[' + seq + '][repeat]');
-                box.find('.closing_repeat').attr('checked', false);
-                box.find('.closing_repeat').attr('id', 'checkbox' + seq);
-                box.find('.closing_repeat').parent().find('label').attr('for', 'checkbox' + seq);
+                initDatePicker($('#dt_' + seq));
+                // box.find('.closing_repeat').attr('name', 'closings[' + seq + '][repeat]');
+                // box.find('.closing_repeat').attr('checked', false);
+                // box.find('.closing_repeat').attr('id', 'checkbox' + seq);
+                // box.find('.closing_repeat').parent().find('label').attr('for', 'checkbox' + seq);
 
                 $('.list_dates').append(box);
 

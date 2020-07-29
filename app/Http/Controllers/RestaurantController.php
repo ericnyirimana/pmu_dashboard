@@ -233,7 +233,6 @@ class RestaurantController extends Controller
             //Balance
             $balance = $this->stripe->getBalanceForConnectedAccount($restaurant->merchant_stripe);
         }
-
         return view('admin.restaurants.edit')
             ->with([
                 'restaurant' => $restaurant,
@@ -369,20 +368,20 @@ class RestaurantController extends Controller
     {
 
         if ($fields) {
-
             // clean all openings hours
             ClosedDay::where('restaurant_id', $restaurant)->delete();
 
             foreach ($fields as $day => $list) {
 
-                $repeat = isset($list['repeat']) ? true : false;
+                // $repeat = isset($list['repeat']) ? true : false;
 
-                if (!empty($list['name']) && !empty($list['date'])) {
+                if (!empty($list['date_from']) && !empty($list['date_to'])) {
                     ClosedDay::create([
                         'restaurant_id' => $restaurant,
                         'name' => $list['name'],
-                        'date' => Carbon::parse($list['date']),
-                        'repeat' => $repeat
+                        'date_from' => Carbon::parse($list['date_from']),
+                        'date_to' => Carbon::parse($list['date_to']),
+                        'repeat' => false
                     ]);
                 }
 

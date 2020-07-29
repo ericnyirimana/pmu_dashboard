@@ -12,11 +12,13 @@
     </div>
     <div class="col-md-3 col-lg-5">
         <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $order->total_amount }} €</p>
+        <p><label>{{ ucfirst(trans('labels.email')) }}:</label> {{ $user->email }}</p>
         @if($order->payment != null)
         @if( $order->payment->payment_method_types == 'PROMO_CODE')
             <p><label>{{ ucfirst(trans('labels.promo_code')) }}:</label> {{ $order->promo_code }} </p>
         @endif
         @endif
+        <p><label>{{ ucfirst(trans('labels.restaurant')) }}:</label> {{ $restaurant->name }}</p>
     </div>
     @if(Auth::user()->is_super)
     <div class="col-md-3 col-lg-2 close-order-btn">

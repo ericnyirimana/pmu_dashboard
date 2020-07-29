@@ -95,8 +95,15 @@ Route::prefix('admin')->group(function () {
         Route::put('/tickets/{ticket}', 'TicketController@cancelTicketsById')->name('ticket.update');
         Route::post('/orders/close', 'OrderController@closeOrder')->name('close.order');
         Route::put('/order-ticket/close/{id?}', 'OrderPickupController@closeTicket')->name('close.ticket');
-        Route::get('/filter/orders/{restaurant?}/{from?}/{to?}', 'OrderController@filtering')->name('filtering-orders.data');
+        Route::get('/filter/orders', 'OrderController@filtering')->name('filtering-orders.data');
         Route::get('/order-ticket/count/uncanceled/{order?}', 'OrderPickupController@countUnCanceledTicket')->name('count.uncanceled.ticket');
+        if (env('APP_DEBUG')) {
+            \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
+                \Illuminate\Support\Facades\Log::info( json_encode($query->sql) );
+                \Illuminate\Support\Facades\Log::info( json_encode($query->bindings) );
+                \Illuminate\Support\Facades\Log::info( json_encode($query->time)   );
+            });
+        }
     });
 
     Route::post('login', 'Auth\LoginController@login')->name('authenticate');
