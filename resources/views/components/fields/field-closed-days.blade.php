@@ -27,31 +27,13 @@
                     </div>
                     <div class="form-group box-days">
                         <div class="input-group">
-                            <input type="text" name="closings[0][date_from]" class="closing_date_from form-control datepicker"
+                            <input type="text" style="width: 200px;" name="closings[0][dates]" class="closing_dates form-control datepicker"
                                    placeholder="dd-mm-yyyy" value="" />
                             <div class="input-group-append">
                                 <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                             </div>
                         </div><!-- input-group -->
                     </div>
-                    <div class="form-group box-days">
-                        <div class="input-group">
-                            <input type="text" name="closings[0][date_to]" class="closing_date_to form-control datepicker"
-                                   placeholder="dd-mm-yyyy" value="" />
-                            <div class="input-group-append">
-                                <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                            </div>
-                        </div><!-- input-group -->
-                    </div>
-                    <!-- <div class="form-group box-days">
-                        <div class="checkbox">
-                            <input id="checkbox" type="checkbox" name="closings[0][repeat]" checked=""
-                                   class="closing_repeat">
-                            <label for="checkbox">
-                                Every year
-                            </label>
-                        </div>
-                    </div> -->
                     <div class="form-group box-days remove_date">
                         <i class="fa fa-trash-o fa-2x"></i> <label>Delete</label>
                     </div>
@@ -63,6 +45,10 @@
 
             <div class="list_dates">
                 @foreach($closedDays as $i=>$day)
+                    @php $dates_from_to = ''; @endphp
+                    @if(!empty($day['date_from']) && !empty($day['date_to']))
+                    @php $dates_from_to = $day['date_from']." - ".$day['date_to']; @endphp
+                    @endif
                     <div class="row date_box @if($i==0) first_item @endif" data-seq="{{ $i }}">
 
                         <div class="form-group box-days">
@@ -71,33 +57,14 @@
                         </div>
                         <div class="form-group box-days">
                             <div class="input-group">
-                                <input type="text" name="closings[{{ $i }}][date_from]"
-                                       class="closing_date_from form-control datepicker" placeholder="dd-mm-yyyy"
-                                       value="{{ $day['date_from'] }}" id="dp_{{ $i }}" />
+                                <input type="text" style="width: 200px;" name="closings[{{ $i }}][dates]"
+                                       class="closing_dates form-control datepicker" placeholder="dd-mm-yyyy"
+                                       value="{{ $dates_from_to }}" id="dp_{{ $i }}" />
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                                 </div>
                             </div><!-- input-group -->
                         </div>
-                        <div class="form-group box-days">
-                            <div class="input-group">
-                                <input type="text" name="closings[{{ $i }}][date_to]"
-                                       class="closing_date_to form-control datepicker" placeholder="dd-mm-yyyy"
-                                       value="{{ $day['date_to'] }}" id="dt_{{ $i }}" />
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
-                                </div>
-                            </div><!-- input-group -->
-                        </div>
-                        <!-- <div class="form-group box-days">
-                            <div class="checkbox">
-                                <input id="checkbox{{ $i }}" type="checkbox" name="closings[{{ $i }}][repeat]"
-                                       {{ $day['repeat'] ? 'checked' : '' }} class="closing_repeat">
-                                <label for="checkbox{{ $i }}">
-                                    Every year
-                                </label>
-                            </div>
-                        </div> -->
                         <div class="form-group box-days remove_date">
                             <i class="fa fa-trash-o fa-2x"></i> <label>Delete</label>
                         </div>
@@ -130,7 +97,11 @@
             $(document).on('focus', '.datepicker', function () {
 
                 if ($(this).hasClass('hasDatepicker') === false) {
-                    $(this).datepicker({ dateFormat: 'dd-mm-yy' });
+                    $(this).daterangepicker({ 
+                        locale: {
+                            format: 'DD-MM-YYYY'
+                        }
+                     });
                 }
 
             });
@@ -158,14 +129,10 @@
                 box.removeClass('standard_closed_day_item');
                 box.find('.closing_name').attr('name', 'closings[' + seq + '][name]');
                 box.find('.closing_name').val('');
-                box.find('.closing_date_from').attr('name', 'closings[' + seq + '][date_from]');
-                box.find('.closing_date_from').attr('id', 'dp_' + seq);
-                box.find('.closing_date_from').val('');
-                box.find('.closing_date_to').attr('name', 'closings[' + seq + '][date_to]');
-                box.find('.closing_date_to').attr('id', 'dt_' + seq);
-                box.find('.closing_date_to').val('');
+                box.find('.closing_dates').attr('name', 'closings[' + seq + '][dates]');
+                box.find('.closing_dates').attr('id', 'dp_' + seq);
+                box.find('.closing_dates').val('');
                 initDatePicker($('#dp_' + seq));
-                initDatePicker($('#dt_' + seq));
                 // box.find('.closing_repeat').attr('name', 'closings[' + seq + '][repeat]');
                 // box.find('.closing_repeat').attr('checked', false);
                 // box.find('.closing_repeat').attr('id', 'checkbox' + seq);
@@ -176,11 +143,20 @@
             }
 
             function initDatePicker(selector) {
-                selector.datepicker({
-                    dateFormat: 'dd-mm-yy',
-                    autoclose: true,
-                    todayHighlight: true
-                });
+                selector.daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                    });
+
+                    selector.on('apply.daterangepicker', function(ev, picker) {
+                        $(this).val(picker.startDate.format('DD-MM-YYYY') + ' - ' + picker.endDate.format('DD-MM-YYYY'));
+                    });
+
+                    selector.on('cancel.daterangepicker', function(ev, picker) {
+                        $(this).val('');
+                    });
             }
         });
     </script>
