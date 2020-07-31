@@ -375,12 +375,15 @@ class RestaurantController extends Controller
 
                 // $repeat = isset($list['repeat']) ? true : false;
 
-                if (!empty($list['date_from']) && !empty($list['date_to'])) {
+                if (!empty($list['dates'])) {
+                    $dates = explode(' -', $list['dates']);
+                    $fromDate = Carbon::parse($dates[0]);
+                    $toDate = Carbon::parse($dates[1]);
                     ClosedDay::create([
                         'restaurant_id' => $restaurant,
                         'name' => $list['name'],
-                        'date_from' => Carbon::parse($list['date_from']),
-                        'date_to' => Carbon::parse($list['date_to']),
+                        'date_from' => $fromDate,
+                        'date_to' => $toDate,
                         'repeat' => false
                     ]);
                 }
