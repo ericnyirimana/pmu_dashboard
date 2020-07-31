@@ -137,7 +137,7 @@
                     @if($ordersPickup->count() > 0)
                     <datatable route='orders-pickup' :collection="$ordersPickup" :fields="[
                     
-                    'ID'                        => 'pickup:id',
+                    'ID'                        => 'order:id',
                     'datatable.headers.hour'    => 'order:hour_format',
                     'datatable.headers.offer'   => 'pickup:name',
                     'datatable.headers.price'   => 'pickup:price',

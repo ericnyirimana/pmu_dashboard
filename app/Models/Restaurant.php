@@ -90,7 +90,7 @@ class Restaurant extends Model
 
     public function closedDays() {
 
-          return $this->hasMany('App\Models\ClosedDay')->orderBy('date');
+          return $this->hasMany('App\Models\ClosedDay')->orderBy('date_from');
 
     }
 
@@ -144,7 +144,7 @@ class Restaurant extends Model
 
             foreach ($this->closedDays as $item) {
 
-                  array_push($closedDays, ['name' => $item->name, 'date' => Carbon::create($item->date)->format('d-m-Y'), 'repeat' => $item->repeat ]);
+                  array_push($closedDays, ['name' => $item->name, 'date_from' => Carbon::create($item->date_from)->format('d-m-Y'), 'date_to' => Carbon::create($item->date_to)->format('d-m-Y'), 'repeat' => $item->repeat ]);
 
 
             }
