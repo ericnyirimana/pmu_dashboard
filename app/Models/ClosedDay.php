@@ -8,5 +8,5 @@ class ClosedDay extends Model
 {
 
 
-    public $fillable = ['restaurant_id', 'name', 'date', 'repeat'];
+    public $fillable = ['restaurant_id', 'name', 'date_from', 'date_to', 'repeat'];
 }
