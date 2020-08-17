@@ -222,11 +222,11 @@
                 var restaurant_id = $('#restaurant_id').val();
                 var offer_date = $('#date').val();
                 var price = $('#price').val();
-                var timeslot_id = $('#timeslot_id').val();
                 var type_offer = $('#type_offer').val();
                 var quantities = [];
                 var products = [];
                 var medias = [];
+                var timeslot_id = [];
                 $('.quantity input[name="quantity[]"]').each(function(element){
                     quantities.push($(this).val());
                 });
@@ -235,6 +235,10 @@
                 });
                 $('input[name="media[]"]').each(function(element){
                     medias.push($(this).val());
+                });
+
+                $('input[name="timeslot_id[]"]:checked').each(function(index, element){
+                    timeslot_id.push($(this).val());
                 });
                 var quantity_offer = $('#quantity_offer').val();
                 var check_media = $('#check_media').val();

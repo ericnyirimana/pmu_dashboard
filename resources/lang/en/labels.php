@@ -130,5 +130,7 @@ return [
     'restaurant_status' => 'Restaurant Status',
     'from_to' => 'From - To',
     'restaurant_notes' => 'Note',
+    'weekly_close' => 'Weekly closing',
+    'closed' => 'Closed',
 
 ];

@@ -41,20 +41,19 @@
     <div class="col-12 col-md-6">
         @if($pickup->id)
             @if($pickup->is_not_editable)
-                <field-select label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
-                              type="relation" :values="$pickup->restaurant->timeslots" required disabled/>
+                <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup_mealtype"
+                              type="relation" :values="$pickup->restaurant->timeslots" />
             @else
-                <field-select label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
-                              type="relation" :values="$pickup->restaurant->timeslots" required/>
+                <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup_mealtype"
+                              type="relation" :values="$pickup->restaurant->timeslots" />
             @endif
         @else
             @if(Auth::user()->is_restaurant && Auth::user()->restaurant->first())
-
-                <field-select label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
-                              type="relation" :values="Auth::user()->restaurant->first()->timeslots" required/>
+                <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup_mealtype"
+                              type="relation" :values="Auth::user()->restaurant->first()->timeslots" />
             @else
-                <field-select label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup"
-                              type="relation" :values="[]" required/>
+                <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id"
+                              type="relation" :values="[]" />
             @endif
         @endif
     </div>
@@ -70,7 +69,7 @@
     <div class="col-md-3 col-lg-6">
         <div class="form-group d-flex justify-content-between">
             @if(Route::currentRouteName() == 'pickups.create')
-            <button type="submit" class="btn btn-block w-lg btn-success float-right">
+            <button type="submit" class="btn btn-block w-lg btn-success float-right create-offer">
             {{ ucfirst(trans('button.next')) }}  
             </button>
             @else
@@ -122,6 +121,11 @@ float-right suspend-offer">{{ucfirst(trans('button.enable')) }}
                     loadTimeslots($(this).val());
 
                 });
+                @if(Route::currentRouteName() == 'pickups.create')
+                    const selectedRestaurant = $('#restaurant_id').children("option:selected").val();
+                    let loadCurrentTimeslot = selectedRestaurant !== '' ?  loadTimeslots($('#restaurant_id').val()) : '';
+                    loadCurrentTimeslot;
+                @endif
 
             });
 
@@ -138,13 +142,19 @@ float-right suspend-offer">{{ucfirst(trans('button.enable')) }}
 
                             $.each(data, function (i, timeslot) {
 
-                                $("#timeslot_id").append('<option value="' + timeslot.id + '">' + timeslot.name + '</option>')
+                                $("#timeslot_id").append(`
+                                <input class="form-check-input" type="checkbox" name="timeslot_id[]" 
+                                id="timeslot_id_${timeslot.name}" value="${timeslot.mealtype_id}">
+                                <label class="form-check-label" for="timeslot_id_${timeslot.name}"  style="margin-right: 20px;">
+                                ${timeslot.name}
+                                </label>`)
                             });
                         }
                     });
 
                 } else {
                     $("#restaurant_id").html('<option value="">Select Company first</option>');
+                    $("#timeslot_id").html('');
                 }
 
             }

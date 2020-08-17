@@ -14,6 +14,7 @@ use App\Models\Company;
 use App\Models\Mealtype;
 use App\Models\Media;
 use App\Models\OpeningHour;
+use App\Models\RestaurantTimeslot;
 use App\Models\Restaurant;
 use App\Models\Timeslot;
 use Carbon\Carbon;
@@ -94,7 +95,9 @@ class RestaurantController extends Controller
         $fields['brand_id'] = $company->id;
 
         // save on aux
-        $openings = $fields['openings'];
+        if (isset($fields['openings'])) {
+            $openings = $fields['openings'];
+        }
         $closings = $fields['closings'];
         if (isset($fields['timeslots'])) {
             $timeslots = $fields['timeslots'];
@@ -107,7 +110,9 @@ class RestaurantController extends Controller
 
         $restaurant = Restaurant::create($fields);
 
-        $this->saveOpeningsHours($restaurant->id, $openings);
+        if (isset($openings)) {
+            $this->saveOpeningsHours($restaurant->id, $openings);
+        }
         $this->saveClosedDays($restaurant->id, $closings);
 
         if (isset($restaurant->id, $timeslots)) {
@@ -199,6 +204,7 @@ class RestaurantController extends Controller
         $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
         $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
         $pickupSubscriptions = PickupSubscription::whereIn('pickup_id', $pickupsId)->get();
+        $mealtype = Mealtype::all();
 
         //Prepare tickets data
         $tickets = OrderPickup::whereHas('pickup', function ($q) use ($restaurant) {
@@ -239,6 +245,7 @@ class RestaurantController extends Controller
                 'company' => $company,
                 'media' => $media,
                 'mealtype' => $mealtypeList,
+                'mealtypeInfo' => $mealtype,
                 'users' => $users,
                 'ordersPickup' => $ordersPickup->sortByDesc('created_at'),
                 'pickupSubscriptions' => $pickupSubscriptions,
@@ -287,7 +294,9 @@ class RestaurantController extends Controller
         $fields = $request->all();
 
         // save on aux
-        $openings = $fields['openings'];
+        if (isset($fields['openings'])) {
+            $openings = $fields['openings'];
+        }
         $closings = $fields['closings'];
         if (isset($fields['timeslots'])) {
             $timeslots = $fields['timeslots'];
@@ -299,7 +308,9 @@ class RestaurantController extends Controller
         unset($fields['timeslots']);
 
         $restaurant->update($fields);
-        $this->saveOpeningsHours($restaurant->id, $openings);
+        if (isset($openings)) {
+            $this->saveOpeningsHours($restaurant->id, $openings);
+        }
         $this->saveClosedDays($restaurant->id, $closings);
 
         if (isset($restaurant->id, $timeslots)) {
@@ -335,30 +346,28 @@ class RestaurantController extends Controller
     }
 
 
-    protected function saveOpeningsHours(int $restaurant, array $fields)
+    protected function saveOpeningsHours(int $restaurant, $fields)
     {
 
         if ($fields) {
-
-            // clean all openings hours
-            OpeningHour::where('restaurant_id', $restaurant)->delete();
-
-            foreach ($fields as $day => $list) {
-
-                $close = isset($list['closed']) ? true : false;
-
-                foreach ($list['times'] as $time) {
-
-                    OpeningHour::create([
-                        'restaurant_id' => $restaurant,
-                        'day_of_week' => $day,
-                        'hour_ini' => $time['from'],
-                        'hour_end' => $time['to'],
-                        'closed' => $close
-                    ]);
-                }
-
+            $checkRestaurant = RestaurantTimeslot::where('restaurant_id', $restaurant)->count();
+            if ($checkRestaurant > 0) {
+                RestaurantTimeslot::where('restaurant_id', $restaurant)->update([
+                    'restaurant_id' => $restaurant,
+                    'timeslots' => json_encode($fields),
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                    'deleted_at' => null,
+                ]);
             }
+            else{
+                RestaurantTimeslot::create([
+                    'restaurant_id' => $restaurant,
+                    'timeslots' => json_encode($fields),
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+
         }
 
     }
@@ -400,28 +409,118 @@ class RestaurantController extends Controller
         if ($fields) {
 
             $timeslots = Timeslot::where('restaurant_id', $restaurant)->get();
-
+            $listUnchecked = array();
+            $listChecked = array();
+            foreach ($fields as $key => $value) {
+                if (strpos($value, "false") !== false) {
+                    settype($value, "integer");
+                    $listUnchecked[] = $value;
+                    unset($fields[$key]);
+                }
+            }
+            foreach ($fields as $field => $checkedValue) {
+                settype($checkedValue, "integer");
+                array_push($listChecked, $checkedValue);
+            }
+            $timeslotIds = $timeslots->pluck('mealtype_id')->toArray();
             if ($timeslots->count() > 0) {
-                $timeslots->map(function ($timeslot) use ($fields) {
-                    if (!in_array($timeslot->mealtype->id, $fields)) {
+                $timeslots->map(function ($timeslot) use ($listChecked) {
+                    if (!in_array($timeslot->mealtype->id, $listChecked)) {
                         Timeslot::find($timeslot->id)->delete();
                     } else {
 
                     }
                 });
-            }
-            foreach ($fields as $item) {
+            }   
+            foreach ($listChecked as $item) {
                 $mealtype = Mealtype::find($item);
-                if (!empty($mealtype) && !Timeslot::where('restaurant_id', $restaurant)->where('mealtype_id',
-                        $mealtype->id)->first()) {
-                    Timeslot::create([
-                        'restaurant_id' => $restaurant,
-                        'mealtype_id' => $mealtype->id,
-                        'hour_ini' => Carbon::parse($mealtype->hour_ini),
-                        'hour_end' => Carbon::parse($mealtype->hour_end),
-                        'fixed' => true,
-                        'identifier' => (string)Str::uuid(),
-                    ]);
+                if (!empty($mealtype)) {
+                    if (!Timeslot::withTrashed()->where('restaurant_id', $restaurant)->where('mealtype_id',
+                    $mealtype->id)->first()) {
+                        Timeslot::create(
+                            ['restaurant_id' => (int)$restaurant, 'mealtype_id' => (int)$mealtype->id,
+                            'hour_ini' => $mealtype->hour_ini,
+                            'hour_end' => $mealtype->hour_end,
+                            'fixed' => true,
+                            'identifier' => (string)Str::uuid(),
+                            'deleted_at' => null]
+                        );
+                    }
+                    else {
+                        Timeslot::withTrashed()->where('restaurant_id', (int)$restaurant)
+                                ->where('mealtype_id', (int)$mealtype->id)
+                                ->update(['deleted_at' => null]);
+                    }
+                }
+
+
+            }
+            $restaurantTimeslots = RestaurantTimeslot::where('restaurant_id', $restaurant)->get();
+            if ($restaurantTimeslots->count() == 0 || empty($restaurantTimeslots->first()->timeslots)) {
+                $allDays = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+                $list = array();
+                $timeslotsJson = array();
+                    $listMealtype = array();
+                    foreach ($listChecked as $items) {
+                        $mealtype = Mealtype::find($items);
+                        $mealtypeJson =  [
+                                'id' => $mealtype->id,
+                                'name' => $mealtype->name,
+                                'hours' => [
+                                    'hour_ini' => $mealtype->hour_ini,
+                                    'hour_end' => $mealtype->hour_end,
+                                ]
+                        ];
+                        array_push($listMealtype, $mealtypeJson);
+                    }
+                    $timeslotsJson = ['mealtypes' => $listMealtype];
+                    $newTimeslot = array_fill_keys($allDays, $timeslotsJson);
+                RestaurantTimeslot::updateOrCreate(['restaurant_id' => (int)$restaurant],
+                    ['timeslots' => $newTimeslot,
+                    'created_at' => Carbon::now(),
+                ]);
+            }
+            else {
+                if (!empty($listUnchecked)) {    
+                    $timeslotsToArray = $restaurantTimeslots->first()->timeslots;
+                    foreach ($listUnchecked as $uncheckedField => $uncheckedFieldValue) {
+                        foreach ($timeslotsToArray as $days => $dayValues) {
+                            $mealtypeOrderIndex = $timeslotsToArray[$days]['mealtypes'];
+                            foreach ($dayValues['mealtypes'] as $meal => $mealtypeValue) {
+                                if ($mealtypeValue['id'] == $uncheckedFieldValue) {
+                                    unset($timeslotsToArray[$days]['mealtypes'][$meal]);
+                                }
+                            }
+                            $mealtypeOrderIndex = array_values($timeslotsToArray[$days]['mealtypes']);
+                            $timeslotsToArray[$days]['mealtypes'] = array();
+                            array_push($timeslotsToArray[$days]['mealtypes'], $mealtypeOrderIndex);
+                            $timeslotsToArray[$days]['mealtypes'] = $timeslotsToArray[$days]['mealtypes'][0];
+
+                        }
+                    }
+                    RestaurantTimeslot::where('restaurant_id', $restaurant)->update(['timeslots' => json_encode($timeslotsToArray)]);
+                }
+                if (!empty($listChecked)) { 
+                    $newRestaurantTimeslots = RestaurantTimeslot::where('restaurant_id', $restaurant)->get();
+                    $newtimeslotsToArray = $newRestaurantTimeslots->first()->timeslots;
+                    $newMealtype = array();
+                    foreach ($listChecked as $checkedField => $checkedFieldValue) {
+                        if(!in_array($checkedFieldValue, $timeslotIds, false)){
+                        $mealtype = Mealtype::find($checkedFieldValue);
+                            foreach ($newtimeslotsToArray as $timeslotsAllDay => $timeslotDayValue) {
+                                $newMealtypeJson =  [
+                                    'id' => $mealtype->id,
+                                    'name' => $mealtype->name,
+                                    'hours' => [
+                                        'hour_ini' => $mealtype->hour_ini,
+                                        'hour_end' => $mealtype->hour_end,
+                                    ]
+                                ];
+                                array_push($newtimeslotsToArray[$timeslotsAllDay]['mealtypes'], $newMealtypeJson);
+                            }
+                        }
+                    }
+                    RestaurantTimeslot::where('restaurant_id', $restaurant)->update(['timeslots' => json_encode($newtimeslotsToArray)]);
                 }
 
             }

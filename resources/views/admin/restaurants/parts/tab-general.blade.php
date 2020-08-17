@@ -80,6 +80,18 @@
 
 <hr />
 
+    @if(Auth::user()->is_super)
+        <h6 class="">{{ ucfirst(trans('labels.meal_type')) }}</h6>
+
+        <div class="card-body">
+            <div class="col-12">
+                <field-checkbox field="mealtype_id" :model="$restaurant->timeslots" :items="$mealtype" required />
+            </div>
+        </div>
+
+        <hr />
+    @endif
+@if(Route::currentRouteName() == 'restaurants.edit')    
 <h6 class="">{{ ucfirst(trans('labels.opening_hours')) }}</h6>
 <div class="card-body">
     <div class="row">
@@ -98,17 +110,18 @@
       </div>
     </div>
 
-    <field-timeset day="monday" :model="$restaurant" open="true" />
-    <field-timeset day="tuesday" :model="$restaurant" />
-    <field-timeset day="wednesday" :model="$restaurant" />
-    <field-timeset day="thursday" :model="$restaurant" />
-    <field-timeset day="friday" :model="$restaurant" />
-    <field-timeset day="saturday" :model="$restaurant" />
-    <field-timeset day="sunday" :model="$restaurant" />
+    <field-timeset day="monday" :model="$restaurant" :items="$mealtypeInfo" open="true" />
+    <field-timeset day="tuesday" :model="$restaurant" :items="$mealtypeInfo" />
+    <field-timeset day="wednesday" :model="$restaurant" :items="$mealtypeInfo" />
+    <field-timeset day="thursday" :model="$restaurant" :items="$mealtypeInfo" />
+    <field-timeset day="friday" :model="$restaurant" :items="$mealtypeInfo" />
+    <field-timeset day="saturday" :model="$restaurant" :items="$mealtypeInfo" />
+    <field-timeset day="sunday" :model="$restaurant" :items="$mealtypeInfo" />
 
 </div>
 
 <hr />
+@endif
 <h6 class="">{{ ucfirst(trans('labels.extraordinary_close')) }}</h6>
 <div class="card-body">
     <div class="col-12">
@@ -118,17 +131,6 @@
 
 <hr />
 
-@if(Auth::user()->is_super)
-<h6 class="">{{ ucfirst(trans('labels.meal_type')) }}</h6>
-
-<div class="card-body">
-    <div class="col-12">
-        <field-checkbox field="mealtype_id" :model="$restaurant->timeslots" :items="$mealtype" required />
-    </div>
-</div>
-
-<hr />
-@endif
 
 <h6 class="">{{ ucfirst(trans('labels.gallery_restaurant')) }}</h6>
 <div class="card-body">
@@ -211,21 +213,6 @@ $(document).ready(function(){
           openTimeTable($(this).attr('name'));
 
       });
-
-      $(document).on('change', '.closed_day', function(){
-
-        var name = $(this).data('name');
-
-          if ($(this).is(':checked')) {
-
-            $('.box-time_'+name).addClass("hideHours");
-
-          } else {
-              $('.box-time_'+name).removeClass("hideHours");
-          }
-
-      });
-
 
 });
 

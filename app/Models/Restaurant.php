@@ -94,6 +94,12 @@ class Restaurant extends Model
 
     }
 
+    public function restaurantTimeslots() {
+
+        return $this->hasOne('App\Models\RestaurantTimeslot');
+
+    }
+
 
     public function getFieldShowAttribute() {
 

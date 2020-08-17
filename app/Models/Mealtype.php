@@ -36,4 +36,10 @@ class Mealtype extends Model
         return $this->translate->name;
   }
 
+  public function pickup_mealtype() {
+
+        return $this->hasMany('App\Models\PickupMealtype');
+
+  }
+
 }
