@@ -122,16 +122,24 @@ class OrderController extends Controller
             $orderDetail = Order::where('id', $request->all()['id'])->first();
             //Check if all tickets are closed to capture the Stripe payments
             $payment = $orderDetail->payment;
-                if( $payment->payment_method_types == 'CREDIT_CARD' && $payment->status == 'PENDING' ){
-                    Log::info("-----START CAPTURE PAYMENT");
-                    $status = $this->stripe->capturePayment($payment->stripe_payment_intent_id);
-                    DB::beginTransaction();
-                    if($status == 'succeeded'){
+                if($payment->status == 'PENDING' ){
+                    if ($payment->payment_method_types == 'CREDIT_CARD') {
+                        Log::info("-----START CAPTURE PAYMENT");
+                        $status = $this->stripe->capturePayment($payment->stripe_payment_intent_id);
+                        DB::beginTransaction();
+                        if($status == 'succeeded'){
+                            $payment->update(['status' => 'DONE']);
+                            $orderDetail->update(['status' => 'PAID']);
+                        } else {
+                            Log::error("An error occurred during capture payment".$status->errors);
+                            return response()->json(['error' => 'An error occurred during capture payment'], 400);
+                        }
+                    }
+                    if ($payment->payment_method_types == 'PROMO_CODE') {
+                        Log::info("-----UPDATE PAYMENT STATUS");
+                        DB::beginTransaction();
                         $payment->update(['status' => 'DONE']);
-                        $orderDetail->update(['status' => 'PAID']);
-                    } else {
-                        Log::error("An error occurred during capture payment".$status->errors);
-                        return response()->json(['error' => 'An error occurred during capture payment'], 400);
+                        $orderDetail->update(['status' => 'COMPLETED']);
                     }
                     DB::commit();
                     Log::info("END CAPTURE PAYMENT-----");
