@@ -97,6 +97,7 @@ class OrderController extends Controller
 
         $tickets = $order->orderPickups;
         $restaurant = $order->orderPickups->first()->restaurant;
+        $closedTicket = $order->orderPickups->where('closed', 1)->count();
         $user = User::where('id', $order->user_id)->first();
         return view('admin.orders.view')->with([
                 'order'  => $order,
@@ -104,6 +105,7 @@ class OrderController extends Controller
                 'products'  => $products,
                 'user'  => $user,
                 'restaurant' => $restaurant,
+                'closedTickets' => $closedTicket,
             ]
         );
 
@@ -117,37 +119,25 @@ class OrderController extends Controller
     {
         try{
         $orderPickup = OrderPickup::where('order_id', $request->all()['id'])->where('closed', 0);
-        // if (Auth::user()->is_super) {
             $orderPickup->update(['closed' => 1]);
             $orderDetail = Order::where('id', $request->all()['id'])->first();
             //Check if all tickets are closed to capture the Stripe payments
             $payment = $orderDetail->payment;
-                if($payment->status == 'PENDING' ){
-                    if ($payment->payment_method_types == 'CREDIT_CARD') {
-                        Log::info("-----START CAPTURE PAYMENT");
-                        $status = $this->stripe->capturePayment($payment->stripe_payment_intent_id);
-                        DB::beginTransaction();
-                        if($status == 'succeeded'){
-                            $payment->update(['status' => 'DONE']);
-                            $orderDetail->update(['status' => 'PAID']);
-                        } else {
-                            Log::error("An error occurred during capture payment".$status->errors);
-                            return response()->json(['error' => 'An error occurred during capture payment'], 400);
-                        }
-                    }
-                    if ($payment->payment_method_types == 'PROMO_CODE') {
-                        Log::info("-----UPDATE PAYMENT STATUS");
-                        DB::beginTransaction();
-                        $payment->update(['status' => 'DONE']);
-                        $orderDetail->update(['status' => 'COMPLETED']);
-                    }
-                    DB::commit();
-                    Log::info("END CAPTURE PAYMENT-----");
-                    return response()->json(['success' => 'Payment done successfully'], 200);
+            if ($payment->payment_method_types !== 'PROMO_CODE' && $payment->status == 'PENDING') {
+                Log::info("-----START CAPTURE PAYMENT");
+                $status = $this->stripe->capturePayment($payment->stripe_payment_intent_id);
+                DB::beginTransaction();
+                if($status == 'succeeded'){
+                    $payment->update(['status' => 'DONE']);
+                    $orderDetail->update(['status' => 'PAID']);
+                } else {
+                    Log::error("An error occurred during capture payment".$status->errors);
+                    return response()->json(['error' => 'An error occurred during capture payment'], 400);
                 }
-            return response()->json(['error' => 'Something went wrong'], 500);
-        // }
-        return response()->json(['error' => 'Unauthorized'], 401);
+                DB::commit();
+                Log::info("END CAPTURE PAYMENT-----");
+                return response()->json(['success' => 'Payment done successfully'], 200);
+            }
     }
     catch (\Throwable $exception) {
         Log::info('An error occurred during capture payment {' . $exception . '}');
