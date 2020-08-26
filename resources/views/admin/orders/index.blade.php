@@ -19,7 +19,7 @@
         <div class="card-box table-responsive">
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.todays_orders')) }}</b></h4>
-              <datatable route='orders' :collection="$order" :fields="[
+              <datatable route='orders' :collection="$order" :checkRow="true" :fields="[
                 'datatable.headers.date'      => 'date_format',
                 'datatable.headers.hour'      => 'hour_format',
                 'ID' => 'id',

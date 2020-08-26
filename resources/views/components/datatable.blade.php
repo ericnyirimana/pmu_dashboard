@@ -15,7 +15,14 @@
 
     @if($collection->count() > 0)
         @foreach ($collection as $model)
-            <tr @if(!empty($model->deleted_at)) class="bg-danger text-white" @endif>
+            <tr @if(!empty($model->deleted_at)) class="bg-danger text-white" @endif
+                @if(isset($checkRow)) @if($model->commission_to_pay > 0.00 &&
+                $model->payment->payment_method_types == "PROMO_CODE" &&
+                $model->status == "COMPLETED")
+                style="background-color: #c9e2b2;"
+                @endif
+                @endif
+            >
                 @foreach ($fields as $field)
                     @php $params = explode(':', $field) @endphp
                     @if( isset($params[1]) )

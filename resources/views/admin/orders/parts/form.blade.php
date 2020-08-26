@@ -23,7 +23,11 @@
     @if(Auth::user()->is_super)
     <div class="col-md-3 col-lg-2 close-order-btn">
     <input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}"/>
-    @if($order->status == 'PAID')
+    @if(($order->status == 'PAID') ||
+     ($order->payment->payment_method_types == 'PROMO_CODE' 
+     && $order->payment->status == 'DONE' 
+     && $order->status == 'COMPLETED' 
+     && $closedTickets !== 0))
     <label class="text-success" style="border: 2px solid; padding: 6px;"><i class="fi-check"></i> {{ ucfirst(trans('button.order_is_closed')) }}</label>
     @elseif($order->status == 'CANCELED')
     <label class="text-danger" style="border: 2px solid; padding: 6px;"><i class="fi-ban"></i> {{ ucfirst(trans('button.order_closed')) }}</label>
