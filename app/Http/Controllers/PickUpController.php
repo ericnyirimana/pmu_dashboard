@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Pickup;
 use App\Models\Media;
+use App\Models\PickupMealtype;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
 
@@ -47,7 +48,7 @@ class PickupController extends Controller
                     'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
                     'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
                     'date' => ['required'],
-                    'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant]
+                    'timeslot_id' => ['required', 'array']
                 ];
             }
         } else {
@@ -56,7 +57,7 @@ class PickupController extends Controller
                 'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
                 'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
                 'date' => ['required'],
-                'timeslot_id' => ['required', new \App\Rules\TimeslotBelongsToRestaurant]
+                'timeslot_id' => ['required', 'array']
 
             ];
         }
@@ -106,7 +107,8 @@ class PickupController extends Controller
         $dates = explode('|', $fields['date']);
         $fields['date_ini'] = Carbon::parse($dates[0]);
         $fields['date_end'] = Carbon::parse($dates[1]);
-
+        $timeslots = $fields['timeslot_id'];
+        unset($fields['timeslot_id']);
         $pickup = Pickup::create($fields);
         if ($pickup->type_pickup == 'offer') {
             $pickup->offer()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7]);
@@ -114,7 +116,7 @@ class PickupController extends Controller
             $pickup->subscription()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7, 'validate_days' => 5]);
         }
         $this->saveTranslation($pickup, $fields);
-
+        $this->savePickupMealtype($pickup->id, $timeslots);
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
         }
@@ -145,11 +147,13 @@ class PickupController extends Controller
 
         $menu = $pickup->restaurant->menu()->where('status_menu', 'APPROVED')->first();
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
+        $pickup_mealtype = PickupMealtype::where('pickup_id', $pickup->id)->get();
 
         return view('admin.pickups.edit')->with([
                 'pickup' => $pickup,
                 'menu' => $menu,
                 'media' => $media,
+                'pickup_mealtype' => $pickup_mealtype,
             ]
         );
     }
@@ -160,7 +164,6 @@ class PickupController extends Controller
         $this->setDefaultCompanyForOwnerOrRestaurateur($request);
         $this->validation($request, $pickup);
         $fields = $request->all();
-
         /*
         if( ($fields['check_media'] == null) ||
             (isset($fields['suspended']) && $fields['suspended'] == 0) ){
@@ -216,6 +219,8 @@ class PickupController extends Controller
         }
 
 
+        $timeslots = $fields['timeslot_id'];
+        unset($fields['timeslot_id']);
         $pickup->update($fields);
 
         if ($pickup->type_pickup == 'offer') {
@@ -225,12 +230,12 @@ class PickupController extends Controller
         }
 
         $this->saveTranslation($pickup, $fields);
+        $this->savePickupMealtype($pickup->id, $timeslots);
         $pickup->products()->sync($products);
 
         if ($request->media) {
             $pickup->media()->sync(array_unique($request->media));
         }
-
         return redirect()->route('pickups.index')->with([
             'notification' => trans('messages.notification.pickup_saved', ['pickup_name' => $pickup->name]),
             'type-notification' => 'success'
@@ -375,6 +380,35 @@ class PickupController extends Controller
         } catch (\Exception $exception) {
             return response()->json(['error' => 'Something was wrong'], 500);
         }
+    }
+
+    protected function savePickupMealtype(int $pickup, array $fields)
+    {
+
+        if ($fields) {
+            // clean all pickup mealtype
+            PickupMealtype::where('pickup_id', $pickup)->delete();
+            foreach ($fields as $field => $list) {
+                $checkIfExist = PickupMealtype::withTrashed()
+                                ->where('pickup_id', $pickup)
+                                ->where('mealtype_id', $list)->count();
+                if($checkIfExist == 0){
+                    PickupMealtype::create([
+                        'pickup_id' => $pickup,
+                        'mealtype_id' => $list,
+                        'created_at' => Carbon::now(),
+                        'updated_at' => Carbon::now(),
+                    ]);
+                }
+                else {
+                    PickupMealtype::withTrashed()->where('pickup_id', $pickup)
+                        ->where('mealtype_id', $list)
+                        ->update(['deleted_at' => null]);
+                }
+
+            }
+        }
+
     }
 
 }

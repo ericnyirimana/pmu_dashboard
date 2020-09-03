@@ -338,4 +338,10 @@ class Pickup extends Model
         return false;
     }
 
+    public function pickup_mealtype() {
+
+        return $this->hasMany('App\Models\PickupMealtype');
+        
+    }
+
 }
