@@ -30,6 +30,7 @@ return [
         'pickup_copied' => 'Offer copied!',
         //'pickup_quantity_wrong' => 'Quantity wrong',
         'pickup_quantity_wrong' => 'Errore quantità: Il Numero offerte (x giorno) è superiore al totale delle quantità disponibile della sezione :section (:total_section)',
-        'product_cant_remove' => 'Product can\'t remove, there is an offer not expired'
-    ]
+        'product_cant_remove' => 'Product can\'t remove, there is an offer not expired',
+    ],
+    'client_can_place_order_30_min_before' => 'The user can place orders up to 30 minutes before the indicated end time',
 ];

@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Timeslot extends Model
 {
-
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     public $fillable = ['restaurant_id', 'mealtype_id', 'hour_ini', 'hour_end', 'fixed', 'identifier'];
 
     protected $appends = ['name'];

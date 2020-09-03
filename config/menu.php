@@ -67,7 +67,7 @@ return [
             ],
         ],
         'timeslots' => [
-            'class' => 'Timeslot',
+            'class' => 'Timeslots',
             'icon' => 'fi-clock',
             'routes' => [
                 'list' => 'timeslots.index',
