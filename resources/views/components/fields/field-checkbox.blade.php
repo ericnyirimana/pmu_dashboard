@@ -31,7 +31,6 @@
 @push('scripts')
 <script>
 function check(key, valueItem) {
-    console.log('mealtype_id_'+valueItem);
     if(document.getElementById('mealtype_id_'+valueItem).checked) {
         document.getElementById('hidden_mealtype_id_'+valueItem).value = key +'| true';
     }
