@@ -141,10 +141,10 @@ float-right suspend-offer">{{ucfirst(trans('button.enable')) }}
                             $("#timeslot_id").html('');
 
                             $.each(data, function (i, timeslot) {
-
+                                let allday = (timeslot.mealtype.all_day === null) ? "0" : "1";
                                 $("#timeslot_id").append(`
-                                <input class="form-check-input" type="checkbox" name="timeslot_id[]" 
-                                id="timeslot_id_${timeslot.name}" value="${timeslot.mealtype_id}">
+                                <input class="form-check-input mealtypes checks-${allday}" type="checkbox" name="timeslot_id[]" 
+                                id="timeslot_id_${timeslot.name}" value="${timeslot.mealtype_id}" all_day ="${allday}">
                                 <label class="form-check-label" for="timeslot_id_${timeslot.name}"  style="margin-right: 20px;">
                                 ${timeslot.name}
                                 </label>`)
