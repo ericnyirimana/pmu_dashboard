@@ -49,7 +49,7 @@
             @endif
         @else
             @if(Auth::user()->is_restaurant && Auth::user()->restaurant->first())
-                <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id" :model="$pickup_mealtype"
+                <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id"
                               type="relation" :values="Auth::user()->restaurant->first()->timeslots" />
             @else
                 <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id"
