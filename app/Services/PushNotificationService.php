@@ -9,11 +9,10 @@ use Illuminate\Support\Str;
 
 class PushNotificationService{
 
-    public function __construct(){}
+    protected $pinpointClient;
 
-    public function sendPushNotification($usersSub, $title, $body){
-        Log::info('Send PushNotification to ( users: {' . implode(',', $usersSub) . '})');
-        $pinpointClient = new PinpointClient([
+    public function __construct(){
+        $this->pinpointClient = new PinpointClient([
             'version' => env('AWS_COGNITO_VERSION'),
             'region' => env('AWS_PINPOINT_VERSION'),
             'credentials' => [
@@ -21,12 +20,23 @@ class PushNotificationService{
                 'secret' => env('AWS_SECRET_ACCESS_KEY'),
             ],
         ]);
+    }
 
-        //TODO: CHANGE PUSHER_PN_INSTANCE_ID IN PINPOINT_APPLICATION_ID
+    public function sendPushNotificationToPartner($usersSub, $title, $body){
+        $this->sendPushNotification($usersSub, $title, $body, env('AWS_PINPOINT_ID_APP_PARTNER'), array());
+    }
+
+    public function sendPushNotificationToCustomer($usersSub, $title, $body, $params){
+
+        $this->sendPushNotification($usersSub, $title, $body, env('AWS_PINPOINT_ID_APP_CUSTOMER'), $params);
+    }
+
+    private function sendPushNotification($usersSub, $title, $body, $applicationId, $params){
+        Log::info('Send PushNotification to ( users: {' . implode(',', $usersSub) . '})');
         foreach( $usersSub as $sub ){
             try{
-                $userEndpoints = $pinpointClient->getUserEndpoints([
-                    'ApplicationId' => env('PUSHER_PN_INSTANCE_ID'), // REQUIRED
+                $userEndpoints = $this->pinpointClient->getUserEndpoints([
+                    'ApplicationId' => $applicationId, // REQUIRED
                     'UserId' => $sub //REQUIRED
                 ]);
             } catch (\Throwable $e){
@@ -57,13 +67,25 @@ class PushNotificationService{
                     ),
                     "data" => array(
                         "title" => $title,
-                        "body"  => $body
+                        "body"  => $body,
+                        "params" => $params
                     )
                 );
 
+                $iOSMessageRawContent = array(
+                    "aps" => array(
+                        "alert" => array(
+                            "title" => $title,
+                            "body" => $body
+                        ),
+                        "body" => $body,
+                        "params" => $params
+                    ),
+                );
+
                 $traceId = (string)Str::uuid();
-                $result = $pinpointClient->sendMessages([
-                    'ApplicationId' => env('PUSHER_PN_INSTANCE_ID'), // REQUIRED
+                $result = $this->pinpointClient->sendMessages([
+                    'ApplicationId' => $applicationId, // REQUIRED
                     'MessageRequest' => [ // REQUIRED
                         'MessageConfiguration' => [ // REQUIRED
                             'APNSMessage' => [
@@ -71,6 +93,7 @@ class PushNotificationService{
                                 'Action' => 'OPEN_APP',
                                 'Sound' => 'default',
                                 'Body' => $body,
+                                'RawContent' => json_encode($iOSMessageRawContent, JSON_FORCE_OBJECT),
                                 'Priority' => 'high',
                                 'SilentPush' => false,
                                 'TimeToLive' => 30,
@@ -80,7 +103,7 @@ class PushNotificationService{
                                 'Action' => 'OPEN_APP',
                                 'Body' => $body,
                                 'Priority' => 'high',
-                                'RawContent' => json_encode($gcmMessageRawContent),
+                                'RawContent' => json_encode($gcmMessageRawContent, JSON_FORCE_OBJECT),
                                 'SilentPush' => false,
                                 'TimeToLive' => 30,
                                 'Title' => $title,
@@ -100,17 +123,8 @@ class PushNotificationService{
     }
 
     public function updateUserEndpoint(){
-        $pinpointClient = new PinpointClient([
-            'version' => env('AWS_COGNITO_VERSION'),
-            'region' => env('AWS_PINPOINT_VERSION'),
-            'credentials' => [
-                'key'    => env('AWS_ACCESS_KEY_ID'),
-                'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            ],
-        ]);
-
-        $result = $pinpointClient->getUserEndpoint([
-            'ApplicationId' => env('PUSHER_PN_INSTANCE_ID'), // REQUIRED
+        $result = $this->pinpointClient->getUserEndpoint([
+            'ApplicationId' => env('AWS_PINPOINT_ID_APP_PARTNER'), // REQUIRED
             'EndpointId' => 'f4e3dd8a-2ae3-4602-abcf-a77f69f2aafd', // REQUIRED
         ]);
 /*
@@ -135,35 +149,17 @@ class PushNotificationService{
     }
 
     public function deleteEndpoint($endpoint){
-        $pinpointClient = new PinpointClient([
-            'version' => env('AWS_COGNITO_VERSION'),
-            'region' => env('AWS_PINPOINT_VERSION'),
-            'credentials' => [
-                'key'    => env('AWS_ACCESS_KEY_ID'),
-                'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            ],
-        ]);
-
-        $result = $pinpointClient->deleteEndpoint([
-            'ApplicationId' => env('PUSHER_PN_INSTANCE_ID'), // REQUIRED
+        $result = $this->pinpointClient->deleteEndpoint([
+            'ApplicationId' => env('AWS_PINPOINT_ID_APP_PARTNER'), // REQUIRED
             'EndpointId' => $endpoint, // REQUIRED
         ]);
 
     }
 
     public function getUserEndpoints($sub){
-        $pinpointClient = new PinpointClient([
-            'version' => env('AWS_COGNITO_VERSION'),
-            'region' => env('AWS_PINPOINT_VERSION'),
-            'credentials' => [
-                'key'    => env('AWS_ACCESS_KEY_ID'),
-                'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            ],
-        ]);
-
         try {
-            $userEndpoints = $pinpointClient->getUserEndpoints([
-                'ApplicationId' => env('PUSHER_PN_INSTANCE_ID'), // REQUIRED
+            $userEndpoints = $this->pinpointClient->getUserEndpoints([
+                'ApplicationId' => env('AWS_PINPOINT_ID_APP_PARTNER'), // REQUIRED
                 'UserId' => $sub //REQUIRED
             ]);
             return $userEndpoints;
