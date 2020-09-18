@@ -11,10 +11,14 @@ class EmailService {
     public function __construct(){
     }
 
-    public function sendEmailCancelOrder($ticket){
-        Log::info("Send order cancelled to User ID: " . $ticket->order->user_id );
-
-        $user = User::find($ticket->order->user_id);
+    /**
+     * @param $userFirstName
+     * @param $userEmail
+     * @param $userId
+     * @param $ticket
+     */
+    public function sendEmailCancelOrder($userFirstName, $userEmail, $userId, $ticket){
+        Log::info("Send ticket cancelled (ticket_id:". $ticket->id .") to User ID: " . $userId );
 
         $sesClient = new SesClient([
             'version' => env('AWS_COGNITO_VERSION'),
@@ -27,8 +31,8 @@ class EmailService {
         $template_name = 'CancelOrderTemplate';
         $sender_email = env('SENDER_EMAIL');
 
-        $json = array( "username" => $user->first_name,
-            "restaurant_name"=> $ticket->restaurant_name,
+        $json = array( "username" => $userFirstName,
+            "restaurant_name"=> $ticket->restaurant->name,
             "restaurant_notes"=> $ticket->restaurant_notes,
             "order_id" => $ticket->id,
         );
@@ -36,7 +40,7 @@ class EmailService {
 
             $result = $sesClient->sendTemplatedEmail([
                 'Destination' => [
-                    'ToAddresses' => [$user->email],
+                    'ToAddresses' => [$userEmail],
                 ],
                 'ReplyToAddresses' => [$sender_email],
                 'Source' => $sender_email,
