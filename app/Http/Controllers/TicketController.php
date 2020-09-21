@@ -87,19 +87,27 @@ class TicketController extends Controller
         $this->cancelPayment($ordersPickup->order_id);
         $ordersPickupWithOrder = OrderPickup::where('id', $ticketId)->with('order')->first();
         $userCustomer = User::find($ordersPickupWithOrder->order->user_id);
-        if($ordersPickupWithOrder){
+        if($userCustomer){
             // Send cancel order email
             $this->emailService->sendEmailCancelOrder($userCustomer->first_name, $userCustomer->email,
             $userCustomer->id, $ordersPickupWithOrder);
-
             // Send PushNotification to the Customer
-            $this->pusher->sendPushNotification([strval($userCustomer->sub)],
-            trans('push-notifications.ticket_reject.title', [], "it"),
-            trans('push-notifications.ticket_reject.message',
-                ['ticketId' => $ordersPickupWithOrder->id], "it")
-        );
+            Log::info('ORDER AND PICK NAME: '. $ordersPickup->pickup->name);
+            Log::info('ORDER AND PICK NOTE: '. $ordersPickup->restaurant_notes);
+            Log::info('ORDER AND PICK SUB: '. $userCustomer->sub);
+            Log::info('ORDER AND PICK ID: '. $ordersPickup->id);
+            $paramsPushNotification = array(
+            "deal_name" => $ordersPickup->pickup->name,
+            "notes"  => $ordersPickup->restaurant_notes
+            );
+            $this->pusher->sendPushNotificationToCustomer([strval($userCustomer->sub)],
+                trans('push-notifications.ticket_reject.title', ["ticket_id" => $ordersPickup->id], "it"),
+                trans('push-notifications.ticket_reject.message',
+                    ["emoji" => html_entity_decode('&#128073;',ENT_NOQUOTES,'UTF-8')], "it"),
+                $paramsPushNotification
+            );
         } else {
-            Log::warning('No Customer User found to send email: '. $ordersPickupWithOrder->order->user_id);
+            Log::warning('No Customer User found to send email: '. $ordersPickup->order->user_id);
         }
 
         return $ordersPickupWithOrder;
