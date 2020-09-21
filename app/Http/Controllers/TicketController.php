@@ -7,7 +7,9 @@ use App\Models\OrderProduct;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\SubscriptionTicket;
+use App\Models\User;
 use App\Services\EmailService;
+use App\Services\PushNotificationService;
 use Illuminate\Http\Request;
 use App\Libraries\StripeIntegration;
 use Illuminate\Support\Facades\DB;
@@ -20,11 +22,13 @@ use App\Services\ApplicationService;
 class TicketController extends Controller
 {
     protected $emailService;
+    protected $pusher;
     private $stripe;
     protected $applicationService;
 
-    public function __construct(EmailService $emailService, StripeIntegration $stripe, ApplicationService $applicationService)
+    public function __construct(PushNotificationService $pusher, EmailService $emailService, StripeIntegration $stripe, ApplicationService $applicationService)
     {
+        $this->pusher = $pusher;
         $this->emailService = $emailService;
         $this->stripe = $stripe;
         $this->applicationService = $applicationService;
@@ -68,7 +72,6 @@ class TicketController extends Controller
      * @return bool
      */
     public function cancelTicketsById(Request $request, $ticketId){
-
         $ordersPickup = OrderPickup::where('id', $ticketId)
             ->where('closed', '=', 0)
             ->where('restaurant_status','=','ACCEPTED')->first();
@@ -83,6 +86,29 @@ class TicketController extends Controller
         $this->changeAmount($ordersPickup, $fields['restaurant_notes']);
         $this->cancelPayment($ordersPickup->order_id);
         $ordersPickupWithOrder = OrderPickup::where('id', $ticketId)->with('order')->first();
+        $userCustomer = User::find($ordersPickupWithOrder->order->user_id);
+        if($userCustomer){
+            // Send cancel order email
+            $this->emailService->sendEmailCancelOrder($userCustomer->first_name, $userCustomer->email,
+            $userCustomer->id, $ordersPickupWithOrder);
+            // Send PushNotification to the Customer
+            Log::info('ORDER AND PICK NAME: '. $ordersPickup->pickup->name);
+            Log::info('ORDER AND PICK NOTE: '. $ordersPickup->restaurant_notes);
+            Log::info('ORDER AND PICK SUB: '. $userCustomer->sub);
+            Log::info('ORDER AND PICK ID: '. $ordersPickup->id);
+            $paramsPushNotification = array(
+            "deal_name" => $ordersPickup->pickup->name,
+            "notes"  => $ordersPickup->restaurant_notes
+            );
+            $this->pusher->sendPushNotificationToCustomer([strval($userCustomer->sub)],
+                trans('push-notifications.ticket_reject.title', ["ticket_id" => $ordersPickup->id], "it"),
+                trans('push-notifications.ticket_reject.message',
+                    ["emoji" => html_entity_decode('&#128073;',ENT_NOQUOTES,'UTF-8')], "it"),
+                $paramsPushNotification
+            );
+        } else {
+            Log::warning('No Customer User found to send email: '. $ordersPickup->order->user_id);
+        }
 
         return $ordersPickupWithOrder;
 
@@ -231,8 +257,6 @@ class TicketController extends Controller
             $cancelledTicket->promo_code = null;
             $cancelledTicket->promo_serial_used_id = null;
             $cancelledTicket->save();
-            // Send cancel order email
-            $this->emailService->sendEmailCancelOrder($cancelledTicket);
             DB::commit();
         } catch (\Throwable $exception){
             Log::info('An error occurred during update the Orders {' . $exception . '}');
