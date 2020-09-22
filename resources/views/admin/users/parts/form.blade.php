@@ -19,7 +19,7 @@
                           :values="config('cognito.ownerRolesToAdd')"
                           required readonly/>
         @elseif(Auth::user()->is_manager && Auth::user()->is_restaurant && empty($edit))
-            <?php list('SALES ASSISTANT' => $salesAssistant) = config('cognito.ownerRolesToAdd');
+            <?php list('SALES_ASSISTANT' => $salesAssistant) = config('cognito.ownerRolesToAdd');
             ?>
             <field-custom-text label="role" field="role" :value="$salesAssistant" required readonly/>
         @elseif(Auth::user()->is_manager && Auth::user()->is_restaurant && isset($edit))
@@ -115,13 +115,13 @@
 
             if ($('#role').val() === 'OWNER' ||
                 $('#role').val() === 'RESTAURATEUR' ||
-                $('#role').val() === 'SALES ASSISTANT') {
+                $('#role').val() === 'SALES_ASSISTANT') {
                 $('.js-brand').show();
                 $('#brand_id').prop('readonly', false);
                 loadCompany($('#role').val());
             }
 
-            if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES ASSISTANT') {
+            if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES_ASSISTANT') {
                 $('.js-restaurant').show();
                 $('#restaurant_id').prop('readonly', false);
             }
@@ -131,7 +131,7 @@
             $(document).on('change', '#role', function () {
                 if ($(this).val() === 'OWNER' ||
                     $(this).val() === 'RESTAURATEUR' ||
-                    $(this).val() === 'SALES ASSISTANT') {
+                    $(this).val() === 'SALES_ASSISTANT') {
                     $('.js-brand').show();
                     $('#brand_id').prop('readonly', false);
                     $('.js-restaurant').hide();
@@ -145,7 +145,7 @@
 
             $(document).on('change', '#brand_id', function () {
                 $('#brand_id').parsley().removeError('company_owner');
-                if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES ASSISTANT') {
+                if ($('#role').val() === 'RESTAURATEUR' || $('#role').val() === 'SALES_ASSISTANT') {
                     $('.js-restaurant').show();
                     $('#restaurant_id').prop('readonly', false);
                 }
@@ -164,7 +164,7 @@
 
         function loadCompany(id) {
             var companyElem = $("#brand_id");
-            if (id === 'OWNER' || id === 'RESTAURATEUR' || id === 'SALES ASSISTANT') {
+            if (id === 'OWNER' || id === 'RESTAURATEUR' || id === 'SALES_ASSISTANT') {
                 @if(Auth::user()->is_manager || Auth::user()->is_owner || Auth::user()->is_restaurant)
                 $.ajax({
                     success: function () {
