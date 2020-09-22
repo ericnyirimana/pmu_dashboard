@@ -32,14 +32,14 @@ return [
       'OWNER'           => 'OWNER',
       'RESTAURATEUR'    => 'RESTAURATEUR',
       'CUSTOMER'        => 'CUSTOMER',
-      'SALES ASSISTANT' => 'SALES ASSISTANT'
+      'SALES_ASSISTANT' => 'SALES_ASSISTANT'
     ],
     'restaurantoRolesToAdd' => [
-        'SALES_ASSISTANT' => 'SALES ASSISTANT'
+        'SALES_ASSISTANT' => 'SALES_ASSISTANT'
     ],
     'ownerRolesToAdd' => [
         'RESTAURATEUR'    => 'RESTAURATEUR',
-        'SALES ASSISTANT' => 'SALES ASSISTANT'
+        'SALES_ASSISTANT' => 'SALES_ASSISTANT'
     ],
 
 ];

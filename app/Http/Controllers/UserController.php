@@ -30,8 +30,8 @@ class UserController extends Controller
     {
         $rules = [
             'name' => 'required',
-            'brand_id' => 'required_if:role,RESTAURATEUR,OWNER,SALES ASSISTANT',
-            'restaurant_id' => 'required_if:role,RESTAURATEUR,SALES ASSISTANT'
+            'brand_id' => 'required_if:role,RESTAURATEUR,OWNER,SALES_ASSISTANT',
+            'restaurant_id' => 'required_if:role,RESTAURATEUR,SALES_ASSISTANT'
         ];
 
         if ($user) {
