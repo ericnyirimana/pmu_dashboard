@@ -141,7 +141,7 @@ class User extends Authenticatable
     public function getIsSalesAssistantAttribute()
     {
 
-        return ($this->role == 'SALES ASSISTANT');
+        return ($this->role == 'SALES_ASSISTANT');
 
     }
 
