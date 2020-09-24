@@ -30,7 +30,8 @@ return [
         'pickup_copied' => 'Offerta copiata!',
         //'pickup_quantity_wrong' => 'Errore quantità',
         'product_cant_remove' => 'Il prodotto è presente in un\'offerta non scaduta',
-        'pickup_quantity_wrong' => 'Errore quantità: Il Numero offerte (x giorno) è superiore al totale delle quantità disponibile della sezione :section (:total_section)'
+        'pickup_quantity_wrong' => 'Errore quantità: Il Numero offerte (x giorno) è superiore al totale delle quantità disponibile della sezione :section (:total_section)',
+        'not_allowed_user' => 'Non sei autorizzato ad aggiornare questa sezione',
     ],
     'client_can_place_order_30_min_before' => 'L\'utente potrà effettuare ordini fino a 30 minuti prima dell\'orario di fine indicato',
 

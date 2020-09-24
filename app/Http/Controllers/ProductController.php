@@ -166,7 +166,8 @@ class ProductController extends Controller
                 'companies' => $companies,
                 'foods' => $foods,
                 'allergens' => $allergens,
-                'dietaries' => $dietaries
+                'dietaries' => $dietaries,
+                'edit' => true
             ]
         );
 
@@ -174,6 +175,13 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
+
+        if(Auth::user()->is_owner || Auth::user()->is_restaurateur){
+            return redirect()->route('products.index')->with([
+                'notification' => trans('messages.notification.not_allowed_user'),
+                'type-notification' => 'danger'
+            ]);
+        }
 
         $this->validation($request, $product);
 
