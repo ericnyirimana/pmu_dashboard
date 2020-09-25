@@ -6,7 +6,7 @@
           <span class="input-group-text">{{ $prepend }}</span>
       </div>
       @endif
-      <input type="text" name="{{ $field }}" id="{{ $field }}" class="form-control" aria-label="{{ $label }}" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif>
+      <input type="text" name="{{ $field }}" id="{{ $field }}" class="form-control" aria-label="{{ $label }}" value="{{ old($field, isset($model) ? $model->$field : '') }}" @if(isset($required)) parsley-trigger="change" required @endif @if(isset($disabled)) disabled @endif>
       @if ( isset($append) )
       <div class="input-group-append">
           <span class="input-group-text">{{ $append }}</span>

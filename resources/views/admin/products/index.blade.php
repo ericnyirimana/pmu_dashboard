@@ -24,6 +24,16 @@
                 'datatable.headers.status' => 'status_product'
                 ]"
                 actions="edit, delete" />
+            @elseif(Auth::user()->is_owner || Auth::user()->is_restaurant)
+                <datatable route='products' :collection="$products" :fields="[
+                'ID' => 'id',
+                'datatable.headers.name' => 'translate:name',
+                'datatable.headers.type'  => 'color:type:color_type',
+                'datatable.headers.brand' => 'company:name',
+                'datatable.headers.restaurant' => 'restaurant:name',
+                'datatable.headers.status' => 'status_product'
+                ]"
+                actions="edit" />
             @else
             <datatable route='products' :collection="$products" :fields="[
                 'ID' => 'id',

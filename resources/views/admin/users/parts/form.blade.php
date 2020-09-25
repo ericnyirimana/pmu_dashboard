@@ -14,7 +14,7 @@
         @endif
     </div>
     <div class="col-12 col-md-6">
-        @if(Auth::user()->is_manager && Auth::user()->is_owner)
+        @if(Auth::user()->is_manager && Auth::user()->is_owner && empty($edit))
             <field-select label="role" field="role" foreignid="role" type="simple" :model="$user"
                           :values="config('cognito.ownerRolesToAdd')"
                           required readonly/>
@@ -22,8 +22,8 @@
             <?php list('SALES_ASSISTANT' => $salesAssistant) = config('cognito.ownerRolesToAdd');
             ?>
             <field-custom-text label="role" field="role" :value="$salesAssistant" required readonly/>
-        @elseif(Auth::user()->is_manager && Auth::user()->is_restaurant && isset($edit))
-            <field-custom-text label="role" field="role" :value="Auth::user()->role" required readonly/>
+        @elseif((Auth::user()->is_manager || Auth::user()->is_restaurant || Auth::user()->is_owner) && isset($edit))
+            <field-custom-text label="role" field="role" :value="$user->role" required readonly/>
         @else
             <field-select label="role" field="role" foreignid="role" type="simple" :model="$user"
                           :values="config('cognito.roles')"
@@ -32,7 +32,7 @@
 
     </div>
     @if(Auth::user()->is_restaurant && isset($edit))
-    <?php $user=Auth::user(); ?>
+    @php $user=Auth::user(); @endphp
     @endif
     <div class="col-12 col-md-6 js-brand">
         @if(Auth::user()->is_manager)
