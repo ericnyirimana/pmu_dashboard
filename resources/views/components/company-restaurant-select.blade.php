@@ -42,9 +42,12 @@
                           foreignid="restaurant_id" required/>
         @endif
 
-    @elseif(Auth::user()->is_owner)
+    @elseif(Auth::user()->is_owner && !isset($disabled))
         <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                       :values="Auth::user()->brand->first()->restaurants" foreignid="restaurant_id" required/>
+    @elseif(Auth::user()->is_owner && isset($disabled))
+        <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
+                      :values="Auth::user()->brand->first()->restaurants" foreignid="restaurant_id" required disabled/>
     @else
         <field-select label="restaurant" field="restaurant_id" type="relation" :model="$model"
                       :values="$model->restaurant" foreignid="restaurant_id" required disabled/>

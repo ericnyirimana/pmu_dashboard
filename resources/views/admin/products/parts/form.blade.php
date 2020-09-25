@@ -7,7 +7,11 @@
 
 </div>
 <div class="row">
-    <company-restaurant-select :model="$product"/>
+@if((Auth::user()->is_owner || Auth::user()->is_restaurant) && isset($edit))
+    <company-restaurant-select :model="$product" disabled/>
+@else
+    <company-restaurant-select :model="$product" />
+@endif
 </div>
 
 <div class="row">
@@ -21,7 +25,7 @@
 
 <div class="row">
     <div class="col-4">
-        <field-media-list label="image" field="media_id" :model="$product" />
+        <field-media-list label="image" field="media_id" :model="$product" disabled/>
     </div>
 </div>
 
@@ -29,7 +33,7 @@
     <div class="col-12">
         <div class="form-group d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-block w-lg btn-success col-5" @if($product->hasActivePickups())
-            disabled @endif>
+            disabled @endif @if((Auth::user()->is_owner || Auth::user()->is_restaurant) && isset($edit)) disabled @endif>
                 {{ ucfirst(trans('button.save_draft')) }}
             </button>
             @if(Auth::user()->is_super)
