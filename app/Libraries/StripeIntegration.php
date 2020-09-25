@@ -111,7 +111,7 @@ class StripeIntegration
             $intent = \Stripe\PaymentIntent::retrieve( $paymentIntentId );
             Log::info("-----START CAPTURE PAYMENT".$intent->status);
             // Confirm the PaymentIntent to collect the money
-            $intent->confirm();
+            // $intent->confirm();
             if($intent->status == 'requires_capture') {
                 Log::info("Charging the card for: " . $intent->amount_capturable);
                 // Because capture_method was set to manual we need to manually capture in order to move the funds
@@ -142,7 +142,7 @@ class StripeIntegration
             Log::info("-----START CANCELING PAYMENT".$intent->status);
             // Confirm the PaymentIntent to collect the money
             //$intent->confirm();
-            if($intent->status == 'requires_payment_method' || $intent->status == 'requires_capture' || $intent->status == 'requires_confirmation' || $intent->status == 'requires_action') {
+            if($intent->status == 'requires_payment_method' || $intent->status == 'requires_capture' || $intent->status == 'requires_action') {
                 Log::info("PAYMENT CANCELED WITH THE AMOUNT OF: " . $intent->amount_capturable);
                 // Because capture_method was set to manual we need to manually capture in order to move the funds
                 // You have 7 days to capture a confirmed PaymentIntent
