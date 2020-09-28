@@ -249,10 +249,7 @@
                     return false;
                 }
                 else{
-                $.ajax({
-                    type: 'POST',
-                    url,
-                    data: {
+                    var ajaxData = {
                         "_token": "{{ csrf_token() }}",
                         "name": name,
                         "brand_id": brand_id,
@@ -266,9 +263,20 @@
                         "quantity_offer": quantity_offer,
                         "media": medias,
                         "check_media": check_media,
-                        "suspended": suspended,
                         "_method": 'put'
-                    },
+                    }
+                    if(action_type === 'suspend-offer') {
+                        ajaxData.suspended = $('#suspended').val();
+                    }
+                    @if(session('first_edit'))
+                        if(action_type !== 'suspend-offer') {
+                            ajaxData.suspended = 0;
+                        }
+                    @endif
+                $.ajax({
+                    type: 'POST',
+                    url,
+                    data: ajaxData,
                     success: function (data) {
                         $(`.${action_type}`).attr('disabled', true);
                         $(`.${action_type} .fa-spin`).show();

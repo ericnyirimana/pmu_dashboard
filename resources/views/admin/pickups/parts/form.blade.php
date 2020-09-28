@@ -69,7 +69,7 @@
     <div class="col-md-3 col-lg-6">
         <div class="form-group d-flex justify-content-between">
             @if(Route::currentRouteName() == 'pickups.create')
-            <button type="submit" class="btn btn-block w-lg btn-success float-right create-offer">
+            <button type="submit" class="btn btn-block w-lg btn-success float-right create-offer" value="1" name="suspended">
             {{ ucfirst(trans('button.next')) }}  
             </button>
             @else

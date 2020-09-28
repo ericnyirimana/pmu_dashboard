@@ -121,7 +121,9 @@ class PickupController extends Controller
             $pickup->media()->sync(array_unique($request->media));
         }
 
-        return redirect()->route('pickups.edit', $pickup);
+        return redirect()->route('pickups.edit', $pickup)->with([
+            'first_edit' => true,
+        ]);
         /*
          return redirect()->route('pickups.edit', $pickup)->with([
             'notification' => trans('messages.notification.pickup_saved'),
