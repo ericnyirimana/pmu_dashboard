@@ -23,6 +23,7 @@
                 'datatable.headers.date'      => 'date_format',
                 'datatable.headers.hour'      => 'hour_format',
                 'ID' => 'id',
+                'Restaurant Name' => 'restaurant_name',
                 'datatable.headers.payment_method' => 'payment:payment_method_types',
                 'datatable.headers.total_amount' => 'total_amount',
                 'datatable.headers.commission_to_pay' => 'commission_to_pay',

@@ -45,7 +45,7 @@ class OrderPickup extends Model
     }
 
     public function getRestaurantNameAttribute(){
-        return $this->pickup()->first()->restaurant_name;
+        return $this->restaurant()->restaurant_name;
     }
     
     public function restaurant()
