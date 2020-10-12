@@ -69,4 +69,12 @@ class Order extends Model
 
     }
 
+    public function getRestaurantNameAttribute() {
+
+        $orderPickup = $this->orderPickups()->first();
+        if($orderPickup != null){
+            return $orderPickup->restaurant->name;
+        }
+        return null;
+    }
 }
