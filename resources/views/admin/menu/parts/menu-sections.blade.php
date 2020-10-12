@@ -26,9 +26,8 @@ $(document).ready(function(){
       update: function( event, ui ) {
 
          $(this).children('.container-sections').each(function(item, element) {
-
              $.ajax({
-                 url: "/section/position/"+$(element).data('id'),
+                 url: "{{ route('section.position') }}/"+$(element).data('id'),
                  type: 'POST',
                  headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                  dataType: 'json',
