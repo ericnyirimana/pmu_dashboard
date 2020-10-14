@@ -44,6 +44,8 @@ class MenuSectionController extends Controller
             return response()->json('Section already exists', 401);
           }
 
+          $count_section = MenuSection::where('menu_id', $menu->id)->count();
+          $fields['position'] = $count_section;
           $section = $menu->sections()->create($fields);
 
           if (!$section) {

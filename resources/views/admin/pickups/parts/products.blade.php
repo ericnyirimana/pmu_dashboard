@@ -28,7 +28,7 @@
                             @if(isset($menu->{$class}))
                             <ul>
                                 @foreach($menu->{$class} as $section)
-                                    <li data-name="{{ $section->name }}" data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $section->name) }}"><h6 @if(empty
+                                    <li data-name="{{ $section->name }}" data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $section->name) }}" data-id="{{ $section->id }}"><h6 @if(empty
                               ($pickup->sections) ||
                               !in_array($section->name, array_keys($pickup->sections))) class="add-all" @endif>{{ $section->name }}</h6>
                                         <ul>
@@ -38,7 +38,9 @@
                                                     class="add" @endif data-id="{{ $product->id }}"
                                                     data-name="{{ $product->name }}"
                                                     data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $product->name) }}"
-                                                    data-section="{{ $section->name }}">
+                                                    data-section="{{ $section->name }}"
+                                                    data-section-id="{{ $section->position }}"
+                                                    data-menu="{{ $section->id }}">
                                                     {{ $product->name }}
                                                 </li>
                                                 @endif
@@ -46,7 +48,6 @@
                                         </ul>
                                     </li>
                                 @endforeach
-
                             </ul>
                             @endif
                         </li>
@@ -60,46 +61,48 @@
         <div class="card-box">
             <div class="visible-always-scroll list-section">
                 @if($pickup->sections)
-                    @php $lastKey = array_key_last($pickup->sections); @endphp
-                    @foreach($pickup->sections as $name=>$section)
-                        <div class="card " id="{{ $name }}">
-                            <div class="card-header">
-                                <h6 class="float-left">{{ $name }}</h6>
-                                <i class="fi-trash float-right font-18 remove-section"></i>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-title text-right">Disponibilità
-                                    <small>(x giorno)</small>
-                                </p>
+                    @php $lastKey = array_key_last($pickup->sections); @endphp @endif
+                        @foreach($menu->sections as $section_key => $div_section)
+                            @if(isset($pickup->sections[$div_section->name]))
+                                @php $section = $pickup->sections[$div_section->name]; @endphp
+                                <div id="menu_{{$section_key}}" class="section_list"> 
+                                    <div class="card" id="{{ $div_section->name }}" data-id="{{ $section[0]->section->position }}" data-menu="{{ $section[0]->menu_section_id }}">
+                                        <div class="card-header">
+                                            <h6 class="float-left">{{ $div_section->name }}</h6>
+                                            <i class="fi-trash float-right font-18 remove-section"></i>
+                                        </div>
+                                        <div class="card-body">
+                                            <p class="card-title text-right">Disponibilità
+                                                <small>(x giorno)</small>
+                                            </p>
 
-                                <ul class="list-group list-group-flush group-products">
-                                    @if($section)
-                                        @foreach($section as $product)
-                                            <li class="list-group-item" data-id="{{ $product->id }}">
-                                                <i class="fa fa-minus-square remove"></i>
-                                                <div class="name">{{ $product->name }}</div>
-                                                <div class="quantity"><input type="text" name="quantity[]"
-                                                                             value="{{ $product->pivot->quantity_offer }}"
-                                                                             maxlength="3"/></div>
-                                                <input type="hidden" name="products[]" value="{{ $product->id }}"/>
-                                            </li>
-                                        @endforeach
-                                    @endif
-                                </ul>
-                            </div>
-                        </div>
-
-                        @if($name != $lastKey)
-                            <div class="text-center mt-4 mb-4"><i class="fi-plus"></i></div>
-                        @endif
-
+                                            <ul class="list-group list-group-flush group-products">
+                                                @if($section)
+                                                    @foreach($section as $product)
+                                                        <li class="list-group-item" data-id="{{ $product->id }}" >
+                                                            <i class="fa fa-minus-square remove"></i>
+                                                            <div class="name">{{ $product->name }}</div>
+                                                            <div class="quantity"><input type="text" name="quantity[]"
+                                                                                        value="{{ $product->pivot->quantity_offer }}"
+                                                                                        maxlength="3"/></div>
+                                                            <input type="hidden" name="products[]" value="{{ $product->id }}"/>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="text-center mt-4 mb-4" id="plus_{{$div_section->name}}"><i class="fi-plus"></i></div>
+                                </div>
+                            @else
+                            <div id="menu_{{$section_key}}" class="section_list"></div>
+                            @endif
                     @endforeach
-                @endif
             </div>
         </div>
     </div><!-- end col -->
 </div>
-
+@include('admin.pickups.parts.modal-error')
 
 @push('styles')
     <style>
@@ -147,7 +150,7 @@
         .group-products li .remove {
             margin-left: -1.3em;
             font-size: 1.2rem;
-            padding-top: 5px;
+            margin-top: 5px;
             float: left;
             cursor: pointer;
 
@@ -201,16 +204,61 @@
 
             /* LIST PRODUCTS ACTIONS */
             $(document).on('click', '.remove-section', function () {
-
-                $(this).parent().parent().find('.group-products li').each(function (i, el) {
-                    removeItem(el);
+                $(this).removeClass('fi-trash');
+                $(this).addClass('fa fa-circle-o-notch fa-spin');
+                var section_id = $(this).parent().parent().attr("data-menu");
+                var row = $(this);
+                var pickup_id = {{ $pickup->id }};
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('today.ordered.menu') }}/"+pickup_id+"/"+section_id,
+                    success: function (data) {
+                        row.parent().parent().find('.group-products li').each(function (i, el) {
+                            removeItem(el);
+                        });
+                        
+                        removeSection(row.parent().parent());
+                    },
+                    error: function (reject) {
+                        row.removeClass('fa fa-circle-o-notch fa-spin');
+                        row.addClass('fi-trash');
+                        $('#modal-error-body').empty();
+                        var list_error = `<div class="modal-content" style="border: none; text-align: center;"></div>`;
+                        var errors = JSON.parse(reject.responseText);
+                        $('#info-modal').modal('show');
+                        $('#modal-error-body').append(list_error);
+                        if(errors){
+                            $('#modal-error-body .modal-content').append(`<p class="text-danger" style="font-size: 20px"><i class="fa fa-exclamation-circle"></i> ${errors.error}</p>`)
+                        }
+                    }
                 });
-
-                removeSection($(this).parent().parent());
 
             });
             $(document).on('click', '.list-group-item .remove', function () {
-                removeItem($(this).parent());
+                $(this).removeClass('fa-minus-square');
+                $(this).addClass('fa-circle-o-notch fa-spin');
+                var product_id = $(this).parent().attr('data-id');
+                var pickup_id = {{ $pickup->id }};
+                var row = $(this);
+                $.ajax({
+                    type: 'GET',
+                    url: "{{ route('today.ordered.product') }}/"+pickup_id+"/"+product_id,
+                    success: function (data) {
+                        removeItem(row.parent());
+                    },
+                    error: function (reject) {
+                        $(row).removeClass('fa-circle-o-notch fa-spin');
+                        $(row).addClass('fa-minus-square');
+                        $('#modal-error-body').empty();
+                        var list_error = `<div class="modal-content" style="border: none; text-align: center;"></div>`;
+                        var errors = JSON.parse(reject.responseText);
+                        $('#info-modal').modal('show');
+                        $('#modal-error-body').append(list_error);
+                        if(errors){
+                            $('#modal-error-body .modal-content').append(`<p class="text-danger" style="font-size: 20px"><i class="fa fa-exclamation-circle"></i> ${errors.error}</p>`)
+                        }
+                    }
+                });
             });
             /* PRODUCTS END */
             @endif
@@ -350,8 +398,10 @@
             var id = $(el).data('id');
             var name = $(el).data('name');
             var section = $(el).data('section');
+            var section_menu = $(el).data('menu');
+            var section_id = $(el).data('section-id');
             if (!$('#' + section.replace(/\W/g, '')).length) {
-                addSection(section);
+                addSection(section, section_id, section_menu);
             }
             $(el).removeClass('add');
             $(el).addClass('removed');
@@ -368,7 +418,6 @@
         function removeItem(el) {
 
             var name = $(el).find('.name').text();
-
             $(el).remove();
 
             $(".list-menu ul").find("[data-name='" + name + "']").removeClass('removed');
@@ -377,9 +426,9 @@
 
         }
 
-        function addSection(name) {
+        function addSection(name, id, menu_id) {
 
-            var html = '<div class="card " id="' + name.replace(/\W/g, '') + '">';
+            var html = '<div class="card" id="' + name.replace(/\W/g, '') + '" data-id="' + id + '" data-menu="' + menu_id + '">';
             html += '<div class="card-header">';
             html += '<h6 class="float-left">' + name + '</h6>';
             html += '<i class="fi-trash float-right font-18 remove-section"></i>';
@@ -391,10 +440,8 @@
             html += '</div>';
             html += '</div>';
 
-            if ($('.list-section div').length) {
-                $('.list-section').append('<div class="text-center mt-4 mb-4"><i class="fi-plus"></i></div>');
-            }
-            $('.list-section').append(html);
+            $('#menu_'+id).append(html);
+                $('#menu_'+id).append('<div class="text-center mt-4 mb-4" id="plus_'+name+'"><i class="fi-plus"></i></div>');
 
             checkRightTypeOffer();
 
@@ -403,8 +450,8 @@
         function removeSection(el) {
 
             var name = $(el).attr('id');
-            console.log("Remove " + name);
             $(el).remove();
+            $('#plus_'+name).remove();
 
             $(".list-menu").find("[data-clean-name='" + name + "'] h6").addClass('add-all');
 

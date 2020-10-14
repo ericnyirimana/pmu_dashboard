@@ -49,4 +49,5 @@ return [
     'cancel_ticket' => 'Annulla Ticket',
     'ticket_closed' => 'Ticket chiuso',
     'order_is_closed' => 'Ordine chiuso',
+    'ok' => 'Ok',
 ];

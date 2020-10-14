@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\Pickup;
 use App\Models\Media;
 use App\Models\PickupMealtype;
+use App\Models\OrderProduct;
+use App\Models\PickUpProduct;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
 
@@ -150,7 +152,6 @@ class PickupController extends Controller
         $menu = $pickup->restaurant->menu()->where('status_menu', 'APPROVED')->first();
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
         $pickup_mealtype = PickupMealtype::where('pickup_id', $pickup->id)->get();
-
         return view('admin.pickups.edit')->with([
                 'pickup' => $pickup,
                 'menu' => $menu,
@@ -187,6 +188,7 @@ class PickupController extends Controller
         }
 */
         //$totalProductsQuantity = 0;
+        PickUpProduct::where('pickup_id', $pickup->id)->delete();
         foreach ($fields['products'] as $k => $v) {
             //$totalProductsQuantity += $fields['quantity'][$k];
             $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
@@ -411,6 +413,54 @@ class PickupController extends Controller
             }
         }
 
+    }
+
+    public function isProductOrdered(Request $request)
+    {
+        try {
+            $pickup = Pickup::find($request->pickup);
+            $product = Product::find($request->product);
+            if($pickup->suspended == 0){
+                $productOrdered = OrderProduct::where('pickup_id', $pickup->id)
+                                ->where('product_id', $product->id)
+                                ->where('status', 'ENABLED')
+                                ->where('date', Carbon::today())->count();
+                if ($productOrdered > 0) {
+                    return response()->json(['error' => Array(trans('messages.notification.pickup_product_is_ordered',
+                        ['product' =>$product->name]))], 400);
+                }
+                return response()->json(['success' => $product->name.' has not been ordered'], 200);
+            }
+            return response()->json(['success' => $product->name.' has not been ordered'], 200);
+        }
+        catch (\Exception $exception) {
+            return response()->json(['error' => 'Something was wrong'], 500);
+        }
+    }
+
+    public function isMenuOrdered(Request $request)
+    {
+        try {
+            $pickup = Pickup::find($request->pickup);
+            $products = Product::where('menu_section_id',$request->menu_section_id)->get();
+            if($pickup->suspended == 0){
+                foreach ($products as $key => $value) {
+                    $productOrdered = OrderProduct::where('pickup_id', $pickup->id)
+                                    ->where('product_id', $value->id)
+                                    ->where('status', 'ENABLED')
+                                    ->where('date', Carbon::today())->count();
+                    if ($productOrdered > 0) {
+                        return response()->json(['error' => Array(trans('messages.notification.pickup_product_is_ordered',
+                        ['product' => $value->name]))], 400);
+                    }
+                }
+                return response()->json(['success' => 'Menu has not been ordered'], 200);
+            }
+            return response()->json(['success' => 'Menu has not been ordered'], 200);
+        }
+        catch (\Exception $exception) {
+            return response()->json(['error' => 'Something was wrong'], 500);
+        }
     }
 
 }
