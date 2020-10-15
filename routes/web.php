@@ -42,7 +42,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/menu/section/{menu}', 'MenuSectionController@save')->name('menu.section.save');
         Route::put('/menu/section/{menu}', 'MenuSectionController@update')->name('menu.section.update');
         Route::delete('/section/ajaxDelete', 'MenuSectionController@destroy')->name('menu.section.destroy');
-        Route::post('/section/position/{section}', 'MenuSectionController@setPosition')->name('section.position');
+        Route::post('/section/position/{section?}', 'MenuSectionController@setPosition')->name('section.position');
         Route::post('/section/product/add', 'MenuSectionController@addProduct')->name('section.product.add');
 
         Route::resource('/products', 'ProductController');
@@ -97,6 +97,8 @@ Route::prefix('admin')->group(function () {
         Route::put('/order-ticket/close/{id?}', 'OrderPickupController@closeTicket')->name('close.ticket');
         Route::get('/filter/orders', 'OrderController@filtering')->name('filtering-orders.data');
         Route::get('/order-ticket/count/uncanceled/{order?}', 'OrderPickupController@countUnCanceledTicket')->name('count.uncanceled.ticket');
+        Route::get('/pickups/today/ordered-product/{pickup?}/{product?}', 'PickupController@isProductOrdered')->name('today.ordered.product');
+        Route::get('/pickups/today/ordered-menu/{pickup?}/{menu_section_id?}', 'PickupController@isMenuOrdered')->name('today.ordered.menu');
         if (env('APP_DEBUG')) {
             \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
                 \Illuminate\Support\Facades\Log::info( json_encode($query->sql) );
