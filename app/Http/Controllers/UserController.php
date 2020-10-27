@@ -78,7 +78,7 @@ class UserController extends Controller
         } else if (Auth::user()->is_owner) {
             $users = Auth::user()->brand->first()->users;
         } else if (Auth::user()->is_restaurant) {
-            $users = Auth::user()->brand->first()->users->where('role', '!=' ,'OWNER');
+            $users = Auth::user()->restaurant->first()->users->where('role', '!=' ,'OWNER');
         }
 
         return view('admin.users.index')
