@@ -127,7 +127,11 @@
             }
 
             @endif
-
+            if ($('#role').val() === 'OWNER') {
+                $('.js-restaurant').hide();
+                $('#restaurant_id').prop('readonly', true);
+            }
+            console.log($('#role').val());
             $(document).on('change', '#role', function () {
                 if ($(this).val() === 'OWNER' ||
                     $(this).val() === 'RESTAURATEUR' ||

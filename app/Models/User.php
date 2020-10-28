@@ -146,4 +146,26 @@ class User extends Authenticatable
     }
 
 
+    public function getRestaurantNameAttribute()
+    {
+
+        $restaurant = $this->restaurant()->first();
+        if($restaurant != null){
+            return $restaurant->name;
+        }
+        return null;
+
+    }
+
+
+    public function getBrandNameAttribute()
+    {
+        $brand = $this->brand()->first();
+        if($brand != null){
+            return $brand->name;
+        }
+        return null;
+
+    }
+
 }
