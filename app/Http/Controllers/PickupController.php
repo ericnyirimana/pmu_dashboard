@@ -11,7 +11,7 @@ use App\Models\Pickup;
 use App\Models\Media;
 use App\Models\PickupMealtype;
 use App\Models\OrderProduct;
-use App\Models\PickUpProduct;
+use App\Models\PickupProduct;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
 
@@ -188,7 +188,7 @@ class PickupController extends Controller
         }
 */
         //$totalProductsQuantity = 0;
-        PickUpProduct::where('pickup_id', $pickup->id)->delete();
+        PickupProduct::where('pickup_id', $pickup->id)->delete();
         foreach ($fields['products'] as $k => $v) {
             //$totalProductsQuantity += $fields['quantity'][$k];
             $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
