@@ -28,7 +28,9 @@
                   'ID'        => 'id',
                   'datatable.headers.name'      => 'name',
                   'datatable.headers.email'     => 'email',
-                  'datatable.headers.role'      => 'role'
+                  'datatable.headers.role'      => 'role',
+                  'datatable.headers.brand'      => 'brand_name',
+                  'datatable.headers.restaurant'      => 'restaurant_name'
               ]"
               actions="edit" />
             @else
@@ -36,7 +38,9 @@
                   'ID'        => 'id',
                   'datatable.headers.name'      => 'name',
                   'datatable.headers.email'     => 'email',
-                  'datatable.headers.role'      => 'role'
+                  'datatable.headers.role'      => 'role',
+                  'datatable.headers.brand'      => 'brand_name',
+                  'datatable.headers.restaurant'      => 'restaurant_name'
               ]"
               actions="edit, delete" />
             @endif
