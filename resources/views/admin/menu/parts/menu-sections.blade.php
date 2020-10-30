@@ -1,4 +1,4 @@
-<div class="list-menu-section" id="sortable_sections">
+<div class="list-menu-section accordion" id="sortable_sections">
   @if( isset($menu->sections) )
 
       @foreach($menu->sections as $section)
@@ -108,6 +108,18 @@ $(document).ready(function(){
               $(this).find('input').prop('checked', true);
           }
 
+    });
+
+    // Add minus icon for collapse element which is open by default
+    $(".collapse.show").each(function(){
+        	$(this).prev(".section-header").find(".fa-angle-down").addClass("fa-angle-up").removeClass("fa-angle-down");
+        });
+
+    // Toggle plus minus icon on show hide of collapse element
+    $(".collapse").on('show.bs.collapse', function(){
+      $(this).prev(".section-header").find(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-up");
+    }).on('hide.bs.collapse', function(){
+      $(this).prev(".section-header").find(".fa-angle-up").removeClass("fa-angle-up").addClass("fa-angle-down");
     });
 });
 
