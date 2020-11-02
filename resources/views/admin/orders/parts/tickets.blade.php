@@ -22,7 +22,7 @@
     </div>
     <div class="col-md-3 col-lg-3">
     <div class="col-12" id="cancel_ticket_{{ $ticket->id }}">
-    @if($order->status == 'PAID' || $ticket->closed || $ticket->restaurant_status == 'CANCELED')
+    @if($order->status == 'PAID' || $order->status == 'ERROR' || $order->status == 'REJECTED' || $ticket->closed || $ticket->restaurant_status == 'CANCELED')
     <label class="text-warning" style="border: 2px solid; padding: 6px;"><i class="fi-ban"></i> {{ ucfirst(trans('button.cancel_ticket')) }}</label>
     @else
     <button type="button" name="cancel-ticket" id="cancel-ticket" class="btn btn-md w-lg btn-info float-right form-control" data-name="{{ $ticket->id }}" data-register="{{ $ticket->id }}"
@@ -34,7 +34,7 @@
     <div class="col-12" id="ticket_{{ $ticket->id }}">
     @if($ticket->closed)
     <label class="text-danger" style="border: 2px solid; padding: 6px;"><i class="fi-check"></i> {{ ucfirst(trans('button.ticket_closed')) }}</label>
-    @elseif($ticket->restaurant_status == 'CANCELED')
+    @elseif($ticket->restaurant_status == 'CANCELED' || $order->status == 'ERROR' || $order->status == 'REJECTED')
     <label class="text-danger" style="border: 2px solid; padding: 6px;"><i class="fi-ban"></i> {{ ucfirst(trans('button.close_ticket')) }}</label>
     @else
     <button type="click"
