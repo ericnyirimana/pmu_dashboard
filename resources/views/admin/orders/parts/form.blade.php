@@ -29,7 +29,7 @@
      && $order->status == 'COMPLETED' 
      && $closedTickets !== 0))
     <label class="text-success" style="border: 2px solid; padding: 6px;"><i class="fi-check"></i> {{ ucfirst(trans('button.order_is_closed')) }}</label>
-    @elseif($order->status == 'CANCELED')
+    @elseif($order->status == 'CANCELED' || $order->status == 'ERROR' || $order->status == 'REJECTED')
     <label class="text-danger" style="border: 2px solid; padding: 6px;"><i class="fi-ban"></i> {{ ucfirst(trans('button.order_closed')) }}</label>
     @else
     @if($order->payment != null)
@@ -170,7 +170,7 @@
                             $('#ticket_'+ticket_id).append(`<label class="text-danger" style="border: 2px solid; padding: 6px;">
                             <i class="fi-ban"></i> {{ ucfirst(trans('button.close_ticket')) }}</label>`);    
                         }
-                        if (data.order.status == 'ERROR') {
+                        if (data.order.status == 'ERROR' || data.order.status == 'REJECTED') {
                             $('#error_response').empty();
                             $('#error_response').append(list_error);
                             $('#error_response .error_msg ul').append(`<li id="alert-error">An error occurred during update the Orders</li>`)
