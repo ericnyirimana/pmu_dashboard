@@ -28,13 +28,23 @@
                             @if(isset($menu->{$class}))
                             <ul>
                                 @foreach($menu->{$class} as $section)
-                                    <li data-name="{{ $section->name }}" data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $section->name) }}" data-id="{{ $section->id }}"><h6 @if(empty
-                              ($pickup->sections) ||
-                              !in_array($section->name, array_keys($pickup->sections))) class="add-all" @endif>{{ $section->name }}</h6>
-                                        <ul>
+                                    <li data-name="{{ $section->name }}" data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $section->name) }}" data-id="{{ $section->id }}">
+                                        <div class="section-header" id="header-{{ $section->id }}">
+                                            <span @if(empty
+                                            ($pickup->sections) ||
+                                            !in_array($section->name, array_keys($pickup->sections))) class="add-all" style="margin: 10px 0 !important;" @endif></span>
+                                            <h6>{{ $section->name }}</h6>
+                                            @if(isset($section->products[0]))
+                                                <button type="button" class="btn btn-link" style="color: #666f7b !important;" data-toggle="collapse" data-target="#collapse-{{ $section->id }}">
+                                                <i class="fa fa-angle-down"></i>
+                                                </button>
+                                            @endif
+                                        </div>
+                                        <ul id="collapse-{{ $section->id }}" class="collapse" aria-labelledby="header-{{ $section->id }}">
                                             @foreach($section->products as $product)
                                                 @if($product->is_approved)
-                                                <li @if(!in_array($product->id, $pickup->products->pluck('id')->toArray() ) )
+                                                <li>
+                                                    <span @if(!in_array($product->id, $pickup->products->pluck('id')->toArray() ) )
                                                     class="add" @endif data-id="{{ $product->id }}"
                                                     data-name="{{ $product->name }}"
                                                     data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $product->name) }}"
@@ -42,6 +52,7 @@
                                                     data-section-id="{{ $section->position }}"
                                                     data-menu="{{ $section->id }}">
                                                     {{ $product->name }}
+                                                    </span>
                                                 </li>
                                                 @endif
                                             @endforeach
@@ -116,17 +127,18 @@
         }
 
 
-        .list-menu ul ul li.add {
+        .list-menu ul ul li span.add {
             color: #555555;
         }
-
-        .list-menu ul ul li.add:before, .list-menu ul li h6.add-all::before {
+        .section-header span {
+            margin: 10px 0 !important;
+        }
+        .list-menu ul ul li span.add:before, .list-menu ul li span.add-all::before {
             content: "\f0fe"; /* FontAwesome Unicode*/
             font-family: FontAwesome;
-            display: inline-block;
             margin-left: -1.3em; /* same as padding-left set on li */
-            width: 1.3em; /* same as padding-left set on li */
-
+            padding-right: 10px;
+            color: #666f7b;
         }
 
 
@@ -154,6 +166,10 @@
             float: left;
             cursor: pointer;
 
+        }
+
+        .section-header{
+            display: inline-flex !important;
         }
 
     </style>
@@ -192,7 +208,7 @@
                     addSection(section);
                 }*/
 
-                $(this).parent().children('ul').children('li').each(function (i, item) {
+                $(this).parent().parent().children('ul').children('li').children('span').each(function (i, item) {
                     addItem(item);
                 });
 
@@ -392,6 +408,18 @@
                 validateForm('suspend-offer');
                 
             });
+
+            // Add minus icon for collapse element which is open by default
+            $(".collapse.show").each(function(){
+                    $(this).prev(".section-header").find(".fa-angle-down").addClass("fa-angle-up").removeClass("fa-angle-down");
+                });
+
+            // Toggle plus minus icon on show hide of collapse element
+            $(".collapse").on('show.bs.collapse', function(){
+            $(this).prev(".section-header").find(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-up");
+            }).on('hide.bs.collapse', function(){
+            $(this).prev(".section-header").find(".fa-angle-up").removeClass("fa-angle-up").addClass("fa-angle-down");
+            });
         });
         function addItem(el) {
 
@@ -453,7 +481,7 @@
             $(el).remove();
             $('#plus_'+name).remove();
 
-            $(".list-menu").find("[data-clean-name='" + name + "'] h6").addClass('add-all');
+            $(".list-menu").find("[data-clean-name='" + name + "'] span").addClass('add-all');
 
             checkRightTypeOffer();
 

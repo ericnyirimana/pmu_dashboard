@@ -15,7 +15,7 @@ $('.autohide-scroll').slimscroll({
 $('.visible-always-scroll').slimscroll({
   height: 'auto',
   position: 'right',
-  size: "5px",
+  size: "7px",
   color: '#9ea5ab',
   alwaysVisible: true
 });
