@@ -26,7 +26,7 @@
     </head>
 
 
-    <body class="bg-accpunt-pages">
+    <body class="bg-accpunt-pages" style="background: #b2cce3 !important;">
 
         @yield('content')
 

@@ -14,7 +14,7 @@
                             <div class="account-logo-box">
                                 <h2 class="text-uppercase text-center">
                                     <a href="index.html" class="text-success">
-                                        <span>@svg('pmu-logo', 'logo')</span>
+                                    <span><img class="logo" width="141px" height="54px" src="{{ asset("/img/pmu_logo.png")}}"/></span>
                                     </a>
                                 </h2>
                                 <h5 class="text-uppercase font-bold m-b-5 m-t-50">Set Password</h5>
@@ -25,7 +25,7 @@
                                   @csrf
                                   <div class="form-group row m-b-20">
                                       <div class="col-12">
-                                          <label for="password">Password</label>
+                                          <label for="password" style="font-family: 'Nunito Sans'">Password</label>
                                           <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                           @error('password')
@@ -38,7 +38,7 @@
 
                                     <div class="form-group row m-b-20">
                                         <div class="col-12">
-                                            <label for="password">Confirm Password</label>
+                                            <label for="password" style="font-family: 'Nunito Sans'">Confirm Password</label>
                                             <input id="confirm_password" type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" required autocomplete="current-password">
 
                                             @error('confirm_password')
@@ -51,7 +51,7 @@
 
                                     <div class="form-group row text-center m-t-10">
                                         <div class="col-12">
-                                            <button type="submit" class="btn btn-md btn-block btn-primary waves-effect waves-light">
+                                            <button type="submit" class="btn btn-md btn-block btn-primary waves-effect waves-light" style="background-color: #0f218b !important; border-color: #0f218b !important;">
                                                 {{ __('Confirm') }}
                                             </button>
                                         </div>
