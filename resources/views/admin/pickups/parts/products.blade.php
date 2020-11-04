@@ -33,11 +33,13 @@
                                             <span @if(empty
                                             ($pickup->sections) ||
                                             !in_array($section->name, array_keys($pickup->sections))) class="add-all" style="margin: 10px 0 !important;" @endif></span>
-                                            <h6>{{ $section->name }}</h6>
                                             @if(isset($section->products[0]))
-                                                <button type="button" class="btn btn-link" style="color: #666f7b !important;" data-toggle="collapse" data-target="#collapse-{{ $section->id }}">
-                                                <i class="fa fa-angle-down"></i>
+                                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ $section->id }}">
+                                                {{ $section->name }}
+                                                &nbsp;&nbsp;<i class="fa fa-angle-down"></i>
                                                 </button>
+                                            @else
+                                            <h6>{{ $section->name }}</h6>
                                             @endif
                                         </div>
                                         <ul id="collapse-{{ $section->id }}" class="collapse" aria-labelledby="header-{{ $section->id }}">
@@ -132,6 +134,12 @@
         }
         .section-header span {
             margin: 10px 0 !important;
+        }
+        .section-header button {
+            color: #666f7b !important; 
+            font-size:1rem !important; 
+            text-decoration: none !important; 
+            padding-left: 0px !important
         }
         .list-menu ul ul li span.add:before, .list-menu ul li span.add-all::before {
             content: "\f0fe"; /* FontAwesome Unicode*/
@@ -431,6 +439,7 @@
             if (!$('#' + section.replace(/\W/g, '')).length) {
                 addSection(section, section_id, section_menu);
             }
+            $('#header-'+section_menu+' span.add-all').removeClass('add-all');
             $(el).removeClass('add');
             $(el).addClass('removed');
             var html = '<li class="list-group-item" data-id="' + id + '">';
@@ -446,11 +455,14 @@
         function removeItem(el) {
 
             var name = $(el).find('.name').text();
+            var menu_id = $(el).parent().parent().parent().attr('data-menu');
             $(el).remove();
 
             $(".list-menu ul").find("[data-name='" + name + "']").removeClass('removed');
             $(".list-menu ul").find("[data-name='" + name + "']").addClass('add');
-
+            if($("#collapse-"+menu_id).find(".removed").length === 0){
+                $("#header-"+menu_id+" span").addClass('add-all');
+            }
 
         }
 
@@ -481,7 +493,7 @@
             $(el).remove();
             $('#plus_'+name).remove();
 
-            $(".list-menu").find("[data-clean-name='" + name + "'] span").addClass('add-all');
+            $(".list-menu").find("[data-clean-name='" + name + "'] .section-header span").addClass('add-all');
 
             checkRightTypeOffer();
 
