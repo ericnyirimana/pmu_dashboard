@@ -6,16 +6,19 @@
                 <button type="button" class="btn btn-link text-white" data-toggle="collapse" data-target="#collapse-{{ $section->id }}"
                  style="font-size: 20px !important; text-decoration: none !important;">
                 <i class="fa fa-angle-down"></i> {{ $section->translate->name }}</button></h4>
-                <div class="actions-section">
-                    @if(!$section->has_products_in_active_pickup)
-                    <i class="fa fa-trash text-danger remove-section" data-type="section" data-name="{{ $section->translate->name }}" data-register="{{ $section->id }}" data-toggle="modal" data-target=".remove-register"></i>
+                @if(Auth::user()->is_super)
+                    <div class="actions-section">
+                        @if(!$section->has_products_in_active_pickup)
+                        <i class="fa fa-trash text-danger remove-section" data-type="section" data-name="{{ $section->translate->name }}" data-register="{{ $section->id }}" data-toggle="modal" data-target=".remove-register"></i>
 
-                    <i class="fa fa-edit text-white edit-section" data-type="{{ $section->type }}" data-name="{{ $section->translate->name }}" data-id="{{ $section->id }}"></i>
-                    @endif
-                    <i class="fa fa-arrows text-white move-section"></i></div>
+                        <i class="fa fa-edit text-white edit-section" data-type="{{ $section->type }}" data-name="{{ $section->translate->name }}" data-id="{{ $section->id }}"></i>
+                        @endif
+                        <i class="fa fa-arrows text-white move-section"></i>
+                    </div>
+                @endif
             </div>
-            <div id="collapse-{{ $section->id }}" class="col-12 collapse" aria-labelledby="header-{{ $section->id }}" data-parent="#sortable_sections">
-                <div class="col-12 p-3 sortable_dish" id="sortable_dish_{{ $section->id }}">
+            <div id="collapse-{{ $section->id }}" class="col-12 collapse" aria-labelledby="header-{{ $section->id }}" @if(Auth::user()->is_super) data-parent="#sortable_sections" @endif>
+                <div class="col-12 p-3 @if(Auth::user()->is_super) sortable_dish @endif" id="sortable_dish_{{ $section->id }}">
                     @if( isset($section->products) )
                         @foreach($section->products as $product)
                             @include('admin.menu.parts.menu-dish-item')

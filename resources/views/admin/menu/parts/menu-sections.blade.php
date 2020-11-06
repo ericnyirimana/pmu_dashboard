@@ -1,4 +1,4 @@
-<div class="list-menu-section accordion" id="sortable_sections">
+<div class="list-menu-section accordion" @if(Auth::user()->is_super) id="sortable_sections" @endif>
   @if( isset($menu->sections) )
 
       @foreach($menu->sections as $section)
