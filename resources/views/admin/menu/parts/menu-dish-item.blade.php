@@ -11,6 +11,7 @@
     <div class="plate-preview-price">
         € {{ $product->price }}
     </div>
+    @if(Auth::user()->is_super)
     <div class="plate-preview-actions">
         <div class="plate-action-icon plate-move">
             <i class="fa fa-arrows text-dark"></i>
@@ -23,4 +24,5 @@
             </div>
         @endif
     </div>
+    @endif
 </div>
