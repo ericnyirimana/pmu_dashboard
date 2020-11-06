@@ -51,7 +51,7 @@
             @elseif(!Auth::user()->is_super && !$product->is_approved)
                 <button type="submit"  name="status_product" value="PENDING" class="btn w-lg btn-primary col-5" @if($product->hasActivePickups())
                 disabled @endif>
-                    {{ ucfirst(trans('button.send_approves')) }}
+                    {{ ucfirst(trans('button.send_for_approves')) }}
                 </button>
             @endif
         </div>

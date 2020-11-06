@@ -1,3 +1,8 @@
+@if(Route::currentRouteName() == 'menu.edit' && !Auth::user()->is_super)
+<div class="alert alert-primary" role="alert">
+Il tuo menù è approvato. Se vuoi effettuare delle modifiche alla sua struttura, manda una email a <a href="mailto:ristoranti@pickmealup.com">ristoranti@pickmealup.com</a>
+</div>
+@endif
 <div class="row">
     <div class="col-12 col-md-4">
           <field-text label="name" field="name" :model="$menu" required  />
@@ -14,7 +19,7 @@
   </div>
 </div>
 
-@if($menu->id)
+@if($menu->id && Auth::user()->is_super)
 <div class="row mt-5">
     <div class="col-12">
           <button type="button" class="btn btn-primary btn-block btn-add-type-menu" data-toggle="modal" data-target="#modalTypeDish"><i class="fa fa-plus"></i> Add Type of plate</button>
@@ -26,7 +31,7 @@
   <div class="col-12">
         <div class="form-group d-flex align-items-center justify-content-between">
             <button type="submit" class="btn btn-block w-lg btn-success col-5" @if($menu->has_products_in_active_pickup) disabled @endif>
-                @if($menu->id) {{ ucfirst(trans('button.save_draft')) }} @else {{ ucfirst(trans('button.next')) }}
+                @if($menu->id) {{ ucfirst(trans('button.save')) }} @else {{ ucfirst(trans('button.next')) }}
                 @endif
             </button>
             @if($menu->id)

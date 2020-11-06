@@ -31,6 +31,7 @@ return [
     'select_image' => 'Seleziona immagine',
     'approves' => 'Approva',
     'send_approves' => 'Pubblica e manda in approvazione',
+    'send_for_approves' => 'Manda in approvazione',
     'wait_approves' => 'In attesa di approvazione',
     'approved' => 'Approvata',
     'disable' => 'Disabilita',
