@@ -20,5 +20,6 @@ return [
     'profile' => 'Profile',
     'user' => 'Users',
     'calendar_offer' => 'Calendar offer',
-    'orders' => 'Orders'
+    'orders' => 'Orders',
+    'loyalty_card' => 'Loyalty Card',
 ];

@@ -99,6 +99,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/order-ticket/count/uncanceled/{order?}', 'OrderPickupController@countUnCanceledTicket')->name('count.uncanceled.ticket');
         Route::get('/pickups/today/ordered-product/{pickup?}/{product?}', 'PickupController@isProductOrdered')->name('today.ordered.product');
         Route::get('/pickups/today/ordered-menu/{pickup?}/{menu_section_id?}', 'PickupController@isMenuOrdered')->name('today.ordered.menu');
+        Route::resource('/loyalty-card', 'LoyaltyCardController');
         if (env('APP_DEBUG')) {
             \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
                 \Illuminate\Support\Facades\Log::info( json_encode($query->sql) );

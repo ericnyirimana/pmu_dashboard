@@ -28,6 +28,7 @@
 @push('scripts')
     <script>
         $(document).ready(function () {
+            @if(Route::currentRouteName() !== 'loyalty-card.create')
             $(document).on('click', '.mealtypes', function () {
                 var all_day = parseInt($(this).attr('all_day'));
                 if (all_day > 0) {
@@ -36,7 +37,8 @@
                 else{
                     $('.checks-1').removeAttr('checked');
                 }
-            });     
+            });  
+            @endif   
         });
     </script>
 @endpush
