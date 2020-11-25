@@ -7,6 +7,7 @@ use App\Libraries\Cognito;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Session;
 
 
@@ -69,6 +70,7 @@ class LoginController extends Controller
           #connect with Cognito
           $credentials = $request->only('email', 'password');
 
+          $credentials['email'] = Str::lower($credentials['email']);
           $client = new Cognito();
           $response = $client->authenticate($credentials);
 
@@ -196,16 +198,17 @@ class LoginController extends Controller
 
           $client = new Cognito();
 
-          $user = $client->getUser($request->email);
+          $email = Str::lower($request->email);
+          $user = $client->getUser($email);
 
           $cognitoUser = $client->user();
 
-          $user = User::where('email', $request->email)->first();
+          $user = User::where('email', $email)->first();
 
           #If no user, create instance based on email
           if (!$user) {
               $user = new User;
-              $user->email = $request->email;
+              $user->email = $email;
 
           }
 
