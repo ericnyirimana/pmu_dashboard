@@ -169,7 +169,7 @@ class LoyaltyCardController extends Controller
                     'price' => $price,
                     'validate_months' => $fields['card_validity'],
                     'discount' => $fields['discount'],
-                    'total_amount' => $amount_to_pay,
+                    'total_amount' => $total_amount,
                     'quantity_per_subscription' => $fields['item_availablity'],
                 ]);
             }

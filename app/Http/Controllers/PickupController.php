@@ -283,10 +283,10 @@ class PickupController extends Controller
             $pickup->offer->update($fields);
         } else {
             $subscription_discount = $this->applicationService->getValue('SUBSCRIPTION_DISCOUNT');
-            $total_amount = number_format((float)$fields['price'] * $fields['quantity_offer'], 2, '.', '');
+            $total_amount = number_format((float)$fields['price'] * $fields['quantity_per_subscription'], 2, '.', '');
             $discount_amount = number_format((float)($total_amount * $subscription_discount)/100, 2, '.', '');
             $fields['discount'] = $subscription_discount;
-            $fields['total_amount'] = $total_amount - $discount_amount;
+            $fields['total_amount'] = $total_amount; // - $discount_amount;
             $pickup->subscription->update($fields);
         }
 
@@ -407,16 +407,40 @@ class PickupController extends Controller
     protected function retrieveOfferByUserRole()
     {
         if (Auth::user()->is_super) {
-            $pickups = Pickup::all();
+            //$pickups = Pickup::all();
+
+            $pickups = Pickup::leftJoin('pickup_subscriptions', function ($join)  {
+                $join->on('pickup_subscriptions.pickup_id', '=', 'pickups.id');
+            })
+                ->where(function ($q) {
+                    $q->where('pickup_subscriptions.type_offer', '<>', 'loyalty_card');
+                    $q->orWhere('pickup_subscriptions.type_offer', '=', null);
+                })
+                ->select('pickups.*')
+                ->orderBy('pickups.created_at', 'desc')
+                ->get();
 
         } else {
             if (!Auth::user()->brand->first()) {
                 return new Collection();
             }
+
+            $pickups = Pickup::leftJoin('pickup_subscriptions', function ($join)  {
+                $join->on('pickup_subscriptions.pickup_id', '=', 'pickups.id');
+            })
+                ->where(function ($q) {
+                    $q->where('pickup_subscriptions.type_offer', '<>', 'loyalty_card');
+                    $q->orWhere('pickup_subscriptions.type_offer', '=', null);
+                })
+                ->whereIn('pickups.restaurant_id', Auth::user()->restaurant->pluck('id')->toArray())
+                ->select('pickups.*')
+                ->orderBy('pickups.created_at', 'desc')
+                ->get();
+            /*
             $pickups = Pickup::whereIn(
                 'restaurant_id',
                 Auth::user()->restaurant->pluck('id')->toArray())
-                ->get();
+                ->get();*/
         }
         return $pickups;
     }
