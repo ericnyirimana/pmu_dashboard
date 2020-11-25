@@ -211,10 +211,10 @@ class Pickup extends Model
 
     }
 
-    public function getValidateDaysAttribute()
+    public function getValidateMonthsAttribute()
     {
 
-        return $this->subscription->validate_days;
+        return $this->subscription->validate_months;
 
     }
 

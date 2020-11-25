@@ -1,4 +1,4 @@
-FROM centos:8
+FROM 513295654712.dkr.ecr.eu-west-1.amazonaws.com/pmu_centos:8
 
 RUN yum -y install epel-release && \
     yum -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \

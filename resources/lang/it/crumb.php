@@ -21,6 +21,7 @@ return [
         'subscription' => 'Abbonamento',
         'payments' => 'Storico pagamenti',
         'ticket' => 'Ticket',
-        'filtering-orders' => 'Filter Orders'
+        'filtering-orders' => 'Filter Orders',
+        'loyalty-card' => 'Loyalty Card',
     ]
 ];

@@ -58,6 +58,13 @@ return [
                 //'calendar_offer' => 'pickups.calendar'
             ],
         ],
+        'loyalty_card' => [
+            'class' => 'LoyaltyCardProduct',
+            'icon' => 'fi-paper',
+            'routes' => [
+                'new' => 'loyalty-card.create',
+            ],
+        ],
         'mealtypes' => [
             'class' => 'Mealtype',
             'icon' => 'fi-clock',

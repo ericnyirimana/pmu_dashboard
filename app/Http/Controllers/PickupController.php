@@ -12,8 +12,10 @@ use App\Models\Media;
 use App\Models\PickupMealtype;
 use App\Models\OrderProduct;
 use App\Models\PickupProduct;
+use App\Models\Restaurant;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
+use App\Services\ApplicationService;
 
 use Auth;
 
@@ -23,10 +25,11 @@ class PickupController extends Controller
     use TranslationTrait;
 
 
-    public function __construct()
+    public function __construct(ApplicationService $applicationService)
     {
 
         $this->authorizeResource(Pickup::class);
+        $this->applicationService = $applicationService;
 
     }
 
@@ -41,7 +44,21 @@ class PickupController extends Controller
             if ($pickup->orders->count() > 0 &&
                (isset($request->all()['suspended']) && $request->all()['suspended'] == 1) ) {
 
-            } else {
+            }
+            elseif((isset($request->all()['type_pickup']) && $request->all()['type_pickup'] == 'subscription') ){
+                $validation += [
+                    'price' => ['required', 'integer'],
+                    'media' => ['required', 'array'],
+                    'products' => ['required', 'array'],
+                    'quantity_offer' => ['required', 'integer'],
+                    'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                    'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
+                    'date' => ['required'],
+                    'validate_months' => ['required'],
+                    'quantity_per_subscription' => ['required', 'integer'],
+                ];
+            }
+            else {
                 $validation += [
                     'price' => ['required', 'integer'],
                     'media' => ['required', 'array'],
@@ -54,14 +71,23 @@ class PickupController extends Controller
                 ];
             }
         } else {
-            $validation = [
-                'type_pickup' => 'required',
-                'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
-                'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
-                'date' => ['required'],
-                'timeslot_id' => ['required', 'array']
+            if ((isset($request->all()['type_pickup']) && $request->all()['type_pickup'] == 'subscription') ) {
+                $validation = [
+                    'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                    'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
+                    'date' => ['required']
+                ];
+            }
+            else{
+                $validation = [
+                    'type_pickup' => 'required',
+                    'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                    'restaurant_id' => ['required_if:role,ADMIN,OWNER', new \App\Rules\RestaurantBelongsToCompany],
+                    'date' => ['required'],
+                    'timeslot_id' => ['required', 'array']
 
-            ];
+                ];
+            }
         }
 
         $request->validate(
@@ -105,17 +131,28 @@ class PickupController extends Controller
         $this->validation($request);
 
         $fields = $request->all();
-
         $dates = explode('|', $fields['date']);
         $fields['date_ini'] = Carbon::parse($dates[0]);
         $fields['date_end'] = Carbon::parse($dates[1]);
-        $timeslots = $fields['timeslot_id'];
-        unset($fields['timeslot_id']);
+        if($fields['type_pickup'] == 'subscription'){
+            $timeslots = array();
+            $restaurant = Restaurant::find($fields['restaurant_id']);
+            $restaurantTimeslots = $restaurant->timeslots;
+            foreach($restaurantTimeslots as $restaurantTimeslot){
+                if($restaurantTimeslot->mealtype->all_day == 1){
+                    array_push($timeslots, $restaurantTimeslot->mealtype_id);
+                }
+            }
+        }
+        else{
+            $timeslots = $fields['timeslot_id'];
+            unset($fields['timeslot_id']);
+        }
         $pickup = Pickup::create($fields);
         if ($pickup->type_pickup == 'offer') {
             $pickup->offer()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7]);
         } else {
-            $pickup->subscription()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7, 'validate_days' => 5]);
+            $pickup->subscription()->create(['type_offer' => 'single', 'quantity_offer' => '10', 'price' => 7, 'validate_months' => 5]);
         }
         $this->saveTranslation($pickup, $fields);
         $this->savePickupMealtype($pickup->id, $timeslots);
@@ -152,11 +189,17 @@ class PickupController extends Controller
         $menu = $pickup->restaurant->menu()->where('status_menu', 'APPROVED')->first();
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $pickup->id)->get();
         $pickup_mealtype = PickupMealtype::where('pickup_id', $pickup->id)->get();
+        $subscription_validity = $this->applicationService->getValue('SUBSCRIPTION_VALIDITY');
+        $month_validity = $this->applicationService->concatenateArrayValue($subscription_validity, trans('labels.months'));
+        $subscription_items = $this->applicationService->getValue('SUBSCRIPTION_ITEMS');
+        $items = array_combine($subscription_items, $subscription_items);
         return view('admin.pickups.edit')->with([
                 'pickup' => $pickup,
                 'menu' => $menu,
                 'media' => $media,
                 'pickup_mealtype' => $pickup_mealtype,
+                'month_validity' => $month_validity,
+                'subscription_items' => $items,
             ]
         );
     }
@@ -191,9 +234,17 @@ class PickupController extends Controller
         PickupProduct::where('pickup_id', $pickup->id)->delete();
         foreach ($fields['products'] as $k => $v) {
             //$totalProductsQuantity += $fields['quantity'][$k];
-            $products[$v] = ['quantity_offer' => $fields['quantity'][$k]];
+            if ($pickup->type_pickup == 'offer') {
+                $products[$v] = ['quantity_offer' => $fields['quantity'][$k],
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now()];
+            }
+            else{
+                $products[$v] = ['quantity_offer' => $fields['quantity_offer'],
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now()];
+            }
         }
-
         //Check the total quantity
         $sections = $pickup->sections;
         if( $pickup->sections == null ){
@@ -222,19 +273,27 @@ class PickupController extends Controller
             }
         }
 
-
+        if ($pickup->type_pickup == 'offer') {
         $timeslots = $fields['timeslot_id'];
         unset($fields['timeslot_id']);
+        }
         $pickup->update($fields);
 
         if ($pickup->type_pickup == 'offer') {
             $pickup->offer->update($fields);
         } else {
+            $subscription_discount = $this->applicationService->getValue('SUBSCRIPTION_DISCOUNT');
+            $total_amount = number_format((float)$fields['price'] * $fields['quantity_per_subscription'], 2, '.', '');
+            $discount_amount = number_format((float)($total_amount * $subscription_discount)/100, 2, '.', '');
+            $fields['discount'] = $subscription_discount;
+            $fields['total_amount'] = $total_amount; // - $discount_amount;
             $pickup->subscription->update($fields);
         }
 
         $this->saveTranslation($pickup, $fields);
+        if ($pickup->type_pickup == 'offer') {
         $this->savePickupMealtype($pickup->id, $timeslots);
+        }
         $pickup->products()->sync($products);
 
         if ($request->media) {
@@ -300,8 +359,8 @@ class PickupController extends Controller
                 $pickup->offer->quantity_offer, 'price' => $pickup->offer->price]);
         } else {
             $newPickup->subscription()->create(['type_offer' => $pickup->offer->type_offer, 'quantity_offer' =>
-                $pickup->offer->quantity_offer, 'price' => $pickup->offer->price, 'validate_days' =>
-                $pickup->offer->validate_days]);
+                $pickup->offer->quantity_offer, 'price' => $pickup->offer->price, 'validate_months' =>
+                $pickup->offer->validate_months]);
         }
 
         $newPickup->save();
@@ -348,16 +407,40 @@ class PickupController extends Controller
     protected function retrieveOfferByUserRole()
     {
         if (Auth::user()->is_super) {
-            $pickups = Pickup::all();
+            //$pickups = Pickup::all();
+
+            $pickups = Pickup::leftJoin('pickup_subscriptions', function ($join)  {
+                $join->on('pickup_subscriptions.pickup_id', '=', 'pickups.id');
+            })
+                ->where(function ($q) {
+                    $q->where('pickup_subscriptions.type_offer', '<>', 'loyalty_card');
+                    $q->orWhere('pickup_subscriptions.type_offer', '=', null);
+                })
+                ->select('pickups.*')
+                ->orderBy('pickups.created_at', 'desc')
+                ->get();
 
         } else {
             if (!Auth::user()->brand->first()) {
                 return new Collection();
             }
+
+            $pickups = Pickup::leftJoin('pickup_subscriptions', function ($join)  {
+                $join->on('pickup_subscriptions.pickup_id', '=', 'pickups.id');
+            })
+                ->where(function ($q) {
+                    $q->where('pickup_subscriptions.type_offer', '<>', 'loyalty_card');
+                    $q->orWhere('pickup_subscriptions.type_offer', '=', null);
+                })
+                ->whereIn('pickups.restaurant_id', Auth::user()->restaurant->pluck('id')->toArray())
+                ->select('pickups.*')
+                ->orderBy('pickups.created_at', 'desc')
+                ->get();
+            /*
             $pickups = Pickup::whereIn(
                 'restaurant_id',
                 Auth::user()->restaurant->pluck('id')->toArray())
-                ->get();
+                ->get();*/
         }
         return $pickups;
     }
