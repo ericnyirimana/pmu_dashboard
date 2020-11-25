@@ -8,7 +8,7 @@ class PickupSubscription extends Model
 {
 
 
-  protected $fillable = ['quantity_offer', 'quantity_per_subscription', 'validate_days', 'price', 'type_offer'];
+  protected $fillable = ['pickup_id', 'quantity_offer', 'quantity_per_subscription', 'validate_months', 'price', 'type_offer', 'total_amount', 'discount'];
 
   protected $appends = ['pickup'];
 

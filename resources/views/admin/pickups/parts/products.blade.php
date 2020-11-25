@@ -95,9 +95,11 @@
                                                         <li class="list-group-item" data-id="{{ $product->id }}" >
                                                             <i class="fa fa-minus-square remove"></i>
                                                             <div class="name">{{ $product->name }}</div>
+                                                            @if($pickup->type_pickup == 'offer')
                                                             <div class="quantity"><input type="text" name="quantity[]"
                                                                                         value="{{ $product->pivot->quantity_offer }}"
                                                                                         maxlength="3"/></div>
+                                                            @endif
                                                             <input type="hidden" name="products[]" value="{{ $product->id }}"/>
                                                         </li>
                                                     @endforeach
@@ -295,6 +297,8 @@
                 var offer_date = $('#date').val();
                 var price = $('#price').val();
                 var type_offer = $('#type_offer').val();
+                var validate_months = $('#validate_months').val();
+                var quantity_per_subscription = $('#quantity_per_subscription').val();
                 var quantities = [];
                 var products = [];
                 var medias = [];
@@ -335,6 +339,9 @@
                         "quantity_offer": quantity_offer,
                         "media": medias,
                         "check_media": check_media,
+                        "type_pickup": "{{ $pickup->type_pickup }}",
+                        "validate_months": validate_months,
+                        "quantity_per_subscription": quantity_per_subscription,
                         "_method": 'put'
                     }
                     if(action_type === 'suspend-offer') {
@@ -397,6 +404,12 @@
                         if(errors.timeslot_id){
                             $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.timeslot_id[0]}</li>`)
                         }
+                        if(errors.validate_months){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.validate_months[0]}</li>`)
+                        }
+                        if(errors.quantity_per_subscription){
+                            $('#error_response .error_msg ul').append(`<li id="alert-error">${errors.quantity_per_subscription[0]}</li>`)
+                        }
                         $('html, body').animate({scrollTop: '0px'}, 0);
                     }
                 });
@@ -445,7 +458,9 @@
             var html = '<li class="list-group-item" data-id="' + id + '">';
             html += '<i class="fa fa-minus-square remove"></i>';
             html += '<div class="name">' + name + '</div>';
+            @if($pickup->type_pickup == 'offer')
             html += '<div class="quantity"><input type="text" name="quantity[]" value="10" maxlength="3"/></div>';
+            @endif
             html += '<input type="hidden" name="products[]" value="' + id + '" />';
             html += '</li>';
             $('#' + section.replace(/\W/g, '') + ' .group-products').append(html);

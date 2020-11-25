@@ -27,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\OrderPickup' => 'App\Policies\OrderPickupPolicy',
         'App\Models\Payment' => 'App\Policies\PaymentPolicy',
         'App\Models\PickupSubscription' => 'App\Policies\SubscriptionPolicy',
+        'App\Models\LoyaltyCardProduct' => 'App\Policies\LoyaltyCardProductPolicy',
     ];
 
     /**

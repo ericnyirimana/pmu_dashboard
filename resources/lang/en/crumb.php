@@ -21,6 +21,7 @@ return [
         'subscription' => 'Subscription',
         'payments' => 'History payments',
         'ticket' => 'Ticket',
-        'filtering-orders' => 'Filter Orders'
+        'filtering-orders' => 'Filter Orders',
+        'loyalty-card' => 'Loyalty Card',
     ],
 ];
