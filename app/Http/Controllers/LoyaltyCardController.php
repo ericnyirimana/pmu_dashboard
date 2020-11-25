@@ -165,12 +165,12 @@ class LoyaltyCardController extends Controller
                     'product_id' => $newProductId,
                     'pickup_id' => $newPickupId,
                     'type_offer' => 'loyalty_card',
-                    'quantity_offer' => $fields['quantity_offer'],
+                    'quantity_offer' => $fields['item_availablity'],
                     'price' => $price,
                     'validate_months' => $fields['card_validity'],
                     'discount' => $fields['discount'],
                     'total_amount' => $total_amount,
-                    'quantity_per_subscription' => $fields['item_availablity'],
+                    'quantity_per_subscription' => $fields['quantity_offer'],
                 ]);
             }
             else {
@@ -199,13 +199,13 @@ class LoyaltyCardController extends Controller
                     'product_id' => $isProductexist->first()->product_id,
                     'pickup_id' => $newPickupId,
                     'type_offer' => 'loyalty_card',
-                    'quantity_offer' => $fields['quantity_offer'],
-                    'quantity_remain' => $fields['quantity_offer'],
+                    'quantity_offer' => $fields['item_availablity'],
+                    'quantity_remain' => $fields['item_availablity'],
                     'price' => $price,
                     'validate_months' => $fields['card_validity'],
                     'discount' => $fields['discount'],
                     'total_amount' => $amount_to_pay,
-                    'quantity_per_subscription' => $fields['item_availablity'],
+                    'quantity_per_subscription' => $fields['quantity_offer'],
                 ]);
             }
             DB::commit();
