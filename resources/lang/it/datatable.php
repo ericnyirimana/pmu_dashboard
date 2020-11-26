@@ -6,6 +6,7 @@ return [
     'list_restaurants' => 'Lista ristoranti',
     'list_categories' => 'Lista categorie',
     'list_pickups' => 'Lista offerte e abbonamenti',
+    'list_loyalty_cards' => 'Lista Carte Fedeltà',
     'list_menu' => 'Lista menu',
     'list_media' => 'Lista media',
     'list_dishes' => 'Lista piatti',

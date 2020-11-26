@@ -14,6 +14,7 @@ return [
     'new_category' => 'Nuova categoria',
     'new_restaurant' => 'Nuovo ristorante',
     'new_offer' => 'Nuova offerta',
+    'new_loyalty_card' => 'Nuova Carta Fedeltà',
     'new_mealtype' => 'Nuovo orario',
     'new_menu' => 'Nuovo menu',
     'new_dish' => 'Nuovo piatto',

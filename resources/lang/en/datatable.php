@@ -6,6 +6,7 @@ return [
     'list_restaurants' => 'List restaurants',
     'list_categories' => 'List categories',
     'list_pickups' => 'List pickups',
+    'list_loyalty_cards' => 'List Loyalty Cards',
     'list_menu' => 'List menu',
     'list_media' => 'List media',
     'list_dishes' => 'List dishes',
