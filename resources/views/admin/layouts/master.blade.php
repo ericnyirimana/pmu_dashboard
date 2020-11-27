@@ -101,7 +101,7 @@
         <!-- App js -->
         <script src="{{ asset("/adminox/assets/js/jquery.core.js")}}"></script>
         <script src="{{ asset("/adminox/assets/js/jquery.app.js")}}"></script>
-        <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLUUH3H4en_Be_lwXe91KvayRpTnWso50&libraries=places"></script>
+        <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDAKnCHsLNc5miuhThF26x7aHb0KXleER4&libraries=places"></script>
 
     </body>
 </html>

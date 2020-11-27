@@ -14,6 +14,7 @@ return [
     'new_category' => 'New category',
     'new_restaurant' => 'New restaurant',
     'new_offer' => 'New offer',
+    'new_loyalty_card' => 'New Loyalty Card',
     'new_mealtype' => 'New mealtype',
     'new_menu' => 'New menu',
     'new_dish' => 'New dish',

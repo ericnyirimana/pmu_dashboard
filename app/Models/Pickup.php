@@ -50,7 +50,10 @@ class Pickup extends Model
     public function ordersToday()
     {
 
-        return $this->hasMany('App\Models\OrderPickup')->where('date', '=', date('Y-m-d'));
+        //return $this->hasMany('App\Models\OrderPickup')->where('date', '=', date('Y-m-d'));
+        return $this->hasMany('App\Models\OrderPickup')
+            ->where('date', '=', date('Y-m-d'))
+            ->where('restaurant_status', '<>', 'CANCELED');
 
     }
 

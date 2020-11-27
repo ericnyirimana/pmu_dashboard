@@ -5,23 +5,22 @@ namespace App\Http\Controllers;
 use App\Traits\TranslationTrait;
 use App\Models\LoyaltyCardProduct;
 use App\Models\LoyaltyCardProductRestaurant;
-use App\Models\LoyaltyCardProductTranslations;
 use App\Models\CategoryLoyaltyCardProduct;
 use App\Models\MenuSection;
 use App\Models\Menu;
 use App\Models\Pickup;
 use App\Models\PickupSubscription;
 use App\Models\Product;
-use App\Models\ProductTranslation;
 use App\Models\PickupMealtype;
 use App\Models\PickupProduct;
 use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use App\Services\ApplicationService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+
+use Auth;
 
 class LoyaltyCardController extends Controller
 {
@@ -56,6 +55,16 @@ class LoyaltyCardController extends Controller
 
     }
 
+    public function index()
+    {
+
+        $pickups = $this->retrieveOfferByUserRole();
+
+        return view('admin.loyalty-card.index')
+            ->with(compact('pickups'));
+
+    }
+
     public function create()
     {
 
@@ -79,6 +88,58 @@ class LoyaltyCardController extends Controller
             ]
         );
 
+    }
+
+    public function destroy(Pickup $pickup)
+    {
+
+        $msg = 'messages.notification.pickup_removed';
+        if( $pickup->ordersToday()->count() > 0 ){
+            //Can't Delete Pickup Offers
+            $msg = 'messages.notification.pickup_cant_remove';
+        } else {
+            //Delete Pickup Offers
+            $pickup->delete();
+        }
+
+        return redirect()->route('loyalty-card.index')->with([
+            'notification' => trans($msg),
+            'type-notification' => 'warning'
+        ]);
+
+    }
+
+    protected function retrieveOfferByUserRole()
+    {
+        if (Auth::user()->is_super) {
+
+            $pickups = Pickup::leftJoin('pickup_subscriptions', function ($join)  {
+                $join->on('pickup_subscriptions.pickup_id', '=', 'pickups.id');
+            })
+                ->where(function ($q) {
+                    $q->where('pickup_subscriptions.type_offer', '=', 'loyalty_card');
+                })
+                ->select('pickups.*')
+                ->orderBy('pickups.created_at', 'desc')
+                ->get();
+
+        } else {
+            if (!Auth::user()->brand->first()) {
+                return new \Illuminate\Database\Eloquent\Collection();
+            }
+
+            $pickups = Pickup::leftJoin('pickup_subscriptions', function ($join)  {
+                $join->on('pickup_subscriptions.pickup_id', '=', 'pickups.id');
+            })
+                ->where(function ($q) {
+                    $q->where('pickup_subscriptions.type_offer', '=', 'loyalty_card');
+                })
+                ->whereIn('pickups.restaurant_id', Auth::user()->restaurant->pluck('id')->toArray())
+                ->select('pickups.*')
+                ->orderBy('pickups.created_at', 'desc')
+                ->get();
+        }
+        return $pickups;
     }
 
     public function store(Request $request)
