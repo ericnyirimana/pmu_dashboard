@@ -125,6 +125,8 @@ class UserController extends Controller
 
         $fields['profile'] = json_encode($arrayAttributes);
 
+        $fields['email'] = Str::lower($fields['email']);
+
         $user = User::create($fields);
 
         if (isset($fields['brand_id'])) {
@@ -248,6 +250,8 @@ class UserController extends Controller
         $client = new Cognito();
         $client->deleteUser($user->sub);
 
+        //Obfuscate the email
+        $user->update(['email' => (string)Str::uuid()]);
         $user->delete();
 
         return redirect()->route('users.index')->with('notification', 'User removed with success!')->with('type-notification', 'danger');

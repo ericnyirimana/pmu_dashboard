@@ -17,7 +17,8 @@ class LoyaltyCardProductPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->is_super || $user->is_restaurant || $user->is_owner);
+        return false;
+        //return ($user->is_super || $user->is_restaurant || $user->is_owner);
     }
 
     /**
@@ -29,7 +30,8 @@ class LoyaltyCardProductPolicy
      */
     public function view(User $user)
     {
-        return ($user->is_super || $user->is_restaurant || $user->is_owner);
+        return false;
+        //return ($user->is_super || $user->is_restaurant || $user->is_owner);
     }
 
     /**
