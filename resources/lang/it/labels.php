@@ -153,4 +153,5 @@ return [
     'add_to_card' => 'vuoi inserire nella tua carta?',
     'months' => 'Mesi',
     'subscription_validity' => 'Validità del tuo abbonamento',
+    'pickup_offer_type' => 'Cosa vuoi creare?',
 ];

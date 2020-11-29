@@ -3,7 +3,7 @@
         @if($pickup->id)
             <h4 class="text-center">{{ ucfirst($pickup->type_pickup) }}</h4>
         @else
-            <field-radio label="Type" field="type_pickup" :items="['offer'=>'Offer','subscription'=>'Subscription']"
+            <field-radio label="Cosa vuoi creare?" field="type_pickup" :items="['offer'=>'Offerta','subscription'=>'Abbonamento']"
                          :model="$pickup" required/>
         <!-- <div class="form-group">
             <div class="form-check-label">
