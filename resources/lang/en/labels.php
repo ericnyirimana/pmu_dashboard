@@ -145,5 +145,5 @@ return [
     'add_to_card' => 'do you want to add to your card?',
     'months' => 'Months',
     'subscription_validity' => 'Validity of your subscription',
-
+    'pickup_offer_type' => 'What do you want to create?',
 ];
