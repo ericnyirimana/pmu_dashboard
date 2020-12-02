@@ -32,11 +32,7 @@
 
 <div class="row">
     <div class="col-12 col-md-6">
-        @if($pickup->is_not_editable)
-            <field-date label="offer_duration" :model="$pickup" field="date" range="true" disabled/>
-        @else
-            <field-date label="offer_duration" :model="$pickup" field="date" range="true"/>
-        @endif
+        <field-date label="offer_duration" :model="$pickup" field="date" range="true"/>
     </div>
     @if($pickup->id && $pickup->type_pickup == 'offer')
     <div class="col-12 col-md-6">

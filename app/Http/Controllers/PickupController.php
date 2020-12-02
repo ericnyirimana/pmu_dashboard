@@ -47,7 +47,7 @@ class PickupController extends Controller
             }
             elseif((isset($request->all()['type_pickup']) && $request->all()['type_pickup'] == 'subscription') ){
                 $validation += [
-                    'price' => ['required', 'integer'],
+                    'price' => ['required'],
                     'media' => ['required', 'array'],
                     'products' => ['required', 'array'],
                     'quantity_offer' => ['required', 'integer'],
