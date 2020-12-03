@@ -6,14 +6,18 @@
 
 <div class="row clearfix">
     <field-hide :model="$pickup" field="type_offer"/>
-    <div class="col-6">
-        <span
-            class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">Single</span>
-    </div>
-    <div class="col-6 text-center">
-        <span
-            class="text-center btn @if($pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">Combo</span>
-    </div>
+    @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
+
+    @else
+        <div class="col-6">
+            <span
+                class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">Single</span>
+        </div>
+        <div class="col-6 text-center">
+            <span
+                class="text-center btn @if($pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">Combo</span>
+        </div>
+    @endif
 </div>
 <div class="row mt-4">
     <div class="col-4">
@@ -30,24 +34,29 @@
                                 @foreach($menu->{$class} as $section)
                                     <li data-name="{{ $section->name }}" data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $section->name) }}" data-id="{{ $section->id }}">
                                         <div class="section-header" id="header-{{ $section->id }}">
-                                            <span @if(empty
+                                        @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
+
+                                        @else
+                                        <span @if(empty
                                             ($pickup->sections) ||
                                             !in_array($section->name, array_keys($pickup->sections))) class="add-all" style="margin: 10px 0 !important;" @endif></span>
-                                            @if(isset($section->products[0]))
-                                                <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ $section->id }}">
-                                                {{ $section->name }}
-                                                &nbsp;&nbsp;<i class="fa fa-angle-down"></i>
-                                                </button>
-                                            @else
+                                        @endif
+                                        @if(isset($section->products[0]))
+                                            <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapse-{{ $section->id }}">
+                                            {{ $section->name }}
+                                            &nbsp;&nbsp;<i class="fa fa-angle-down"></i>
+                                            </button>
+                                        @else
                                             <h6>{{ $section->name }}</h6>
-                                            @endif
+                                        @endif
                                         </div>
                                         <ul id="collapse-{{ $section->id }}" class="collapse" aria-labelledby="header-{{ $section->id }}">
                                             @foreach($section->products as $product)
                                                 @if($product->is_approved)
                                                 <li>
                                                     <span @if(!in_array($product->id, $pickup->products->pluck('id')->toArray() ) )
-                                                    class="add" @endif data-id="{{ $product->id }}"
+                                                    @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
+                                                    @else class="add" @endif @endif data-id="{{ $product->id }}"
                                                     data-name="{{ $product->name }}"
                                                     data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $product->name) }}"
                                                     data-section="{{ $section->name }}"
@@ -82,7 +91,10 @@
                                     <div class="card" id="{{ $div_section->name }}" data-id="{{ $section[0]->section->position }}" data-menu="{{ $section[0]->menu_section_id }}">
                                         <div class="card-header">
                                             <h6 class="float-left">{{ $div_section->name }}</h6>
+                                            @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
+                                            @else
                                             <i class="fi-trash float-right font-18 remove-section"></i>
+                                            @endif
                                         </div>
                                         <div class="card-body">
                                             <p class="card-title text-right">Disponibilità
@@ -93,7 +105,11 @@
                                                 @if($section)
                                                     @foreach($section as $product)
                                                         <li class="list-group-item" data-id="{{ $product->id }}" >
+                                                        @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
+
+                                                        @else
                                                             <i class="fa fa-minus-square remove"></i>
+                                                        @endif
                                                             <div class="name">{{ $product->name }}</div>
                                                             @if($pickup->type_pickup == 'offer')
                                                             <div class="quantity"><input type="text" name="quantity[]"
@@ -441,6 +457,16 @@
             }).on('hide.bs.collapse', function(){
             $(this).prev(".section-header").find(".fa-angle-up").removeClass("fa-angle-up").addClass("fa-angle-down");
             });
+
+            $(document).on('change', '#quantity_offer', function () {
+                @if($pickup->orders->count() > 0)
+                    var min = {{ $pickup->quantity_offer }};
+                    if ($(this).val() < min)
+                    {
+                        $(this).val(min);
+                    }   
+                @endif   
+            }); 
         });
         function addItem(el) {
 

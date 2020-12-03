@@ -62,6 +62,7 @@ return [
             'class' => 'LoyaltyCardProduct',
             'icon' => 'fi-paper',
             'routes' => [
+                'list' => 'loyalty-card.index',
                 'new' => 'loyalty-card.create',
             ],
         ],
