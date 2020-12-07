@@ -2,7 +2,7 @@
     <div class="form-check-label">
         <label for="{{ $field }}">{{ __('labels.'.$label) }}</label>
     </div>
-    <div class="row form-check form-check-inline" id="{{ $field }}">
+    <div class="row form-check form-check-inline" style="padding-left: 10px;" id="{{ $field }}">
         @if( is_array($values) ||  is_a($values, 'Illuminate\Database\Eloquent\Collection') )
             @foreach($values as $value)
                 @php 

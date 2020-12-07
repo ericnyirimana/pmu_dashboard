@@ -347,4 +347,22 @@ class Pickup extends Model
         
     }
 
+    public function getDiscountAttribute()
+    {
+
+        if ($this->type_pickup == 'subscription') {
+            return $this->subscription->discount;
+        }
+
+    }
+
+    public function getUsableCompanyAttribute()
+    {
+
+        if ($this->type_pickup == 'subscription') {
+            return $this->subscription->usable_company;
+        }
+
+    }
+
 }
