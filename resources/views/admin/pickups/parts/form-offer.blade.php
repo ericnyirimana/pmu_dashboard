@@ -1,4 +1,4 @@
-<div class="col-12 col-md-4">
+<div class="col-12 col-md-4" style="padding-left: 0px !important;">
     @if($pickup->is_not_editable)
       <field-select label="price_range" field="price" :model="$pickup" type="simple" :values="['7' => '7 €', '14' =>
       '14 €' ]"  required disabled />

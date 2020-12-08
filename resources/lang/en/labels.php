@@ -146,4 +146,6 @@ return [
     'months' => 'Months',
     'subscription_validity' => 'Validity of your subscription',
     'pickup_offer_type' => 'What do you want to create?',
+    'build_offer' => 'BUILD YOUR OFFER',
+    'subscription' => 'Subscription',
 ];

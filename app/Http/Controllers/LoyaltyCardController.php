@@ -28,6 +28,7 @@ class LoyaltyCardController extends Controller
 
     public function __construct(ApplicationService $applicationService)
     {
+        // $this->authorizeResource(Pickup::class);
         $this->applicationService = $applicationService;
     }
 
@@ -39,13 +40,13 @@ class LoyaltyCardController extends Controller
             'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
             'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
             'price' => ['required'],
-            'quantity_offer' => ['required', 'integer'],
+            'quantity_per_subscription' => ['required', 'integer'],
             'date' => ['required'],
             'timeslot_id' => ['required', 'array'],
             'product' => ['required', 'integer'],
-            'card_validity' => ['required', 'integer'],
+            'validate_months' => ['required', 'integer'],
             'discount' => ['required', 'integer'],
-            'item_availablity' => ['required', 'integer'],
+            'quantity_offer' => ['required', 'integer'],
             'media' => ['required', 'array'],
         ];
 
@@ -68,7 +69,7 @@ class LoyaltyCardController extends Controller
     public function create()
     {
 
-        $loyalty_card_restaurant = new LoyaltyCardProductRestaurant;
+        $pickup = new LoyaltyCardProductRestaurant;
         $loyaltyCardProduct = LoyaltyCardProduct::get();
         $loyalty_card_items = $this->applicationService->getValue('LOYALTY_CARD_ITEMS');
         $items = array_combine($loyalty_card_items, $loyalty_card_items);
@@ -79,7 +80,7 @@ class LoyaltyCardController extends Controller
         $loyalty_card_availability = $this->applicationService->getValue('LOYALTY_CARD_AVAILABILITY');
         $availability = array_combine($loyalty_card_availability, $loyalty_card_availability);
         return view('admin.loyalty-card.create')->with([
-                'loyalty_card_restaurant' => $loyalty_card_restaurant,
+                'pickup' => $pickup,
                 'loyaltyCardProduct' => $loyaltyCardProduct,
                 'loyalty_card_items' => $items,
                 'discount' => $discount,
@@ -90,24 +91,6 @@ class LoyaltyCardController extends Controller
 
     }
 
-    public function destroy(Pickup $pickup)
-    {
-
-        $msg = 'messages.notification.pickup_removed';
-        if( $pickup->ordersToday()->count() > 0 ){
-            //Can't Delete Pickup Offers
-            $msg = 'messages.notification.pickup_cant_remove';
-        } else {
-            //Delete Pickup Offers
-            $pickup->delete();
-        }
-
-        return redirect()->route('loyalty-card.index')->with([
-            'notification' => trans($msg),
-            'type-notification' => 'warning'
-        ]);
-
-    }
 
     protected function retrieveOfferByUserRole()
     {
@@ -158,9 +141,8 @@ class LoyaltyCardController extends Controller
             $priceNewFormat = str_replace(',','.',$fields['price']);
             settype($priceNewFormat, "float");
             $price = number_format((float)$priceNewFormat, 2, '.', '');
-            $total_amount = number_format((float)$price * $fields['quantity_offer'], 2, '.', '');
+            $total_amount = number_format((float)$price * $fields['quantity_per_subscription'], 2, '.', '');
             $discount_amount = number_format((float)($total_amount*$fields['discount'])/100, 2, '.', '');
-            $amount_to_pay = number_format((float)$total_amount - $discount_amount, 2, '.', '');
             $isProductexist = LoyaltyCardProductRestaurant::where('restaurant_id', $restaurant)
                             ->where('loyalty_card_product_id', $product)->get();
             $productInfo = LoyaltyCardProduct::where('id', $product)->get()->first();
@@ -219,19 +201,19 @@ class LoyaltyCardController extends Controller
                 $newPickupProduct = PickupProduct::create([
                     'product_id' => $newProductId,
                     'pickup_id' => $newPickupId,
-                    'quantity_offer' => $fields['quantity_offer'],
-                    'quantity_remain' => $fields['quantity_offer']
+                    'quantity_offer' => $fields['quantity_per_subscription'],
+                    'quantity_remain' => $fields['quantity_per_subscription']
                 ]);
                 $newPickupSubscription = PickupSubscription::create([
-                    'product_id' => $newProductId,
                     'pickup_id' => $newPickupId,
                     'type_offer' => 'loyalty_card',
-                    'quantity_offer' => $fields['item_availablity'],
+                    'quantity_offer' => $fields['quantity_offer'],
                     'price' => $price,
-                    'validate_months' => $fields['card_validity'],
+                    'validate_months' => $fields['validate_months'],
                     'discount' => $fields['discount'],
                     'total_amount' => $total_amount,
-                    'quantity_per_subscription' => $fields['quantity_offer'],
+                    'quantity_per_subscription' => $fields['quantity_per_subscription'],
+                    'usable_company' => $fields['usable_company'] ?? 0,
                 ]);
             }
             else {
@@ -253,24 +235,151 @@ class LoyaltyCardController extends Controller
                 $newPickupProduct = PickupProduct::create([
                     'product_id' => $isProductexist->first()->product_id,
                     'pickup_id' => $newPickupId,
-                    'quantity_offer' => $fields['quantity_offer'],
-                    'quantity_remain' => $fields['quantity_offer']
+                    'quantity_offer' => $fields['quantity_per_subscription'],
+                    'quantity_remain' => $fields['quantity_per_subscription']
                 ]);
                 $newPickupSubscription = PickupSubscription::create([
-                    'product_id' => $isProductexist->first()->product_id,
                     'pickup_id' => $newPickupId,
                     'type_offer' => 'loyalty_card',
-                    'quantity_offer' => $fields['item_availablity'],
-                    'quantity_remain' => $fields['item_availablity'],
+                    'quantity_offer' => $fields['quantity_offer'],
+                    'quantity_remain' => $fields['quantity_offer'],
                     'price' => $price,
-                    'validate_months' => $fields['card_validity'],
+                    'validate_months' => $fields['validate_months'],
                     'discount' => $fields['discount'],
-                    'total_amount' => $amount_to_pay,
-                    'quantity_per_subscription' => $fields['quantity_offer'],
+                    'total_amount' => $total_amount,
+                    'quantity_per_subscription' => $fields['quantity_per_subscription'],
+                    'usable_company' => $fields['usable_company'] ?? 0,
                 ]);
             }
             DB::commit();
             return response()->json(['success' => 'Loyalty card successfully add'], 200);
+        } catch (\Throwable $exception){
+            Log::info('An error occurred {' . $exception . '}');
+            DB::rollback();
+            return response()->json(['error' => 'Something went wrong'], 500);
+         }
+
+    }
+
+    public function update(Request $request, Pickup $loyalty_card)
+    {
+        
+        $this->validation($request);
+        try {
+            $fields = $request->all();
+            $dates = explode('|', $fields['date']);
+            $fields['date_ini'] = Carbon::parse($dates[0]);
+            $fields['date_end'] = Carbon::parse($dates[1]);
+            $timeslots = $fields['timeslot_id'];
+            unset($fields['timeslot_id']);
+            $product = $fields['product'];
+            $restaurant = $fields['restaurant_id'];
+            $priceNewFormat = str_replace(',','.',$fields['price']);
+            settype($priceNewFormat, "float");
+            $price = number_format((float)$priceNewFormat, 2, '.', '');
+            $total_amount = number_format((float)$price * $fields['quantity_per_subscription'], 2, '.', '');
+            $discount_amount = number_format((float)($total_amount*$fields['discount'])/100, 2, '.', '');
+            $isProductexist = LoyaltyCardProductRestaurant::where('restaurant_id', $restaurant)
+                            ->where('loyalty_card_product_id', $product)->get();
+            $productInfo = LoyaltyCardProduct::where('id', $product)->get()->first();
+            $productTranslationInfo = LoyaltyCardProduct::where('id', $product)->first()->toArray();
+            DB::beginTransaction();
+            if($isProductexist->count() == 0){
+                $menu = Menu::where('restaurant_id', $restaurant)->get()->first();
+                $menuSection = MenuSection::where('menu_id', $menu->id)->get();
+                if($menuSection->where('type','LoyaltyCard')->count() == 0){
+                    $menuSectionFields = [
+                        'name' => 'Loyalty Card',
+                        'type' => 'LoyaltyCard',
+                        'position' => $menuSection->count(),
+                    ];
+                    $newSection = $menu->sections()->create($menuSectionFields);
+                    $newSectionId = $newSection->id;
+                    $this->saveTranslation($newSection, $menuSectionFields);
+                }
+                else {
+                    $newSectionId = $menuSection->where('type','LoyaltyCard')->first()->id;
+                }
+                $productFields = [
+                    'name' => $productInfo->name,
+                    'price' => $price,
+                    'restaurant_id' => $restaurant,
+                    'menu_section_id' => $newSectionId,
+                    'type' => $productInfo->type,
+                    'status_product' => 'APPROVED',
+                ];
+                $newProduct = Product::create($productFields);
+                $newProductId = $newProduct->id;
+                $this->saveTranslation($newProduct, $productFields);
+                $this->saveProductCategories($newProductId, $product);
+                $newProductRestaurant = LoyaltyCardProductRestaurant::create([
+                    'restaurant_id' => $restaurant,
+                    'product_id' => $newProductId,
+                    'loyalty_card_product_id' => $product
+                ]);
+                $pickupFields = [
+                    'name' => $productInfo->name,
+                    'type_pickup' => 'subscription',
+                    'timeslot' => 0,
+                    'restaurant_id' => $restaurant,
+                    'date_ini' => $fields['date_ini'],
+                    'date_end' => $fields['date_end'],
+                    'suspended' => 0];
+                $loyalty_card->update($pickupFields);
+                $this->saveTranslation($loyalty_card, $pickupFields);
+                if ($request->media) {
+                    $loyalty_card->media()->sync(array_unique($request->media));
+                }
+                $this->savePickupMealtype($loyalty_card->id, $timeslots);
+                $newPickupProduct = PickupProduct::where('pickup_id', $loyalty_card->id)->update([
+                    'product_id' => $newProductId,
+                    'quantity_offer' => $fields['quantity_per_subscription'],
+                    'quantity_remain' => $fields['quantity_per_subscription']
+                ]);
+                $newPickupSubscription = PickupSubscription::where('pickup_id', $loyalty_card->id)->update([
+                    'type_offer' => 'loyalty_card',
+                    'quantity_offer' => $fields['quantity_offer'],
+                    'price' => $price,
+                    'validate_months' => $fields['validate_months'],
+                    'discount' => $fields['discount'],
+                    'total_amount' => $total_amount,
+                    'quantity_per_subscription' => $fields['quantity_per_subscription'],
+                    'usable_company' => $fields['usable_company'] ?? 0,
+                ]);
+            }
+            else {
+                $pickupFields = [
+                    'name' => $productInfo->name,
+                    'type_pickup' => 'subscription',
+                    'timeslot' => 0,
+                    'restaurant_id' => $restaurant,
+                    'date_ini' => $fields['date_ini'],
+                    'date_end' => $fields['date_end'],
+                    'suspended' => 0];
+                $loyalty_card->update($pickupFields);
+                if ($request->media) {
+                    $loyalty_card->media()->sync(array_unique($request->media));
+                }
+                $this->savePickupMealtype($loyalty_card->id, $timeslots);
+                $newPickupProduct = PickupProduct::where('pickup_id', $loyalty_card->id)->update([
+                    'product_id' => $isProductexist->first()->product_id,
+                    'quantity_offer' => $fields['quantity_per_subscription'],
+                    'quantity_remain' => $fields['quantity_per_subscription']
+                ]);
+                $newPickupSubscription = PickupSubscription::where('pickup_id', $loyalty_card->id)->update([
+                    'type_offer' => 'loyalty_card',
+                    'quantity_offer' => $fields['quantity_offer'],
+                    'quantity_remain' => $fields['quantity_offer'],
+                    'price' => $price,
+                    'validate_months' => $fields['validate_months'],
+                    'discount' => $fields['discount'],
+                    'total_amount' => $total_amount,
+                    'quantity_per_subscription' => $fields['quantity_per_subscription'],
+                    'usable_company' => $fields['usable_company'] ?? 0,
+                ]);
+            }
+            DB::commit();
+            return response()->json(['success' => 'Loyalty card successfully updated'], 200);
         } catch (\Throwable $exception){
             Log::info('An error occurred {' . $exception . '}');
             DB::rollback();

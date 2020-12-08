@@ -154,4 +154,6 @@ return [
     'months' => 'Mesi',
     'subscription_validity' => 'Validità del tuo abbonamento',
     'pickup_offer_type' => 'Cosa vuoi creare?',
+    'build_offer' => 'COMPONI LA TUA PROPOSTA',
+    'subscription' => 'Abbonamento',
 ];
