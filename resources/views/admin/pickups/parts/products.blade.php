@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-12">
-        <h5>BUILD YOUR OFFER</h5>
+        <h5>{{ ucfirst(trans('labels.build_offer')) }}</h5>
     </div>
 </div>
 

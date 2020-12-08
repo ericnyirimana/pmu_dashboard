@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 
 use App\Models\Pickup;
+use App\Models\PickupSubscription;
+use App\Models\LoyaltyCardProduct;
 use App\Models\Media;
 use App\Models\PickupMealtype;
 use App\Models\OrderProduct;
@@ -16,6 +18,9 @@ use App\Models\Restaurant;
 use App\Traits\TranslationTrait;
 use Carbon\Carbon;
 use App\Services\ApplicationService;
+use App\Models\LoyaltyCardProductRestaurant;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 use Auth;
 
@@ -193,6 +198,31 @@ class PickupController extends Controller
         $month_validity = $this->applicationService->concatenateArrayValue($subscription_validity, trans('labels.months'));
         $subscription_items = $this->applicationService->getValue('SUBSCRIPTION_ITEMS');
         $items = array_combine($subscription_items, $subscription_items);
+        $isLoyaltyCard = $this->isPickupLoyaltyCard($pickup->id);
+        if($isLoyaltyCard == true){
+            $loyalty_card_items = $this->applicationService->getValue('LOYALTY_CARD_ITEMS');
+            $pickupProduct = PickupProduct::where('pickup_id', $pickup->id)->first();
+            $loyaltyCardProduct = LoyaltyCardProduct::get();
+            $selectedProductId = LoyaltyCardProductRestaurant::where('product_id',$pickupProduct->product_id)->first();
+            $items = array_combine($loyalty_card_items, $loyalty_card_items);
+            $loyalty_card_discount = $this->applicationService->getValue('LOYALTY_CARD_DISCOUNT');
+            $discount = $this->applicationService->concatenateArrayValue($loyalty_card_discount, '%');
+            $loyalty_card_validity = $this->applicationService->getValue('LOYALTY_CARD_VALIDITY');
+            $validity = $this->applicationService->concatenateArrayValue($loyalty_card_validity, trans('labels.months'));
+            $loyalty_card_availability = $this->applicationService->getValue('LOYALTY_CARD_AVAILABILITY');
+            $availability = array_combine($loyalty_card_availability, $loyalty_card_availability);
+            return view('admin.loyalty-card.edit')->with([
+                'pickup' => $pickup,
+                'pickup_mealtype' => $pickup_mealtype,
+                'loyaltyCardProduct' => $loyaltyCardProduct,
+                'loyalty_card_items' => $items,
+                'discount' => $discount,
+                'validity' => $validity,
+                'selected_product_id' => $selectedProductId,
+                'loyalty_card_availability' => $availability,
+                'media' => $media,
+            ]);
+        }
         return view('admin.pickups.edit')->with([
                 'pickup' => $pickup,
                 'menu' => $menu,
@@ -332,9 +362,21 @@ class PickupController extends Controller
             $msg = 'messages.notification.pickup_cant_remove';
         } else {
             //Delete Pickup Offers
-            $pickup->delete();
+            if($pickup->type_pickup == 'offer'){
+                $pickup->offer()->delete();
+                $pickup->delete();
+            } else {
+                $pickup->subscription()->delete();
+                $pickup->delete();
+            }
         }
-
+        $isLoyaltyCard = $this->isPickupLoyaltyCard($pickup->id);
+        if($isLoyaltyCard == true){
+            return redirect()->route('loyalty-card.index')->with([
+                'notification' => trans($msg),
+                'type-notification' => 'warning'
+            ]);
+        }
         return redirect()->route('pickups.index')->with([
             'notification' => trans($msg),
             'type-notification' => 'warning'
@@ -546,4 +588,13 @@ class PickupController extends Controller
         }
     }
 
+    protected function isPickupLoyaltyCard($pickupId)
+    {
+        $pickups = PickupSubscription::where('pickup_id', $pickupId)->where('type_offer', 'loyalty_card')->count();
+        if($pickups > 0){
+            return true;
+        }
+
+        return false;
+    }
 }

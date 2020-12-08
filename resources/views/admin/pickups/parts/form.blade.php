@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
         @if($pickup->id)
-            <h4 class="text-center">{{ ucfirst($pickup->type_pickup) }}</h4>
+            <h4 class="text-center">{{ __('labels.'.$pickup->type_pickup) }}</h4>
         @else
             <field-radio label="Cosa vuoi creare?" field="type_pickup" :items="['offer'=>'Offerta','subscription'=>'Abbonamento']"
                          :model="$pickup" required/>
@@ -47,13 +47,8 @@
     @endif
     @if(Route::currentRouteName() == 'pickups.create')
     <div class="col-12 col-md-6">
-        @if(Auth::user()->is_restaurant && Auth::user()->restaurant->first())
-            <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id"
-                            type="relation" :values="Auth::user()->restaurant->first()->timeslots" />
-        @else
             <field-checkbox-mealtype label="offer_disposable" field="timeslot_id" foreignid="timeslot_id"
                             type="relation" :values="[]" />
-        @endif
     </div>
     @endif
 </div>
@@ -113,7 +108,9 @@ float-right suspend-offer">{{ucfirst(trans('button.enable')) }}
     @push('scripts')
         <script>
             $(document).ready(function () {
-
+                @if(Route::currentRouteName() == 'pickups.create')
+                    $("label[for='timeslot_id']").addClass('d-none');
+                @endif
 
                 $(document).on('change', '#restaurant_id, input[name="type_pickup"]', function () {
                     if($('#restaurant_id').val().length && $('input[name="type_pickup"]:checked').val() == 'offer'){
@@ -126,12 +123,6 @@ float-right suspend-offer">{{ucfirst(trans('button.enable')) }}
                     }
 
                 });
-                @if(Route::currentRouteName() == 'pickups.create')
-                    const selectedRestaurant = $('#restaurant_id').children("option:selected").val();
-                    let loadCurrentTimeslot = selectedRestaurant !== '' ?  loadTimeslots($('#restaurant_id').val()) : '';
-                    let hideTimeslotLabel = selectedRestaurant === '' ? $("label[for='timeslot_id']").addClass('d-none') : '';
-                    hideTimeslotLabel;
-                @endif
 
             });
 

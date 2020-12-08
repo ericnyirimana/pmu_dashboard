@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PickupOffer extends Model
 {
 
-
+      use SoftDeletes;
 
       protected $fillable = ['quantity_offer', 'price', 'type_offer'];
+
+      protected $dates = ['deleted_at'];
 
       protected $appends = ['pickup'];
 

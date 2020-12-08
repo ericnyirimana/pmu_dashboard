@@ -16,7 +16,7 @@
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.list_loyalty_cards')) }}</b></h4>
                 @if(Auth::user()->is_restaurant)
-                <datatable route='loyalty-card' :collection="$pickups" :fields="[
+                <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID'    => 'id',
                 'datatable.headers.name'  => 'name',
                 'datatable.headers.type'  => 'color:type_pickup:pickup_color',
@@ -26,7 +26,7 @@
                 ]"
                 actions="edit" />
                 @elseif(Auth::user()->is_owner)
-                <datatable route='loyalty-card' :collection="$pickups" :fields="[
+                <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID'    => 'id',
                 'datatable.headers.name'  => 'name',
                 'datatable.headers.restaurant' => 'restaurant:name',
@@ -37,7 +37,7 @@
                 ]"
                            actions="edit" />
                 @elseif(Auth::user()->is_super)
-                <datatable route='loyalty-card' :collection="$pickups" :fields="[
+                <datatable route='pickups' :collection="$pickups" :fields="[
                 'ID'    => 'id',
                 'datatable.headers.name'  => 'name',
                 'datatable.headers.restaurant' => 'restaurant:name',
@@ -46,7 +46,7 @@
                 'datatable.headers.date_ini' => 'date_ini_formatted',
                 'datatable.headers.date_end' => 'date_end_formatted',
                 ]"
-                       actions="delete" />
+                       actions="delete, edit" />
                 @endif
         </div>
     </div>
