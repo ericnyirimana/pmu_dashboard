@@ -41,14 +41,19 @@ class SubscriptionTicket extends Model
     }
 
     public function getIdFormattedAttribute() {
-        return 'SUB' . $this->id;
+        return $this->id;
     }
 
     public function getPickupNameAttribute() {
-        return $this->pickup() ? $this->pickup()->first()->name : 'No Pickup found';
+        return $this->pickup() ? '[ABBONAMENTO] - '.$this->pickup()->first()->name : 'No Pickup found';
     }
 
     public function getRestaurantNameAttribute(){
         return $this->pickup()->first()->restaurant_name;
     }
+
+    public function getIsClosedAttribute() {
+        return $this->closed == 0 ? 'FALSE' : 'TRUE';
+    }
+
 }

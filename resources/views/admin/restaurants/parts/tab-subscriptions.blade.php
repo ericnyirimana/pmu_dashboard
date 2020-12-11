@@ -19,16 +19,12 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><strong>{{ ucfirst(trans('labels.validate_subscription')) }}</strong>:<br>
                                 {{ $pickupSubscription->pickup->date }}</li>
-                            <li class="list-group-item"><strong>{{ ($pickupSubscription->pickup->quantity_offer *
-                            $pickupSubscription->validate_days) }}</strong> {{ ucfirst(trans('labels.sale_subscriptions')) }}</li>
+                            <li class="list-group-item"><strong>{{ ucfirst(trans('labels.subscription_validate_months')) }}</strong>:
+                                {{ $pickupSubscription->validate_months }} {{ ucfirst(trans('labels.months')) }}</li>
+                            <li class="list-group-item"><strong>{{ $pickupSubscription->quantity_offer }}</strong> {{ ucfirst(trans('labels.sale_subscriptions')) }}</li>
                             <li class="list-group-item"><strong>{{
                             $pickupSubscription->pickup->orders->sum('quantity') }}</strong> {{ ucfirst(trans
                             ('labels.purchase_subscriptions')) }}</li>
-                            <li class="list-group-item"><strong>{{ $pickupSubscription->offers_purchased }}</strong> {{
-                            ucfirst(trans('labels.orders_collected')
-                            ) }}</li>
-                            <li class="list-group-item"><strong>{{ ($pickupSubscription->pickup->quantity_offer *
-                            $pickupSubscription->pickup->orders->sum('quantity') - $pickupSubscription->offers_purchased) }}</strong> {{ ucfirst(trans('labels.orders_to_be_collected')) }}</li>
                         </ul>
                         <div class="card-body">
                             <a href="{{ route('subscription.show', $pickupSubscription) }}" class="card-link btn btn-primary float-right">{{ ucfirst(trans('button.subscription_detail')) }}</a>

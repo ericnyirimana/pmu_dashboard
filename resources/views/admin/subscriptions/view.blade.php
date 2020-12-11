@@ -15,14 +15,18 @@
                 <h2>{{ ucfirst(trans('labels.id_subscription')) }}: #{{ $pickupSubscription->id }}</h2>
             </div>
 
+            <div class="col-12">
+            <br>
+            </div>
+
             <div class="col-6 col-md-3 col-lg-5">
                 <p><label>{{ ucfirst(trans('labels.validity_range')) }}:</label> {{
                 $pickupSubscription->pickup->date
                 }}</p>
             </div>
             <div class="col-6 col-md-3 col-lg-5">
-                <p><label>{{ ucfirst(trans('labels.validate_days')) }}:</label> {{
-                $pickupSubscription->validate_days . ' ' . __('labels.working_days')}}</p>
+                <p><label>{{ ucfirst(trans('labels.validate_months')) }}:</label> {{
+                $pickupSubscription->validate_months . ' ' . __('labels.working_months')}}</p>
             </div>
 
             <div class="col-6 col-md-3 col-lg-5">
@@ -34,20 +38,20 @@
                 2, ',', '.').'€' }}</p>
             </div>
 
+            <!--
             <div class="col-12">
-                <p><label>{{ ucfirst(trans('labels.mealtype')) }}:</label> {{
-                $pickupSubscription->pickup->timeslot->name
-                }}</p>
+                <p><label>{{ ucfirst(trans('labels.mealtype')) }}:</label> - </p>
             </div>
+            -->
 
             <div class="col-6 col-md-3 col-lg-5">
-                <p><label>{{ ucfirst(trans('labels.subscriptions_number')) }}:</label> {{
+                <p><label>{{ ucfirst(trans('labels.subscriptions_number_available')) }}:</label> {{
                 $pickupSubscription->quantity_offer
                 }}</p>
             </div>
 
             <div class="col-6 col-md-3 col-lg-5">
-                <p><label>{{ ucfirst(trans('labels.offers_number')) }}:</label> {{
+                <p><label>{{ ucfirst(trans('labels.number_dishes_x_subscriptions')) }}:</label> {{
                 $pickupSubscription->quantity_per_subscription
                 }}</p>
             </div>

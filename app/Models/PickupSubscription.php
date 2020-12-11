@@ -44,4 +44,14 @@ class PickupSubscription extends Model
   public function getOffersPurchasedAttribute() {
       return SubscriptionTicket::where('pickup_id', $this->pickup->id)->get()->sum('quantity');
   }
+
+  public function getPriceAttribute(){
+
+      $discountSubscription =  round(($this->discount / 100) * $this->total_amount,2);
+      $subTotalAmount = $this->total_amount - $discountSubscription;
+
+      return $subTotalAmount;
+
+  }
+
 }
