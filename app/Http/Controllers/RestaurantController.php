@@ -207,6 +207,7 @@ class RestaurantController extends Controller
         $mealtype = Mealtype::all();
 
         //Prepare tickets data
+
         $tickets = OrderPickup::whereHas('pickup', function ($q) use ($restaurant) {
 
             $q->where([
@@ -220,10 +221,11 @@ class RestaurantController extends Controller
         })->orderBy('created_at', 'DESC')->get();
 
         $allTickets = $tickets->merge($ticketsSubscription);
-        $allTickets = $tickets->sortBy('updated_at');
+        $allTickets = $allTickets->sortBy('created_at');
 
         $payments = null;
         $balance = null;
+
         if (isset($restaurant->merchant_stripe)) {
             // List of payment/transfer
             $payouts = $this->stripe->getPayoutsForConnectedAccount($restaurant->merchant_stripe);
@@ -239,6 +241,7 @@ class RestaurantController extends Controller
             //Balance
             $balance = $this->stripe->getBalanceForConnectedAccount($restaurant->merchant_stripe);
         }
+
         return view('admin.restaurants.edit')
             ->with([
                 'restaurant' => $restaurant,

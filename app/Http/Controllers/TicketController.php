@@ -47,12 +47,11 @@ class TicketController extends Controller
 
     public function show(Request $request) {
 
-        if (strpos($request->ticket, 'SUB') !== false) {
+        //Take ticket offer
+        $ticket = OrderPickup::find($request->ticket);
+        if ($ticket == null) {
             //Take ticket subscription
-            $ticket = SubscriptionTicket::find(str_replace('SUB', '', $request->ticket));
-        } else {
-            //Take ticket offer
-            $ticket = OrderPickup::find($request->ticket);
+            $ticket = SubscriptionTicket::find($request->ticket);
         }
 
         if ($ticket) {
