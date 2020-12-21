@@ -13,7 +13,7 @@
                             <h5 class="card-title">#{{ $pickupSubscription->id }}</h5>
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3 class="card-title">{{ $pickupSubscription->pickup->name }}</h3>
-                                <h3 class="card-title">{{ $pickupSubscription->price }} €</h3>
+                                <h3 class="card-title">{{ $pickupSubscription->price_with_discount }} €</h3>
                             </div>
                         </div>
                         <ul class="list-group list-group-flush">
