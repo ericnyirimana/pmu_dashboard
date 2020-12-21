@@ -45,14 +45,11 @@ class OrderPickupController extends Controller
     {
         try{
         $orderTicket = OrderPickup::where('id', $request->id)->first();
-        if (Auth::user()->is_super) {
             if ($orderTicket) {
                 $orderTicket->update(['closed' => 1]);
                 return response()->json(['success' => 'Ticket successfully closed'], 200);
             }
             return response()->json(['error' => 'Ticket not found'], 404);
-        }
-        return response()->json(['error' => 'Unauthorized'], 401);
         }
         catch (\Throwable $exception) {
             Log::info('An error occurred during closing Ticket {' . $exception . '}');

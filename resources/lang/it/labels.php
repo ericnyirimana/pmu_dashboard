@@ -161,4 +161,12 @@ return [
     'pickup_offer_type' => 'Cosa vuoi creare?',
     'build_offer' => 'COMPONI LA TUA PROPOSTA',
     'subscription' => 'Abbonamento',
+    'CREDIT_CARD' => 'Carta di Credito',
+    'PROMO_CODE' => 'Promo Code',
+    'PAID' => 'PAGATO',
+    'CANCELED' => 'CANCELLATO',
+    'COMPLETED' => 'COMPLETATO',
+    'ERROR' => 'ERRORE',
+    'REJECTED' => 'RESPINTO',
+    'PENDING' => 'IN ATTESA DI',
 ];

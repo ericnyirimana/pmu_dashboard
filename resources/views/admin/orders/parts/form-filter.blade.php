@@ -1,17 +1,19 @@
 <div class="row">
-
-    <div class="col-12 col-md-4 js-brand">
-    @if(isset($brand) || !empty($brand))
-        <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
-                            :model="$brand->first()"
-                            :values="$brand"
-                />
-    @else
-        <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
-        />
-    @endif
+@if((Auth::user()->is_owner || Auth::user()->is_restaurant))
+    <company-restaurant-select :model="$orderPickup" disabled/>
+@else
+    <div class="col-12 col-md-6 js-brand">
+        @if(isset($brand) || !empty($brand))
+            <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
+                                :model="$brand->first()"
+                                :values="$brand"
+                    />
+        @else
+            <field-select label="company" field="brand_id" foreignid="id" fieldname="brand_id" type="relation"
+            />
+        @endif
     </div>
-    <div class="col-12 col-md-4 js-restaurant">
+    <div class="col-12 col-md-6 js-restaurant">
             @if(isset($restaurant) || !empty($restaurant))
             <field-select label="restaurant" field="restaurant_id" fieldname="restaurant_id" foreignid="id"
                           type="relation"
@@ -25,11 +27,14 @@
             />
             @endif
     </div>
+    @endif
+    <div class="col-12 col-md-6">
     @if(isset($dates) || !empty($dates))
     <field-date label="from_to" field="date" :value="$dates" range="true" minDate="none"/>
     @else
     <field-date label="from_to" field="date" range="true" minDate="none"/>
     @endif
+    </div>
     <div class="col-12 col-md-2">
         <div class="form-group">
         <label>&nbsp;</label>
@@ -55,7 +60,7 @@
     <script type="text/javascript" src="{{ asset("/plugins/parsleyjs/parsley.min.js")}}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            @if(!isset($brand))
+            @if(!isset($brand) && (Auth::user()->is_super))
             loadCompany();
             $(document).on('change', '#brand_id', function () {
                 loadRestaurants($(this).val());

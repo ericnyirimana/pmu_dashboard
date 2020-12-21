@@ -77,4 +77,13 @@ class Order extends Model
         }
         return null;
     }
+
+    public function getTypePickupAttribute() {
+
+        $orderPickup = $this->orderPickups()->first();
+        if($orderPickup != null){
+            return $orderPickup->pickup->type_pickup;
+        }
+        return null;
+    }
 }

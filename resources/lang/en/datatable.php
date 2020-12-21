@@ -47,7 +47,7 @@ return [
         'date_end' => 'Date end',
         'closed' => 'Ticket Closed',
         'description' => 'Description',
-        'total_amount' => 'Total Amount (€)',
+        'total_amount' => 'Total (€)',
         'payment_method' => 'Payment Method',
         'commission_to_pay' => 'Commission To Pay (€)'
     ],

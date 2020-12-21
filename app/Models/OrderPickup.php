@@ -53,4 +53,9 @@ class OrderPickup extends Model
         return $this->belongsTo('App\Models\Restaurant');
     }
 
+    public function company()
+    {
+        return $this->restaurant->company();
+    }
+
 }
