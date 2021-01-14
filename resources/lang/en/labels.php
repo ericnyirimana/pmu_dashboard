@@ -153,4 +153,12 @@ return [
     'pickup_offer_type' => 'What do you want to create?',
     'build_offer' => 'BUILD YOUR OFFER',
     'subscription' => 'Subscription',
+    'CREDIT_CARD' => 'Credit Card',
+    'PROMO_CODE' => 'Promo Code',
+    'PAID' => 'PAID',
+    'CANCELED' => 'CANCELED',
+    'COMPLETED' => 'COMPLETED',
+    'ERROR' => 'ERROR',
+    'REJECTED' => 'REJECTED',
+    'PENDING' => 'PENDING',
 ];

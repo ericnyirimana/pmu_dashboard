@@ -47,8 +47,8 @@ return [
         'date_end' => 'Data fine',
         'closed' => 'Ticket Chiuso',
         'description' => 'Descrizione',
-        'total_amount' => 'Total Amount (€)',
-        'payment_method' => 'Payment Method',
+        'total_amount' => 'Totale (€)',
+        'payment_method' => 'Pagamento con',
         'commission_to_pay' => 'Commission To Pay (€)'
     ],
     'tab_restaurant' => [

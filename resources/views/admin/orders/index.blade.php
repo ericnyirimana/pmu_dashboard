@@ -10,7 +10,6 @@
       {{ session('notification') }}
   @endcomponent
 @endif
-@if(Auth::user()->is_super)
 <tag-form :action="route('filtering-orders.data')" method="get">
 @include('admin.orders.parts.form-filter')
 </tag-form>
@@ -19,21 +18,34 @@
         <div class="card-box table-responsive">
 
             <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.todays_orders')) }}</b></h4>
-              <datatable route='orders' :collection="$order" :checkRow="true" :fields="[
-                'datatable.headers.date'      => 'date_format',
-                'datatable.headers.hour'      => 'hour_format',
-                'ID' => 'id',
-                'Restaurant Name' => 'restaurant_name',
-                'datatable.headers.payment_method' => 'payment:payment_method_types',
-                'datatable.headers.total_amount' => 'total_amount',
-                'datatable.headers.commission_to_pay' => 'commission_to_pay',
-                'datatable.headers.status'      => 'status',
-                ]"
-              actions="view" />
+            @if(Auth::user()->is_super)
+                <datatable route='orders' :collection="$order" :checkRow="true" :fields="[
+                    'datatable.headers.date'      => 'date_format',
+                    'datatable.headers.hour'      => 'hour_format',
+                    'ID' => 'id',
+                    'datatable.headers.restaurant' => 'restaurant_name',
+                    'datatable.headers.type'  => 'type_pickup',
+                    'datatable.headers.payment_method' => 'payment:payment_method_types',
+                    'datatable.headers.total_amount' => 'total_amount',
+                    'datatable.headers.commission_to_pay' => 'commission_to_pay',
+                    'datatable.headers.status'      => 'status',
+                    ]"
+                actions="view" />
+            @else
+                <datatable route='orders' :collection="$order" :checkRow="true" :fields="[
+                    'datatable.headers.date'      => 'date_format',
+                    'datatable.headers.hour'      => 'hour_format',
+                    'ID' => 'id',
+                    'datatable.headers.type'  => 'type_pickup',
+                    'datatable.headers.payment_method' => 'payment:payment_method_types',
+                    'datatable.headers.total_amount' => 'total_amount',
+                    'datatable.headers.status'      => 'status',
+                    ]"
+                actions="view" />
+            @endif
         </div>
     </div>
 </div>
-@endif
 @endsection
 
 @push('scripts')

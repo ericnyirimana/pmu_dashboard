@@ -17,7 +17,7 @@ class OrderPolicy
      */
     public function viewAny(User $user)
     {
-        return ($user->is_super);
+        return ($user->is_super || $user->is_restaurant || $user->is_owner);
     }
 
     /**
@@ -29,7 +29,7 @@ class OrderPolicy
      */
     public function view(User $user)
     {
-        return ($user->is_super);
+        return ($user->is_super || $user->is_restaurant || $user->is_owner);
     }
 
     /**

@@ -43,14 +43,18 @@
                             @default
                             <td>
                                 @if(isset($model->$type->$item))
-                                    {{ $model->$type->$item }}
+                                    @if(($item == 'payment_method_types'))
+                                        {{ __('labels.' . $model->$type->$item) }}
+                                    @else
+                                        {{ $model->$type->$item }}
+                                    @endif
                                 @endif
                             </td>
                             @break
                         @endswitch
                     @else
                         <td>
-                            @if($model instanceof \App\Models\Showcase && $field == 'type')
+                            @if(($model instanceof \App\Models\Showcase && $field == 'type') || ($model instanceof \App\Models\Order && $field == 'type_pickup') || ($model instanceof \App\Models\Order && $field == 'status'))
                                 {{ __('labels.' . $model->{$field}) }}
                             @else
                                 {{ $model->{$field} }}

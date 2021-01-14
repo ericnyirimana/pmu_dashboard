@@ -4,13 +4,16 @@
     <div class="row m-b-10">
     <div class="col-md-3 col-lg-3">
         <p><label>{{ ucfirst(trans('labels.id_ticket')) }}:</label> {{ $ticket->id }}</p>
+        <p><label>{{ ucfirst(trans('labels.name')) }}:</label> {{ $ticket->pickup->name }}</p>
         <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $ticket->offer_price }} €</p>
-        <p><label>{{ ucfirst(trans('labels.fee')) }}:</label> {{ $ticket->fee }} %</p>
+        <p><label>{{ ucfirst(trans('labels.fee')) }} %:</label> {{ $ticket->fee }} %</p>
         <p><label>{{ ucfirst(trans('labels.date_hour')) }}:</label> @if ($ticket->created_at) {{ $ticket->created_at->format('d/m/Y - H:m') }} @else N/A @endif</p>
     </div>
     <div class="col-md-3 col-lg-3">
         <p><label>{{ ucfirst(trans('labels.discount')) }}:</label> {{ $ticket->discounted_price }} €</p>
-        <p><label>{{ ucfirst(trans('labels.pmu_commission')) }}:</label> {{ $ticket->pmu_commission }} €</p>
+        @if(Auth::user()->is_super)
+          <p><label>{{ ucfirst(trans('labels.pmu_commission')) }}:</label> {{ $ticket->pmu_commission }} €</p>
+        @endif
         <p><label>{{ ucfirst(trans('labels.total_amount')) }}:</label> {{ $ticket->total_amount }} €</p>
         <p><label>{{ ucfirst(trans('labels.restaurant_commission')) }}:</label> {{ $ticket->restaurant_commission }} €</p>
     </div>
@@ -45,6 +48,7 @@
     </div>
     </div>
   </div>
+  @if($ticket->pickup->type_pickup == 'offer')
   <div class="col-9">
   <div class="col-12">
         <h5>{{ ucfirst(trans('labels.product_details')) }}</h5>
@@ -71,6 +75,7 @@
     </tbody>
   </table>
 </div>
+@endif
 </div>
 @include('admin.orders.parts.modal-cancel')
 @endforeach
