@@ -22,4 +22,6 @@ return [
     'calendar_offer' => 'Calendario offerte',
     'orders' => 'Ordini',
     'loyalty_card' => 'Carta Fedeltà',
+    'list_subscription' => 'Lista Abbonamenti',
+    'list_order' => 'List Ordini',
 ];

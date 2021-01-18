@@ -14,6 +14,9 @@
                 <li>
                     <a href="javascript: void(0);">
                         <i class="{{ $menuInfo['icon'] }}"></i><span> {{ trans('menu.' . $menuName) }} </span>
+                        @if($menuInfo['new'] == true)
+                            <span class="label label-danger" style="font-size: 7px">NEW</span>
+                        @endif
                     </a>
                     <ul class="nav-second-level" aria-expanded=false>
                         @foreach ($menuInfo['routes'] as $routeName => $routePath)

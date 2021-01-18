@@ -70,7 +70,7 @@ Route::prefix('admin')->group(function () {
 
         Route::resource('/orders-pickup', 'OrderPickupController');
 
-        Route::get('/subscriptions/{id}', 'PickupSubscriptionController@show')->name('subscription.show');
+        Route::get('/subscriptions/{id}', 'PickupSubscriptionController@show')->name('subscriptions.show');
 
         Route::resource('/companies', 'CompanyController');
 
@@ -100,6 +100,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/pickups/today/ordered-product/{pickup?}/{product?}', 'PickupController@isProductOrdered')->name('today.ordered.product');
         Route::get('/pickups/today/ordered-menu/{pickup?}/{menu_section_id?}', 'PickupController@isMenuOrdered')->name('today.ordered.menu');
         Route::resource('/loyalty-card', 'LoyaltyCardController');
+        Route::get('/subscriptions', 'PickupSubscriptionController@index')->name('subscriptions.index');
+        Route::get('/subscriptions/order/detail/{order_id?}/{pickup_id?}', 'PickupSubscriptionController@detail')->name('subscriptions.detail');
+        Route::get('/subscriptions/pickup/filter', 'PickupSubscriptionController@filtering')->name('filtering-pickup-subscription.data');
 
         if (env('APP_DEBUG')) {
             \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
