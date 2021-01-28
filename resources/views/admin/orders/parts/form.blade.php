@@ -12,7 +12,9 @@
     </div>
     <div class="col-md-3 col-lg-5">
         <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $order->total_amount }} €</p>
-        <p><label>{{ ucfirst(trans('labels.email')) }}:</label> {{ $user->email }}</p>
+        @if(Auth::user()->is_super)
+            <p><label>{{ ucfirst(trans('labels.email')) }}:</label> {{ $user->email }}</p>
+        @endif
         @if($order->payment != null)
         @if( $order->payment->payment_method_types == 'PROMO_CODE')
             <p><label>{{ ucfirst(trans('labels.promo_code')) }}:</label> {{ $order->promo_code }} </p>
@@ -21,24 +23,24 @@
         <p><label>{{ ucfirst(trans('labels.restaurant')) }}:</label> {{ $restaurant->name }}</p>
     </div>
     @if(Auth::user()->is_super)
-    <div class="col-md-3 col-lg-2 close-order-btn">
-    <input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}"/>
-    @if(($order->status == 'PAID') ||
-     ($order->payment->payment_method_types == 'PROMO_CODE' 
-     && $order->payment->status == 'DONE' 
-     && $order->status == 'COMPLETED' 
-     && $closedTickets !== 0))
-    <label class="text-success" style="border: 2px solid; padding: 6px;"><i class="fi-check"></i> {{ ucfirst(trans('button.order_is_closed')) }}</label>
-    @elseif($order->status == 'CANCELED' || $order->status == 'ERROR' || $order->status == 'REJECTED')
-    <label class="text-danger" style="border: 2px solid; padding: 6px;"><i class="fi-ban"></i> {{ ucfirst(trans('button.order_closed')) }}</label>
-    @else
-    @if($order->payment != null)
-    <button type="click"
-                    class="btn btn-md w-lg btn-danger float-right form-control close-order">{{ ucfirst(trans('button.order_closed')) }} 
-                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:19px"></i></button>
-    @endif
-    @endif
-    </div>
+        <div class="col-md-3 col-lg-2 close-order-btn">
+            <input type="hidden" name="order_id" id="order_id" value="{{ $order->id }}"/>
+            @if(($order->status == 'PAID') ||
+            ($order->payment->payment_method_types == 'PROMO_CODE' 
+            && $order->payment->status == 'DONE' 
+            && $order->status == 'COMPLETED' 
+            && $closedTickets !== 0))
+                <label class="text-success" style="border: 2px solid; padding: 6px;"><i class="fi-check"></i> {{ ucfirst(trans('button.order_is_closed')) }}</label>
+            @elseif($order->status == 'CANCELED' || $order->status == 'ERROR' || $order->status == 'REJECTED')
+                <label class="text-danger" style="border: 2px solid; padding: 6px;"><i class="fi-ban"></i> {{ ucfirst(trans('button.order_closed')) }}</label>
+            @else
+                @if($order->payment != null)
+                    <button type="click"
+                                    class="btn btn-md w-lg btn-danger float-right form-control close-order">{{ ucfirst(trans('button.order_closed')) }} 
+                                    <i class="fa fa-circle-o-notch fa-spin" style="font-size:19px"></i></button>
+                @endif
+            @endif
+        </div>
     @endif
     @include('admin.orders.parts.tickets')
 {{--    <div class="form-group d-flex align-items-center justify-content-between col-12 mt-5">--}}

@@ -201,28 +201,7 @@ class RestaurantController extends Controller
         $owner = $company->owner()->get();
         $users = $restaurant->users()->get();
         $users = $users->merge($owner);
-        $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
-        $ordersPickup = OrderPickup::whereIn('pickup_id', $pickupsId)->get();
-        $pickupSubscriptions = PickupSubscription::whereIn('pickup_id', $pickupsId)->get();
         $mealtype = Mealtype::all();
-
-        //Prepare tickets data
-
-        $tickets = OrderPickup::whereHas('pickup', function ($q) use ($restaurant) {
-
-            $q->where([
-                    ['restaurant_id', $restaurant->id],
-                    ['type_pickup', 'offer']
-            ]);
-        })->orderBy('created_at', 'DESC')->get();
-
-        $ticketsSubscription = SubscriptionTicket::whereHas('pickup', function ($q) use ($restaurant) {
-            $q->where('restaurant_id', $restaurant->id);
-        })->orderBy('created_at', 'DESC')->get();
-
-        $allTickets = $tickets->merge($ticketsSubscription);
-        $allTickets = $allTickets->sortBy('created_at');
-
         $payments = null;
         $balance = null;
 
@@ -250,12 +229,9 @@ class RestaurantController extends Controller
                 'mealtype' => $mealtypeList,
                 'mealtypeInfo' => $mealtype,
                 'users' => $users,
-                'ordersPickup' => $ordersPickup->sortByDesc('created_at'),
-                'pickupSubscriptions' => $pickupSubscriptions,
                 'payments' => $payments,
                 'balance' => $balance,
-            ])
-            ->with(compact('allTickets'));
+            ]);
 
     }
 

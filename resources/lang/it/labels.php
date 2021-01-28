@@ -58,7 +58,8 @@ return [
         'new_drink' => 'Nuovo drink',
         'confirm_suspend_title' => 'Sospendi',
         'confirm_suspend_text' => 'Esistono degli ordini attivi per questo Pickup. Confermi di voler sospendere',
-        'confirm_cancel_ticket' => 'Annula Ticket'
+        'confirm_cancel_ticket' => 'Annula Ticket',
+        'transaction_list' => 'Elenco Transazioni',
     ],
     'entries_to_be_welded' => 'Entrate da saldare',
     'orders_suspend' => 'Ordini sospesi',
@@ -91,6 +92,10 @@ return [
         'scheduled' => 'Programmata',
         'exhausted' => 'Esaurita',
         'suspended' => 'Sospesa'
+    ],
+    'order_pickup_status' => [
+        'enabled' => 'ATTIVO',
+        'expired' => 'SCADUTO',
     ],
     'add_food' => 'Aggiungi cibo',
     'description' => 'Descrizione',
@@ -161,4 +166,12 @@ return [
     'pickup_offer_type' => 'Cosa vuoi creare?',
     'build_offer' => 'COMPONI LA TUA PROPOSTA',
     'subscription' => 'Abbonamento',
+    'CREDIT_CARD' => 'Carta di Credito',
+    'PROMO_CODE' => 'Promo Code',
+    'PAID' => 'PAGATO',
+    'CANCELED' => 'CANCELLATO',
+    'COMPLETED' => 'COMPLETATO',
+    'ERROR' => 'ERRORE',
+    'REJECTED' => 'RESPINTO',
+    'PENDING' => 'IN ATTESA DI',
 ];

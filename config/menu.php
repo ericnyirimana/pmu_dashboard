@@ -5,6 +5,7 @@ return [
         'dashboard' => [
             'class' => 'Dashboard',
             'icon' => 'fi-air-play',
+            'new' => false,
             'routes' => [
                 'home' => 'dashboard.index',
             ],
@@ -12,6 +13,7 @@ return [
         'company' => [
             'class' => 'Company',
             'icon' => 'fi-star',
+            'new' => false,
             'routes' => [
                 'list' => 'companies.index',
                 'new' => 'companies.create',
@@ -19,14 +21,17 @@ return [
         ],
         'orders' => [
             'class' => 'Order',
+            'new' => true,
             'icon' => 'fi-bag',
             'routes' => [
-                'list' => 'orders.index',
+                'list_order' => 'orders.index',
+                'list_subscription' => 'subscriptions.index',
             ],
         ],
         'categories' => [
             'class' => 'Category',
             'icon' => 'fi-align-center',
+            'new' => false,
             'routes' => [
                 'list' => 'categories.index',
                 'new' => 'categories.create',
@@ -35,6 +40,7 @@ return [
         'dishes' => [
             'class' => 'Product',
             'icon' => 'fi-align-center',
+            'new' => false,
             'routes' => [
                 'list' => 'products.index',
                 'new_dish' => 'products.create.dish',
@@ -44,6 +50,7 @@ return [
         'menu' => [
             'class' => 'Menu',
             'icon' => 'fi-align-center',
+            'new' => false,
             'routes' => [
                 'list' => 'menu.index',
                 'new' => 'menu.create'
@@ -52,6 +59,7 @@ return [
         'offer_subscription' => [
             'class' => 'Pickup',
             'icon' => 'fi-tag',
+            'new' => false,
             'routes' => [
                 'list' => 'pickups.index',
                 'new' => 'pickups.create',
@@ -61,6 +69,7 @@ return [
         'loyalty_card' => [
             'class' => 'LoyaltyCardProduct',
             'icon' => 'fi-paper',
+            'new' => true,
             'routes' => [
                 'list' => 'loyalty-card.index',
                 'new' => 'loyalty-card.create',
@@ -69,6 +78,7 @@ return [
         'mealtypes' => [
             'class' => 'Mealtype',
             'icon' => 'fi-clock',
+            'new' => false,
             'routes' => [
                 'list' => 'mealtypes.index',
                 'new' => 'mealtypes.create'
@@ -77,6 +87,7 @@ return [
         'timeslots' => [
             'class' => 'Timeslots',
             'icon' => 'fi-clock',
+            'new' => false,
             'routes' => [
                 'list' => 'timeslots.index',
                 'new' => 'timeslots.create'
@@ -85,6 +96,7 @@ return [
         'showcases' => [
             'class' => 'Showcase',
             'icon' => 'fi-align-center',
+            'new' => false,
             'routes' => [
                 'list' => 'showcases.index'
             ],
@@ -92,6 +104,7 @@ return [
         'account' => [
             'class' => 'User',
             'icon' => 'fi-head',
+            'new' => false,
             'routes' => [
                 'profile' => 'users.profile',
                 'user' => 'users.index',
@@ -101,6 +114,7 @@ return [
         'media' => [
             'class' => 'Media',
             'icon' => 'fi-camera',
+            'new' => false,
             'routes' => [
                 'list' => 'media.index',
             ],

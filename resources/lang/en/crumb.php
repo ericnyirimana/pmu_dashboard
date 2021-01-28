@@ -23,5 +23,6 @@ return [
         'ticket' => 'Ticket',
         'filtering-orders' => 'Filter Orders',
         'loyalty-card' => 'Loyalty Card',
+        'filtering-pickup-subscription' => 'Filter Subscription',
     ],
 ];

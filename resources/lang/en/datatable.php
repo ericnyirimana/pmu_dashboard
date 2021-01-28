@@ -19,6 +19,7 @@ return [
     'last_messages' => 'Last messages',
     'active_subscriptions' => 'Active subscriptions',
     'todays_orders' => `Today's Orders`,
+    'subscription_orders' => `List Of Subscriptions Purchased`,
     'headers' => [
         'meal' => 'Meal',
         'opening_hours' => 'Opening hours',
@@ -26,6 +27,7 @@ return [
         'restaurant' => 'Restaurant',
         'actions' => 'Actions',
         'name' => 'Name',
+        'last_name' => 'Last Name',
         'number_restaurants' => 'N. Restaurants',
         'owner' => 'Owner',
         'status' => 'Status',
@@ -47,9 +49,12 @@ return [
         'date_end' => 'Date end',
         'closed' => 'Ticket Closed',
         'description' => 'Description',
-        'total_amount' => 'Total Amount (€)',
+        'total_amount' => 'Total (€)',
         'payment_method' => 'Payment Method',
-        'commission_to_pay' => 'Commission To Pay (€)'
+        'commission_to_pay' => 'Commission To Pay (€)',
+        'subscriptiion_qty_offered' => 'Quantity Offered',
+        'subscriptiion_qty_remaining' => 'Quantity Remaining',
+        'validity' => 'Validity',
     ],
     'tab_restaurant' => [
         'restaurant' => 'Restaurant',

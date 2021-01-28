@@ -53,4 +53,42 @@ class OrderPickup extends Model
         return $this->belongsTo('App\Models\Restaurant');
     }
 
+    public function company()
+    {
+        return $this->restaurant->company();
+    }
+
+    public function getExpiryStatusAttribute()
+    {
+        $pickup = $this->pickup->first();
+        if($pickup->type_pickup == 'subscription'){
+
+            $pickup_valididty = $pickup->validate_months;
+
+            $order_pickup_date = $this->created_at;
+
+            $pickup_creation_date = $pickup->created_at;
+        
+            $interval = date_diff($pickup_creation_date, $order_pickup_date);
+        
+            $interval_month = $interval->format('%m');
+
+            if($interval_month >= $pickup_valididty){
+                return trans('labels.order_pickup_status.expired');
+            }
+            return trans('labels.order_pickup_status.enabled');
+        }
+    }
+
+    public function getValidityDateIntervalAttribute()
+    {
+        $pickup = $this->pickup->first();
+        if($pickup->type_pickup == 'subscription'){
+            $order_pickup_date = $this->created_at ? Carbon::parse($this->created_at)->format('Y-m-d') : '';
+            $pickup_creation_date = $pickup->created_at ? Carbon::parse($pickup->created_at)->format('Y-m-d') : '';
+
+            return $pickup_creation_date.' | '.$order_pickup_date;
+        }
+    }
+
 }

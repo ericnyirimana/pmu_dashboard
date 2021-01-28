@@ -60,7 +60,8 @@ return [
         'new_drink' => 'New drink',
         'confirm_suspend_title' => 'Suspend',
         'confirm_suspend_text' => 'There are some active orders for this Pickup. Do you want to suspend',
-        'confirm_cancel_ticket' => 'Cancel Ticket'
+        'confirm_cancel_ticket' => 'Cancel Ticket',
+        'transaction_list' => 'Transaction List',
     ],
     'entries_to_be_welded' => 'Entries to be welded',
     'orders_suspend' => 'Orders suspend',
@@ -93,6 +94,10 @@ return [
         'scheduled' => 'Scheduled',
         'exhausted' => 'Exhausted',
         'suspended' => 'Suspended'
+    ],
+    'order_pickup_status' => [
+        'enabled' => 'ENABLED',
+        'expired' => 'EXPIRED',
     ],
     'add_food' => 'Add food',
     'description' => 'Description',
@@ -153,4 +158,12 @@ return [
     'pickup_offer_type' => 'What do you want to create?',
     'build_offer' => 'BUILD YOUR OFFER',
     'subscription' => 'Subscription',
+    'CREDIT_CARD' => 'Credit Card',
+    'PROMO_CODE' => 'Promo Code',
+    'PAID' => 'PAID',
+    'CANCELED' => 'CANCELED',
+    'COMPLETED' => 'COMPLETED',
+    'ERROR' => 'ERROR',
+    'REJECTED' => 'REJECTED',
+    'PENDING' => 'PENDING',
 ];
