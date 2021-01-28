@@ -23,5 +23,5 @@ return [
     'orders' => 'Ordini',
     'loyalty_card' => 'Carta Fedeltà',
     'list_subscription' => 'Lista Abbonamenti',
-    'list_order' => 'List Ordini',
+    'list_order' => 'Lista Ordini',
 ];
