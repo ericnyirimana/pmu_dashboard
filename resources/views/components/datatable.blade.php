@@ -99,6 +99,14 @@
                                 </a>
                             @endif
                         @endif
+                        @if( !empty($actions) && strstr($actions, 'detail') && $route='subscriptions')
+                                <a href="#view-detail"
+                                   class="vw-detail"
+                                   data-pickup="{{ $model->id }}" data-order="{{ $model->order_id }}" data-toggle="modal"
+                                   data-target=".view-detail">
+                                   <img src="{{ URL::to('/') }}/img/pmu_icon_search.png" alt="view details" title="view details">
+                                </a>
+                        @endif
                         @if(!empty($actions) && strstr($actions, 'replicate'))
                             <a href="{{ route($route.'.replicate', $model->id )}}">
                                 <img src="{{ URL::to('/') }}/img/pmu_icon_copy.png" alt="Copy" title="Copy">
@@ -114,6 +122,9 @@
 </table>
 @if( !empty($actions) && strstr($actions, 'delete'))
     <modal-remove :route='$route'/>
+@endif
+@if( !empty($actions) && strstr($actions, 'detail') && $route='subscriptions')
+    <modal-view :route='$route'/>
 @endif
 @push('styles')
     <!-- DataTables -->

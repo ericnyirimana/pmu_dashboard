@@ -1,6 +1,6 @@
 <div class="row">
 @if((Auth::user()->is_owner || Auth::user()->is_restaurant))
-    <company-restaurant-select :model="$orderPickup" disabled/>
+    <company-restaurant-select :model="$subscriptions" disabled/>
 @else
     <div class="col-12 col-md-6 js-brand">
         @if(isset($brand) || !empty($brand))
@@ -28,17 +28,10 @@
             @endif
     </div>
     @endif
-    <div class="col-12 col-md-6">
-    @if(isset($dates) || !empty($dates))
-    <field-date label="from_to" field="date" :value="$dates" range="true" minDate="none"/>
-    @else
-    <field-date label="from_to" field="date" range="true" minDate="none"/>
-    @endif
-    </div>
     <div class="col-12 col-md-2">
         <div class="form-group">
         <label>&nbsp;</label>
-        <a href="{{ route('orders.index') }}"
+        <a href="{{ route('subscriptions.index') }}"
                     class="btn btn-md w-lg btn-info float-right form-control js-button-clear-filter">Clear Filter</i></a>
         </div>
 

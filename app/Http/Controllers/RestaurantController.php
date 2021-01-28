@@ -201,8 +201,6 @@ class RestaurantController extends Controller
         $owner = $company->owner()->get();
         $users = $restaurant->users()->get();
         $users = $users->merge($owner);
-        $pickupsId = Pickup::where('restaurant_id', $restaurant->id)->pluck('id');
-        $pickupSubscriptions = PickupSubscription::whereIn('pickup_id', $pickupsId)->get();
         $mealtype = Mealtype::all();
         $payments = null;
         $balance = null;
@@ -231,7 +229,6 @@ class RestaurantController extends Controller
                 'mealtype' => $mealtypeList,
                 'mealtypeInfo' => $mealtype,
                 'users' => $users,
-                'pickupSubscriptions' => $pickupSubscriptions,
                 'payments' => $payments,
                 'balance' => $balance,
             ]);

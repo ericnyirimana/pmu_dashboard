@@ -33,6 +33,7 @@ return [
         'pickup_product_is_ordered' => 'Sorry, we cannot delete the selected item, because there is an order in progress for this product: ":product". <br> You can make it unavailable by setting the product quantity to 0.',
         'product_cant_remove' => 'Product can\'t remove, there is an offer not expired',
         'not_allowed_user' => 'You are not allowed to update this section',
+        'subscription_not_ordered' => 'Nothing have been yet ordered!',
     ],
     'client_can_place_order_30_min_before' => 'The user can place orders up to 30 minutes before the indicated end time',
 ];

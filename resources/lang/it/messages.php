@@ -33,6 +33,7 @@ return [
         'pickup_quantity_wrong' => 'Errore quantità: Il Numero offerte (x giorno) è superiore al totale delle quantità disponibile della sezione :section (:total_section)',
         'pickup_product_is_ordered' => 'Ci dispiace, non possiamo eliminare l\'elemento selezionato, perché c\'è un ordine in corso di questo prodotto: ":product". <br> Puoi renderlo non disponibile portando la quantità del prodotto a 0.',
         'not_allowed_user' => 'Non sei autorizzato ad aggiornare questa sezione',
+        'subscription_not_ordered' => 'Abbonamento al momento non ancora utilizzato!',
     ],
     'client_can_place_order_30_min_before' => 'L\'utente potrà effettuare ordini fino a 30 minuti prima dell\'orario di fine indicato',
 

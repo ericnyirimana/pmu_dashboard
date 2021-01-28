@@ -19,6 +19,7 @@ return [
     'last_messages' => 'Ultimi messaggi',
     'active_subscriptions' => 'Abbonamenti attivi',
     'todays_orders' => 'Gli ordini di oggi',
+    'subscription_orders' => 'Elenco Abbonnamenti Acquistati',
     'headers' => [
         'meal' => 'Pasto',
         'opening_hours' => 'Orario apertura',
@@ -26,6 +27,7 @@ return [
         'restaurant' => 'Ristorante',
         'actions' => 'Azioni',
         'name' => 'Nome',
+        'last_name' => 'Cognome',
         'number_restaurants' => 'N. Ristoranti',
         'owner' => 'Owner',
         'status' => 'Stato',
@@ -49,7 +51,10 @@ return [
         'description' => 'Descrizione',
         'total_amount' => 'Totale (€)',
         'payment_method' => 'Pagamento con',
-        'commission_to_pay' => 'Commission To Pay (€)'
+        'commission_to_pay' => 'Commission To Pay (€)',
+        'subscriptiion_qty_offered' => 'Abbonamento da (Qtà)',
+        'subscriptiion_qty_remaining' => 'Quantità Rimaste',
+        'validity' => 'Validità',
     ],
     'tab_restaurant' => [
         'restaurant' => 'Ristorante',

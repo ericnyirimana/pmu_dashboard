@@ -5,7 +5,7 @@
     @include('components.notification')
 
     <div class="card-box">
-        <a href="{{ route('restaurants.edit', $pickupSubscription->restaurant) }}" class="btn btn-primary
+        <a href="{{ route('subscriptions.index') }}" class="btn btn-primary
         btn-bordered waves-effect w-lg">{{ ucfirst(trans('button.back')) }}</a>
     </div>
 
@@ -34,7 +34,7 @@
                 }}</p>
             </div>
             <div class="col-6 col-md-3 col-lg-5">
-                <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{number_format($pickupSubscription->price,
+                <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{number_format($pickupSubscription->price_with_discount,
                 2, ',', '.').'€' }}</p>
             </div>
 
@@ -75,4 +75,36 @@
         </div>
     </div>
 
+
+    <div class="row">
+    <div class="col-12">
+        <div class="card-box table-responsive">
+
+            <h4 class="m-t-0 header-title"><b>{{ ucfirst(trans('datatable.subscription_orders')) }}</b></h4>
+            <datatable class='subscription-orders' route='subscriptions' :collection="$orderPickupDetail" :checkRow="true" :fields="[
+                        'Ticket Id'      => 'id',
+                        'datatable.headers.name' => 'first_name',
+                        'datatable.headers.last_name' => 'last_name',
+                        'datatable.headers.date'  => 'date',
+                        'datatable.headers.status'  => 'expiry_status',
+                        'datatable.headers.validity'  => 'validity_date_interval',
+                        'datatable.headers.subscriptiion_qty_offered' => 'quantity_subscription',
+                        'datatable.headers.subscriptiion_qty_remaining' => 'quantity_remain',
+                        ]"      
+                        actions="detail" />
+        </div>
+    </div>
+</div>
 @endsection
+@push('scripts')
+    <script type="text/javascript">
+			$(document).ready(function() {
+                $('.subscription-orders').dataTable({
+                    "language": {
+                        "url": "cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+                    }});
+
+			});
+
+    </script>
+@endpush

@@ -22,4 +22,6 @@ return [
     'calendar_offer' => 'Calendar offer',
     'orders' => 'Orders',
     'loyalty_card' => 'Loyalty Card',
+    'list_subscription' => 'List Subcriptions',
+    'list_order' => 'List Orders',
 ];
