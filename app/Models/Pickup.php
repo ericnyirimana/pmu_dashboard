@@ -20,7 +20,7 @@ class Pickup extends Model
     public function offer()
     {
 
-        return $this->hasOne('App\Models\PickupOffer');
+        return $this->hasOne('App\Models\PickupOffer')->withTrashed();
 
     }
 
@@ -28,7 +28,7 @@ class Pickup extends Model
     public function subscription()
     {
 
-        return $this->hasOne('App\Models\PickupSubscription');
+        return $this->hasOne('App\Models\PickupSubscription')->withTrashed();
 
     }
 
