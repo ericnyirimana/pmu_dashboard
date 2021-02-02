@@ -12,5 +12,6 @@ return [
     '500_title' => '500',
     '500_message' => 'Internal server error',
     'wrong_login' => 'Username o password errate.',
-    'role_not_permissions' => 'Non hai i permessi necessari per accedere'
+    'role_not_permissions' => 'Non hai i permessi necessari per accedere',
+    'sales_assistant_not_permissions' => 'Attenzione! Con queste credenziali puoi accedere solo dall\'App.'
 ];
