@@ -1,7 +1,7 @@
 <div class="list-menu-section accordion" @if(Auth::user()->is_super) id="sortable_sections" @endif>
   @if( isset($menu->sections) )
 
-      @foreach($menu->sections as $section)
+      @foreach($menu->sections->where('type', '<>' , 'LoyaltyCard') as $section)
           @include('admin.menu.parts.menu-dish')
       @endforeach
 

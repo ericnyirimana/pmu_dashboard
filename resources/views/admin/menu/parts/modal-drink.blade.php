@@ -18,7 +18,7 @@
           <div class="container-plate-preview select-product" data-id="{{ $product->id }}" id="item-{{ $product->id }}">
               <input type="checkbox" value="{{ $product->id }}" id="select-dish-{{ $product->id }}" class="add-products" name="add_products[]" />
               <div class="plate-preview-text">
-                <h5>{{ $product->translate->name }}</h5>
+                <h5 class="@if(!$product->is_approved) text-danger @endif">{{ $product->translate->name }}@if(!$product->is_approved) ({{ ucfirst(trans('labels.under_approval')) }}) @endif</h5>
                 <p>{{ $product->translate->description }}</p>
               </div>
               <div class="plate-preview-price">

@@ -42,15 +42,20 @@ class ProductController extends Controller
     {
 
         if (Auth::user()->is_super) {
-            $products = Product::whereHas('restaurant')->get();
+            $products = Product::whereHas('restaurant')
+            ->orderBy('created_at', 'DESC')
+            ->orderByRaw('FIELD(status_product, "PENDING","DRAFT","DISABLED","APPROVED")')
+            ->get();
 
         }
         elseif(Auth::user()->is_restaurant){
-            $products = Auth::user()->restaurant()->first()->products;
+            $products = Auth::user()->restaurant()->first()->products
+            ->sortByDesc('created_at');
         }
         else {
             if (Auth::user()->brand->first()) {
-                $products = Auth::user()->brand->first()->products;
+                $products = Auth::user()->brand->first()->products
+                ->sortByDesc('created_at');
             } else {
                 $products = new Collection();
             }
