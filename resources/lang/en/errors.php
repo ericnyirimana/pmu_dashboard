@@ -12,5 +12,6 @@ return [
     '500_title' => '500',
     '500_message' => 'Internal server error',
     'wrong_login' => 'Incorret login or password.',
-    'role_not_permissions' => 'Not permissions with this user role'
+    'role_not_permissions' => 'Not permissions with this user role',
+    'sales_assistant_not_permissions' => 'With these credentials you can only LogIn from the App.'
 ];

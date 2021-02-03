@@ -101,9 +101,13 @@ class LoginController extends Controller
                    if (Auth::user()->is_super || Auth::user()->is_manager) {
                        return redirect()->route('dashboard.index');
                    } else {
+                       $userIsSalesAssistant = Auth::user()->is_sales_assistant;
                        Auth::logout();
-                       return redirect()->route('login')->withErrors(['login' => trans('errors.role_not_permissions')
-                       ]);
+                       if( $userIsSalesAssistant ){
+                           return redirect()->route('login')->withErrors(['login' => trans('errors.sales_assistant_not_permissions')]);
+                       }
+
+                       return redirect()->route('login')->withErrors(['login' => trans('errors.role_not_permissions')]);
                    }
 
                 } else {
