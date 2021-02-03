@@ -11,8 +11,9 @@
         <p><label>{{ ucfirst(trans('labels.status')) }}:</label> {{ $order->status }}</p>
     </div>
     <div class="col-md-3 col-lg-5">
-        <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $order->total_amount }} €</p>
         @if(Auth::user()->is_super)
+            <p><label>{{ ucfirst(trans('labels.price')) }}:</label> {{ $order->total_amount }} €</p>
+
             <p><label>{{ ucfirst(trans('labels.email')) }}:</label> {{ $user->email }}</p>
         @endif
         @if($order->payment != null)
