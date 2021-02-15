@@ -5,7 +5,7 @@
     <figure><i class="fa fa-file-image-o fa-2x"></i></figure>
     @endif
     <div class="plate-preview-text">
-        <h4>{{ $product->translate->name }}</h4>
+        <h4 class="@if(!$product->is_approved) text-danger @endif">{{ $product->translate->name }} @if(!$product->is_approved) ({{ ucfirst(trans('labels.under_approval')) }}) @endif</h4>
         <p>{{ $product->translate->description }}</p>
     </div>
     <div class="plate-preview-price">

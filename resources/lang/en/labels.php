@@ -51,7 +51,6 @@ return [
     'orders_collected' => 'Orders collected',
     'orders_to_be_collected' => 'Orders to be collected',
     'validate_days' => 'Validate days',
-    '' => 'Validate subscription',
     'modal' => [
         'confirm_remove_title' => 'Remove register',
         'confirm_remove_text' => 'Do you want to remove register',
@@ -62,6 +61,7 @@ return [
         'confirm_suspend_text' => 'There are some active orders for this Pickup. Do you want to suspend',
         'confirm_cancel_ticket' => 'Cancel Ticket',
         'transaction_list' => 'Transaction List',
+        'confirm_push_to_approval' => 'Now you can place the dish in the section of the menu you prefer. Once approved, you can use it to create new offers',
     ],
     'entries_to_be_welded' => 'Entries to be welded',
     'orders_suspend' => 'Orders suspend',
@@ -166,4 +166,6 @@ return [
     'ERROR' => 'ERROR',
     'REJECTED' => 'REJECTED',
     'PENDING' => 'PENDING',
+    'alert_info_dishes' => 'If you want to make changes or delete it, send an email to',
+    'under_approval' => 'IN APPROVAL STATUS',
 ];

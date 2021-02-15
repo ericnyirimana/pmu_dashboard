@@ -60,6 +60,7 @@ return [
         'confirm_suspend_text' => 'Esistono degli ordini attivi per questo Pickup. Confermi di voler sospendere',
         'confirm_cancel_ticket' => 'Annula Ticket',
         'transaction_list' => 'Elenco Transazioni',
+        'confirm_push_to_approval' => 'Ora puoi inserire il piatto nella sezione del menù che preferisci. Quando verrà approvato potrai utilizzarlo per creare nuove offerte',
     ],
     'entries_to_be_welded' => 'Entrate da saldare',
     'orders_suspend' => 'Ordini sospesi',
@@ -172,6 +173,8 @@ return [
     'CANCELED' => 'CANCELLATO',
     'COMPLETED' => 'COMPLETATO',
     'ERROR' => 'ERRORE',
-    'REJECTED' => 'RESPINTO',
-    'PENDING' => 'IN ATTESA DI',
+    'REJECTED' => 'REJECTED',
+    'PENDING' => 'PENDING',
+    'alert_info_dishes' => ' Se vuoi effettuare delle modifiche o lo vuoi eliminare, manda una email a',
+    'under_approval' => 'IN APPROVAZIONE',
 ];

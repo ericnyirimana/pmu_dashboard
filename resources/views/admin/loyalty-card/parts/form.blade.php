@@ -151,7 +151,7 @@
                     e.preventDefault();
                     $('.save-loyalty-card .fa-spin').show();
                     $('.save-loyalty-card').attr('disabled', true);
-                    var url = $('.submit-offert').attr('action');
+                    var url = $('.submit-form').attr('action');
                     var brand_id = $('#brand_id').val();
                     var restaurant_id = $('#restaurant_id').val();
                     var offer_date = $('#date').val();

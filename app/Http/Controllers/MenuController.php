@@ -36,7 +36,9 @@ class MenuController extends Controller
     {
 
         if (Auth::user()->is_super) {
-            $menu = Menu::whereHas('restaurant')->get();
+            $menu = Menu::whereHas('restaurant')
+            ->orderByRaw('FIELD(status_menu, "PENDING","DRAFT","APPROVED")')
+            ->get();
         }
 
 
@@ -45,7 +47,7 @@ class MenuController extends Controller
                 $q->whereHas('company', function ($q) {
                     $q->where('owner_id', Auth::user()->id);
                 });
-            })->get();
+            })->orderByRaw('FIELD(status_menu, "PENDING","DRAFT","APPROVED")')->get();
         }
 
         if (Auth::user()->is_restaurant) {
@@ -118,8 +120,8 @@ class MenuController extends Controller
             $restaurants = Auth::user()->brand->first()->restaurants;
         }
 
-        $dishesProducts = $menu->products()->where('type', 'Dish')->where('status_product', 'APPROVED')->get();
-        $drinksProducts = $menu->products()->where('type', 'Drink')->where('status_product', 'APPROVED')->get();
+        $dishesProducts = $menu->products()->where('type', 'Dish')->where('status_product', 'APPROVED')->orWhere('status_product', 'PENDING')->get();
+        $drinksProducts = $menu->products()->where('type', 'Drink')->where('status_product', 'APPROVED')->orWhere('status_product', 'PENDING')->get();
 
         return view('admin.menu.edit')->with([
                 'menu' => $menu,

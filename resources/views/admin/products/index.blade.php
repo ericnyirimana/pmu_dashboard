@@ -54,13 +54,21 @@
 @push('scripts')
 <script type="text/javascript">
     $(document).ready(function() {
-
-        $('#datatable').DataTable({
-            "language": {
-                "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
-            }
-
-        });
+        @if(Auth::user()->is_super)
+            $('#datatable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+                },
+                "ordering": false
+            });
+        @else
+            $('#datatable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Italian.json"
+                },
+                aaSorting: [[5, "desc"]]
+            });
+        @endif
 
     });
 
