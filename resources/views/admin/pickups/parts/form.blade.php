@@ -94,7 +94,7 @@
             @else
                 <div class="form-group d-flex justify-content-between">
                     <button type="button" name="suspended" id="suspended" value="0" class="btn btn-block w-lg btn-primary
-float-right suspend-offer">{{ucfirst(trans('button.enable')) }}
+float-right suspend-offer">{{ucfirst(trans('button.publish')) }}
 <i class="fa fa-circle-o-notch fa-spin" style="font-size:19px"></i>
 </button>
                 </div>

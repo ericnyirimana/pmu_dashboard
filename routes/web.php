@@ -45,6 +45,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/section/position/{section?}', 'MenuSectionController@setPosition')->name('section.position');
         Route::post('/section/product/add', 'MenuSectionController@addProduct')->name('section.product.add');
 
+        Route::get('/products/filter', 'ProductController@filter')->name('products.filter.dishes');
         Route::resource('/products', 'ProductController');
         Route::get('/products/create/dish', 'ProductController@create')->name('products.create.dish');
         Route::get('/products/create/drink', 'ProductController@create')->name('products.create.drink');
