@@ -13,6 +13,8 @@
 <div class="row">
 @if((Auth::user()->is_owner || Auth::user()->is_restaurant) && isset($edit))
     <company-restaurant-select :model="$product" disabled/>
+@elseif(Auth::user()->is_super && isset($_GET['restaurant']))
+    @include('admin.products.parts.fields-company-restaurant')
 @else
     <company-restaurant-select :model="$product" />
 @endif
@@ -28,6 +30,14 @@
 </div>
 
 <div class="row">
+@if(Auth::user()->is_super && isset($_GET['restaurant']))
+    <input type="hidden" class="form-control" name="redirect_route" id="redirect_route"  value="{{ route('products.filter.dishes', ['restaurant'=>$restaurant->id, 'brand'=>$brand->id] ) }}">
+@else
+    <input type="hidden" class="form-control" name="redirect_route" id="redirect_route"  value="{{ route('products.index') }}">
+@endif
+@if(Auth::user()->is_super && Route::currentRouteName() == 'products.edit')
+    <input type="hidden" class="form-control" name="previous_route" id="previous_route"  value="{{ url()->previous() }}">
+@endif
     <div class="col-4">
         <field-media-list label="image" field="media_id" :model="$product" disabled/>
     </div>
@@ -39,14 +49,14 @@
         @if($product->is_draft || ($product->is_waiting && Auth::user()->is_super) || ($product->is_approved && Auth::user()->is_super) || Route::currentRouteName() == 'products.create.dish' || Route::currentRouteName() == 'products.create.drink')
             <button type="submit" class="btn btn-block w-lg btn-success col-5 js-draft" @if($product->hasActivePickups() || ((Auth::user()->is_owner || Auth::user()->is_restaurant) && isset($edit) && !($product->is_draft)))
             disabled @endif>
-                {{ ucfirst(trans('button.save_draft')) }}
+                {{ ucfirst(trans('button.save')) }}
             </button>
         @endif
             @if(Auth::user()->is_super)
                 @if(!$product->is_approved)
                 <button type="submit" name="status_product" value="APPROVED" class="btn w-lg btn-primary col-5" @if($product->hasActivePickups())
                 disabled @endif>
-                    {{ ucfirst(trans('button.approves')) }}
+                    {{ ucfirst(trans('button.approve_continue')) }}
                 </button>
                 @else
                  <button type="submit" name="status_product" value="DISABLED" class="btn w-lg btn-primary col-5" @if($product->hasActivePickups())

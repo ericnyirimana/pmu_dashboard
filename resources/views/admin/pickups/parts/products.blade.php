@@ -363,11 +363,6 @@
                     if(action_type === 'suspend-offer') {
                         ajaxData.suspended = $('#suspended').val();
                     }
-                    @if(session('first_edit'))
-                        if(action_type !== 'suspend-offer') {
-                            ajaxData.suspended = 0;
-                        }
-                    @endif
                 $.ajax({
                     type: 'POST',
                     url,

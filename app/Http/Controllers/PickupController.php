@@ -51,29 +51,56 @@ class PickupController extends Controller
 
             }
             elseif((isset($request->all()['type_pickup']) && $request->all()['type_pickup'] == 'subscription') ){
-                $validation += [
-                    'price' => ['required'],
-                    'media' => ['required', 'array'],
-                    'products' => ['required', 'array'],
-                    'quantity_offer' => ['required', 'integer'],
-                    'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
-                    'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
-                    'date' => ['required'],
-                    'validate_months' => ['required'],
-                    'quantity_per_subscription' => ['required', 'integer'],
-                ];
+                if((isset($request->all()['suspended']) && $request->all()['suspended'] == 0) && $pickup->suspended == 1 || (!isset($request->all()['suspended']) && $pickup->status_pickup == trans('labels.pickup_status.progress'))){
+                    $validation += [
+                        'price' => ['required'],
+                        'media' => ['required', 'array'],
+                        'products' => ['required', 'array'],
+                        'quantity_offer' => ['required', 'integer'],
+                        'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                        'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
+                        'date' => ['required'],
+                        'validate_months' => ['required'],
+                        'quantity_per_subscription' => ['required', 'integer'],
+                    ];
+                }
+                else{
+                    $validation += [
+                        'price' => ['required'],
+                        'products' => ['required', 'array'],
+                        'quantity_offer' => ['required', 'integer'],
+                        'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                        'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
+                        'date' => ['required'],
+                        'validate_months' => ['required'],
+                        'quantity_per_subscription' => ['required', 'integer'],
+                    ];
+                }
             }
             else {
-                $validation += [
-                    'price' => ['required', 'integer'],
-                    'media' => ['required', 'array'],
-                    'products' => ['required', 'array'],
-                    'quantity_offer' => ['required', 'integer'],
-                    'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
-                    'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
-                    'date' => ['required'],
-                    'timeslot_id' => ['required', 'array']
-                ];
+                if(((isset($request->all()['suspended']) && $request->all()['suspended'] == 0) && $pickup->suspended == 1) || (!isset($request->all()['suspended']) && $pickup->status_pickup == trans('labels.pickup_status.progress'))){
+                    $validation += [
+                        'price' => ['required', 'integer'],
+                        'media' => ['required', 'array'],
+                        'products' => ['required', 'array'],
+                        'quantity_offer' => ['required', 'integer'],
+                        'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                        'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
+                        'date' => ['required'],
+                        'timeslot_id' => ['required', 'array']
+                    ];
+                }
+                else{
+                    $validation += [
+                        'price' => ['required', 'integer'],
+                        'products' => ['required', 'array'],
+                        'quantity_offer' => ['required', 'integer'],
+                        'brand_id' => ['required', new \App\Rules\BrandBelongsToOwner],
+                        'restaurant_id' => ['required', new \App\Rules\RestaurantBelongsToCompany],
+                        'date' => ['required'],
+                        'timeslot_id' => ['required', 'array']
+                    ];
+                }
             }
         } else {
             if ((isset($request->all()['type_pickup']) && $request->all()['type_pickup'] == 'subscription') ) {
