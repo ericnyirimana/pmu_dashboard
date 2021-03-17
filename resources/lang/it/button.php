@@ -52,4 +52,6 @@ return [
     'ticket_closed' => 'Ticket chiuso',
     'order_is_closed' => 'Ordine chiuso',
     'ok' => 'Ok',
+    'publish' => 'Pubblica',
+    'approve_continue' => 'Approva e Continua'
 ];

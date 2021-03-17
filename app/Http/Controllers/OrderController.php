@@ -136,7 +136,7 @@ class OrderController extends Controller
                 }
         }
         else{
-        $getOrders = Order::where('created_at', '>=', Carbon::today())->orderBy('created_at', 'DESC')->get();;
+        $getOrders = Order::where('created_at', '>=', Carbon::today())->orderBy('created_at', 'DESC')->get();
         }
 
         if(Auth::user()->is_super){

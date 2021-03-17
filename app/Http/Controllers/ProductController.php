@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 
 use App\Models\Product;
 use App\Models\Company;
+use App\Models\Restaurant;
 use App\Models\Category;
 use App\Traits\TranslationTrait;
+use Illuminate\Support\Facades\Log;
 
 use Auth;
 use Illuminate\Support\Collection;
@@ -41,16 +43,14 @@ class ProductController extends Controller
     public function index()
     {
 
-        if (Auth::user()->is_super) {
-            $products = Product::whereHas('restaurant')->get();
-
-        }
-        elseif(Auth::user()->is_restaurant){
-            $products = Auth::user()->restaurant()->first()->products;
+        if(Auth::user()->is_restaurant){
+            $products = Auth::user()->restaurant()->first()->products
+            ->sortByDesc('created_at');
         }
         else {
             if (Auth::user()->brand->first()) {
-                $products = Auth::user()->brand->first()->products;
+                $products = Auth::user()->brand->first()->products
+                ->sortByDesc('created_at');
             } else {
                 $products = new Collection();
             }
@@ -64,17 +64,24 @@ class ProductController extends Controller
     }
 
 
-    public function create()
+    public function create(Request $request)
     {
-
         $route = \Request::route()->getName();
         $arrRoute = explode('.', $route);
 
         $product = new Product();
         $product->type = ucfirst(end($arrRoute));
+        $restaurant = null;
 
         if (Auth::user()->is_super) {
+            if(isset($request->all()['restaurant'])){
+                $restaurant_id = $request->all()['restaurant'];
+                $restaurant = Restaurant::find($restaurant_id);
+                $companies = $restaurant->company()->first();
+            }
+            else{
             $companies = Company::all();
+            }
 
         } else {
             $companies = Auth::user()->brand->first();
@@ -87,6 +94,8 @@ class ProductController extends Controller
         return view('admin.products.create')->with([
                 'product' => $product,
                 'companies' => $companies,
+                'brand' => $companies,
+                'restaurant' => $restaurant,
                 'foods' => $foods,
                 'allergens' => $allergens,
                 'dietaries' => $dietaries
@@ -131,8 +140,13 @@ class ProductController extends Controller
         if ($request->media) {
             $product->media()->sync(array_unique($request->media));
         }
-
-        return redirect()->route('products.index')->with([
+        if(Auth::user()->is_super && (isset($fields['status_product']) && $fields['status_product'] === 'APPROVED')){
+            return redirect()->route('products.create.'.strtolower($fields['type']), ['restaurant'=>$product->restaurant->id])->with([
+                'notification' => trans('messages.notification.product_saved'),
+                'type-notification' => 'success'
+            ]); 
+        }
+        return redirect()->to($fields['redirect_route'])->with([
             'notification' => trans('messages.notification.product_saved'),
             'type-notification' => 'success'
         ]);
@@ -191,10 +205,6 @@ class ProductController extends Controller
 
         $fields = $request->all();
 
-        // if products is only updated set to DRAFT status
-        if (!isset($fields['status_product'])) {
-            $fields['status_product'] = 'DRAFT';
-        }
         $this->saveCategories($product, $fields);
 
         $product->update($fields);
@@ -206,6 +216,28 @@ class ProductController extends Controller
             $product->media()->sync(array_unique($request->media));
         }
 
+        $explode_prev_route = explode('?', $fields['previous_route']);
+        $prev_route = $explode_prev_route[0];
+
+        if(Auth::user()->is_super && (isset($fields['status_product']) && $fields['status_product'] === 'APPROVED')){
+            if($prev_route === route('products.filter.dishes')){
+                return redirect()->route('products.create.'.strtolower($fields['type']), ['restaurant'=>$product->restaurant->id])->with([
+                    'notification' => trans('messages.notification.product_saved'),
+                    'type-notification' => 'success'
+                ]); 
+            }
+            return redirect()->route('products.create.'.strtolower($fields['type']))->with([
+                'notification' => trans('messages.notification.product_saved'),
+                'type-notification' => 'success'
+            ]); 
+        }
+
+        if(Auth::user()->is_super && ($prev_route === route('products.filter.dishes'))){
+            return redirect()->route('products.filter.dishes', ['restaurant'=>$product->restaurant->id, 'brand'=>$product->company->id])->with([
+                'notification' => trans('messages.notification.product_saved'),
+                'type-notification' => 'success'
+            ]); 
+        }
 
         return redirect()->route('products.index')->with([
             'notification' => trans('messages.notification.product_saved'),
@@ -214,10 +246,45 @@ class ProductController extends Controller
 
     }
 
+    public function filter(Request $request)
+    {
+        try{
+            $fields = $request->all();
+            $field_restaurant = $fields['restaurant_id'] ?? $fields['restaurant'];
+            $field_brand = $fields['brand_id'] ?? $fields['brand'];
+            $restaurant = Restaurant::where('id', $field_restaurant)->get();
+            $brand = Company::where('id', $field_brand)->get();
+            if (Auth::user()->is_super) {
+                $products = Product::whereHas('restaurant', function ($query) use ($field_restaurant) {
+                    $query->where('id', $field_restaurant);
+                })
+                ->orderBy('created_at', 'DESC')
+                ->orderByRaw('FIELD(status_product, "PENDING","DRAFT","DISABLED","APPROVED")')
+                ->get();
+                return view('admin.products.index')->with([
+                    'restaurant' => $restaurant,
+                    'brand' => $brand,
+                ])->with(compact('products'));
+            }
+        }
+        catch (\Throwable $exception) {
+            Log::info('An error occurred during capture payment {' . $exception . '}');
+        }
+
+    }
+
 
     public function destroy(Product $product)
     {
+        $explode_prev_route = explode('?', url()->previous());
+        $prev_route = $explode_prev_route[0];
         if ($product->pickupsAreExpired()) {
+            if(Auth::user()->is_super && ($prev_route === route('products.filter.dishes'))){
+                return redirect()->route('products.filter.dishes', ['restaurant'=>$product->restaurant->id, 'brand'=>$product->company->id])->with([
+                    'notification' => trans('messages.notification.product_saved'),
+                    'type-notification' => 'success'
+                ]); 
+            }
             return redirect()->route('products.index')->with([
                 'notification' => trans('messages.notification.product_cant_remove'),
                 'type-notification' => 'danger'
@@ -225,7 +292,12 @@ class ProductController extends Controller
         }
 
         $product->delete();
-
+        if(Auth::user()->is_super && ($prev_route === route('products.filter.dishes'))){
+            return redirect()->route('products.filter.dishes', ['restaurant'=>$product->restaurant->id, 'brand'=>$product->company->id])->with([
+                'notification' => trans('messages.notification.product_saved'),
+                'type-notification' => 'success'
+            ]); 
+        }
         return redirect()->route('products.index')->with([
             'notification' => trans('messages.notification.product_removed'),
             'type-notification' => 'warning'

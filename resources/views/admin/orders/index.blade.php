@@ -26,7 +26,7 @@
                     'datatable.headers.restaurant' => 'restaurant_name',
                     'datatable.headers.type'  => 'type_pickup',
                     'datatable.headers.payment_method' => 'payment:payment_method_types',
-                    'datatable.headers.total_amount' => 'total_amount',
+                    'datatable.headers.total_amount' => 'subtotal_amount',
                     'datatable.headers.commission_to_pay' => 'commission_to_pay',
                     'datatable.headers.status'      => 'status',
                     ]"
@@ -38,7 +38,7 @@
                     'ID' => 'id',
                     'datatable.headers.type'  => 'type_pickup',
                     'datatable.headers.payment_method' => 'payment:payment_method_types',
-                    'datatable.headers.total_amount' => 'total_amount',
+                    'datatable.headers.total_amount' => 'subtotal_amount',
                     'datatable.headers.status'      => 'status',
                     ]"
                 actions="view" />

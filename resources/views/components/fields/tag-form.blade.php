@@ -1,4 +1,4 @@
-<form class="card-box submit-offert" method="post" @if(isset($file)) enctype="multipart/form-data" @endif action="{{ $action }}">
+<form class="card-box submit-form" method="post" @if(isset($file)) enctype="multipart/form-data" @endif action="{{ $action }}">
       @csrf
       @if (isset($method))
           @method($method)

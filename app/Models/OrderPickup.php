@@ -20,6 +20,21 @@ class OrderPickup extends Model
         return $this->belongsTo('App\Models\Pickup')->withTrashed();
     }
 
+
+
+    public function delegate()
+    {
+        return $this->belongsTo('App\Models\Delegate');
+
+    }
+
+    public function user()
+    {
+
+        return $this->belongsTo('App\Models\User');
+
+    }
+
     public function getDateFormatAttribute() {
 
         return $this->created_at ? Carbon::parse($this->created_at)->format('d/m/Y') : '';

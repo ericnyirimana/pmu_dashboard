@@ -30,10 +30,12 @@ Il tuo menù è approvato. Se vuoi effettuare delle modifiche alla sua struttura
 <div class="row mt-5">
   <div class="col-12">
         <div class="form-group d-flex align-items-center justify-content-between">
+        @if(Auth::user()->is_super || (Auth::user()->is_owner && !isset($menu->id)))
             <button type="submit" class="btn btn-block w-lg btn-success col-5" @if($menu->has_products_in_active_pickup) disabled @endif>
                 @if($menu->id) {{ ucfirst(trans('button.save')) }} @else {{ ucfirst(trans('button.next')) }}
                 @endif
             </button>
+        @endif
             @if($menu->id)
                 @if(Auth::user()->is_super)
                     @if(!$menu->is_approved)

@@ -306,7 +306,7 @@
             @endif
             $('.fa-spin').hide();
             function validateForm(action_type){
-                var url = $('.submit-offert').attr('action');
+                var url = $('.submit-form').attr('action');
                 var name = $('#name').val();
                 var brand_id = $('#brand_id').val();
                 var restaurant_id = $('#restaurant_id').val();
@@ -363,11 +363,6 @@
                     if(action_type === 'suspend-offer') {
                         ajaxData.suspended = $('#suspended').val();
                     }
-                    @if(session('first_edit'))
-                        if(action_type !== 'suspend-offer') {
-                            ajaxData.suspended = 0;
-                        }
-                    @endif
                 $.ajax({
                     type: 'POST',
                     url,
