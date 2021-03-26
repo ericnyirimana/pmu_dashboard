@@ -124,6 +124,13 @@ class Pickup extends Model
 
     }
 
+    public function pickupSection()
+    {
+
+        return $this->hasMany('App\Models\PickupSection');
+
+    }
+
     public function getSectionsAttribute()
     {
 

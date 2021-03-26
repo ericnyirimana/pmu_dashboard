@@ -55,4 +55,10 @@ class MenuSection extends Model
         }
         return false;
     }
+
+    public function pickupSection() {
+
+        return $this->hasMany('App\Models\PickupSection');
+
+    }
 }
