@@ -126,6 +126,19 @@ $(document).ready(function(){
 function removeSection(id) {
 
     $('#section-'+id).remove();
+    $("#sortable_sections").children('.container-sections').each(function(item, element) {
+        $.ajax({
+            url: "{{ route('section.position') }}/"+$(element).data('id'),
+            type: 'POST',
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            dataType: 'json',
+            data: {position: item},
+            success: function(data) {
+
+            }
+        });
+
+    })
 
 }
 
