@@ -15,7 +15,7 @@
                 <label for="">{{ __('labels.company') }}</label>
                 <select id="brand_id" class="form-control" name="brand_id">
                     @if($brands)
-                        <option value="{{$media->company}}">{{ __('labels.select_company') }}</option>
+                        <option value="">{{ __('labels.select_company') }}</option>
                         @foreach($brands as $brand)
                             <option value="{{ $brand->id }}" @if($media->company->id == $brand->id) selected @endif>{{ $brand->name }}</option>
                         @endforeach
