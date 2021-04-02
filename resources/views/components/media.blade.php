@@ -96,6 +96,12 @@
                                         {{ ucfirst(trans('button.approved')) }}
                                     </button>
                                 @endif
+                            @else
+                                @if($file->status_media == 'PENDING')
+                                    <button type="button" class="btn btn-primary mt-3 w-100 js-approve-media" data-id="{{$file->id }}">{{ ucfirst(trans("button.wait_approves")) }}</button>
+                                @else
+                                    <button type="button" class="btn btn-success mt-3 w-100 js-wait-media" data-id="{{$file->id }}">{{ ucfirst(trans("button.approved")) }}</button>
+                                @endif
                             @endif
                         </figure>
                     </div>
