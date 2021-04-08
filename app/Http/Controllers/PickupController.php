@@ -166,9 +166,15 @@ class PickupController extends Controller
         $dates = explode('|', $fields['date']);
         $fields['date_ini'] = Carbon::parse($dates[0]);
         $fields['date_end'] = Carbon::parse($dates[1]);
+        $restaurant = Restaurant::find($fields['restaurant_id']);
+        if(!$restaurant->menu()->first()->is_approved){
+            return redirect()->route('pickups.create')->with([
+                'notification' => trans('messages.notification.menu_for_approval'),
+                'type-notification' => 'danger'
+            ]);
+        }
         if($fields['type_pickup'] == 'subscription'){
             $timeslots = array();
-            $restaurant = Restaurant::find($fields['restaurant_id']);
             $restaurantTimeslots = $restaurant->timeslots;
             foreach($restaurantTimeslots as $restaurantTimeslot){
                 if($restaurantTimeslot->mealtype->all_day == 1){
@@ -248,6 +254,12 @@ class PickupController extends Controller
                 'selected_product_id' => $selectedProductId,
                 'loyalty_card_availability' => $availability,
                 'media' => $media,
+            ]);
+        }
+        if($menu == null){
+            return redirect()->route('pickups.index')->with([
+                'notification' => trans('messages.notification.menu_for_approval'),
+                'type-notification' => 'danger'
             ]);
         }
         return view('admin.pickups.edit')->with([

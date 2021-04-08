@@ -34,6 +34,7 @@ return [
         'product_cant_remove' => 'Product can\'t remove, there is an offer not expired',
         'not_allowed_user' => 'You are not allowed to update this section',
         'subscription_not_ordered' => 'Nothing have been yet ordered!',
+        'menu_for_approval' => 'The menu needs to be approved for the selected restaurant',
     ],
     'client_can_place_order_30_min_before' => 'The user can place orders up to 30 minutes before the indicated end time',
 ];
