@@ -34,6 +34,7 @@ return [
         'pickup_product_is_ordered' => 'Ci dispiace, non possiamo eliminare l\'elemento selezionato, perché c\'è un ordine in corso di questo prodotto: ":product". <br> Puoi renderlo non disponibile portando la quantità del prodotto a 0.',
         'not_allowed_user' => 'Non sei autorizzato ad aggiornare questa sezione',
         'subscription_not_ordered' => 'Abbonamento al momento non ancora utilizzato!',
+        'menu_for_approval' => 'Il tuo menù risulta non approvato. Per poter creare o modificare un\'offerta, manda un\'email a ristoranti@pickmealup.com per far approvare il menù.',
     ],
     'client_can_place_order_30_min_before' => 'L\'utente potrà effettuare ordini fino a 30 minuti prima dell\'orario di fine indicato',
 
