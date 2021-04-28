@@ -18,6 +18,11 @@
                     {{ ucfirst(trans('datatable.tab_restaurant.account')) }}
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="#integration" data-toggle="tab" aria-expanded="false" class="nav-link">
+                    {{ ucfirst(trans('datatable.tab_restaurant.integration')) }}
+                </a>
+            </li>
         </ul>
         <div class="tab-content">
             <div class="tab-pane show active" id="general">
@@ -30,6 +35,9 @@
             @endif
             <div class="tab-pane" id="account">
                 @include('admin.restaurants.parts.tab-account')
+            </div>
+            <div class="tab-pane" id="integration">
+                @include('admin.restaurants.parts.tab-integration')
             </div>
         </div>
     </div>

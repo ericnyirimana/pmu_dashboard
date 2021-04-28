@@ -177,4 +177,6 @@ return [
     'PENDING' => 'PENDING',
     'alert_info_dishes' => ' Se vuoi effettuare delle modifiche o lo vuoi eliminare, manda una email a',
     'under_approval' => 'IN APPROVAZIONE',
+    'scloby_integration' => 'Scloby Integrazione',
+    'enable_scloby' => 'Abilita Scloby',
 ];
