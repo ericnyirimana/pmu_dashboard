@@ -20,6 +20,9 @@ use App\Models\Timeslot;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Aws\DynamoDb\DynamoDbClient;
+
+use Auth;
 
 class RestaurantController extends Controller
 {
@@ -204,7 +207,23 @@ class RestaurantController extends Controller
         $mealtype = Mealtype::all();
         $payments = null;
         $balance = null;
-
+        $sclobyItem = null;
+        $isSclobyIntegrate = $restaurant->restaurantIntegration()->where('integration_type', 'SCLOBY')->count();
+        if($isSclobyIntegrate > 0){
+            $dynamodb = $this->getDynamoDbClient();
+            $tableName = 'scloby_restaurants';
+            $sclobyInfo = $dynamodb->getItem ([
+                'TableName' => $tableName,
+                'ConsistentRead' => true,
+                'Key' => [
+                    'restaurant_identifier' => [
+                        'S' => $restaurant->identifier 
+                    ] 
+                ],
+                'ProjectionExpression' => 'restaurant_identifier, access_token, department_id, category_id' 
+            ] );
+            $sclobyItem = $sclobyInfo->toArray()['Item'];
+        }
         if (isset($restaurant->merchant_stripe)) {
             // List of payment/transfer
             $payouts = $this->stripe->getPayoutsForConnectedAccount($restaurant->merchant_stripe);
@@ -231,6 +250,7 @@ class RestaurantController extends Controller
                 'users' => $users,
                 'payments' => $payments,
                 'balance' => $balance,
+                'scloby' => $sclobyItem
             ]);
 
     }
@@ -507,6 +527,84 @@ class RestaurantController extends Controller
 
     }
 
+    public function saveIntegration(Request $request, Restaurant $restaurant)
+    {
+
+        if(Auth::user()->is_super){
+            $request->validate(
+                [
+                    'department_id' => 'integer',
+                    'category_id' => 'integer',
+                ]
+            );
+        }
+        $fields = $request->all();
+        $dynamodb = $this->getDynamoDbClient();
+        $tableName = 'scloby_restaurants';
+        $isSclobyIntegrate = $restaurant->restaurantIntegration()->where('integration_type', 'SCLOBY')->count();
+        $traceId = (string)Str::uuid();
+        if(isset($fields['scloby']) && $fields['scloby'] == 'active' && !isset($fields['scloby_token'])){
+            return response()->json(['errors' => 'Scloby token is required'], 400);
+        }
+        elseif(isset($fields['scloby']) && $fields['scloby'] == 'active' && isset($fields['scloby_token'])){
+            if($isSclobyIntegrate === 0){
+                $dynamodb->putItem([
+                    'TableName' => $tableName,
+                    'Item' => [
+                        'restaurant_identifier' => ['S' => $restaurant->identifier],
+                        'access_token' => ['S' => $fields['scloby_token']],
+                        'identifier' => ['S' => $traceId],
+                        'department_id' => ['N' => $fields['department_id']],
+                        'category_id' => ['N' => $fields['category_id']],
+                    ],
+                    'ReturnConsumedCapacity' => 'TOTAL'
+                ]);
+                $restaurant->restaurantIntegration()->create([
+                    'integration_type' => 'SCLOBY',
+                ]);
+            }
+            else {
+                $dynamodb->updateItem ( [
+                    'TableName' => $tableName,
+                    'Key' => [
+                        'restaurant_identifier' => [
+                            'S' => $restaurant->identifier
+                        ] 
+                    ],
+                    'ExpressionAttributeNames' => [
+                        '#A' => 'access_token',
+                        '#C' => 'category_id',
+                        '#D' => 'department_id',
+                    ],
+                    'ExpressionAttributeValues' =>  [
+                        ':val1' => ['S' => $fields['scloby_token']],
+                        ':val2' => ['N' => $fields['category_id']],
+                        ':val3' => ['N' => $fields['department_id']],
+                    ],
+                    'UpdateExpression' => 'set #A = :val1, #C = :val2, #D = :val3',
+                    'ReturnValues' => 'ALL_NEW' 
+                ]);
+            }
+
+        }
+
+        elseif(isset($fields['scloby']) && $fields['scloby'] == 'disable' && $isSclobyIntegrate > 0){
+            $dynamodb->deleteItem ( [
+                'TableName' => $tableName,
+                'Key' => [
+                    'restaurant_identifier' => [
+                        'S' => $restaurant->identifier
+                    ]  
+                ],
+                'ReturnValues' => 'ALL_OLD'
+            ]);
+            $restaurant->restaurantIntegration()->where('integration_type', 'SCLOBY')->delete();
+        }
+
+        return response()->json(['success' => 'Integration saved successfully'], 200);
+
+    }
+
     /**
      * @param $restaurant
      */
@@ -535,6 +633,40 @@ class RestaurantController extends Controller
             $mealtypeList[$mealtypeItem->id] = $mealtypeItem->name;
         });
         return $mealtypeList;
+    }
+
+    public function getDynamoDbClient() {
+
+        try {
+
+          $client = new DynamoDbClient([
+                'version' => env('AWS_COGNITO_VERSION'),
+                'region' => env('AWS_COGNITO_REGION'),
+                'credentials' => [
+                    'key'    => env('AWS_ACCESS_KEY_ID'),
+                    'secret' => env('AWS_SECRET_ACCESS_KEY'),
+                ],
+            ]);
+
+        } catch (\Aws\DynamoDb\Exception\DynamoDbException $e) {
+
+              $message = $e->getResponse();
+              $this->error = $message->getHeaders()['x-amzn-ErrorMessage'][0];
+
+              return false;
+
+
+        } catch (\Exception $e) {
+
+              $this->error = $e->getMessage();
+
+              return false;
+
+        }
+
+        return $client;
+
+
     }
 
 

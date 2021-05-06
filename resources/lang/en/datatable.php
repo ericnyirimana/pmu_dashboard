@@ -61,6 +61,7 @@ return [
         'payment' => 'Payment history',
         'order' => 'Orders',
         'account' => 'Account',
-        'ticket' => 'Ticket'
+        'ticket' => 'Ticket',
+        'integration' => 'Integration',
     ],
 ];
