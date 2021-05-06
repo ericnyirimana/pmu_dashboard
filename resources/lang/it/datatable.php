@@ -62,6 +62,7 @@ return [
         'order' => 'Ordini',
         'subscription' => 'Abbonamenti',
         'account' => 'Account',
-        'ticket' => 'Ticket'
+        'ticket' => 'Ticket',
+        'integration' => 'Integrazione',
     ],
 ];

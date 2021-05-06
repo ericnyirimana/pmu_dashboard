@@ -65,6 +65,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('/categories', 'CategoryController');
         Route::resource('/users', 'UserController');
         Route::resource('/restaurants', 'RestaurantController');
+        Route::post('/integrations/{restaurant}', 'RestaurantController@saveIntegration')->name('restaurant.set.integration');
         Route::get('/payments', 'RestaurantController@payment')->name('payments.show');
 
         Route::resource('/orders', 'OrderController');

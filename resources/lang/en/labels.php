@@ -168,4 +168,6 @@ return [
     'PENDING' => 'PENDING',
     'alert_info_dishes' => 'If you want to make changes or delete it, send an email to',
     'under_approval' => 'IN APPROVAL STATUS',
+    'scloby_integration' => 'Scloby Integration',
+    'enable_scloby' => 'Enable Scloby',
 ];

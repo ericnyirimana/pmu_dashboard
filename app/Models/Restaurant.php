@@ -107,6 +107,12 @@ class Restaurant extends Model
 
     }
 
+    public function restaurantIntegration() {
+
+      return $this->hasMany('App\Models\RestaurantIntegration');
+
+    }
+
 
     /**
     * [
