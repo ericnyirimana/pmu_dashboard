@@ -179,4 +179,5 @@ return [
     'under_approval' => 'IN APPROVAZIONE',
     'scloby_integration' => 'Scloby Integrazione',
     'enable_scloby' => 'Abilita Scloby',
+    'number_of_item_selected' => 'N° di articoli selezionabili per questa sezione'
 ];

@@ -269,6 +269,8 @@ class PickupController extends Controller
                 'pickup_mealtype' => $pickup_mealtype,
                 'month_validity' => $month_validity,
                 'subscription_items' => $items,
+                'max_quantity_per_section' => 5,
+                'min_quantity_per_section' => 1,
             ]
         );
     }
@@ -346,8 +348,32 @@ class PickupController extends Controller
         $timeslots = $fields['timeslot_id'];
         unset($fields['timeslot_id']);
         }
-        $pickup->update($fields);
 
+        $pickup->pickupSection()->delete();
+        foreach($fields['menu_section_identifier'] as $key => $value){
+            if($fields['quantity_per_section'][$key] > 1){
+                $fields['type_offer'] = 'multiple';
+            }
+            if($pickup->pickupSection()->withTrashed()->where('menu_section_identifier', $fields['menu_section_identifier'][$key])->count() > 0){
+                $pickup->pickupSection()->withTrashed()->where('menu_section_identifier', $fields['menu_section_identifier'][$key])->update(
+                    ['quantity_min_per_section' => $fields['quantity_per_section'][$key],
+                    'quantity_max_per_section' => $fields['quantity_per_section'][$key],
+                    'deleted_at' => NULL,
+                ]);
+
+            } else {
+                $pickup->pickupSection()->withTrashed()->create(
+                    ['menu_section_id' => $fields['menu_section_id'][$key],
+                    'menu_section_identifier' => $fields['menu_section_identifier'][$key],
+                    'quantity_min_per_section' => $fields['quantity_per_section'][$key],
+                    'quantity_max_per_section' => $fields['quantity_per_section'][$key],
+                    'deleted_at' => NULL,
+                ]);
+
+            }
+        }
+
+        $pickup->update($fields);
         if ($pickup->type_pickup == 'offer') {
             $pickup->offer->update($fields);
         } else {
@@ -403,6 +429,7 @@ class PickupController extends Controller
             //Delete Pickup Offers
             if($pickup->type_pickup == 'offer'){
                 $pickup->offer()->delete();
+                $pickup->pickupSection()->delete();
                 $pickup->delete();
             } else {
                 $pickup->subscription()->delete();

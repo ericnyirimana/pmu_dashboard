@@ -5,17 +5,17 @@
 </div>
 
 <div class="row clearfix">
-    <field-hide :model="$pickup" field="type_offer"/>
+    <input type="hidden" class="form-control" name="type_offer" id="type_offer" @if($pickup->type_offer == 'combo' || $pickup->pickupSection()->count() > 1) value="combo" @else value="single" @endif>
     @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
 
     @else
         <div class="col-6">
             <span
-                class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">Single</span>
+                class="text-center btn @if(empty($pickup->type_offer) || $pickup->type_offer == 'single' || $pickup->pickupSection()->count() <= 1) btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-single">Single</span>
         </div>
         <div class="col-6 text-center">
             <span
-                class="text-center btn @if($pickup->type_offer == 'combo') btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">Combo</span>
+                class="text-center btn @if($pickup->type_offer == 'combo' || $pickup->pickupSection()->count() > 1) btn-primary @else btn-secondary @endif btn-block text-uppercase btn-type_offer type-combo">Combo</span>
         </div>
     @endif
 </div>
@@ -61,7 +61,8 @@
                                                     data-clean-name="{{ preg_replace('/[^A-Za-z0-9]/', '', $product->name) }}"
                                                     data-section="{{ $section->name }}"
                                                     data-section-id="{{ $section->position }}"
-                                                    data-menu="{{ $section->id }}">
+                                                    data-menu="{{ $section->id }}"
+                                                    data-identifier="{{ $section->identifier }}">
                                                     {{ $product->name }}
                                                     </span>
                                                 </li>
@@ -91,6 +92,13 @@
                                     <div class="card" id="{{ $div_section->name }}" data-id="{{ $section[0]->section->position }}" data-menu="{{ $section[0]->menu_section_id }}">
                                         <div class="card-header">
                                             <h6 class="float-left">{{ $div_section->name }}</h6>
+                                            <div class="float-left col-2">
+                                                @php $section_quantity = $pickup->pickupSection->where('menu_section_id', $section[0]->menu_section_id); @endphp
+                                                <input type="hidden" name="menu_section_identifier[]" value="{{ $section[0]->section->identifier}}"  />
+                                                <input type="hidden" name="menu_section_id[]" value="{{ $section[0]->menu_section_id }}"  />
+                                                <input type="number" placeholder="Quantity" class="form-control" min="1" name="quantity_per_section[]" value="{{ $section_quantity->count() ? $section_quantity->first()->quantity_max_per_section : 1 }}"/>
+                                            </div>
+                                            <h6 class="float-left text-warning"><b>{{ ucfirst(trans('labels.number_of_item_selected')) }}</b></h6>
                                             @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
                                             @else
                                             <i class="fi-trash float-right font-18 remove-section"></i>
@@ -111,11 +119,9 @@
                                                             <i class="fa fa-minus-square remove"></i>
                                                         @endif
                                                             <div class="name">{{ $product->name }}</div>
-                                                            @if($pickup->type_pickup == 'offer')
-                                                            <div class="quantity"><input type="text" name="quantity[]"
+                                                            <div class="quantity"><input @if($pickup->type_pickup == 'offer') type="text" @else type="hidden" @endif name="quantity[]"
                                                                                         value="{{ $product->pivot->quantity_offer }}"
                                                                                         maxlength="3"/></div>
-                                                            @endif
                                                             <input type="hidden" name="products[]" value="{{ $product->id }}"/>
                                                         </li>
                                                     @endforeach
@@ -319,6 +325,9 @@
                 var products = [];
                 var medias = [];
                 var timeslot_id = [];
+                var menu_section_identifier = [];
+                var menu_section_id = [];
+                var quantity_per_section = [];
                 $('.quantity input[name="quantity[]"]').each(function(element){
                     quantities.push($(this).val());
                 });
@@ -328,9 +337,17 @@
                 $('input[name="media[]"]').each(function(element){
                     medias.push($(this).val());
                 });
-
                 $('input[name="timeslot_id[]"]:checked').each(function(index, element){
                     timeslot_id.push($(this).val());
+                });
+                $('input[name="menu_section_identifier[]"]').each(function(index, element){
+                    menu_section_identifier.push($(this).val());
+                });
+                $('input[name="menu_section_id[]"]').each(function(index, element){
+                    menu_section_id.push($(this).val());
+                });
+                $('input[name="quantity_per_section[]"]').each(function(index, element){
+                    quantity_per_section.push($(this).val());
                 });
                 var quantity_offer = $('#quantity_offer').val();
                 var check_media = $('#check_media').val();
@@ -358,6 +375,9 @@
                         "type_pickup": "{{ $pickup->type_pickup }}",
                         "validate_months": validate_months,
                         "quantity_per_subscription": quantity_per_subscription,
+                        "menu_section_identifier": menu_section_identifier,
+                        "menu_section_id": menu_section_id,
+                        "quantity_per_section": quantity_per_section,
                         "_method": 'put'
                     }
                     if(action_type === 'suspend-offer') {
@@ -460,7 +480,23 @@
                     {
                         $(this).val(min);
                     }   
-                @endif   
+                @endif
+            }); 
+
+            $(document).on('change', 'input[name="quantity_per_section[]"]', function () {
+                var parent_div = $(this).parent().parent().parent().find('[name="quantity[]"]');
+                var min = {{ $min_quantity_per_section }};
+                var max = {{ $max_quantity_per_section }};
+                if ($(this).val() < min)
+                {
+                    $(this).val(min);
+                }
+                if ($(this).val() > max)
+                {
+                    $(this).val(max);
+                }
+                var product_quantity = $(this).val() * $('#quantity_offer').val();
+                parent_div.val(product_quantity);
             }); 
         });
         function addItem(el) {
@@ -469,9 +505,10 @@
             var name = $(el).data('name');
             var section = $(el).data('section');
             var section_menu = $(el).data('menu');
+            var section_menu_identifier = $(el).data('identifier');
             var section_id = $(el).data('section-id');
             if (!$('#' + section.replace(/\W/g, '')).length) {
-                addSection(section, section_id, section_menu);
+                addSection(section, section_id, section_menu, section_menu_identifier);
             }
             $('#header-'+section_menu+' span.add-all').removeClass('add-all');
             $(el).removeClass('add');
@@ -480,7 +517,7 @@
             html += '<i class="fa fa-minus-square remove"></i>';
             html += '<div class="name">' + name + '</div>';
             @if($pickup->type_pickup == 'offer')
-            html += '<div class="quantity"><input type="text" name="quantity[]" value="10" maxlength="3"/></div>';
+            html += '<div class="quantity"><input type="text" name="quantity[]" value="'+ $('#quantity_offer').val() +'" maxlength="3"/></div>';
             @endif
             html += '<input type="hidden" name="products[]" value="' + id + '" />';
             html += '</li>';
@@ -502,11 +539,17 @@
 
         }
 
-        function addSection(name, id, menu_id) {
+        function addSection(name, id, menu_id, menu_identifier) {
 
             var html = '<div class="card" id="' + name.replace(/\W/g, '') + '" data-id="' + id + '" data-menu="' + menu_id + '">';
             html += '<div class="card-header">';
             html += '<h6 class="float-left">' + name + '</h6>';
+            html += '<div class="float-left col-2">';
+            html += '<input type="hidden" class="form-control" value="' + menu_identifier + '" name="menu_section_identifier[]"/>';
+            html += '<input type="hidden" class="form-control" value="' + menu_id + '" name="menu_section_id[]"/>';
+            html += '<input type="number" placeholder="Quantity" class="form-control" value="1" name="quantity_per_section[]"/>';
+            html += '</div>';
+            html += '<h6 class="float-left text-warning"><b>{{ ucfirst(trans("labels.number_of_item_selected")) }}</b></h6>'
             html += '<i class="fi-trash float-right font-18 remove-section"></i>';
             html += '</div>';
             html += '<div class="card-body">';

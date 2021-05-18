@@ -170,4 +170,5 @@ return [
     'under_approval' => 'IN APPROVAL STATUS',
     'scloby_integration' => 'Scloby Integration',
     'enable_scloby' => 'Enable Scloby',
+    'number_of_item_selected' => 'N° of items selected for this section'
 ];
