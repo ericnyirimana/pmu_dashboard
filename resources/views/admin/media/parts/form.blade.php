@@ -17,7 +17,7 @@
                     @if($brands)
                         <option value="">{{ __('labels.select_company') }}</option>
                         @foreach($brands as $brand)
-                            <option value="{{ $brand->id }}" @if($media->company->id == $brand->id) selected @endif>{{ $brand->name }}</option>
+                            <option value="{{ $brand->id }}" @if($media->company) @if($media->company->id == $brand->id) selected @endif @endif>{{ $brand->name }}</option>
                         @endforeach
                     @endif
                 </select>
