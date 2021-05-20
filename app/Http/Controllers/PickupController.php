@@ -301,20 +301,11 @@ class PickupController extends Controller
             ]);
         }
 */
-        //$totalProductsQuantity = 0;
         PickupProduct::where('pickup_id', $pickup->id)->delete();
         foreach ($fields['products'] as $k => $v) {
-            //$totalProductsQuantity += $fields['quantity'][$k];
-            if ($pickup->type_pickup == 'offer') {
                 $products[$v] = ['quantity_offer' => $fields['quantity'][$k],
                                 'created_at' => Carbon::now(),
                                 'updated_at' => Carbon::now()];
-            }
-            else{
-                $products[$v] = ['quantity_offer' => $fields['quantity_offer'],
-                                'created_at' => Carbon::now(),
-                                'updated_at' => Carbon::now()];
-            }
         }
         //Check the total quantity
         $sections = $pickup->sections;
