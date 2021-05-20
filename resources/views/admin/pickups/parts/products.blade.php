@@ -89,7 +89,7 @@
                             @if(isset($pickup->sections[$div_section->name]))
                                 @php $section = $pickup->sections[$div_section->name]; @endphp
                                 <div id="menu_{{$section_key}}" class="section_list"> 
-                                    <div class="card" id="{{ $div_section->name }}" data-id="{{ $section[0]->section->position }}" data-menu="{{ $section[0]->menu_section_id }}">
+                                    <div class="card" id="{{ str_replace(' ', '', $div_section->name) }}" data-id="{{ $section[0]->section->position }}" data-menu="{{ $section[0]->menu_section_id }}">
                                         <div class="card-header">
                                             <h6 class="float-left">{{ $div_section->name }}</h6>
                                             <div class="float-left col-2">
