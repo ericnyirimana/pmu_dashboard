@@ -1,10 +1,4 @@
-<div class="row">
-    <div class="col-12">
-        <h5>{{ ucfirst(trans('labels.build_offer')) }}</h5>
-    </div>
-</div>
-
-<div class="row clearfix">
+<div class="row clearfix" style="display: none;">
     <input type="hidden" class="form-control" name="type_offer" id="type_offer" @if($pickup->type_offer == 'combo' || $pickup->pickupSection()->count() > 1) value="combo" @else value="single" @endif>
     @if($pickup->type_pickup == 'subscription' && $pickup->orders->count() > 0)
 
@@ -517,7 +511,9 @@
             html += '<i class="fa fa-minus-square remove"></i>';
             html += '<div class="name">' + name + '</div>';
             @if($pickup->type_pickup == 'offer')
-            html += '<div class="quantity"><input type="text" name="quantity[]" value="'+ $('#quantity_offer').val() +'" maxlength="3"/></div>';
+                html += '<div class="quantity"><input type="text" name="quantity[]" value="'+ $('#quantity_offer').val() +'" maxlength="3"/></div>';
+            @else
+                html += '<div class="quantity"><input type="hidden" name="quantity[]" value="'+ $('#quantity_offer').val() +'" maxlength="3"/></div>';
             @endif
             html += '<input type="hidden" name="products[]" value="' + id + '" />';
             html += '</li>';
