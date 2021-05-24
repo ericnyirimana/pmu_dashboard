@@ -111,7 +111,7 @@ class ProductController extends Controller
         $this->validation($request);
 
         $fields = $request->all();
-
+        // dd($fields);
         $fields['type'] = $request->type ?? 'Dish';
         $fields['status'] = $request->status ?? false;
         // if products is only updated set to DRAFT status
@@ -146,7 +146,13 @@ class ProductController extends Controller
                 'type-notification' => 'success'
             ]); 
         }
-        return redirect()->to($fields['redirect_route'])->with([
+        elseif(Auth::user()->is_super){
+            return redirect()->route('products.filter.dishes', ['restaurant'=>$product->restaurant->id, 'brand'=>$product->company->id])->with([
+                'notification' => trans('messages.notification.product_saved'),
+                'type-notification' => 'success'
+            ]); 
+        }
+        return redirect()->route('products.index')->with([
             'notification' => trans('messages.notification.product_saved'),
             'type-notification' => 'success'
         ]);

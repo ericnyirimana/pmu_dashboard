@@ -18,11 +18,13 @@
                     {{ ucfirst(trans('datatable.tab_restaurant.account')) }}
                 </a>
             </li>
+            @if(Route::currentRouteName() == 'restaurants.edit')  
             <li class="nav-item">
                 <a href="#integration" data-toggle="tab" aria-expanded="false" class="nav-link">
                     {{ ucfirst(trans('datatable.tab_restaurant.integration')) }}
                 </a>
             </li>
+            @endif
         </ul>
         <div class="tab-content">
             <div class="tab-pane show active" id="general">
@@ -36,9 +38,11 @@
             <div class="tab-pane" id="account">
                 @include('admin.restaurants.parts.tab-account')
             </div>
+            @if(Route::currentRouteName() == 'restaurants.edit') 
             <div class="tab-pane" id="integration">
                 @include('admin.restaurants.parts.tab-integration')
             </div>
+            @endif
         </div>
     </div>
 </div> <!-- end col -->
