@@ -238,7 +238,7 @@ class ProductController extends Controller
             ]); 
         }
 
-        if(Auth::user()->is_super && ($prev_route === route('products.filter.dishes'))){
+        elseif(Auth::user()->is_super && !isset($fields['status_product'])){
             return redirect()->route('products.filter.dishes', ['restaurant'=>$product->restaurant->id, 'brand'=>$product->company->id])->with([
                 'notification' => trans('messages.notification.product_saved'),
                 'type-notification' => 'success'
