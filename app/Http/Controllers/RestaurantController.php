@@ -76,6 +76,7 @@ class RestaurantController extends Controller
         $restaurant = new Restaurant;
         $media = Media::whereNull('brand_id')->orWhere('brand_id', $company->id)->get();
         $users = $restaurant->users();
+        $scloby = null;
 
         return view('admin.restaurants.create')->with([
             'company' => $company,
@@ -83,6 +84,7 @@ class RestaurantController extends Controller
             'media' => $media,
             'mealtype' => $mealtypeList,
             'users' => $users,
+            'scloby' => $scloby
         ]);
 
     }
