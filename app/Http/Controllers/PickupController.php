@@ -301,7 +301,6 @@ class PickupController extends Controller
             ]);
         }
 */
-        PickupProduct::where('pickup_id', $pickup->id)->delete();
         foreach ($fields['products'] as $k => $v) {
                 $products[$v] = ['quantity_offer' => $fields['quantity'][$k],
                                 'created_at' => Carbon::now(),
@@ -380,6 +379,7 @@ class PickupController extends Controller
         if ($pickup->type_pickup == 'offer') {
         $this->savePickupMealtype($pickup->id, $timeslots);
         }
+        PickupProduct::where('pickup_id', $pickup->id)->delete();
         $pickup->products()->sync($products);
 
         if ($request->media) {
