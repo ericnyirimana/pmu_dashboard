@@ -120,7 +120,7 @@ class Cognito
                 return false;
 
               }
-
+              
               if ($result->get('ChallengeName')) {
 
                     $this->forceResetPassword = true;
@@ -355,6 +355,68 @@ class Cognito
 
 
       }
+
+      /**
+     * @param  string $username
+     * @return string
+     */
+    public function sendResetLink($username)
+    {
+        try {
+            $result = $this->client->forgotPassword([
+                'ClientId' => env('AWS_COGNITO_CLIENT_ID'),
+                'Username' => $username,
+            ]);
+            } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+                  $message = $e->getResponse();
+                  $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+                  return false;
+
+
+            } catch (\Exception $e) {
+
+                  $this->error = $e->getMessage();
+                  return false;
+
+            }
+
+        return $result;
+    }
+
+          /**
+     * @param  string $username
+     * @return string
+     */
+    public function confirmForgotPassword($username, $confirmationCode, $password)
+    {
+        try {
+            $result = $this->client->ConfirmForgotPassword([
+                'ClientId' => env('AWS_COGNITO_CLIENT_ID'),
+                'ConfirmationCode' => $confirmationCode,
+                'Password' => $password,
+                'Username' => $username,
+            ]);
+            } catch (\Aws\CognitoIdentityProvider\Exception\CognitoIdentityProviderException $e) {
+
+                  $message = $e->getResponse();
+                  $this->error =  $message->getHeaders()['x-amzn-ErrorMessage'][0];
+                  if($e->getAwsErrorCode() === 'ExpiredCodeException' || $e->getAwsErrorCode() === 'CodeMismatchException'){
+                    $this->error = trans('messages.notification.code_mismatch_exception');
+                  }
+                  return false;
+
+
+            } catch (\Exception $e) {
+
+                  $this->error = $e->getMessage();
+                  return false;
+
+            }
+
+        return $result;
+    }
+
 
 
       /**

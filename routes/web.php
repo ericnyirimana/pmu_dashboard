@@ -120,6 +120,10 @@ Route::prefix('admin')->group(function () {
     Route::post('logout', 'Auth\LoginController@logout')->name('logout');
     Route::get('set-password', 'Auth\LoginController@setPassword')->name('password.set');
     Route::post('confirm-password', 'Auth\LoginController@confirmPassword')->name('password.confirm');
+    Route::get('forgot-password', 'Auth\ForgotPasswordController@index')->name('forgot.password');
+    Route::post('password-reset-link', 'Auth\ForgotPasswordController@sendResetLinkPassword')->name('send.reset.link');
+    Route::get('password-reset/', 'Auth\ForgotPasswordController@resetPassword')->name('reset.password');
+    Route::post('confirm-password-reset', 'Auth\ForgotPasswordController@confirmResetPassword')->name('confirm.reset.password');
 });
 
 

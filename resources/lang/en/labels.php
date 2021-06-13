@@ -170,5 +170,8 @@ return [
     'under_approval' => 'IN APPROVAL STATUS',
     'scloby_integration' => 'Scloby Integration',
     'enable_scloby' => 'Enable Scloby',
-    'number_of_item_selected' => 'N° of items selected for this section'
+    'number_of_item_selected' => 'N° of items selected for this section',
+    'login_to_your_account' => 'Login to your account',
+    'forgot_your_password' => 'Forgot your password?',
+    'email_to_reset' => 'Enter your email address to reset your password.',
 ];

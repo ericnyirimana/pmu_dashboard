@@ -35,6 +35,8 @@ return [
         'not_allowed_user' => 'You are not allowed to update this section',
         'subscription_not_ordered' => 'Nothing have been yet ordered!',
         'menu_for_approval' => 'The menu needs to be approved for the selected restaurant',
+        'email_sent_for_password_reset' => 'We have sent an email to :email. Check your email to set the new password.',
+        'code_mismatch_exception'  => 'Invalid code provided, please request a code again.',
     ],
     'client_can_place_order_30_min_before' => 'The user can place orders up to 30 minutes before the indicated end time',
 ];

@@ -35,6 +35,8 @@ return [
         'not_allowed_user' => 'Non sei autorizzato ad aggiornare questa sezione',
         'subscription_not_ordered' => 'Abbonamento al momento non ancora utilizzato!',
         'menu_for_approval' => 'Il tuo menù risulta non approvato. Per poter creare o modificare un\'offerta, manda un\'email a ristoranti@pickmealup.com per far approvare il menù.',
+        'email_sent_for_password_reset' => 'Abbiamo inviato un email a :email. Controlla la posta in arrivo e segui le istruzioni per reimpostare la tua password.',
+        'code_mismatch_exception'  => 'Codice fornito non valido, richiedi nuovamente un codice.'
     ],
     'client_can_place_order_30_min_before' => 'L\'utente potrà effettuare ordini fino a 30 minuti prima dell\'orario di fine indicato',
 
