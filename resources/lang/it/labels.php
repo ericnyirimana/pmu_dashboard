@@ -179,5 +179,8 @@ return [
     'under_approval' => 'IN APPROVAZIONE',
     'scloby_integration' => 'Scloby Integrazione',
     'enable_scloby' => 'Abilita Scloby',
-    'number_of_item_selected' => 'N° di articoli selezionabili per questa sezione'
+    'number_of_item_selected' => 'N° di articoli selezionabili per questa sezione',
+    'login_to_your_account' => 'Accedi al tuo account',
+    'forgot_your_password' => 'Hai dimenticato la password?',
+    'email_to_reset' => 'Inserisci il tuo indirizzo e-mail per reimpostare la password.',
 ];

@@ -17,8 +17,7 @@
                                         <span><img class="logo" width="141px" height="54px" src="{{ asset("/img/pmu_logo.png")}}"/></span>
                                     </a>
                                 </h2>
-                                <h5 class="text-uppercase font-bold m-b-5 m-t-50">Sign In</h5>
-                                <p class="m-b-0">Login to your Admin account</p>
+                                <h5 class="text-uppercase font-bold m-b-5 m-t-50 text-center">{{ ucfirst(trans('labels.login_to_your_account')) }}</h5>
                             </div>
                             <div class="account-content">
                               <form class="form-horizontal" method="POST" action="{{ route('authenticate') }}">
@@ -78,7 +77,7 @@
 
                                     <div class="form-group row text-center m-t-10">
                                         <div class="col-12">
-                                            <a href="#" class="text-muted pull-right"><small>Forgot your password?</small></a>
+                                            <a href="{{ route('forgot.password') }}" class="text-muted pull-right"><small>{{ ucfirst(trans('labels.forgot_your_password')) }}</small></a>
                                         </div>
                                     </div>
 
