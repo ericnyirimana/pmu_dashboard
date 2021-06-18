@@ -13,7 +13,7 @@
                         <div class="account-box">
                             <div class="account-logo-box">
                                 <h2 class="text-uppercase text-center">
-                                    <a href="index.html" class="text-success">
+                                    <a href="/" class="text-success">
                                     <span><img class="logo" width="141px" height="54px" src="{{ asset("/img/pmu_logo.png")}}"/></span>
                                     </a>
                                 </h2>

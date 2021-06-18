@@ -13,7 +13,7 @@
 
                             <div class="account-logo-box">
                                 <h2 class="text-uppercase text-center">
-                                    <a href="index.html" class="text-success">
+                                    <a href="/" class="text-success">
                                         <span>@svg('pmu-logo', 'logo')</span>
                                     </a>
                                 </h2>
