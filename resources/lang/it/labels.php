@@ -183,4 +183,7 @@ return [
     'login_to_your_account' => 'Accedi al tuo account',
     'forgot_your_password' => 'Hai dimenticato la password?',
     'email_to_reset' => 'Inserisci il tuo indirizzo e-mail per reimpostare la password.',
+    'set_password' => 'Imposta la tua nuova password',
+    'confirmation_code' => 'Codice di verifica (Inserisci il codice ricevuto per email)',
+    'confirm_password' => 'Conferma password',
 ];

@@ -174,4 +174,7 @@ return [
     'login_to_your_account' => 'Login to your account',
     'forgot_your_password' => 'Forgot your password?',
     'email_to_reset' => 'Enter your email address to reset your password.',
+    'set_password' => 'Set Password',
+    'confirmation_code' => 'Confirmation Code',
+    'confirm_password' => 'Confirm Password',
 ];

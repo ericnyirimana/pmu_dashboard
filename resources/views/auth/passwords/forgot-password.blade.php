@@ -35,7 +35,7 @@
                                                     {{ session('message') }}
                                                 </div>
                                             @endif
-                                            <label for="emailaddress" style="font-family: 'Nunito Sans'">Email address</label>
+                                            <label for="emailaddress" style="font-family: 'Nunito Sans'">Email</label>
                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         </div>
                                     </div>
