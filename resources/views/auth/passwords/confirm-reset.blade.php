@@ -17,8 +17,7 @@
                                     <span><img class="logo" width="141px" height="54px" src="{{ asset("/img/pmu_logo.png")}}"/></span>
                                     </a>
                                 </h2>
-                                <h5 class="text-uppercase font-bold m-b-5 m-t-50">Set Password</h5>
-                                <p class="m-b-0">Set your password account</p>
+                                <h5 class="text-uppercase font-bold m-b-5 m-t-50 text-center">{{ ucfirst(trans('labels.set_password')) }}</h5>
                             </div>
                             <div class="account-content">
                               <form class="form-horizontal" method="POST" action="{{ route('confirm.reset.password', ['token'=>$token] ) }}">
@@ -26,7 +25,7 @@
 
                                 <div class="form-group row m-b-20">
                                     <div class="col-12">
-                                        <label for="code" style="font-family: 'Nunito Sans'">Confirmation Code</label>
+                                        <label for="code" style="font-family: 'Nunito Sans'">{{ ucfirst(trans('labels.confirmation_code')) }}</label>
                                         <input id="code" type="number" class="form-control @error('code') is-invalid @enderror" name="code" required>
 
                                         @error('code')
@@ -51,7 +50,7 @@
 
                                     <div class="form-group row m-b-20">
                                         <div class="col-12">
-                                            <label for="password" style="font-family: 'Nunito Sans'">Confirm Password</label>
+                                            <label for="password" style="font-family: 'Nunito Sans'">{{ ucfirst(trans('labels.confirm_password')) }}</label>
                                             <input id="confirm_password" type="password" class="form-control @error('confirm_password') is-invalid @enderror" name="confirm_password" required autocomplete="current-password">
 
                                             @error('confirm_password')

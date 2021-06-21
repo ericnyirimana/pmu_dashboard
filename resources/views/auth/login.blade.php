@@ -24,7 +24,7 @@
                                   @csrf
                                     <div class="form-group m-b-20 row">
                                         <div class="col-12">
-                                            <label for="emailaddress" style="font-family: 'Nunito Sans'">Email address</label>
+                                            <label for="emailaddress" style="font-family: 'Nunito Sans'">Email</label>
                                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                             @error('login')
@@ -51,19 +51,6 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group row m-b-20">
-                                        <div class="col-12">
-
-                                            <div class="checkbox checkbox-success" style="padding-left: 16px !important;">
-                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <label for="remember" style="font-family: 'Nunito Sans'">
-                                                    Remember me
-                                                </label>
-                                            </div>
-
                                         </div>
                                     </div>
 
