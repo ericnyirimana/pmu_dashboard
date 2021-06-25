@@ -7,6 +7,7 @@ use App\Models\OrderProduct;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\SubscriptionTicket;
+use App\Models\UserSubscription;
 use App\Models\User;
 use App\Services\EmailService;
 use App\Services\PushNotificationService;
@@ -99,7 +100,7 @@ class TicketController extends Controller
             "deal_name" => $ordersPickup->pickup->name,
             "notes"  => $ordersPickup->restaurant_notes
             );
-            $this->pusher->sendPushNotificationToCustomer([strval($userCustomer->sub)],
+            $this->pusher->sendPnToCustomerTicketCancelled([strval($userCustomer->sub)],
                 trans('push-notifications.ticket_reject.title', ["ticket_id" => $ordersPickup->id], "it"),
                 trans('push-notifications.ticket_reject.message',
                     ["emoji" => html_entity_decode('&#128073;',ENT_NOQUOTES,'UTF-8')], "it"),
@@ -121,6 +122,15 @@ class TicketController extends Controller
             $cancelledTicket->restaurant_notes = $restaurantNotes;
             $cancelledTicket->updated_at = Carbon::now();
             $cancelledTicket->save();
+            if( $cancelledTicket->pickup_type == 'subscription' ){
+                $userSubscription = UserSubscription::where('user_id', $cancelledTicket->order->user->id)
+                    ->where('order_id', $cancelledTicket->order_id)
+                    ->where('order_pickup_id', $cancelledTicket->id)->get();
+                if( count($userSubscription) > 0 ){
+                    $userSubscription[0]->status = 'CANCELED';
+                    $userSubscription[0]->save();
+                }
+            }
 
             $allTickets = OrderPickup::where('order_id', $cancelledTicket->order_id)->where('restaurant_status', '<>', 'CANCELED')->get();
             if( $allTickets->count() == 0){
@@ -134,6 +144,9 @@ class TicketController extends Controller
                     $cancelledTicket->promo_code = null;
                     $cancelledTicket->save();
                 }
+                OrderProduct::where('order_id', $cancelledTicket->order_id)
+                    ->where('pickup_id', $cancelledTicket->pickup_id)
+                    ->update(['status' => 'DISABLED']);
                 return;
             }
 
@@ -250,7 +263,7 @@ class TicketController extends Controller
             if( $paymentStatus != 'ERROR'){
                 OrderProduct::where('order_id', $cancelledTicket->order_id)
                     ->where('pickup_id', $cancelledTicket->pickup_id)
-                    ->delete();
+                    ->update(['status' => 'DISABLED']);
             }
 
             $cancelledTicket->promo_code = null;
