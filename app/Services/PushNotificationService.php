@@ -22,16 +22,26 @@ class PushNotificationService{
         ]);
     }
 
-    public function sendPushNotificationToPartner($usersSub, $title, $body){
-        $this->sendPushNotification($usersSub, $title, $body, env('AWS_PINPOINT_ID_APP_PARTNER'), array());
+    // public function sendPushNotificationToPartner($usersSub, $title, $body){
+    //     $this->sendPushNotification($usersSub, $title, $body, env('AWS_PINPOINT_ID_APP_PARTNER'), array());
+    // }
+
+    // public function sendPushNotificationToCustomer($usersSub, $title, $body, $params){
+
+    //     $this->sendPushNotification($usersSub, $title, $body, env('AWS_PINPOINT_ID_APP_CUSTOMER'), $params);
+    // }
+
+    public function sendPnToCustomerTicketCancelled($usersSub, $title, $body, $params){
+
+        $notification = array(
+            "type" => "ticket_cancelled",
+            "params" => $params
+        );
+
+        $this->sendPushNotification($usersSub, $title, $body, env('AWS_PINPOINT_ID_APP_CUSTOMER'), $notification, $params );
     }
 
-    public function sendPushNotificationToCustomer($usersSub, $title, $body, $params){
-
-        $this->sendPushNotification($usersSub, $title, $body, env('AWS_PINPOINT_ID_APP_CUSTOMER'), $params);
-    }
-
-    private function sendPushNotification($usersSub, $title, $body, $applicationId, $params){
+    private function sendPushNotification($usersSub, $title, $body, $applicationId, $notification, $params){
         Log::info('Send PushNotification to ( users: {' . implode(',', $usersSub) . '})');
         foreach( $usersSub as $sub ){
             try{
@@ -68,7 +78,9 @@ class PushNotificationService{
                     "data" => array(
                         "title" => $title,
                         "body"  => $body,
-                        "params" => $params
+                        "params" => $params,
+                        "notification" => $notification
+
                     )
                 );
 
@@ -78,8 +90,10 @@ class PushNotificationService{
                             "title" => $title,
                             "body" => $body
                         ),
+                        "sound" => 'default',
                         "body" => $body,
-                        "params" => $params
+                        "params" => $params,
+                        "notification" => $notification
                     ),
                 );
 
@@ -113,7 +127,15 @@ class PushNotificationService{
                         'Endpoints' => $pinpointEndpoints,
                     ],
                 ]);
-                Log::info('PushNotification is sent with TraceID {'.$traceId.'}, result: '. $result->get('MessageResponse'));
+
+                /*
+                $pinpointEndpoints = $result->get('MessageResponse')['EndpointResult'];
+                foreach ($pinpointEndpoints as $pinpointEndpointResponse){
+                    Log::info('PushNotification is sent with TraceID {'.$traceId.'}, to this address: '. $pinpointEndpointResponse['Address']);
+                    Log::info('----- DeliveryStatus: '. $pinpointEndpointResponse['DeliveryStatus']);
+                    Log::info('----- StatusMessage: '. $pinpointEndpointResponse['StatusMessage']);
+                }
+                */
             }catch (\Throwable $e){
                 Log::warning('An error has occurred during send PushNotification : {' . $e->getMessage() . '})');
             }
