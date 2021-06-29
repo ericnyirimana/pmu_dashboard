@@ -59,6 +59,9 @@
                                                     data-identifier="{{ $section->identifier }}">
                                                     {{ $product->name }}
                                                     </span>
+                                                    @if(!empty($product->price))
+                                                        <span class="text-danger">({{ $product->price }}€)</span>
+                                                    @endif
                                                 </li>
                                                 @endif
                                             @endforeach

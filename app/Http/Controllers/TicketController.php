@@ -123,7 +123,7 @@ class TicketController extends Controller
             $cancelledTicket->updated_at = Carbon::now();
             $cancelledTicket->save();
             if( $cancelledTicket->pickup_type == 'subscription' ){
-                $userSubscription = UserSubscription::where('user_id', $cancelledTicket->order->user->id)
+                $userSubscription = UserSubscription::where('user_id', $cancelledTicket->order->user_id)
                     ->where('order_id', $cancelledTicket->order_id)
                     ->where('order_pickup_id', $cancelledTicket->id)->get();
                 if( count($userSubscription) > 0 ){
